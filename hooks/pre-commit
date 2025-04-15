@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e  # Exit immediately if a command fails
+
+echo "=> deno fmt"
+deno fmt
+
+echo "=> deno lint"
+deno lint
+
+# echo "=> deno test"
+# rm -rf coverage
+# deno test --coverage
+# deno coverage --html 
+
+echo "✅ All checks passed"
