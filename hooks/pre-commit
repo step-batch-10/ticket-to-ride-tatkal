@@ -3,7 +3,7 @@
 set -e  # Exit immediately if a command fails
 
 echo "=> deno fmt"
-deno fmt
+deno fmt --check
 
 echo "=> deno lint"
 deno lint
