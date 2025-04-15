@@ -28,7 +28,7 @@ jobs:
 
       - name: Setup Deno
         # uses: denoland/setup-deno@v1
-        uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31  # v1.1.2
+        uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31 # v1.1.2
         with:
           deno-version: v2.x
 
@@ -41,3 +41,10 @@ jobs:
 
       - name: Run tests
         run: deno test -A
+
+      - name: Upload to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: "tatkal-ticket-to-ride"
+          entrypoint: "main.ts"
+          root: "."

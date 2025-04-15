@@ -10,7 +10,9 @@
   },
   "lint": {
     "rules": {
-      "tags": ["recommended"]
+      "tags": [
+        "recommended"
+      ]
     }
   },
   "imports": {
@@ -18,5 +20,13 @@
     "assert": "jsr:@std/assert@1",
     "hono": "npm:hono@^4.7.6",
     "lodash": "npm:lodash@^4.17.21"
+  },
+  "deploy": {
+    "project": "8595c741-e02f-4d24-ac3c-59d25ea07e84",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "main.ts"
   }
 }
