@@ -40,7 +40,10 @@ jobs:
         run: deno lint
 
       - name: Run tests
-        run: deno test -A
+        run: deno test -A --coverage
+
+      - name: Run Deno Coverage
+        run: deno coverage
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
