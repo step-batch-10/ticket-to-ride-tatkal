@@ -2,10 +2,16 @@ import { Hono } from "hono";
 import { createApp } from "./src/app.ts";
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/deno";
+import { Users } from "./src/models/users.ts";
 
 const main = (): void => {
   try {
-    const app: Hono = createApp(logger, serveStatic, Deno.readTextFileSync);
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      Deno.readTextFileSync,
+      new Users(),
+    );
     const port: number = 3000;
 
     Deno.serve({ port }, app.fetch);
