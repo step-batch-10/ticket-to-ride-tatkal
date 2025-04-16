@@ -1,9 +1,9 @@
-const loginUser = (event) => {
+const loginUser = async (event) => {
   event.preventDefault();
-
   const formData = new FormData(event.target);
 
-  fetch("/login", { method: "POST", body: formData });
+  const res = await fetch("/login", { method: "POST", body: formData });
+  globalThis.location = res.url;
 };
 
 const main = () => {
