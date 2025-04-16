@@ -1,5 +1,7 @@
-import { WaitingQueue } from "./player-queue.ts";
+import { Context } from "hono";
 import { Ttr } from "./ttr.ts";
+import { UsMap } from "./UsMap.ts";
+import { WaitingQueue } from "./player-queue.ts";
 
 type Game = {
   gameId: string;
@@ -9,21 +11,27 @@ type Game = {
 export class GameHandler {
   queue: WaitingQueue;
   games: Game[];
-
+  
   constructor() {
     this.queue = new WaitingQueue();
     this.games = [];
   }
-
+  
   #generateGameId() {
     return crypto.randomUUID();
   }
-
-  createGame() {
+  
+  createGame(context:Context) {
     const players = this.queue.getWaitingQueue();
     const gameId: string = this.#generateGameId();
-    this.games.push({ gameId, game: new Ttr(players) });
-
+    const map = new UsMap(context.get("reader"));
+    this.games.push({ gameId, game: new Ttr(players,map) });
+    
     return gameId;
   }
+  fetchMap(context: Context) {
+    // const game = new Ttr(new UsMap(context.get("reader")));
+    // return context.json({ svg: game.getMap() });
+  }
+
 }
