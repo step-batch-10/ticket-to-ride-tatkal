@@ -4,7 +4,7 @@ export class UsMap implements Map {
   svg: svg;
 
   constructor(reader: Reader) {
-    this.svg = reader("src/models/USA-map.html");
+    this.svg = reader("public/USA-map.html");
   }
 
   getMap(): svg {

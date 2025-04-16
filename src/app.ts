@@ -14,7 +14,7 @@ const setContext =
 
 const authenticateUser = async (c: Context, next: Next) => {
   const userID: string | undefined = getCookie(c, "user-ID");
-
+  
   if (!userID) {
     return c.redirect("/login.html", 303);
   }
