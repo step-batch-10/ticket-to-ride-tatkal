@@ -11,9 +11,7 @@
       rel="stylesheet"
     />
     <!-- Bootstrap JS -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Font Awesome -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -47,121 +45,11 @@
             />
           </div>
 
-          <!-- Password -->
-          <div class="input-group mb-3 bg-gold border-brown rounded">
-            <span class="input-group-text bg-transparent border-0">
-              <i class="fas fa-lock form-icon"></i>
-            </span>
-            <input
-              type="password"
-              class="form-control bg-transparent border-0 text-brown"
-              placeholder="Enter Password"
-              required
-            />
-          </div>
-
-          <!-- Reset button -->
-          <div class="d-flex justify-content-between mb-3">
-            <button
-              type="button"
-              class="btn btn-gold"
-              data-bs-toggle="modal"
-              data-bs-target="#popupForm"
-            >
-              Reset Password
-            </button>
-          </div>
-
           <!-- Login button -->
           <button type="submit" class="btn btn-gold w-100 fw-bold fs-4">
             LOGIN
           </button>
-
-          <!-- Sign up -->
-          <div class="text-center mt-3">
-            <a href="#" class="text-warning text-decoration-none">Sign Up</a>
-          </div>
         </form>
-      </div>
-    </div>
-
-    <!-- Reset Password Modal -->
-    <div
-      class="modal fade"
-      id="popupForm"
-      tabindex="-1"
-      aria-labelledby="popupFormLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-theme text-white p-4">
-          <div class="d-flex justify-content-end">
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >
-            </button>
-          </div>
-          <h2 class="mb-3">Reset Password</h2>
-          <form>
-            <!-- Security Question -->
-            <div class="input-group mb-3 bg-gold border-brown rounded">
-              <span class="input-group-text bg-transparent border-0">
-                <i class="fas fa-question form-icon"></i>
-              </span>
-              <input
-                type="text"
-                class="form-control bg-transparent border-0 text-brown"
-                placeholder="Security Question"
-                required
-              />
-            </div>
-
-            <!-- Security Answer -->
-            <div class="input-group mb-3 bg-gold border-brown rounded">
-              <span class="input-group-text bg-transparent border-0">
-                <i class="fas fa-lock form-icon"></i>
-              </span>
-              <input
-                type="text"
-                class="form-control bg-transparent border-0 text-brown"
-                placeholder="Security Answer"
-                required
-              />
-            </div>
-
-            <!-- New Password -->
-            <div class="input-group mb-3 bg-gold border-brown rounded">
-              <span class="input-group-text bg-transparent border-0">
-                <i class="fas fa-key form-icon"></i>
-              </span>
-              <input
-                type="password"
-                class="form-control bg-transparent border-0 text-brown"
-                placeholder="New Password"
-                required
-              />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="input-group mb-3 bg-gold border-brown rounded">
-              <span class="input-group-text bg-transparent border-0">
-                <i class="fas fa-check form-icon"></i>
-              </span>
-              <input
-                type="password"
-                class="form-control bg-transparent border-0 text-brown"
-                placeholder="Confirm Password"
-                required
-              />
-            </div>
-
-            <!-- Reset Submit -->
-            <button type="submit" class="btn btn-gold w-100">Reset</button>
-          </form>
-        </div>
       </div>
     </div>
   </body>
