@@ -11,27 +11,31 @@ type Game = {
 export class GameHandler {
   queue: WaitingQueue;
   games: Game[];
-  
+
   constructor() {
     this.queue = new WaitingQueue();
     this.games = [];
   }
-  
+
   #generateGameId() {
     return crypto.randomUUID();
   }
-  
-  createGame(context:Context) {
+
+  createGame(context: Context) {
     const players = this.queue.getWaitingQueue();
     const gameId: string = this.#generateGameId();
     const map = new UsMap(context.get("reader"));
-    this.games.push({ gameId, game: new Ttr(players,map) });
-    
+    this.games.push({ gameId, game: new Ttr(players, map) });
+
     return gameId;
   }
-  fetchMap(context: Context) {
-    // const game = new Ttr(new UsMap(context.get("reader")));
-    // return context.json({ svg: game.getMap() });
+
+  getGame(id: string) {
+    return this.games.find(({ gameId }) => gameId === id);
   }
 
+  // fetchMap() {
+  // const game = new Ttr(new UsMap(context.get("reader")));
+  // return context.json({ svg: game.getMap() });
+  // }
 }
