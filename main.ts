@@ -5,12 +5,12 @@ import { serveStatic } from "hono/deno";
 
 const main = (): void => {
   try {
-    const app: Hono = createApp(logger, serveStatic);
+    const app: Hono = createApp(logger, serveStatic, Deno.readTextFileSync);
     const port: number = 3000;
 
     Deno.serve({ port }, app.fetch);
   } catch (e) {
-    console.error("error: Intiating Server...", e);
+    console.error("error: Initiating Server...", e);
   }
 };
 

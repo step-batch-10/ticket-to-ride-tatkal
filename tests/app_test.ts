@@ -3,17 +3,39 @@ import { assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { serveStatic } from "hono/deno";
 import { Context, Hono } from "hono";
+import { UsMap } from "../src/models/UsMap.ts";
 
 const logger = () => async (_: Context, n: Function) => await n();
 
+const mockedReader = (_path: string | URL): string => {
+  return "usa map";
+};
+
 describe("App /", () => {
   it("should serve the home page for user, if user is authenticated", async () => {
-    const app: Hono = createApp(logger, serveStatic);
+    const app: Hono = createApp(logger, serveStatic, mockedReader);
     const r: Response = await app.request("/", {
       headers: { cookie: "User-ID=1" },
     });
 
     assertEquals(r.status, 200);
     await r.text();
+  });
+  
+  it("should serve the map", async () => {
+    const app: Hono = createApp(logger, serveStatic, mockedReader);
+    const r: Response = await app.request("/game/map");
+
+    assertEquals(r.status, 200);
+    assertEquals(await r.json(), { svg: "usa map" });
+  });
+});
+
+describe("usMap", () => {
+  describe("fetchMap", () => {
+    it("should give map data of map file", () => {
+      const usaMap = new UsMap(mockedReader);
+      assertEquals(usaMap.getMap(), "usa map");
+    });
   });
 });

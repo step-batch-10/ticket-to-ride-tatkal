@@ -10,7 +10,7 @@ deno lint
 
 echo "=> deno test"
 rm -rf coverage
-deno test --coverage
+deno test -A --coverage
 # deno coverage --html 
 
 echo "✅ All checks passed"
