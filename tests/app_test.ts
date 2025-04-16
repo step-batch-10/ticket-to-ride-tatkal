@@ -12,10 +12,19 @@ const mockedReader = (_path: string | URL): string => {
 };
 
 describe("App /", () => {
+  it("should redirect the user to login if user is not authenticated", async () => {
+    const app: Hono = createApp(logger, serveStatic, mockedReader);
+    const r: Response = await app.request("/");
+
+    assertEquals(r.status, 303);
+    assertEquals(r.headers.get("location"), "/login.html");
+    await r.text();
+  });
+
   it("should serve the home page for user, if user is authenticated", async () => {
     const app: Hono = createApp(logger, serveStatic, mockedReader);
     const r: Response = await app.request("/", {
-      headers: { cookie: "User-ID=1" },
+      headers: { cookie: "user-ID=1" },
     });
 
     assertEquals(r.status, 200);
