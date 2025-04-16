@@ -21,7 +21,7 @@ describe("App /", () => {
     assertEquals(r.status, 200);
     await r.text();
   });
-  
+
   it("should serve the map", async () => {
     const app: Hono = createApp(logger, serveStatic, mockedReader);
     const r: Response = await app.request("/game/map");
