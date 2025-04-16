@@ -1,5 +1,5 @@
 import { createApp } from "../src/app.ts";
-import { assertEquals, assert } from "assert";
+import { assert, assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { serveStatic } from "hono/deno";
 import { Context, Hono } from "hono";
