@@ -12,7 +12,7 @@ const mockedReader = (_path: string | URL): string => {
   return "usa map";
 };
 
-describe("App /", () => {
+describe("User authentication", () => {
   it("should redirect the user to login if user is not authenticated", async () => {
     const app: Hono = createApp(logger, serveStatic, mockedReader, new Users());
     const r: Response = await app.request("/");
@@ -30,14 +30,6 @@ describe("App /", () => {
 
     assertEquals(r.status, 200);
     await r.text();
-  });
-
-  it("should serve the map", async () => {
-    const app: Hono = createApp(logger, serveStatic, mockedReader, new Users());
-    const r: Response = await app.request("/game/map");
-
-    assertEquals(r.status, 200);
-    assertEquals(await r.json(), { svg: "usa map" });
   });
 });
 

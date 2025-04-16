@@ -1,5 +1,5 @@
 import { Context, Hono, Next } from "hono";
-import { GameHandler } from "./models/game-handlers.ts";
+// import { GameHandler } from "./models/game-handlers.ts";
 import { Reader } from "./models/schemas.ts";
 import { getCookie, setCookie } from "hono/cookie";
 import { Logger, ServeStatic } from "./types.ts";
@@ -38,11 +38,11 @@ const createApp = (
   users: Users,
 ): Hono => {
   const app: Hono = new Hono();
-  const handlers = new GameHandler();
+  // const handlers = new GameHandler();
   app.use(logger());
   app.use(setContext(reader, users));
 
-  app.get("/game/map", handlers.fetchMap);
+  // app.get("/game/map", handlers.fetchMap);
   app.get("/login.html", serveStatic({ root: "./public" }));
   app.get("/styles/login.css", serveStatic({ root: "./public" }));
   app.get("/scripts/login.js", serveStatic({ root: "./public" }));
