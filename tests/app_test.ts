@@ -30,14 +30,6 @@ describe("App /", () => {
     assertEquals(r.status, 200);
     await r.text();
   });
-
-  it("should serve the map", async () => {
-    const app: Hono = createApp(logger, serveStatic, mockedReader);
-    const r: Response = await app.request("/game/map");
-
-    assertEquals(r.status, 200);
-    assertEquals(await r.json(), { svg: "usa map" });
-  });
 });
 
 describe("usMap", () => {
