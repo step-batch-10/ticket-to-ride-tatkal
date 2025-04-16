@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "dev": "deno run -A --watch main.ts"
   },
   "fmt": {
     "useTabs": false,
@@ -10,9 +10,7 @@
   },
   "lint": {
     "rules": {
-      "tags": [
-        "recommended"
-      ]
+      "tags": ["recommended"]
     }
   },
   "imports": {
@@ -23,9 +21,7 @@
   },
   "deploy": {
     "project": "8595c741-e02f-4d24-ac3c-59d25ea07e84",
-    "exclude": [
-      "**/node_modules"
-    ],
+    "exclude": ["**/node_modules"],
     "include": [],
     "entrypoint": "main.ts"
   }
