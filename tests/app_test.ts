@@ -12,7 +12,7 @@ const mockedReader = (_path: string | URL): string => {
   return "usa map";
 };
 
-describe("App /", () => {
+describe("User authentication", () => {
   it("should redirect the user to login if user is not authenticated", async () => {
     const app: Hono = createApp(logger, serveStatic, mockedReader, new Users());
     const r: Response = await app.request("/");
