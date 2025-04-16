@@ -6,17 +6,13 @@
     "useTabs": false,
     "lineWidth": 80,
     "indentWidth": 2,
-    "semiColons": true,
-    "exclude": ["*.html", "*.css", "*.md"]
+    "semiColons": true
   },
   "lint": {
     "rules": {
-      "tags": ["recommended"]
-    }
       "tags": ["recommended"],
       "exclude": ["ban-types"]
-    },
-    "exclude": ["*.html", "*.css", "*.md"]
+    }
   },
   "imports": {
     "assert": "jsr:@std/assert@1",
@@ -25,7 +21,6 @@
   },
   "deploy": {
     "project": "8595c741-e02f-4d24-ac3c-59d25ea07e84",
-    "exclude": ["**/node_modules"],
     "exclude": ["**/node_modules"],
     "include": [],
     "entrypoint": "main.ts"
