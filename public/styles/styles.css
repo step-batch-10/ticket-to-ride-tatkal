@@ -1,5 +1,5 @@
 body {
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   background-color: #2b1b0e;
 }
 
@@ -31,7 +31,6 @@ body {
   color: #3b2b1e;
 }
 
-
 .form-icon {
   color: #3b2b1e;
 }
@@ -50,7 +49,6 @@ body {
   border: 2px solid #8b5e3c;
 }
 
-
 /* Input Field Utilities */
 .input-gold {
   background-color: #d4b26e;
@@ -64,7 +62,7 @@ body {
 
 /* Font */
 .font-fantasy {
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
 }
 
 /* Layout Utilities */
