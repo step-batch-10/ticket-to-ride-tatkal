@@ -1,4 +1,4 @@
-export class PlayerQueue {
+export class WaitingQueue {
   waitingQueue: string[];
 
   constructor() {
