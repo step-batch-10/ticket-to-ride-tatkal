@@ -3,6 +3,7 @@ import { createApp } from "./src/app.ts";
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/deno";
 import { Users } from "./src/models/users.ts";
+import { GameHandler } from "./src/models/game-handlers.ts";
 
 const main = (): void => {
   try {
@@ -11,6 +12,7 @@ const main = (): void => {
       serveStatic,
       Deno.readTextFileSync,
       new Users(),
+      new GameHandler(),
     );
     const port: number = 3000;
 

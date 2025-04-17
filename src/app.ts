@@ -7,10 +7,11 @@ import { Users } from "./models/users.ts";
 import { addToWaitingQueue, getQueue } from "./handlers/waiting-handler.ts";
 
 const setContext =
-  (reader: Reader, users: Users) => async (context: Context, next: Next) => {
+  (reader: Reader, users: Users, gameHandler: GameHandler) =>
+  async (context: Context, next: Next) => {
     context.set("reader", reader);
     context.set("users", users);
-    context.set("gameHandler", new GameHandler());
+    context.set("gameHandler", gameHandler);
     await next();
   };
 
@@ -38,10 +39,11 @@ const createApp = (
   serveStatic: ServeStatic,
   reader: Reader,
   users: Users,
+  gameHandler: GameHandler,
 ): Hono => {
   const app: Hono = new Hono();
   app.use(logger());
-  app.use(setContext(reader, users));
+  app.use(setContext(reader, users, gameHandler));
 
   // app.get("/game/map", handlers.fetchMap);
   app.get("/login.html", serveStatic({ root: "./public" }));

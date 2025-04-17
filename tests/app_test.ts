@@ -5,6 +5,7 @@ import { serveStatic } from "hono/deno";
 import { Context, Hono } from "hono";
 import { UsMap } from "../src/models/UsMap.ts";
 import { Users } from "../src/models/users.ts";
+import { GameHandler } from "../src/models/game-handlers.ts";
 
 const logger = () => async (_: Context, n: Function) => await n();
 
@@ -14,7 +15,13 @@ const mockedReader = (_path: string | URL): string => {
 
 describe("User authentication", () => {
   it("should redirect the user to login if user is not authenticated", async () => {
-    const app: Hono = createApp(logger, serveStatic, mockedReader, new Users());
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      new Users(),
+      new GameHandler(),
+    );
     const r: Response = await app.request("/");
 
     assertEquals(r.status, 303);
@@ -23,7 +30,13 @@ describe("User authentication", () => {
   });
 
   it("should serve the home page for user, if user is authenticated", async () => {
-    const app: Hono = createApp(logger, serveStatic, mockedReader, new Users());
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      new Users(),
+      new GameHandler(),
+    );
     const r: Response = await app.request("/", {
       headers: { cookie: "user-ID=1" },
     });
@@ -44,7 +57,13 @@ describe("usMap", () => {
 
 describe("App /login", () => {
   it("should set cookie with the user id, when given a username", async () => {
-    const app: Hono = createApp(logger, serveStatic, mockedReader, new Users());
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      new Users(),
+      new GameHandler(),
+    );
     const body = new FormData();
     body.append("username", "player");
 
