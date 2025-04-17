@@ -2,6 +2,7 @@ import { Context } from "hono";
 import { Ttr } from "./ttr.ts";
 import { UsMap } from "./UsMap.ts";
 import { WaitingQueue } from "./player-queue.ts";
+import { type Reader } from "./schemas.ts";
 
 type Game = {
   gameId: string;
@@ -21,10 +22,10 @@ export class GameHandler {
     return crypto.randomUUID();
   }
 
-  createGame(context: Context) {
+  createGame(reader: Reader) {
     const players = this.queue.getWaitingQueue();
     const gameId: string = this.#generateGameId();
-    const map = new UsMap(context.get("reader"));
+    const map = UsMap.getInstance(reader);
     this.games.push({ gameId, game: new Ttr(players, map) });
 
     return gameId;
