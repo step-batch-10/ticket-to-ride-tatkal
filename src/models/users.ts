@@ -1,3 +1,5 @@
+import { user } from "../types.ts";
+
 class Users {
   private nextID;
   private users;
@@ -7,12 +9,13 @@ class Users {
     this.users = new Map();
   }
 
-  add(fd: FormData) {
+  add(userDetails: user) {
     this.nextID += 1;
-    const name = fd.get("username");
-    this.users.set(String(this.nextID), { name });
 
-    return this.nextID;
+    const userId = String(this.nextID);
+    this.users.set(userId, userDetails);
+
+    return userId;
   }
 
   getInfo(id: String) {
