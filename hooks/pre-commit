@@ -10,6 +10,6 @@ deno lint
 
 echo "=> deno test"
 deno task check-coverage
-# deno coverage --html 
+deno coverage --html 
 
 echo "✅ All checks passed"
