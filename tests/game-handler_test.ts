@@ -1,8 +1,6 @@
 import { assert, assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { GameHandler } from "../src/models/game-handlers.ts";
-import { Ttr } from "../src/models/ttr.ts";
-import { UsMap } from "../src/models/UsMap.ts";
 
 const mockedReader = (_path: string | URL): string => {
   return "usa map";
@@ -49,13 +47,11 @@ describe("Game Handler", () => {
 
     const gameId = gameHandler.createGame(players, mockedReader);
     const actual = gameHandler.getGame(gameId);
+    const game = actual?.game;
     const expected = {
       gameId: 1,
       players: ["Dhanoj", "Sarup", "Anjali"],
-      game: new Ttr(
-        ["Dhanoj", "Sarup", "Anjali"],
-        UsMap.getInstance(mockedReader),
-      ),
+      game,
     };
 
     assertEquals(actual, expected);

@@ -32,12 +32,11 @@ describe("trainCarCards", () => {
 
     it("should return drawn card even deck is empty", () => {
       // deno-lint-ignore no-explicit-any
-      const cards:any = new TrainCarCards();
-      cards.deck = []
+      const cards: any = new TrainCarCards();
+      cards.deck = [];
 
-      assertEquals(cards.drawCard(),{ color: "black" });
+      assertEquals(cards.drawCard(), { color: "black" });
     });
-    
   });
 
   describe("drawFaceUp", () => {
@@ -58,7 +57,7 @@ describe("trainCarCards", () => {
   describe("discard", () => {
     it("should return true when discarded", () => {
       const cards = new TrainCarCards();
-      assertEquals(cards.discard([{ color: "pink" }]),1);
+      assertEquals(cards.discard([{ color: "pink" }]), 1);
     });
   });
 });
