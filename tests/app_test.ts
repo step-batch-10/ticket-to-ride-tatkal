@@ -77,3 +77,17 @@ describe("App /login", () => {
     assert(r.headers.get("set-cookie")?.includes("user-ID=1"));
   });
 });
+
+// describe("App /wait  post", () => {
+//   it("should redirect to waiting page", async () => {
+//     const app: Hono = createApp(logger, serveStatic, mockedReader, new Users());
+//     const r: Response = await app.request("/wait", {
+//       headers: { cookie: "user-ID=1" },
+//       method: "POST",
+//     });
+
+//     assertEquals(r.status, 303);
+//     assertEquals(r.headers.get("location"), "/wait");
+//     await r.text();
+//   });
+// });
