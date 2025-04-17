@@ -28,7 +28,7 @@ jobs:
 
       - name: Setup Deno
         # uses: denoland/setup-deno@v1
-        uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31 # v1.1.2
+        uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
 
@@ -43,7 +43,7 @@ jobs:
         run: deno test -A --coverage
 
       - name: Run Deno Coverage
-        run: deno coverage
+        run: deno run -A jsr:@ashishkujoy/deno-coverage-checker
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1

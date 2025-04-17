@@ -9,8 +9,7 @@ echo "=> deno lint"
 deno lint
 
 echo "=> deno test"
-rm -rf coverage
-deno test -A --coverage
+deno task check-coverage
 # deno coverage --html 
 
 echo "✅ All checks passed"

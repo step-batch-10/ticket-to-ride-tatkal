@@ -1,6 +1,11 @@
 {
   "tasks": {
-    "dev": "deno run --watch -A main.ts"
+    "dev": "deno run --watch -A main.ts",
+    "test": "deno test -A --coverage --clean",
+    "check-coverage": {
+      "dependencies": ["test"],
+      "command": "deno run -A jsr:@ashishkujoy/deno-coverage-checker"
+    }
   },
   "fmt": {
     "useTabs": false,
