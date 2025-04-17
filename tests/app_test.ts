@@ -65,18 +65,23 @@ describe("addToWaitingQueue", () => {
   });
 
   it("should response with status 200 and return waitingList", async () => {
+    const gameHandler = new GameHandler();
+    gameHandler.addToQueue("Pradeep");
+    gameHandler.addToQueue("Anjali");
+
     const app: Hono = createApp(
       logger,
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      gameHandler,
     );
     const r: Response = await app.request("/waiting-list", {
       headers: { cookie: "user-ID=1" },
     });
+
     assertEquals(r.status, 200);
-    assertEquals(await r.json(), []);
+    assertEquals(await r.json(), ["Pradeep", "Anjali"]);
   });
 });
 
