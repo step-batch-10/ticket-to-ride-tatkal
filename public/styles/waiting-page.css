@@ -1,0 +1,32 @@
+* {
+  padding: 0%;
+  margin: 0%;
+}
+
+.waiting-page {
+  /* background: url("usa2.png") no-repeat center center; */
+  /* background: url("background-1.webp") no-repeat center center; */
+  /* background: url("usa-map.png") no-repeat center center; */
+  /* background-size: contain; */
+  background-size: cover;
+  background-color: black;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  text-align: center;
+}
+
+.waiting-container {
+  padding: 4px;
+  width: 25%;
+  max-width: 400px;
+  background-color: rgba(33, 25, 20, 0.85);
+}
+
+#waiting-list {
+  list-style: none;
+}
