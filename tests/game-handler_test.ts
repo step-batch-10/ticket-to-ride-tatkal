@@ -51,6 +51,7 @@ describe("Game Handler", () => {
     const actual = gameHandler.getGame(gameId);
     const expected = {
       gameId: 1,
+      players: ["Dhanoj", "Sarup", "Anjali"],
       game: new Ttr(
         ["Dhanoj", "Sarup", "Anjali"],
         UsMap.getInstance(mockedReader),

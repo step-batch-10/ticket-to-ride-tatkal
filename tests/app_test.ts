@@ -153,3 +153,100 @@ describe("App /login", () => {
 //     await r.text();
 //   });
 // });
+
+describe("redirectToGame", () => {
+  it("should redirect to game page with game id", async () => {
+    const gameHandler = new GameHandler();
+    gameHandler.addToQueue("dhanoj");
+    gameHandler.addToQueue("sarup");
+    gameHandler.addToQueue("anjali");
+    gameHandler.createGame(["dhanoj", "anjali", "sarup"], mockedReader);
+    const user = new Users();
+    user.add({ username: "dhanoj" });
+
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      user,
+      gameHandler,
+    );
+
+    const r: Response = await app.request("/redirectToGame", {
+      headers: { cookie: "user-ID=1" },
+    });
+
+    assertEquals(r.status, 302);
+    assertEquals(r.headers.get("location"), "game.html");
+  });
+
+  it("should create game and redirect to game page with game id", async () => {
+    const gameHandler = new GameHandler();
+    gameHandler.addToQueue("dhanoj");
+    gameHandler.addToQueue("sarup");
+    gameHandler.addToQueue("anjali");
+    const user = new Users();
+    user.add({ username: "sarup" });
+
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      user,
+      gameHandler,
+    );
+
+    const r: Response = await app.request("/redirectToGame", {
+      headers: { cookie: "user-ID=1" },
+    });
+
+    assertEquals(r.status, 302);
+    assertEquals(r.headers.get("location"), "game.html");
+  });
+
+  it("should redirect to waiting page when player is not present in waiting list", async () => {
+    const gameHandler = new GameHandler();
+    gameHandler.addToQueue("dhanoj");
+    gameHandler.addToQueue("sarup");
+    gameHandler.addToQueue("anjali");
+    const user = new Users();
+    user.add({ username: "haru" });
+
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      user,
+      gameHandler,
+    );
+
+    const r: Response = await app.request("/redirectToGame", {
+      headers: { cookie: "user-ID=1" },
+    });
+
+    assertEquals(r.status, 302);
+    assertEquals(r.headers.get("location"), "waiting-page.html");
+  });
+
+  it("should redirect to Waiting page when waiting list is not full", async () => {
+    const gameHandler = new GameHandler();
+    gameHandler.addToQueue("dhanoj");
+    const user = new Users();
+    user.add({ username: "dhanoj" });
+
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      user,
+      gameHandler,
+    );
+
+    const r: Response = await app.request("/redirectToGame", {
+      headers: { cookie: "user-ID=1" },
+    });
+
+    assertEquals(r.status, 302);
+    assertEquals(r.headers.get("location"), "waiting-page.html");
+  });
+});
