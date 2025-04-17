@@ -177,7 +177,7 @@ describe("redirectToGame", () => {
     });
 
     assertEquals(r.status, 302);
-    assertEquals(r.headers.get("location"), "game.html");
+    assertEquals(r.headers.get("location"), "/game.html");
   });
 
   it("should create game and redirect to game page with game id", async () => {
@@ -201,7 +201,7 @@ describe("redirectToGame", () => {
     });
 
     assertEquals(r.status, 302);
-    assertEquals(r.headers.get("location"), "game.html");
+    assertEquals(r.headers.get("location"), "/game.html");
   });
 
   it("should redirect to waiting page when player is not present in waiting list", async () => {
@@ -225,7 +225,7 @@ describe("redirectToGame", () => {
     });
 
     assertEquals(r.status, 302);
-    assertEquals(r.headers.get("location"), "waiting-page.html");
+    assertEquals(r.headers.get("location"), "/waiting-page.html");
   });
 
   it("should redirect to Waiting page when waiting list is not full", async () => {
@@ -247,7 +247,7 @@ describe("redirectToGame", () => {
     });
 
     assertEquals(r.status, 302);
-    assertEquals(r.headers.get("location"), "waiting-page.html");
+    assertEquals(r.headers.get("location"), "/waiting-page.html");
   });
 
   describe("/game/map", () => {
