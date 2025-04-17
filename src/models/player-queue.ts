@@ -1,33 +1,33 @@
+type list = string[];
+
 export class WaitingQueue {
-  waitingQueue: string[];
+  waitingQueue: list[];
 
   constructor() {
     this.waitingQueue = [];
   }
 
   add(player: string) {
-    if (this.waitingQueue.length < 3) {
-      this.waitingQueue.push(player);
+    const last = this.waitingQueue.at(0);
 
-      return true;
+    if (last && last.length < 3) {
+      last.push(player);
+    } else {
+      this.waitingQueue.unshift([player]);
     }
 
-    return false;
+    return true;
   }
 
-  getWaitingQueue() {
-    return this.waitingQueue;
+  getWaitingQueue(player: string) {
+    const players = this.waitingQueue.find((list) => list.includes(player));
+
+    return players ? players : [];
   }
 
-  clear() {
-    this.waitingQueue = [];
-  }
+  isFull(player: string) {
+    const queue = this.waitingQueue.find((list) => list.includes(player));
 
-  isFull() {
-    return this.waitingQueue.length === 3;
-  }
-
-  isPresent(player: string) {
-    return this.waitingQueue.includes(player);
+    return queue?.length === 3;
   }
 }

@@ -23,8 +23,7 @@ export class GameHandler {
     return this.nextId++;
   }
 
-  createGame(reader: Reader) {
-    const players = this.queue.getWaitingQueue();
+  createGame(players: string[], reader: Reader) {
     const gameId: number = this.generateGameId();
     const map = UsMap.getInstance(reader);
     this.games.push({ gameId, game: new Ttr(players, map) });
@@ -40,7 +39,7 @@ export class GameHandler {
     return this.queue.add(name);
   }
 
-  getWaitingList() {
-    return this.queue.getWaitingQueue();
+  getWaitingList(player: string) {
+    return this.queue.getWaitingQueue(player);
   }
 }
