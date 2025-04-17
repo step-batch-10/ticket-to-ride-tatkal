@@ -4,33 +4,43 @@ import { WaitingQueue } from "./player-queue.ts";
 import { type Reader } from "./schemas.ts";
 
 type Game = {
-  gameId: string;
+  gameId: number;
   game: Ttr;
 };
 
 export class GameHandler {
-  queue: WaitingQueue;
-  games: Game[];
+  private nextId: number;
+  private queue: WaitingQueue;
+  private games: Game[];
 
   constructor() {
+    this.nextId = 1;
     this.queue = new WaitingQueue();
     this.games = [];
   }
 
-  #generateGameId() {
-    return crypto.randomUUID();
+  private generateGameId() {
+    return this.nextId++;
   }
 
   createGame(reader: Reader) {
     const players = this.queue.getWaitingQueue();
-    const gameId: string = this.#generateGameId();
+    const gameId: number = this.generateGameId();
     const map = UsMap.getInstance(reader);
     this.games.push({ gameId, game: new Ttr(players, map) });
 
     return gameId;
   }
 
-  getGame(id: string) {
+  getGame(id: number) {
     return this.games.find(({ gameId }) => gameId === id);
+  }
+
+  addToQueue(name: string) {
+    return this.queue.add(name);
+  }
+
+  getWaitingList() {
+    return this.queue.getWaitingQueue();
   }
 }
