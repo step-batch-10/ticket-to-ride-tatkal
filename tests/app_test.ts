@@ -46,6 +46,40 @@ describe("User authentication", () => {
   });
 });
 
+describe("addToWaitingQueue", () => {
+  it("should redirect to waiting page", async () => {
+    const user = new Users();
+    user.add({ username: "Sarup" });
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      user,
+      new GameHandler(),
+    );
+    const r: Response = await app.request("/wait", {
+      method: "POST",
+      headers: { cookie: "user-ID=1" },
+    });
+    assertEquals(r.status, 302);
+  });
+
+  it("should response with status 200 and return waitingList", async () => {
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      new Users(),
+      new GameHandler(),
+    );
+    const r: Response = await app.request("/waiting-list", {
+      headers: { cookie: "user-ID=1" },
+    });
+    assertEquals(r.status, 200);
+    assertEquals(await r.json(), []);
+  });
+});
+
 describe("usMap", () => {
   describe("fetchMap", () => {
     it("should give map data of map file", () => {
