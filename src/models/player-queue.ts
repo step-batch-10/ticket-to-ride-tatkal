@@ -8,7 +8,11 @@ export class WaitingQueue {
   add(player: string) {
     if (this.waitingQueue.length < 3) {
       this.waitingQueue.push(player);
+
+      return true;
     }
+
+    return false;
   }
 
   getWaitingQueue() {

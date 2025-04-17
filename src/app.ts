@@ -14,7 +14,7 @@ const setContext =
 
 const authenticateUser = async (c: Context, next: Next) => {
   const userID: string | undefined = getCookie(c, "user-ID");
-  
+
   if (!userID) {
     return c.redirect("/login.html", 303);
   }
@@ -38,7 +38,6 @@ const createApp = (
   users: Users,
 ): Hono => {
   const app: Hono = new Hono();
-  // const handlers = new GameHandler();
   app.use(logger());
   app.use(setContext(reader, users));
 

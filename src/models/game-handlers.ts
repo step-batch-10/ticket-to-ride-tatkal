@@ -33,9 +33,4 @@ export class GameHandler {
   getGame(id: string) {
     return this.games.find(({ gameId }) => gameId === id);
   }
-
-  // fetchMap() {
-  // const game = new Ttr(new UsMap(context.get("reader")));
-  // return context.json({ svg: game.getMap() });
-  // }
 }

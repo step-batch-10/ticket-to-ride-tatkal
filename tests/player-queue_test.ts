@@ -8,10 +8,19 @@ describe("WaitingQueue", () => {
     assertEquals(queue.getWaitingQueue(), []);
   });
 
-  it("Should add a player to waiting queue", () => {
+  it("Should add a player to waiting queue and return true", () => {
+    const queue = new WaitingQueue();
+
+    assertEquals(queue.add("Dhanoj"), true);
+  });
+
+  it("Should not add a player to waiting queue and return false", () => {
     const queue = new WaitingQueue();
     queue.add("Dhanoj");
-    assertEquals(queue.getWaitingQueue(), ["Dhanoj"]);
+    queue.add("sarup");
+    queue.add("hari");
+
+    assertEquals(queue.add("Anjali"), false);
   });
 
   it("Should return true when waiting queue have 3 players", () => {
