@@ -64,19 +64,47 @@ describe("addToWaitingQueue", () => {
     assertEquals(r.status, 302);
   });
 
-  it("should response with status 200 and return waitingList", async () => {
+  it("should return empty waitingList", async () => {
+    const gameHandler = new GameHandler();
+    const user = new Users();
+    user.add({ username: "dhanoj" });
+
     const app: Hono = createApp(
       logger,
       serveStatic,
       mockedReader,
-      new Users(),
-      new GameHandler(),
+      user,
+      gameHandler,
     );
     const r: Response = await app.request("/waiting-list", {
       headers: { cookie: "user-ID=1" },
     });
     assertEquals(r.status, 200);
     assertEquals(await r.json(), []);
+  });
+
+  it("should response with status 200 and return waitingList", async () => {
+    const gameHandler = new GameHandler();
+    gameHandler.addToQueue("dhanoj");
+    const user = new Users();
+    user.add({ username: "dhanoj" });
+
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      user,
+      gameHandler,
+    );
+
+    const r: Response = await app.request("/waiting-list", {
+      headers: { cookie: "user-ID=1" },
+    });
+
+    const actual = await r.json();
+
+    assertEquals(r.status, 200);
+    assertEquals(actual, ["dhanoj"]);
   });
 });
 

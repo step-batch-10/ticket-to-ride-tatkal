@@ -15,22 +15,17 @@ describe("Game Handler", () => {
     assert(actual);
   });
 
-  it("Should not add a player and return false", () => {
-    const gameHandler = new GameHandler();
-    gameHandler.addToQueue("Dhanoj");
-    gameHandler.addToQueue("sarup");
-    gameHandler.addToQueue("hari");
-
-    assertEquals(gameHandler.addToQueue("Anjali"), false);
-  });
-
   it("Should return waiting List", () => {
     const gameHandler = new GameHandler();
     gameHandler.addToQueue("Dhanoj");
     gameHandler.addToQueue("sarup");
     gameHandler.addToQueue("hari");
 
-    assertEquals(gameHandler.getWaitingList(), ["Dhanoj", "sarup", "hari"]);
+    assertEquals(gameHandler.getWaitingList("Dhanoj"), [
+      "Dhanoj",
+      "sarup",
+      "hari",
+    ]);
   });
 
   it("should create a game and return game id", () => {
@@ -38,7 +33,9 @@ describe("Game Handler", () => {
     gameHandler.addToQueue("Dhanoj");
     gameHandler.addToQueue("Sarup");
     gameHandler.addToQueue("Anjali");
-    const gameId = gameHandler.createGame(mockedReader);
+    const players = gameHandler.getWaitingList("Dhanoj");
+
+    const gameId = gameHandler.createGame(players, mockedReader);
 
     assertEquals(gameId, 1);
   });
@@ -48,7 +45,9 @@ describe("Game Handler", () => {
     gameHandler.addToQueue("Dhanoj");
     gameHandler.addToQueue("Sarup");
     gameHandler.addToQueue("Anjali");
-    const gameId = gameHandler.createGame(mockedReader);
+    const players = gameHandler.getWaitingList("Dhanoj");
+
+    const gameId = gameHandler.createGame(players, mockedReader);
     const actual = gameHandler.getGame(gameId);
     const expected = {
       gameId: 1,
