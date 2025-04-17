@@ -3,7 +3,7 @@ import { Context } from "hono";
 
 export const addToWaitingQueue = (context: Context) => {
   const userId = getCookie(context, "user-ID");
-  const name: string = context.get("users").getInfo(userId).name;
+  const name: string = context.get("users").getInfo(userId).username;
 
   context.get("gameHandler").addToQueue(name);
 
@@ -38,8 +38,8 @@ export const redirectToGame = (context: Context) => {
   if (waitingList.length === 3) {
     const gameId = getGameId(context, name, waitingList);
     setCookie(context, "game-ID", gameId);
-    return context.redirect("game.html");
+    return context.redirect("/game.html");
   }
 
-  return context.redirect("waiting-page.html");
+  return context.redirect("/waiting-page.html");
 };

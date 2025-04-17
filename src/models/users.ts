@@ -11,10 +11,8 @@ class Users {
 
   add(userDetails: user) {
     this.nextID += 1;
-
     const userId = String(this.nextID);
     this.users.set(userId, userDetails);
-
     return userId;
   }
 
