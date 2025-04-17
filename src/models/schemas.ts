@@ -1,5 +1,9 @@
 export type svg = string;
 
+export type card = {
+  color:string
+}
+
 export interface Map {
   getMap(): svg;
 }
