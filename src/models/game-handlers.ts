@@ -5,6 +5,7 @@ import { type Reader } from "./schemas.ts";
 
 type Game = {
   gameId: number;
+  players: string[];
   game: Ttr;
 };
 
@@ -26,7 +27,7 @@ export class GameHandler {
   createGame(players: string[], reader: Reader) {
     const gameId: number = this.generateGameId();
     const map = UsMap.getInstance(reader);
-    this.games.push({ gameId, game: new Ttr(players, map) });
+    this.games.push({ gameId, players, game: new Ttr(players, map) });
 
     return gameId;
   }
@@ -41,5 +42,11 @@ export class GameHandler {
 
   getWaitingList(player: string) {
     return this.queue.getWaitingQueue(player);
+  }
+
+  getGameByPlayer(player: string) {
+    const game = this.games.find((game) => game.players.includes(player));
+
+    return game;
   }
 }

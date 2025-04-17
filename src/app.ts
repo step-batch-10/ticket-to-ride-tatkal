@@ -4,7 +4,11 @@ import { Reader } from "./models/schemas.ts";
 import { getCookie, setCookie } from "hono/cookie";
 import { Logger, ServeStatic } from "./types.ts";
 import { Users } from "./models/users.ts";
-import { addToWaitingQueue, getQueue } from "./handlers/waiting-handler.ts";
+import {
+  addToWaitingQueue,
+  getQueue,
+  redirectToGame,
+} from "./handlers/waiting-handler.ts";
 
 const setContext =
   (reader: Reader, users: Users, gameHandler: GameHandler) =>
@@ -54,6 +58,8 @@ const createApp = (
   app.use("/*", authenticateUser);
   app.post("/wait", addToWaitingQueue);
   app.get("/waiting-list", getQueue);
+  app.get("/redirectToGame", redirectToGame);
+
   app.get("/*", serveStatic({ root: "./public" }));
   return app;
 };
