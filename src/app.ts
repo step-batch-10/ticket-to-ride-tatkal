@@ -9,6 +9,7 @@ import {
   getQueue,
   redirectToGame,
 } from "./handlers/waiting-handler.ts";
+import { fetchMap } from "./handlers/gameHandler.ts";
 
 const setContext =
   (reader: Reader, users: Users, gameHandler: GameHandler) =>
@@ -16,6 +17,10 @@ const setContext =
     context.set("reader", reader);
     context.set("users", users);
     context.set("gameHandler", gameHandler);
+    // const gameId = getCookie(context, 'game-ID');
+    const gameId = gameHandler.createGame([''],reader)
+    const game = gameHandler.getGame(gameId)?.game
+    context.set('game',game)
     await next();
   };
 
@@ -43,13 +48,12 @@ const createApp = (
   serveStatic: ServeStatic,
   reader: Reader,
   users: Users,
-  gameHandler: GameHandler,
+  gameHandler: GameHandler
 ): Hono => {
   const app: Hono = new Hono();
   app.use(logger());
   app.use(setContext(reader, users, gameHandler));
 
-  // app.get("/game/map", handlers.fetchMap);
   app.get("/login.html", serveStatic({ root: "./public" }));
   app.get("/styles/login.css", serveStatic({ root: "./public" }));
   app.get("/scripts/login.js", serveStatic({ root: "./public" }));
@@ -59,7 +63,9 @@ const createApp = (
   app.post("/wait", addToWaitingQueue);
   app.get("/waiting-list", getQueue);
   app.get("/redirectToGame", redirectToGame);
-
+  // game routes
+  app.get("/game/map", fetchMap);
+  
   app.get("/*", serveStatic({ root: "./public" }));
   return app;
 };
