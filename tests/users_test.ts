@@ -1,27 +1,20 @@
 import { assertEquals } from "assert";
-import { beforeEach, describe, it } from "jsr:@std/testing/bdd";
+import { describe, it } from "jsr:@std/testing/bdd";
 import { Users } from "../src/models/users.ts";
 
 describe("Users details", () => {
-  let users: Users;
-  let fd: FormData;
-
-  beforeEach(() => {
-    users = new Users();
-    fd = new FormData();
-    fd.append("username", "Anna");
-  });
-
   it("should add the new user and return the user id, by add method", () => {
-    const userID = users.add(fd);
-    assertEquals(userID, 1);
+    const users = new Users();
+    const userID = users.add({ username: "Anna" });
+    assertEquals(userID, "1");
   });
 
   it("should return the user info, by getInfo method", () => {
-    users.add(fd);
+    const users = new Users();
 
+    users.add({ username: "Anna" });
     const userDetails = users.getInfo("1");
 
-    assertEquals(userDetails.name, "Anna");
+    assertEquals(userDetails.username, "Anna");
   });
 });
