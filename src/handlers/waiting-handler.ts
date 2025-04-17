@@ -9,3 +9,7 @@ export const addToWaitingQueue = (context: Context) => {
 
   return context.redirect("/waiting-page.html");
 };
+
+export const getQueue = (context: Context) => {
+  return context.json(context.get("gameHandler").queue.getWaitingQueue());
+};
