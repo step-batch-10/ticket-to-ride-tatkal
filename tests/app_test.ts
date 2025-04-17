@@ -36,7 +36,7 @@ describe("User authentication", () => {
 describe("usMap", () => {
   describe("fetchMap", () => {
     it("should give map data of map file", () => {
-      const usaMap =  UsMap.getInstance(mockedReader);
+      const usaMap = UsMap.getInstance(mockedReader);
       assertEquals(usaMap.getMap(), "usa map");
     });
   });
