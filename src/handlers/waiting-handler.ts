@@ -1,0 +1,11 @@
+import { getCookie } from "hono/cookie";
+import { Context } from "hono";
+
+export const addToWaitingQueue = (context: Context) => {
+  const userId = getCookie(context, "user-ID");
+  const name: string = context.get("users").getInfo(userId).name;
+
+  context.gameHandler.queue.add(name);
+
+  return context.redirect("/waiting-page.html");
+};

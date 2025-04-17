@@ -1,14 +1,16 @@
 import { Context, Hono, Next } from "hono";
-// import { GameHandler } from "./models/game-handlers.ts";
+import { GameHandler } from "./models/game-handlers.ts";
 import { Reader } from "./models/schemas.ts";
 import { getCookie, setCookie } from "hono/cookie";
 import { Logger, ServeStatic } from "./types.ts";
 import { Users } from "./models/users.ts";
+import { addToWaitingQueue } from "./handlers/waiting-handler.ts";
 
 const setContext =
   (reader: Reader, users: Users) => async (context: Context, next: Next) => {
     context.set("reader", reader);
     context.set("users", users);
+    context.set("gameHandler", new GameHandler());
     await next();
   };
 
@@ -48,6 +50,7 @@ const createApp = (
   app.post("/login", handleLogin);
 
   app.use("/*", authenticateUser);
+  app.post("/wait", addToWaitingQueue);
   app.get("/*", serveStatic({ root: "./public" }));
   return app;
 };
