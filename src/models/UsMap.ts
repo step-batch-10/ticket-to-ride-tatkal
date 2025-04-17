@@ -13,7 +13,7 @@ export class UsMap implements Map {
   }
 
   static getInstance(reader: Reader) {
-    const svg = reader("src/models/USA-map.html");
+    const svg = reader("public/USA-map.html");
     return new UsMap(svg);
   }
 }
