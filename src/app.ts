@@ -18,9 +18,9 @@ const setContext =
     context.set("users", users);
     context.set("gameHandler", gameHandler);
     // const gameId = getCookie(context, 'game-ID');
-    const gameId = gameHandler.createGame([''],reader)
-    const game = gameHandler.getGame(gameId)?.game
-    context.set('game',game)
+    const gameId = gameHandler.createGame([""], reader);
+    const game = gameHandler.getGame(gameId)?.game;
+    context.set("game", game);
     await next();
   };
 
@@ -48,7 +48,7 @@ const createApp = (
   serveStatic: ServeStatic,
   reader: Reader,
   users: Users,
-  gameHandler: GameHandler
+  gameHandler: GameHandler,
 ): Hono => {
   const app: Hono = new Hono();
   app.use(logger());
@@ -65,7 +65,7 @@ const createApp = (
   app.get("/redirectToGame", redirectToGame);
   // game routes
   app.get("/game/map", fetchMap);
-  
+
   app.get("/*", serveStatic({ root: "./public" }));
   return app;
 };
