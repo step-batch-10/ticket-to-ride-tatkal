@@ -4,6 +4,13 @@ export type card = {
   color: string;
 };
 
+export interface Tickets {
+  id: string;
+  from: string;
+  to: string;
+  points: number;
+}
+
 export interface USAMap {
   getMap(): svg;
 }

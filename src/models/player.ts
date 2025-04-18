@@ -1,4 +1,4 @@
-import { card } from "./schemas.ts";
+import { card, Tickets } from "./schemas.ts";
 import { PlayerInfo } from "../types.ts";
 
 export class Player {
@@ -6,7 +6,7 @@ export class Player {
   private name: string;
   private trainCars: number;
   private hand: card[];
-  private destinationTickets: card[];
+  private destinationTickets: Tickets[];
 
   constructor(PlayerDetails: PlayerInfo) {
     this.id = PlayerDetails.id;
