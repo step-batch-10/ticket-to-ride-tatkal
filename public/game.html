@@ -24,17 +24,45 @@
       href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap"
       rel="stylesheet"
     />
-    <script src="./scripts/game.js"></script>
-    <link rel="stylesheet" href="./styles/game.css">
+
+    <script src="/scripts/game.js"></script>
+    <link rel="stylesheet" href="/styles/game.css">
+
+    <link rel="stylesheet" href="/styles/player-card.css">
   </head>
 
   <body>
     <div class="row h-100">
-      <div class="col-3 h-100 border border-primary"></div>
-      <div class="col-6 h-100 border border-primary">
+      <div class="col-2 h-100 border border-primary" id="players-container">
+        <div class="player-card">
+          <h2 class="player-name">Dhanoj</h2>
+          <div class="details">
+            <div class="cars">cars: 45</div>
+            <div class="train-car-cards cards">train-cards: 0</div>
+            <div class="destination-cards cards">tickets: 0</div>
+          </div>
+        </div>
+        <div class="player-card">
+          <h2 class="player-name">Sarup</h2>
+          <div class="details">
+            <div class="cars">cars: 45</div>
+            <div class="train-car-cards">train-cards: 0</div>
+            <div class="destination-cards">tickets: 0</div>
+          </div>
+        </div>
+        <div class="player-card">
+          <h2 class="player-name">Anjali</h2>
+          <div class="details">
+            <div class="cars">cars: 45</div>
+            <div class="train-car-cards">train-cards: 0</div>
+            <div class="destination-cards">tickets: 0</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 h-100 border border-primary">
         <section id="mapContainer" class="h-75 overflow-scroll"></section>
       </div>
-      <div class="col-3 h-100 border border-primary">
+      <div class="col-2 h-100 border border-primary">
         <div class="h-75 d-flex flex-column gap-1" id="face-up-container"></div>
       </div>
     </div>
