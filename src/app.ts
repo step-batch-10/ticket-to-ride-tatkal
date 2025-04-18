@@ -44,7 +44,7 @@ const handleLogin = async (c: Context) => {
   const fd: Object = await c.req.parseBody();
   const user = c.get("users");
   const userID: string = user.add(fd);
-
+  
   setCookie(c, "user-ID", userID);
   return c.redirect("/", 303);
 };

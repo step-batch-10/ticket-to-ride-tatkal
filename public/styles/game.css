@@ -1,13 +1,10 @@
 body {
   font-family: "Cinzel", serif;
-  background-color: #2b1b0e;
+  background-color: rgb(155, 92, 4);
   width: 100vw;
   height: 100vh;
 }
-/* .face-up-card {
-  width: 100px;
-  height: 100px;
-} */
+
 .ticket {
   width: 100px;
   height: 100px;
@@ -22,12 +19,20 @@ body {
   color: white;
 }
 
+
 .player-card {
-  width: 100px;
-  height: 150px;
   padding: 10px;
   margin: 10px;
   border: 1px solid white;
+}
+
+.train-car-card{
+  width:100px;
+  height: 150px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px;
 }
 
 .details {
@@ -41,18 +46,18 @@ body {
   align-items: center;
   width: 30%;
   height: 100%;
-  border: 2px solid red;
 }
 
 #player-resources {
   display: flex;
 }
 
-#cars {
-  background-color: aqua;
+#cars{
+  background-color: rgb(255, 187, 0);
   padding: 10px;
   width: 50px;
   height: 50px;
+  border-radius: 5px;
 }
 
 #player-hand {

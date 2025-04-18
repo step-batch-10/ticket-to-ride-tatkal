@@ -71,7 +71,7 @@ const handleTicketsSelection = (destinationCards) => {
 
 const createTrainCarCard = (card) => {
   const div = document.createElement("div");
-  div.classList.add("player-card");
+  div.classList.add("train-car-card");
   div.style.backgroundColor = card.color;
   div.innerText = card.color;
   return div;
@@ -132,6 +132,8 @@ const renderPage = () => {
   renderMap();
   renderFaceupCards();
   renderPlayerResources();
+  renderPlayerCards();
+
 };
 
 const main = () => {
@@ -139,10 +141,6 @@ const main = () => {
   destinationBtn.addEventListener("click", drawDestinationCards);
 
   renderPage();
-
-  setInterval(() => {
-    renderPlayerCards();
-  }, 100);
 };
 
 globalThis.onload = main;
