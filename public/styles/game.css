@@ -19,15 +19,14 @@ body {
   color: white;
 }
 
-
 .player-card {
   padding: 10px;
   margin: 10px;
   border: 1px solid white;
 }
 
-.train-car-card{
-  width:100px;
+.train-car-card {
+  width: 100px;
   height: 150px;
   padding: 10px;
   margin: 10px;
@@ -52,7 +51,7 @@ body {
   display: flex;
 }
 
-#cars{
+#cars {
   background-color: rgb(255, 187, 0);
   padding: 10px;
   width: 50px;

@@ -133,7 +133,6 @@ const renderPage = () => {
   renderFaceupCards();
   renderPlayerResources();
   renderPlayerCards();
-
 };
 
 const main = () => {
