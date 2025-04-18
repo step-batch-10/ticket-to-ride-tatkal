@@ -24,8 +24,11 @@ export const fetchPlayerHand = (context: Context) => {
   if (!currentPlayer) {
     return context.json({ message: "player not found" }, 404);
   }
-
-  return context.json(currentPlayer.getHand());
+  const properties = {
+    hand: currentPlayer.getHand(),
+    cars: currentPlayer.getTrainCars()
+  }
+  return context.json(properties);
 };
 
 export const fetchPlayerDetails = (context: Context) => {

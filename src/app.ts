@@ -113,7 +113,7 @@ const createApp = (
   app.get("/game/map", fetchMap);
   app.get("/game/face-up-cards", fetchFaceUps);
   // player routes
-  app.get("/game/player/hand", fetchPlayerHand);
+  app.get("/game/player/properties", fetchPlayerHand);
   app.get("/game/destination-tickets", fetchTicketChoices);
   app.post("/game/destination-tickets", updatePlayerTickets);
   app.get("/game/players-detail", fetchPlayerDetails);

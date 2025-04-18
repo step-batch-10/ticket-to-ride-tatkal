@@ -264,18 +264,19 @@ describe("/game/player/hand'", () => {
   it("should respond with an array of cards", async () => {
     const app: Hono = prepareApp();
 
-    const r: Response = await app.request("/game/player/hand", {
+    const r: Response = await app.request("/game/player/properties", {
       headers: { cookie: "user-ID=1;game-ID=1" },
     });
 
-    const hand = await r.json();
-    assertEquals(hand.length, 4);
+    const properties = await r.json();
+    assertEquals(properties.hand.length, 4);
+    assertEquals(properties.cars, 45);
   });
 
   it("should respond with an 404 if player not found", async () => {
     const app: Hono = prepareApp();
 
-    const r: Response = await app.request("/game/player/hand", {
+    const r: Response = await app.request("/game/player/properties", {
       headers: { cookie: "user-ID=10;game-ID=1" },
     });
     assertEquals(r.status, 404);
