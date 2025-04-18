@@ -13,6 +13,16 @@ const mockedReader = (_path: string | URL): string => {
   return "usa map";
 };
 
+const prepareApp = () => {
+  return createApp(
+    logger,
+    serveStatic,
+    mockedReader,
+    new Users(),
+    new GameHandler(),
+  );
+};
+
 describe("User authentication", () => {
   it("should redirect the user to login if user is not authenticated", async () => {
     const app: Hono = createApp(
@@ -348,5 +358,48 @@ describe("fetchPlayersDetails", () => {
 
     const playersDetail = await r.json();
     assertEquals(playersDetail, expected);
+  });
+});
+
+describe("/game/destination-tickets", () => {
+  it("/game/destination-tickets should not allow non logged in user", async () => {
+    const app = prepareApp();
+    const r = await app.request("/game/destination-tickets");
+
+    assertEquals(r.status, 303);
+  });
+
+  it("/game/destination-tickets should give tickets for the logged in user", async () => {
+    const app = prepareApp();
+    const r = await app.request("/game/destination-tickets", {
+      headers: { cookie: "user-ID=jamesbond007" },
+    });
+
+    const expectedTickets = {
+      tickets: [
+        {
+          id: 1,
+          from: "LA",
+          to: "chicago",
+          points: 10,
+        },
+        {
+          id: 2,
+          from: "vancour",
+          to: "chicago",
+          points: 10,
+        },
+        {
+          id: 3,
+          from: "miami",
+          to: "chicago",
+          points: 10,
+        },
+      ],
+      mininumPickup: 2,
+    };
+
+    assertEquals(r.status, 200);
+    assertEquals(await r.json(), expectedTickets);
   });
 });
