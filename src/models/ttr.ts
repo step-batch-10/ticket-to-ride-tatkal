@@ -15,7 +15,9 @@ export class Ttr implements Game {
 
   private initializePlayers() {
     this.players.forEach((player) => {
-      const cards = [this.trainCarCards.drawCard(),this.trainCarCards.drawCard(),this.trainCarCards.drawCard(),this.trainCarCards.drawCard()];      
+      const cards = new Array(4).fill('').map(() => {
+        return this.trainCarCards.drawCard()
+      })
       player.addCardsToHand(...cards); 
     })
   }
