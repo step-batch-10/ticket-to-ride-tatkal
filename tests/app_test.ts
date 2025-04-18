@@ -20,7 +20,7 @@ describe("User authentication", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/");
 
@@ -35,7 +35,7 @@ describe("User authentication", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/", {
       headers: { cookie: "user-ID=1" },
@@ -55,7 +55,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/wait", {
       method: "POST",
@@ -74,7 +74,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
     const r: Response = await app.request("/waiting-list", {
       headers: { cookie: "user-ID=1" },
@@ -94,7 +94,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/waiting-list", {
@@ -124,7 +124,7 @@ describe("App /login", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const body = new FormData();
     body.append("username", "player");
@@ -155,7 +155,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -179,7 +179,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -203,7 +203,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -225,7 +225,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -243,13 +243,30 @@ describe("redirectToGame", () => {
         serveStatic,
         mockedReader,
         new Users(),
-        new GameHandler(),
+        new GameHandler()
       );
       const r: Response = await app.request("/game/map", {
         headers: { cookie: "user-ID=1;game-ID=1" },
       });
 
       assertEquals(await r.json(), { svg: "usa map" });
+    });
+  });
+  describe("/game/face-up-cards", () => {
+    it("should respond with 5 face-up-cards json", async () => {
+      const app: Hono = createApp(
+        logger,
+        serveStatic,
+        mockedReader,
+        new Users(),
+        new GameHandler()
+      );
+      const r: Response = await app.request("/game/face-up-cards", {
+        headers: { cookie: "user-ID=1;game-ID=1" },
+      });
+
+      const faceUps = await r.json();
+      assertEquals(faceUps.length, 5);
     });
   });
 });

@@ -4,12 +4,12 @@ export type card = {
   color: string;
 };
 
-export interface Map {
+export interface USAMap {
   getMap(): svg;
 }
 
 export interface Game {
-  map: Map;
+  map: USAMap;
 
   getMap(): svg;
 }
