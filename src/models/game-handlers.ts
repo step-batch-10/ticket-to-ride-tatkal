@@ -51,13 +51,13 @@ export class GameHandler {
     return this.queue.getWaitingQueue(playerId);
   }
 
-  private isPresent(players: PlayerInfo[], playerName: string) {
-    return players.some(({ name }) => name === playerName);
+  private isPresent(players: PlayerInfo[], playerId: string) {
+    return players.some(({ id }) => id === playerId);
   }
 
-  getGameByPlayer(player: string) {
+  getGameByPlayer(playerId: string) {
     const game = this.games.find((game) =>
-      this.isPresent(game.players, player)
+      this.isPresent(game.players, playerId)
     );
 
     return game;

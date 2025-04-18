@@ -17,8 +17,12 @@ export const getQueue = (context: Context) => {
   return context.json(context.get("gameHandler").getWaitingList(userId));
 };
 
-const getGameId = (context: Context, player: string, players: PlayerInfo[]) => {
-  const game = context.get("gameHandler").getGameByPlayer(player);
+const getGameId = (
+  context: Context,
+  playerId: string | undefined,
+  players: PlayerInfo[],
+) => {
+  const game = context.get("gameHandler").getGameByPlayer(playerId);
   if (game) {
     return game.gameId;
   }
@@ -32,11 +36,10 @@ const getGameId = (context: Context, player: string, players: PlayerInfo[]) => {
 
 export const redirectToGame = (context: Context) => {
   const userId = getCookie(context, "user-ID");
-  const name: string = context.get("users").getInfo(userId).username;
   const waitingList = context.get("gameHandler").getPlayersInfo(userId);
 
   if (waitingList.length === 3) {
-    const gameId = getGameId(context, name, waitingList);
+    const gameId = getGameId(context, userId, waitingList);
     setCookie(context, "game-ID", gameId);
     return context.redirect("/game.html");
   }

@@ -167,11 +167,14 @@ describe("redirectToGame", () => {
 
   it("should create game and redirect to game page with game id", async () => {
     const gameHandler = new GameHandler();
-    gameHandler.addToQueue({ name: "dhanoj", id: "1" });
-    gameHandler.addToQueue({ name: "sarup", id: "1" });
-    gameHandler.addToQueue({ name: "hari", id: "1" });
+    gameHandler.addToQueue({ name: "dhanoj", id: "3" });
+    gameHandler.addToQueue({ name: "sarup", id: "2" });
+    gameHandler.addToQueue({ name: "hari", id: "4" });
     const user = new Users();
+    user.add({ username: "anjali" });
     user.add({ username: "sarup" });
+    user.add({ username: "dhanoj" });
+    user.add({ username: "hari" });
 
     const app: Hono = createApp(
       logger,
@@ -182,7 +185,7 @@ describe("redirectToGame", () => {
     );
 
     const r: Response = await app.request("/redirectToGame", {
-      headers: { cookie: "user-ID=1" },
+      headers: { cookie: "user-ID=4" },
     });
 
     assertEquals(r.status, 302);
