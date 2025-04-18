@@ -92,6 +92,32 @@ const drawDestinationCards = async () => {
   handleTicketsSelection(destinationCards);
 };
 
+const getPlayerCard = (name, trainCars, trainCarCards, tickets) => {
+  const card = cloneTemplate("#player-card");
+  insertTicketInfo(card, ".player-name", name);
+  insertTicketInfo(card, ".cars", `cars: ${trainCars}`);
+  insertTicketInfo(card, ".train-car-cards", `train-cards: ${trainCarCards}`);
+  insertTicketInfo(card, ".destination-cards", `tickets: ${tickets}`);
+  return card;
+};
+
+const createPlayerCard = (playerDetails, playerContainer) => {
+  playerDetails.forEach(({ name, trainCars, trainCarCards, tickets }) => {
+    const card = getPlayerCard(name, trainCars, trainCarCards, tickets);
+
+    playerContainer.append(card);
+  });
+};
+
+const renderPlayerCards = async () => {
+  const res = await fetch("/game/players-detail");
+  const playerDetails = await res.json();
+  const playerContainer = document.getElementById("players-container");
+  playerContainer.replaceChildren();
+
+  createPlayerCard(playerDetails, playerContainer);
+};
+
 const renderPage = () => {
   renderMap();
   renderFaceupCards();
@@ -102,6 +128,10 @@ const main = () => {
   destinationBtn.addEventListener("click", drawDestinationCards);
 
   renderPage();
+
+  setInterval(() => {
+    renderPlayerCards();
+  }, 100);
 };
 
 globalThis.onload = main;
