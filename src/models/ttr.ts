@@ -5,7 +5,7 @@ import { Player } from "./player.ts";
 export class Ttr implements Game {
   players: Player[];
   map: USAMap;
-  trainCarCards:TrainCarCards;
+  trainCarCards: TrainCarCards;
 
   constructor(players: Player[], map: USAMap) {
     this.players = players;
@@ -16,11 +16,11 @@ export class Ttr implements Game {
 
   private initializePlayers() {
     this.players.forEach((player) => {
-      const cards = new Array(4).fill('').map(() => {
-        return this.trainCarCards.drawCard()
-      })
-      player.addCardsToHand(...cards); 
-    })
+      const cards = new Array(4).fill("").map(() => {
+        return this.trainCarCards.drawCard();
+      });
+      player.addCardsToHand(...cards);
+    });
   }
 
   static createTtr(players: string[], map: USAMap) {

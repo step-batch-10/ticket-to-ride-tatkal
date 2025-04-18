@@ -12,8 +12,8 @@ import {
 import {
   fetchFaceUps,
   fetchMap,
-  fetchPlayerHand,
   fetchPlayerDetails,
+  fetchPlayerHand,
 } from "./handlers/gameHandler.ts";
 
 const setContext =
@@ -54,7 +54,7 @@ const createApp = (
   serveStatic: ServeStatic,
   reader: Reader,
   users: Users,
-  gameHandler: GameHandler
+  gameHandler: GameHandler,
 ): Hono => {
   const app: Hono = new Hono();
   // for testing purpose created game
