@@ -1,5 +1,3 @@
-// import { redirectToGame } from "../../src/handlers/waiting-handler.ts";
-
 const createList = (players) => {
   const list = document.getElementById("waiting-list");
   list.textContent = "";
