@@ -59,12 +59,6 @@ const handleTicketsSelection = (destinationCards) => {
   chooseBtn.addEventListener("click", closePopUp(mininumPickup));
 };
 
-const drawDestinationCards = async () => {
-  const res = await fetch("/game/destination-tickets");
-  const destinationCards = await res.json();
-  handleTicketsSelection(destinationCards);
-};
-
 const createFaceUpCard = (card) => {
   const div = document.createElement("div");
   div.classList.add("face-up-card");
@@ -80,6 +74,12 @@ const renderFaceupCards = async () => {
   const faceUpDivs = cards.map(createFaceUpCard);
   const faceupContainer = document.querySelector("#face-up-container");
   faceupContainer.append(...faceUpDivs);
+};
+
+const drawDestinationCards = async () => {
+  const res = await fetch("/game/destination-tickets");
+  const destinationCards = await res.json();
+  handleTicketsSelection(destinationCards);
 };
 
 const renderPage = () => {

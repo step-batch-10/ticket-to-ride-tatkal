@@ -5,7 +5,6 @@ const joinLobby = async () => {
 
 const main = () => {
   const playBtn = document.querySelector("#play-game-index");
-  console.log(playBtn);
   playBtn.addEventListener("click", joinLobby);
 };
 
