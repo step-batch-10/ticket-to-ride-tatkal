@@ -1,6 +1,7 @@
 import { card, Game, svg, USAMap } from "./schemas.ts";
 import { TrainCarCards } from "./train-car-cards.ts";
 import { Player } from "./player.ts";
+
 export class Ttr implements Game {
   players: Player[];
   map: USAMap;
@@ -39,5 +40,9 @@ export class Ttr implements Game {
 
   getPlayers() {
     return this.players;
+  }
+
+  getPlayerDetails() {
+    return this.players.map((player) => player.status());
   }
 }

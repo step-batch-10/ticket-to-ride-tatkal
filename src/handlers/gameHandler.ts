@@ -16,8 +16,8 @@ export const fetchFaceUps = (context: Context) => {
 export const fetchPlayerHand = (context: Context) => {
   const game = context.get("game");
   const playerId = getCookie(context, "user-ID");
-  
-  const currentPlayer = game.getPlayers().find((player: Player) => {    
+
+  const currentPlayer = game.getPlayers().find((player: Player) => {
     return player.getId() === playerId;
   });
 
@@ -26,4 +26,11 @@ export const fetchPlayerHand = (context: Context) => {
   }
 
   return context.json(currentPlayer.getHand());
+};
+
+export const fetchPlayerDetails = (context: Context) => {
+  const game = context.get("game");
+  const players = game.getPlayerDetails();
+
+  return context.json(players);
 };

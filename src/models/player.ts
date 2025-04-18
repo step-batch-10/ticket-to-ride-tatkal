@@ -4,16 +4,17 @@ export class Player {
   private id: string;
   private trainCars: number;
   private hand: card[];
-  // private destinationTickets: destinationTicket[];
+  private destinationTickets: card[];
+
   constructor(id: string) {
-    
     this.id = id;
     this.trainCars = 45;
     this.hand = [];
+    this.destinationTickets = [];
   }
 
-  addCardsToHand(...cards:card[]) {
-    this.hand.push(...cards)
+  addCardsToHand(...cards: card[]) {
+    this.hand.push(...cards);
   }
 
   getTrainCars() {
@@ -23,7 +24,17 @@ export class Player {
   getHand() {
     return this.hand;
   }
-  getId() {    
+
+  getId() {
     return this.id;
+  }
+
+  status() {
+    return {
+      id: this.id,
+      trainCars: this.trainCars,
+      trainCarCards: this.hand.length,
+      tickets: this.destinationTickets.length,
+    };
   }
 }

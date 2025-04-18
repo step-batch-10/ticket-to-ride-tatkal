@@ -13,6 +13,7 @@ import {
   fetchFaceUps,
   fetchMap,
   fetchPlayerHand,
+  fetchPlayerDetails,
 } from "./handlers/gameHandler.ts";
 
 const setContext =
@@ -75,7 +76,7 @@ const createApp = (
   app.get("/game/face-up-cards", fetchFaceUps);
   // player routes
   app.get("/game/player/hand", fetchPlayerHand);
-
+  app.get("/game/players-detail", fetchPlayerDetails);
   app.get("/*", serveStatic({ root: "./public" }));
   return app;
 };
