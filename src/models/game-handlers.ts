@@ -27,7 +27,7 @@ export class GameHandler {
   createGame(players: string[], reader: Reader) {
     const gameId: number = this.generateGameId();
     const map = UsMap.getInstance(reader);
-    this.games.push({ gameId, players, game: new Ttr(players, map) });
+    this.games.push({ gameId, players, game: Ttr.createTtr(players, map) });
 
     return gameId;
   }

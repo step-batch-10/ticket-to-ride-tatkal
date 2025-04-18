@@ -10,14 +10,14 @@ const mockedReader = (_path: string | URL): string => {
 describe("Ttr", () => {
   describe("getMap", () => {
     it("should return map", () => {
-      const ttr = new Ttr([""], UsMap.getInstance(mockedReader));
+      const ttr = Ttr.createTtr([""], UsMap.getInstance(mockedReader));
       assertEquals(ttr.getMap(), "usa map");
     });
   });
 
   describe("getFaceUpCards", () => {
     it("should return an array of length 5 faceup cards", () => {
-      const ttr = new Ttr([""], UsMap.getInstance(mockedReader));
+      const ttr = Ttr.createTtr([""], UsMap.getInstance(mockedReader));
       assertEquals(ttr.getFaceUpCards().length, 5);
     });
   });
