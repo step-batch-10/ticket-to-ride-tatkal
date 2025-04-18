@@ -17,3 +17,17 @@ body {
 .selected {
   border: 5px solid black;
 }
+
+#players-container {
+  color: white;
+}
+
+.player-card {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid white;
+}
+
+.details {
+  border: 1px solid white;
+}
