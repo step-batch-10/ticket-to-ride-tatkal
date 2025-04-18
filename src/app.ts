@@ -49,6 +49,33 @@ const handleLogin = async (c: Context) => {
   return c.redirect("/", 303);
 };
 
+const fetchTicketChoices = (c: Context) => {
+  const ticketChoices = {
+    tickets: [
+      {
+        id: 1,
+        from: "LA",
+        to: "chicago",
+        points: 10,
+      },
+      {
+        id: 2,
+        from: "vancour",
+        to: "chicago",
+        points: 10,
+      },
+      {
+        id: 3,
+        from: "miami",
+        to: "chicago",
+        points: 10,
+      },
+    ],
+    mininumPickup: 2,
+  };
+
+  return c.json(ticketChoices);
+};
 const createApp = (
   logger: Logger,
   serveStatic: ServeStatic,
@@ -76,6 +103,7 @@ const createApp = (
   app.get("/game/face-up-cards", fetchFaceUps);
   // player routes
   app.get("/game/player/hand", fetchPlayerHand);
+  app.get("/game/destination-tickets", fetchTicketChoices);
   app.get("/game/players-detail", fetchPlayerDetails);
   app.get("/*", serveStatic({ root: "./public" }));
   return app;
