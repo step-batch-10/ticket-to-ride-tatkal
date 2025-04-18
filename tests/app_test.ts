@@ -95,7 +95,7 @@ describe("addToWaitingQueue", () => {
 
   it("should response with status 200 and return waitingList", async () => {
     const gameHandler = new GameHandler();
-    gameHandler.addToQueue("dhanoj");
+    gameHandler.addToQueue({ name: "dhanoj", id: "1" });
     const user = new Users();
     user.add({ username: "dhanoj" });
 
@@ -147,10 +147,17 @@ describe("App /login", () => {
 describe("redirectToGame", () => {
   it("should redirect to game page with game id", async () => {
     const gameHandler = new GameHandler();
-    gameHandler.addToQueue("dhanoj");
-    gameHandler.addToQueue("sarup");
-    gameHandler.addToQueue("anjali");
-    gameHandler.createGame(["dhanoj", "anjali", "sarup"], mockedReader);
+    gameHandler.addToQueue({ name: "dhanoj", id: "1" });
+    gameHandler.addToQueue({ name: "sarup", id: "2" });
+    gameHandler.addToQueue({ name: "hari", id: "3" });
+    gameHandler.createGame(
+      [
+        { name: "dhanoj", id: "1" },
+        { name: "hari", id: "3" },
+        { name: "sarup", id: "2" },
+      ],
+      mockedReader
+    );
     const user = new Users();
     user.add({ username: "dhanoj" });
 
@@ -172,9 +179,9 @@ describe("redirectToGame", () => {
 
   it("should create game and redirect to game page with game id", async () => {
     const gameHandler = new GameHandler();
-    gameHandler.addToQueue("dhanoj");
-    gameHandler.addToQueue("sarup");
-    gameHandler.addToQueue("anjali");
+    gameHandler.addToQueue({ name: "dhanoj", id: "1" });
+    gameHandler.addToQueue({ name: "sarup", id: "1" });
+    gameHandler.addToQueue({ name: "hari", id: "1" });
     const user = new Users();
     user.add({ username: "sarup" });
 
@@ -196,11 +203,12 @@ describe("redirectToGame", () => {
 
   it("should redirect to waiting page when player is not present in waiting list", async () => {
     const gameHandler = new GameHandler();
-    gameHandler.addToQueue("dhanoj");
-    gameHandler.addToQueue("sarup");
-    gameHandler.addToQueue("anjali");
+    gameHandler.addToQueue({ name: "dhanoj", id: "1" });
+    gameHandler.addToQueue({ name: "sarup", id: "1" });
+    gameHandler.addToQueue({ name: "Anjali", id: "1" });
+
     const user = new Users();
-    user.add({ username: "haru" });
+    user.add({ username: "hari" });
 
     const app: Hono = createApp(
       logger,
@@ -220,7 +228,7 @@ describe("redirectToGame", () => {
 
   it("should redirect to Waiting page when waiting list is not full", async () => {
     const gameHandler = new GameHandler();
-    gameHandler.addToQueue("dhanoj");
+    gameHandler.addToQueue({ name: "dhanoj", id: "1" });
     const user = new Users();
     user.add({ username: "dhanoj" });
 
