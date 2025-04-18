@@ -323,7 +323,15 @@ describe("/game/player/hand'", () => {
 describe("fetchPlayersDetails", () => {
   it("should return players detail", async () => {
     const gameHandler = new GameHandler();
-    gameHandler.createGame(["Dhanoj", "Sarup", "Anjali"], mockedReader);
+    gameHandler.createGame([{ name: "sushanth", id: "1" },
+      {
+        id: "2",
+        name: "Sarup",
+      },
+      {
+        id: "3",
+        name: "hari",
+      }], mockedReader);
 
     const app: Hono = createApp(
       logger,
@@ -339,19 +347,19 @@ describe("fetchPlayersDetails", () => {
 
     const expected = [
       {
-        id: "Dhanoj",
+        id: "1",
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
       },
       {
-        id: "Sarup",
+        id: "2",
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
       },
       {
-        id: "Anjali",
+        id: "",
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
