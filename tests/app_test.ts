@@ -19,7 +19,7 @@ const prepareApp = () => {
     serveStatic,
     mockedReader,
     new Users(),
-    new GameHandler()
+    new GameHandler(),
   );
 };
 
@@ -53,7 +53,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      new GameHandler()
+      new GameHandler(),
     );
     const r: Response = await app.request("/wait", {
       method: "POST",
@@ -72,7 +72,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler
+      gameHandler,
     );
     const r: Response = await app.request("/waiting-list", {
       headers: { cookie: "user-ID=1" },
@@ -92,7 +92,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler
+      gameHandler,
     );
 
     const r: Response = await app.request("/waiting-list", {
@@ -144,7 +144,7 @@ describe("redirectToGame", () => {
         { name: "hari", id: "3" },
         { name: "sarup", id: "2" },
       ],
-      mockedReader
+      mockedReader,
     );
     const user = new Users();
     user.add({ username: "dhanoj" });
@@ -154,7 +154,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler
+      gameHandler,
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -178,7 +178,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler
+      gameHandler,
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -203,7 +203,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler
+      gameHandler,
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -225,7 +225,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler
+      gameHandler,
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -308,7 +308,7 @@ describe("fetchPlayersDetails", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      gameHandler
+      gameHandler,
     );
 
     const r: Response = await app.request("/game/players-detail", {
