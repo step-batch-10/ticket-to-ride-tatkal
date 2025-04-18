@@ -4,10 +4,10 @@ body {
   width: 100vw;
   height: 100vh;
 }
-.face-up-card {
+/* .face-up-card {
   width: 100px;
   height: 100px;
-}
+} */
 .ticket {
   width: 100px;
   height: 100px;
@@ -23,6 +23,8 @@ body {
 }
 
 .player-card {
+  width:100px;
+  height: 150px;
   padding: 10px;
   margin: 10px;
   border: 1px solid white;
@@ -30,4 +32,34 @@ body {
 
 .details {
   border: 1px solid white;
+}
+
+#other-resources{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 100%;
+  border: 2px solid red;
+}
+
+#player-resources{
+  display: flex;
+}
+
+#cars{
+  background-color: aqua;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+
+}
+
+#player-hand{
+  width: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  overflow-y: scroll;
 }

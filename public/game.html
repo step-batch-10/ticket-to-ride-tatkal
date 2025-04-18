@@ -24,8 +24,9 @@
       href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles/game.css" />
-    <script src="/scripts/game.js"></script>
+    <!-- change route -->
+    <link rel="stylesheet" href="./styles/game.css" />
+    <script src="./scripts/game.js"></script>
   </head>
 
   <body>
@@ -37,6 +38,13 @@
       </div>
       <div class="col-8 h-100 border border-primary">
         <section id="mapContainer" class="h-75 overflow-scroll"></section>
+        <section id="player-resources" class="h-25 overflow-scroll">
+          <div id="other-resources">
+            <div id="cars"></div>
+          </div>
+          <div id="player-hand">
+          </div>
+        </section>
       </div>
       <div class="col-2 h-100 border border-primary">
         <div class="h-75 d-flex flex-column gap-1" id="face-up-container"></div>

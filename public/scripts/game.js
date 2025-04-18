@@ -69,19 +69,29 @@ const handleTicketsSelection = (destinationCards) => {
   chooseBtn.addEventListener("click", sumbitTicketChoices(mininumPickup));
 };
 
-const createFaceUpCard = (card) => {
+const createTrainCarCard = (card) => {
   const div = document.createElement("div");
-  div.classList.add("face-up-card");
+  div.classList.add("player-card");
   div.style.backgroundColor = card.color;
   div.innerText = card.color;
   return div;
 };
 
+const renderPlayerResources = async () => {
+  const res = await fetch("/game/player/properties");
+  const resources = await res.json();
+  const carsContainer = document.querySelector('#cars');
+  carsContainer.innerText = resources.cars;
+  const playerHandContainer = document.querySelector('#player-hand');
+  const cards = resources.hand.map(createTrainCarCard);
+  playerHandContainer.append(...cards);
+}
+
 const renderFaceupCards = async () => {
   const res = await fetch("/game/face-up-cards");
   const cards = await res.json();
 
-  const faceUpDivs = cards.map(createFaceUpCard);
+  const faceUpDivs = cards.map(createTrainCarCard);
   const faceupContainer = document.querySelector("#face-up-container");
   faceupContainer.append(...faceUpDivs);
 };
@@ -121,6 +131,7 @@ const renderPlayerCards = async () => {
 const renderPage = () => {
   renderMap();
   renderFaceupCards();
+  renderPlayerResources();
 };
 
 const main = () => {
