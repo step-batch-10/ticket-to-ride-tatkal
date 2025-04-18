@@ -29,7 +29,7 @@ export class WaitingQueue {
     const players = this.waitingQueue.find((list) =>
       this.isPresent(list, player)
     );
-    
+
     return players ? players : [];
   }
 

@@ -16,12 +16,11 @@ export const fetchFaceUps = (context: Context) => {
 export const fetchPlayerHand = (context: Context) => {
   const game = context.get("game");
   const playerId = getCookie(context, "user-ID");
-  
-  const currentPlayer = game.getPlayers().find((player: Player) => {  
-    
+
+  const currentPlayer = game.getPlayers().find((player: Player) => {
     return player.getId() == playerId;
   });
-  
+
   if (!currentPlayer) {
     return context.json({ message: "player not found" }, 404);
   }

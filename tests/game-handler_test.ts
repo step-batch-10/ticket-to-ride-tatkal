@@ -31,7 +31,10 @@ describe("Game Handler", () => {
     gameHandler.addToQueue({ name: "sushanth", id: "1" });
     gameHandler.addToQueue({ name: "Sarup", id: "2" });
     gameHandler.addToQueue({ name: "hari", id: "3" });
-    const playerInfo = [{ name: "sushanth", id: "1" },{ name: "Sarup", id: "2" },{ name: "hari", id: "3" }];
+    const playerInfo = [{ name: "sushanth", id: "1" }, {
+      name: "Sarup",
+      id: "2",
+    }, { name: "hari", id: "3" }];
 
     const gameId = gameHandler.createGame(playerInfo, mockedReader);
 
@@ -43,10 +46,13 @@ describe("Game Handler", () => {
     gameHandler.addToQueue({ name: "sushanth", id: "1" });
     gameHandler.addToQueue({ name: "Sarup", id: "2" });
     gameHandler.addToQueue({ name: "hari", id: "3" });
-    const playerInfo = [{ name: "sushanth", id: "1" },{ name: "Sarup", id: "2" },{ name: "hari", id: "3" }];
+    const playerInfo = [{ name: "sushanth", id: "1" }, {
+      name: "Sarup",
+      id: "2",
+    }, { name: "hari", id: "3" }];
 
     const gameId = gameHandler.createGame(playerInfo, mockedReader);
- const actual = gameHandler.getGame(gameId);
+    const actual = gameHandler.getGame(gameId);
     const game = actual?.game;
     const expected = {
       gameId: 1,

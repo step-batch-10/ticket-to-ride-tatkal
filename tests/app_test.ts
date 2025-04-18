@@ -30,7 +30,7 @@ describe("User authentication", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler()
+      new GameHandler(),
     );
     const r: Response = await app.request("/");
 
@@ -156,7 +156,7 @@ describe("redirectToGame", () => {
         { name: "hari", id: "3" },
         { name: "sarup", id: "2" },
       ],
-      mockedReader
+      mockedReader,
     );
     const user = new Users();
     user.add({ username: "dhanoj" });
@@ -323,22 +323,20 @@ describe("/game/player/hand'", () => {
 describe("fetchPlayersDetails", () => {
   it("should return players detail", async () => {
     const gameHandler = new GameHandler();
-    gameHandler.createGame([{ name: "sushanth", id: "1" },
-      {
-        id: "2",
-        name: "Sarup",
-      },
-      {
-        id: "3",
-        name: "hari",
-      }], mockedReader);
+    gameHandler.createGame([{ name: "sushanth", id: "1" }, {
+      id: "2",
+      name: "Sarup",
+    }, {
+      id: "3",
+      name: "hari",
+    }], mockedReader);
 
     const app: Hono = createApp(
       logger,
       serveStatic,
       mockedReader,
       new Users(),
-      gameHandler
+      gameHandler,
     );
 
     const r: Response = await app.request("/game/players-detail", {

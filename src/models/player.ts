@@ -8,8 +8,7 @@ export class Player {
   private hand: card[];
   private destinationTickets: card[];
 
-  
-  constructor(PlayerDetails:PlayerInfo) {
+  constructor(PlayerDetails: PlayerInfo) {
     this.id = PlayerDetails.id;
     this.name = PlayerDetails.name;
     this.trainCars = 45;
@@ -27,8 +26,8 @@ export class Player {
 
   getHand() {
     return this.hand;
-  }  
-  
+  }
+
   getId() {
     return this.id;
   }
