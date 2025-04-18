@@ -22,20 +22,20 @@ export class WaitingQueue {
   }
 
   private isPresent(list: PlayerInfo[], player: string) {
-    return list.some(({ name }) => name === player);
+    return list.some(({ id }) => id === player);
   }
 
-  getWaitingQueue(player: string) {
+  getWaitingQueue(playerId: string) {
     const players = this.waitingQueue.find((list) =>
-      this.isPresent(list, player)
+      this.isPresent(list, playerId)
     );
 
     return players ? players : [];
   }
 
-  isFull(player: string) {
+  isFull(playerId: string) {
     const queue = this.waitingQueue.find((list) =>
-      this.isPresent(list, player)
+      this.isPresent(list, playerId)
     );
 
     return queue?.length === 3;

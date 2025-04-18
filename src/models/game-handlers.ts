@@ -47,8 +47,8 @@ export class GameHandler {
     return players.map(({ name }) => name);
   }
 
-  getPlayersInfo(player: string) {
-    return this.queue.getWaitingQueue(player);
+  getPlayersInfo(playerId: string) {
+    return this.queue.getWaitingQueue(playerId);
   }
 
   private isPresent(players: PlayerInfo[], playerName: string) {

@@ -26,8 +26,8 @@ export const fetchPlayerHand = (context: Context) => {
   }
   const properties = {
     hand: currentPlayer.getHand(),
-    cars: currentPlayer.getTrainCars()
-  }
+    cars: currentPlayer.getTrainCars(),
+  };
   return context.json(properties);
 };
 
