@@ -1,4 +1,6 @@
-type list = string[];
+import { PlayerInfo } from "../types.ts";
+
+type list = PlayerInfo[];
 
 export class WaitingQueue {
   waitingQueue: list[];
@@ -7,7 +9,7 @@ export class WaitingQueue {
     this.waitingQueue = [];
   }
 
-  add(player: string) {
+  add(player: PlayerInfo) {
     const last = this.waitingQueue.at(0);
 
     if (last && last.length < 3) {
@@ -19,14 +21,22 @@ export class WaitingQueue {
     return true;
   }
 
-  getWaitingQueue(player: string) {
-    const players = this.waitingQueue.find((list) => list.includes(player));
+  private isPresent(list: PlayerInfo[], player: string) {
+    return list.some(({ name }) => name === player);
+  }
 
+  getWaitingQueue(player: string) {
+    const players = this.waitingQueue.find((list) =>
+      this.isPresent(list, player)
+    );
+    
     return players ? players : [];
   }
 
   isFull(player: string) {
-    const queue = this.waitingQueue.find((list) => list.includes(player));
+    const queue = this.waitingQueue.find((list) =>
+      this.isPresent(list, player)
+    );
 
     return queue?.length === 3;
   }

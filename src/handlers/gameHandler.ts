@@ -20,7 +20,7 @@ export const fetchPlayerHand = (context: Context) => {
   const currentPlayer = game.getPlayers().find((player: Player) => {
     return player.getId() === playerId;
   });
-
+  
   if (!currentPlayer) {
     return context.json({ message: "player not found" }, 404);
   }

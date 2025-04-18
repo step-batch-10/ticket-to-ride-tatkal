@@ -85,7 +85,7 @@ const createApp = (
 ): Hono => {
   const app: Hono = new Hono();
   // for testing purpose created game
-  gameHandler.createGame(["1", "", ""], reader);
+  gameHandler.createGame([{name:'susahnth', id:'1'}, {name:'susahnth', id:'3'}, {name:'susahnth', id:'2'}], reader);
   app.use(logger());
   app.use(setContext(reader, users, gameHandler));
 

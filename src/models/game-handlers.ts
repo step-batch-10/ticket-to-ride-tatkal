@@ -2,10 +2,11 @@ import { Ttr } from "./ttr.ts";
 import { UsMap } from "./UsMap.ts";
 import { WaitingQueue } from "./player-queue.ts";
 import { type Reader } from "./schemas.ts";
+import { PlayerInfo } from "../types.ts";
 
 type Game = {
   gameId: number;
-  players: string[];
+  players: PlayerInfo[];
   game: Ttr;
 };
 
@@ -24,7 +25,7 @@ export class GameHandler {
     return this.nextId++;
   }
 
-  createGame(players: string[], reader: Reader) {
+  createGame(players: PlayerInfo[], reader: Reader) {
     const gameId: number = this.generateGameId();
     const map = UsMap.getInstance(reader);
     this.games.push({ gameId, players, game: Ttr.createTtr(players, map) });
@@ -36,16 +37,28 @@ export class GameHandler {
     return this.games.find(({ gameId }) => gameId === id);
   }
 
-  addToQueue(name: string) {
+  addToQueue(name: PlayerInfo) {
     return this.queue.add(name);
   }
 
   getWaitingList(player: string) {
+    const players = this.queue.getWaitingQueue(player);
+
+    return players.map(({ name }) => name);
+  }
+
+  getPlayersInfo(player: string) {
     return this.queue.getWaitingQueue(player);
   }
 
+  private isPresent(players: PlayerInfo[], playerName: string) {
+    return players.some(({ name }) => name === playerName);
+  }
+
   getGameByPlayer(player: string) {
-    const game = this.games.find((game) => game.players.includes(player));
+    const game = this.games.find((game) =>
+      this.isPresent(game.players, player)
+    );
 
     return game;
   }

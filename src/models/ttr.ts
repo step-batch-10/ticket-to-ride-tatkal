@@ -1,6 +1,7 @@
 import { card, Game, svg, USAMap } from "./schemas.ts";
 import { TrainCarCards } from "./train-car-cards.ts";
 import { Player } from "./player.ts";
+import { PlayerInfo } from "../types.ts";
 
 export class Ttr implements Game {
   players: Player[];
@@ -23,9 +24,9 @@ export class Ttr implements Game {
     });
   }
 
-  static createTtr(players: string[], map: USAMap) {
-    const playerInstances = players.map((playerId) => {
-      return new Player(playerId);
+  static createTtr(players: PlayerInfo[], map: USAMap) {
+    const playerInstances = players.map((playerInfo) => {
+      return new Player(playerInfo);
     });
     return new Ttr(playerInstances, map);
   }

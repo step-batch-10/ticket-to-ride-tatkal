@@ -8,4 +8,9 @@ interface User {
   username: String;
 }
 
-export type { Logger, ServeStatic, User };
+type PlayerInfo = {
+  name: string;
+  id: string;
+}
+
+export type { Logger, ServeStatic, User , PlayerInfo };
