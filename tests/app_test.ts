@@ -359,7 +359,7 @@ describe("fetchPlayersDetails", () => {
         trainCars: 45,
       },
       {
-        id: "",
+        id: "3",
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
