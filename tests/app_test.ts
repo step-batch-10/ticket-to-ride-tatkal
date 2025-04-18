@@ -20,7 +20,7 @@ describe("User authentication", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/");
 
@@ -35,7 +35,7 @@ describe("User authentication", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/", {
       headers: { cookie: "user-ID=1" },
@@ -55,7 +55,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/wait", {
       method: "POST",
@@ -74,7 +74,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
     const r: Response = await app.request("/waiting-list", {
       headers: { cookie: "user-ID=1" },
@@ -94,7 +94,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/waiting-list", {
@@ -124,7 +124,7 @@ describe("App /login", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const body = new FormData();
     body.append("username", "player");
@@ -155,7 +155,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -179,7 +179,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -203,7 +203,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -225,7 +225,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -244,7 +244,7 @@ describe("/game/map", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/game/map", {
       headers: { cookie: "user-ID=1;game-ID=1" },
@@ -261,7 +261,7 @@ describe("/game/face-up-cards", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/game/face-up-cards", {
       headers: { cookie: "user-ID=1;game-ID=1" },
@@ -269,5 +269,41 @@ describe("/game/face-up-cards", () => {
 
     const faceUps = await r.json();
     assertEquals(faceUps.length, 5);
+  });
+});
+
+describe("/game/player/hand'", () => {
+  it("should respond with an array of cards", async () => {
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      new Users(),
+      new GameHandler()
+    );
+
+    const r: Response = await app.request("/game/player/hand", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+
+    const hand = await r.json();
+    assertEquals(hand.length, 4);
+  });
+
+  it("should respond with an 404 if player not found", async () => {
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      new Users(),
+      new GameHandler()
+    );
+
+    const r: Response = await app.request("/game/player/hand", {
+      headers: { cookie: "user-ID=10;game-ID=1" },
+    });
+    assertEquals(r.status, 404);
+    const message = await r.json();
+    assertEquals(message, { message: "player not found" });
   });
 });
