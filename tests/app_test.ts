@@ -235,38 +235,39 @@ describe("redirectToGame", () => {
     assertEquals(r.status, 302);
     assertEquals(r.headers.get("location"), "/waiting-page.html");
   });
+});
 
-  describe("/game/map", () => {
-    it("get request to /game/map", async () => {
-      const app: Hono = createApp(
-        logger,
-        serveStatic,
-        mockedReader,
-        new Users(),
-        new GameHandler(),
-      );
-      const r: Response = await app.request("/game/map", {
-        headers: { cookie: "user-ID=1;game-ID=1" },
-      });
-
-      assertEquals(await r.json(), { svg: "usa map" });
+describe("/game/map", () => {
+  it("get request to /game/map", async () => {
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      new Users(),
+      new GameHandler(),
+    );
+    const r: Response = await app.request("/game/map", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
     });
+
+    assertEquals(await r.json(), { svg: "usa map" });
   });
-  describe("/game/face-up-cards", () => {
-    it("should respond with 5 face-up-cards json", async () => {
-      const app: Hono = createApp(
-        logger,
-        serveStatic,
-        mockedReader,
-        new Users(),
-        new GameHandler(),
-      );
-      const r: Response = await app.request("/game/face-up-cards", {
-        headers: { cookie: "user-ID=1;game-ID=1" },
-      });
+});
 
-      const faceUps = await r.json();
-      assertEquals(faceUps.length, 5);
+describe("/game/face-up-cards", () => {
+  it("should respond with 5 face-up-cards json", async () => {
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      new Users(),
+      new GameHandler(),
+    );
+    const r: Response = await app.request("/game/face-up-cards", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
     });
+
+    const faceUps = await r.json();
+    assertEquals(faceUps.length, 5);
   });
 });
