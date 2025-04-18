@@ -35,6 +35,7 @@ export class Player {
   status() {
     return {
       id: this.id,
+      name: this.name,
       trainCars: this.trainCars,
       trainCarCards: this.hand.length,
       tickets: this.destinationTickets.length,

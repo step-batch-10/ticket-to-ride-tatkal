@@ -299,7 +299,7 @@ describe("fetchPlayersDetails", () => {
           name: "hari",
         },
       ],
-      mockedReader
+      mockedReader,
     );
 
     const app: Hono = createApp(
@@ -317,18 +317,21 @@ describe("fetchPlayersDetails", () => {
     const expected = [
       {
         id: "1",
+        name: "sushanth",
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
       },
       {
         id: "2",
+        name: "Sarup",
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
       },
       {
         id: "3",
+        name: "hari",
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
