@@ -4,8 +4,8 @@ import { serveStatic } from "hono/deno";
 type Logger = typeof logger;
 type ServeStatic = typeof serveStatic;
 
-interface user {
+interface User {
   username: String;
 }
 
-export type { Logger, ServeStatic, user };
+export type { Logger, ServeStatic, User };

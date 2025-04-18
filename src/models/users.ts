@@ -1,22 +1,23 @@
-import { user } from "../types.ts";
+import { User } from "../types.ts";
 
 class Users {
-  private nextID;
-  private users;
+  private nextID: number;
+  private users: Map<string, User>;
 
   constructor() {
     this.nextID = 0;
     this.users = new Map();
   }
 
-  add(userDetails: user) {
+  add(user: User) {
     this.nextID += 1;
     const userId = String(this.nextID);
-    this.users.set(userId, userDetails);
+    this.users.set(userId, user);
+
     return userId;
   }
 
-  getInfo(id: String) {
+  getInfo(id: string) {
     return this.users.get(id);
   }
 }
