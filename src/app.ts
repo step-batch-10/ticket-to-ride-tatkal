@@ -76,6 +76,14 @@ const fetchTicketChoices = (c: Context) => {
 
   return c.json(ticketChoices);
 };
+
+const updatePlayerTickets = async (c: Context) => {
+  const ids = await c.req.json();
+  console.log(ids);
+
+  return c.text("ok", 200);
+};
+
 const createApp = (
   logger: Logger,
   serveStatic: ServeStatic,
@@ -107,6 +115,7 @@ const createApp = (
   // player routes
   app.get("/game/player/hand", fetchPlayerHand);
   app.get("/game/destination-tickets", fetchTicketChoices);
+  app.post("/game/destination-tickets", updatePlayerTickets);
   app.get("/game/players-detail", fetchPlayerDetails);
   app.get("/*", serveStatic({ root: "./public" }));
   return app;
