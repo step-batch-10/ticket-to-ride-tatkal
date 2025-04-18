@@ -19,7 +19,7 @@ const prepareApp = () => {
     serveStatic,
     mockedReader,
     new Users(),
-    new GameHandler(),
+    new GameHandler()
   );
 };
 
@@ -30,7 +30,7 @@ describe("User authentication", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/");
 
@@ -45,7 +45,7 @@ describe("User authentication", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/", {
       headers: { cookie: "user-ID=1" },
@@ -65,7 +65,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/wait", {
       method: "POST",
@@ -84,7 +84,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
     const r: Response = await app.request("/waiting-list", {
       headers: { cookie: "user-ID=1" },
@@ -104,7 +104,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/waiting-list", {
@@ -129,13 +129,7 @@ describe("usMap", () => {
 
 describe("App /login", () => {
   it("should set cookie with the user id, when given a username", async () => {
-    const app: Hono = createApp(
-      logger,
-      serveStatic,
-      mockedReader,
-      new Users(),
-      new GameHandler(),
-    );
+    const app: Hono = prepareApp();
     const body = new FormData();
     body.append("username", "player");
 
@@ -165,7 +159,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -189,7 +183,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -213,7 +207,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -235,7 +229,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -254,7 +248,7 @@ describe("/game/map", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/game/map", {
       headers: { cookie: "user-ID=1;game-ID=1" },
@@ -271,7 +265,7 @@ describe("/game/face-up-cards", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/game/face-up-cards", {
       headers: { cookie: "user-ID=1;game-ID=1" },
@@ -289,7 +283,7 @@ describe("/game/player/hand'", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
 
     const r: Response = await app.request("/game/player/hand", {
@@ -306,7 +300,7 @@ describe("/game/player/hand'", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      new GameHandler(),
+      new GameHandler()
     );
 
     const r: Response = await app.request("/game/player/hand", {
@@ -328,7 +322,7 @@ describe("fetchPlayersDetails", () => {
       serveStatic,
       mockedReader,
       new Users(),
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/game/players-detail", {
@@ -358,6 +352,49 @@ describe("fetchPlayersDetails", () => {
 
     const playersDetail = await r.json();
     assertEquals(playersDetail, expected);
+  });
+});
+
+describe("/game/destination-tickets", () => {
+  it("/game/destination-tickets should not allow non logged in user", async () => {
+    const app = prepareApp();
+    const r = await app.request("/game/destination-tickets");
+
+    assertEquals(r.status, 303);
+  });
+
+  it("/game/destination-tickets should give tickets for the logged in user", async () => {
+    const app = prepareApp();
+    const r = await app.request("/game/destination-tickets", {
+      headers: { cookie: "user-ID=jamesbond007" },
+    });
+
+    const expectedTickets = {
+      tickets: [
+        {
+          id: 1,
+          from: "LA",
+          to: "chicago",
+          points: 10,
+        },
+        {
+          id: 2,
+          from: "vancour",
+          to: "chicago",
+          points: 10,
+        },
+        {
+          id: 3,
+          from: "miami",
+          to: "chicago",
+          points: 10,
+        },
+      ],
+      mininumPickup: 2,
+    };
+
+    assertEquals(r.status, 200);
+    assertEquals(await r.json(), expectedTickets);
   });
 });
 
