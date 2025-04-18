@@ -307,3 +307,46 @@ describe("/game/player/hand'", () => {
     assertEquals(message, { message: "player not found" });
   });
 });
+
+describe("fetchPlayersDetails", () => {
+  it("should return players detail", async () => {
+    const gameHandler = new GameHandler();
+    gameHandler.createGame(["Dhanoj", "Sarup", "Anjali"], mockedReader);
+
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      new Users(),
+      gameHandler,
+    );
+
+    const r: Response = await app.request("/game/players-detail", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+
+    const expected = [
+      {
+        id: "Dhanoj",
+        tickets: 0,
+        trainCarCards: 0,
+        trainCars: 45,
+      },
+      {
+        id: "Sarup",
+        tickets: 0,
+        trainCarCards: 0,
+        trainCars: 45,
+      },
+      {
+        id: "Anjali",
+        tickets: 0,
+        trainCarCards: 0,
+        trainCars: 45,
+      },
+    ];
+
+    const playersDetail = await r.json();
+    assertEquals(playersDetail, expected);
+  });
+});
