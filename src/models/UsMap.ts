@@ -1,4 +1,4 @@
-import { type USAMap, type svg } from "./schemas.ts";
+import { type svg, type USAMap } from "./schemas.ts";
 import { Reader } from "./schemas.ts";
 
 export class UsMap implements USAMap {

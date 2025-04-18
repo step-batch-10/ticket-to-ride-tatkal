@@ -1,0 +1,10 @@
+body {
+  font-family: "Cinzel", serif;
+  background-color: #2b1b0e;
+  width: 100vw;
+  height: 100vh;
+}
+.face-up-card {
+  width: 100px;
+  height: 100px;
+}

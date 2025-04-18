@@ -1,4 +1,4 @@
-import { card, Game, USAMap, svg } from "./schemas.ts";
+import { card, Game, svg, USAMap } from "./schemas.ts";
 import { TrainCarCards } from "./train-car-cards.ts";
 
 export class Ttr implements Game {

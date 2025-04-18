@@ -9,7 +9,7 @@ import {
   getQueue,
   redirectToGame,
 } from "./handlers/waiting-handler.ts";
-import { fetchMap , fetchFaceUps} from "./handlers/gameHandler.ts";
+import { fetchFaceUps, fetchMap } from "./handlers/gameHandler.ts";
 
 const setContext =
   (reader: Reader, users: Users, gameHandler: GameHandler) =>
@@ -68,7 +68,7 @@ const createApp = (
   app.get("/redirectToGame", redirectToGame);
   // game routes
   app.get("/game/map", fetchMap);
-  app.get("/game/face-up-cards", fetchFaceUps)
+  app.get("/game/face-up-cards", fetchFaceUps);
   app.get("/*", serveStatic({ root: "./public" }));
   return app;
 };

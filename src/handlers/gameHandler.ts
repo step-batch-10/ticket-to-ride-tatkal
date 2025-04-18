@@ -6,7 +6,7 @@ export const fetchMap = (context: Context) => {
   return context.json({ svg: game.getMap() });
 };
 
-export const fetchFaceUps = (context: Context)=>{
+export const fetchFaceUps = (context: Context) => {
   const game = context.get("game");
   return context.json(game.getFaceUpCards());
-}
+};

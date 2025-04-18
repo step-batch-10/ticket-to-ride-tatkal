@@ -22,8 +22,7 @@ version supports online multiplayer with real-time gameplay.
 
 - ### Hosted Game
   Play the game here:\
-  🔗
-  [Ticket to Ride – Deployed Version](https://ttr-qa.deno.dev/)
+  🔗 [Ticket to Ride – Deployed Version](https://ttr-qa.deno.dev/)
 
 ---
 
