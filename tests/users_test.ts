@@ -15,6 +15,6 @@ describe("Users details", () => {
     users.add({ username: "Anna" });
     const userDetails = users.getInfo("1");
 
-    assertEquals(userDetails.username, "Anna");
+    assertEquals(userDetails?.username, "Anna");
   });
 });
