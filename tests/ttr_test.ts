@@ -21,4 +21,14 @@ describe("Ttr", () => {
       assertEquals(ttr.getFaceUpCards().length, 5);
     });
   });
+  
+  describe("getPlayers", () => {
+    it("should return an array players", () => {
+      const ttr = Ttr.createTtr(
+        ["1", "2", "3"],
+        UsMap.getInstance(mockedReader)
+      );
+      assertEquals(ttr.getPlayers().length, 3);
+    });
+  });
 });

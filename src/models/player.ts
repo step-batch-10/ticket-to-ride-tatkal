@@ -1,7 +1,29 @@
-export class Player {
-  id: string;
+import { card } from "./schemas.ts";
 
+export class Player {
+  private id: string;
+  private trainCars: number;
+  private hand: card[];
+  // private destinationTickets: destinationTicket[];
   constructor(id: string) {
+    
     this.id = id;
+    this.trainCars = 45;
+    this.hand = [];
+  }
+
+  addCardsToHand(...cards:card[]) {
+    this.hand.push(...cards)
+  }
+
+  getTrainCars() {
+    return this.trainCars;
+  }
+
+  getHand() {
+    return this.hand;
+  }
+  getId() {    
+    return this.id;
   }
 }

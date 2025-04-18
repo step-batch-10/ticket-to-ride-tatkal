@@ -9,7 +9,11 @@ import {
   getQueue,
   redirectToGame,
 } from "./handlers/waiting-handler.ts";
-import { fetchFaceUps, fetchMap } from "./handlers/gameHandler.ts";
+import {
+  fetchFaceUps,
+  fetchMap,
+  fetchPlayerHand,
+} from "./handlers/gameHandler.ts";
 
 const setContext =
   (reader: Reader, users: Users, gameHandler: GameHandler) =>
@@ -49,11 +53,11 @@ const createApp = (
   serveStatic: ServeStatic,
   reader: Reader,
   users: Users,
-  gameHandler: GameHandler,
+  gameHandler: GameHandler
 ): Hono => {
   const app: Hono = new Hono();
   // for testing purpose created game
-  gameHandler.createGame(["", "", ""], reader);
+  gameHandler.createGame(["1", "", ""], reader);
   app.use(logger());
   app.use(setContext(reader, users, gameHandler));
 
@@ -69,6 +73,9 @@ const createApp = (
   // game routes
   app.get("/game/map", fetchMap);
   app.get("/game/face-up-cards", fetchFaceUps);
+  // player routes
+  app.get("/game/player/hand", fetchPlayerHand);
+
   app.get("/*", serveStatic({ root: "./public" }));
   return app;
 };

@@ -70,4 +70,6 @@ export class TrainCarCards {
     this.faceUpCards[index] = this.drawCard();
     return card;
   }
+
+  
 }
