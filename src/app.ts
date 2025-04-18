@@ -44,7 +44,7 @@ const handleLogin = async (c: Context) => {
   const fd: Object = await c.req.parseBody();
   const user = c.get("users");
   const userID: string = user.add(fd);
-  
+
   setCookie(c, "user-ID", userID);
   return c.redirect("/", 303);
 };
@@ -92,11 +92,7 @@ const createApp = (
   gameHandler: GameHandler,
 ): Hono => {
   const app: Hono = new Hono();
-  // for testing purpose created game
-  gameHandler.createGame([{ name: "susahnth", id: "1" }, {
-    name: "susahnth",
-    id: "3",
-  }, { name: "susahnth", id: "2" }], reader);
+
   app.use(logger());
   app.use(setContext(reader, users, gameHandler));
 

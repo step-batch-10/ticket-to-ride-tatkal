@@ -13,19 +13,13 @@ const mockedReader = (_path: string | URL): string => {
   return "usa map";
 };
 
-const prepareApp = () => {
-  return createApp(
-    logger,
-    serveStatic,
-    mockedReader,
-    new Users(),
-    new GameHandler(),
-  );
+const prepareApp = (gameHandler: GameHandler) => {
+  return createApp(logger, serveStatic, mockedReader, new Users(), gameHandler);
 };
 
 describe("User authentication", () => {
   it("should redirect the user to login if user is not authenticated", async () => {
-    const app: Hono = prepareApp();
+    const app: Hono = prepareApp(new GameHandler());
     const r: Response = await app.request("/");
 
     assertEquals(r.status, 303);
@@ -34,7 +28,7 @@ describe("User authentication", () => {
   });
 
   it("should serve the home page for user, if user is authenticated", async () => {
-    const app: Hono = prepareApp();
+    const app: Hono = prepareApp(new GameHandler());
     const r: Response = await app.request("/", {
       headers: { cookie: "user-ID=1" },
     });
@@ -83,6 +77,17 @@ describe("addToWaitingQueue", () => {
 
   it("should response with status 200 and return waitingList", async () => {
     const gameHandler = new GameHandler();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
     gameHandler.addToQueue({ name: "dhanoj", id: "1" });
     const user = new Users();
     user.add({ username: "dhanoj" });
@@ -117,7 +122,7 @@ describe("usMap", () => {
 
 describe("App /login", () => {
   it("should set cookie with the user id, when given a username", async () => {
-    const app: Hono = prepareApp();
+    const app: Hono = prepareApp(new GameHandler());
     const body = new FormData();
     body.append("username", "player");
 
@@ -242,7 +247,19 @@ describe("redirectToGame", () => {
 
 describe("/game/map", () => {
   it("get request to /game/map", async () => {
-    const app: Hono = prepareApp();
+    const gameHandler = new GameHandler();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const app: Hono = prepareApp(gameHandler);
     const r: Response = await app.request("/game/map", {
       headers: { cookie: "user-ID=1;game-ID=1" },
     });
@@ -253,7 +270,19 @@ describe("/game/map", () => {
 
 describe("/game/face-up-cards", () => {
   it("should respond with 5 face-up-cards json", async () => {
-    const app: Hono = prepareApp();
+    const gameHandler = new GameHandler();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const app: Hono = prepareApp(gameHandler);
     const r: Response = await app.request("/game/face-up-cards", {
       headers: { cookie: "user-ID=1;game-ID=1" },
     });
@@ -265,7 +294,19 @@ describe("/game/face-up-cards", () => {
 
 describe("/game/player/hand'", () => {
   it("should respond with an array of cards", async () => {
-    const app: Hono = prepareApp();
+    const gameHandler = new GameHandler();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const app: Hono = prepareApp(gameHandler);
 
     const r: Response = await app.request("/game/player/properties", {
       headers: { cookie: "user-ID=1;game-ID=1" },
@@ -277,7 +318,19 @@ describe("/game/player/hand'", () => {
   });
 
   it("should respond with an 404 if player not found", async () => {
-    const app: Hono = prepareApp();
+    const gameHandler = new GameHandler();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const app: Hono = prepareApp(gameHandler);
 
     const r: Response = await app.request("/game/player/properties", {
       headers: { cookie: "user-ID=10;game-ID=1" },
@@ -349,14 +402,38 @@ describe("fetchPlayersDetails", () => {
 
 describe("GET /game/destination-tickets", () => {
   it("/game/destination-tickets should not allow non logged in user", async () => {
-    const app = prepareApp();
+    const gameHandler = new GameHandler();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const app: Hono = prepareApp(gameHandler);
     const r = await app.request("/game/destination-tickets");
 
     assertEquals(r.status, 303);
   });
 
   it("/game/destination-tickets should give tickets for the logged in user", async () => {
-    const app = prepareApp();
+    const gameHandler = new GameHandler();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const app: Hono = prepareApp(gameHandler);
     const r = await app.request("/game/destination-tickets", {
       headers: { cookie: "user-ID=700" },
     });
@@ -392,7 +469,19 @@ describe("GET /game/destination-tickets", () => {
 
 describe("POST /game/destination-tickets", () => {
   it("should response with 200", async () => {
-    const app = prepareApp();
+    const gameHandler = new GameHandler();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const app: Hono = prepareApp(gameHandler);
 
     const body = JSON.stringify({ ticketIds: [1, 2] });
 
