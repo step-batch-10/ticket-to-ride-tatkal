@@ -19,7 +19,7 @@ describe("Game Handler", () => {
     gameHandler.addToQueue({ name: "sarup", id: "2" });
     gameHandler.addToQueue({ name: "hari", id: "3" });
 
-    assertEquals(gameHandler.getWaitingList("sushanth"), [
+    assertEquals(gameHandler.getWaitingList("1"), [
       "sushanth",
       "sarup",
       "hari",

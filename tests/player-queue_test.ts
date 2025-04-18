@@ -16,10 +16,12 @@ describe("WaitingQueue", () => {
     queue.add({ name: "hari", id: "3" });
     queue.add({ name: "Anjali", id: "4" });
 
-    assertEquals(queue.getWaitingQueue("Anjali"), [{
-      name: "Anjali",
-      id: "4",
-    }]);
+    assertEquals(queue.getWaitingQueue("4"), [
+      {
+        name: "Anjali",
+        id: "4",
+      },
+    ]);
   });
 
   it("Should return true when waiting queue have 3 players", () => {
@@ -27,7 +29,7 @@ describe("WaitingQueue", () => {
     queue.add({ name: "sushanth", id: "1" });
     queue.add({ name: "sarup", id: "2" });
     queue.add({ name: "hari", id: "3" });
-    assertEquals(queue.isFull("sushanth"), true);
+    assertEquals(queue.isFull("1"), true);
   });
 
   it("Should return false when waiting queue have less than 3 players", () => {
@@ -35,6 +37,6 @@ describe("WaitingQueue", () => {
     queue.add({ name: "sushanth", id: "1" });
     queue.add({ name: "sarup", id: "2" });
 
-    assertEquals(queue.isFull("sarup"), false);
+    assertEquals(queue.isFull("2"), false);
   });
 });

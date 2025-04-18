@@ -191,9 +191,9 @@ describe("redirectToGame", () => {
 
   it("should redirect to waiting page when player is not present in waiting list", async () => {
     const gameHandler = new GameHandler();
-    gameHandler.addToQueue({ name: "dhanoj", id: "1" });
-    gameHandler.addToQueue({ name: "sarup", id: "1" });
-    gameHandler.addToQueue({ name: "Anjali", id: "1" });
+    gameHandler.addToQueue({ name: "dhanoj", id: "4" });
+    gameHandler.addToQueue({ name: "sarup", id: "2" });
+    gameHandler.addToQueue({ name: "Anjali", id: "3" });
 
     const user = new Users();
     user.add({ username: "hari" });
