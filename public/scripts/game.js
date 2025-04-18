@@ -5,13 +5,13 @@ const renderMap = async () => {
   mapContainer.innerHTML = map.svg;
 };
 
-const createFaceUpCard =(card) => {
+const createFaceUpCard = (card) => {
   const div = document.createElement("div");
   div.classList.add("face-up-card");
   div.style.backgroundColor = card.color;
-    div.innerText = card.color
+  div.innerText = card.color;
   return div;
-}
+};
 
 const renderFaceupCards = async () => {
   const res = await fetch("/game/face-up-cards");
@@ -19,7 +19,7 @@ const renderFaceupCards = async () => {
 
   const faceUpDivs = cards.map(createFaceUpCard);
   const faceupContainer = document.querySelector("#face-up-container");
-faceupContainer.append(...faceUpDivs)
+  faceupContainer.append(...faceUpDivs);
 };
 
 const drawDestinationCards = async () => {
