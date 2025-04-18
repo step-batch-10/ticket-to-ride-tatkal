@@ -246,7 +246,7 @@ describe("redirectToGame", () => {
         new GameHandler(),
       );
       const r: Response = await app.request("/game/map", {
-        headers: { cookie: "user-ID=1" },
+        headers: { cookie: "user-ID=1;game-ID=1" },
       });
 
       assertEquals(await r.json(), { svg: "usa map" });

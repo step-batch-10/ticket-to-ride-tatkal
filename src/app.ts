@@ -17,10 +17,11 @@ const setContext =
     context.set("reader", reader);
     context.set("users", users);
     context.set("gameHandler", gameHandler);
-    // const gameId = getCookie(context, 'game-ID');
-    const gameId = gameHandler.createGame([""], reader);
-    const game = gameHandler.getGame(gameId)?.game;
-    context.set("game", game);
+    const gameId = Number(getCookie(context, "game-ID"));
+    if (gameId) {
+      const game = gameHandler.getGame(gameId)?.game;
+      context.set("game", game);
+    }
     await next();
   };
 
@@ -51,6 +52,8 @@ const createApp = (
   gameHandler: GameHandler,
 ): Hono => {
   const app: Hono = new Hono();
+  // for testing purpose created game
+  gameHandler.createGame(["", "", ""], reader);
   app.use(logger());
   app.use(setContext(reader, users, gameHandler));
 
