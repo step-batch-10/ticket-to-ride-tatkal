@@ -19,19 +19,13 @@ const prepareApp = () => {
     serveStatic,
     mockedReader,
     new Users(),
-    new GameHandler(),
+    new GameHandler()
   );
 };
 
 describe("User authentication", () => {
   it("should redirect the user to login if user is not authenticated", async () => {
-    const app: Hono = createApp(
-      logger,
-      serveStatic,
-      mockedReader,
-      new Users(),
-      new GameHandler(),
-    );
+    const app: Hono = prepareApp();
     const r: Response = await app.request("/");
 
     assertEquals(r.status, 303);
@@ -40,13 +34,7 @@ describe("User authentication", () => {
   });
 
   it("should serve the home page for user, if user is authenticated", async () => {
-    const app: Hono = createApp(
-      logger,
-      serveStatic,
-      mockedReader,
-      new Users(),
-      new GameHandler(),
-    );
+    const app: Hono = prepareApp();
     const r: Response = await app.request("/", {
       headers: { cookie: "user-ID=1" },
     });
@@ -65,7 +53,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      new GameHandler(),
+      new GameHandler()
     );
     const r: Response = await app.request("/wait", {
       method: "POST",
@@ -84,7 +72,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
     const r: Response = await app.request("/waiting-list", {
       headers: { cookie: "user-ID=1" },
@@ -104,7 +92,7 @@ describe("addToWaitingQueue", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/waiting-list", {
@@ -156,7 +144,7 @@ describe("redirectToGame", () => {
         { name: "hari", id: "3" },
         { name: "sarup", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const user = new Users();
     user.add({ username: "dhanoj" });
@@ -166,7 +154,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -190,7 +178,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -215,7 +203,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -237,7 +225,7 @@ describe("redirectToGame", () => {
       serveStatic,
       mockedReader,
       user,
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/redirectToGame", {
@@ -251,13 +239,7 @@ describe("redirectToGame", () => {
 
 describe("/game/map", () => {
   it("get request to /game/map", async () => {
-    const app: Hono = createApp(
-      logger,
-      serveStatic,
-      mockedReader,
-      new Users(),
-      new GameHandler(),
-    );
+    const app: Hono = prepareApp();
     const r: Response = await app.request("/game/map", {
       headers: { cookie: "user-ID=1;game-ID=1" },
     });
@@ -268,13 +250,7 @@ describe("/game/map", () => {
 
 describe("/game/face-up-cards", () => {
   it("should respond with 5 face-up-cards json", async () => {
-    const app: Hono = createApp(
-      logger,
-      serveStatic,
-      mockedReader,
-      new Users(),
-      new GameHandler(),
-    );
+    const app: Hono = prepareApp();
     const r: Response = await app.request("/game/face-up-cards", {
       headers: { cookie: "user-ID=1;game-ID=1" },
     });
@@ -286,13 +262,7 @@ describe("/game/face-up-cards", () => {
 
 describe("/game/player/hand'", () => {
   it("should respond with an array of cards", async () => {
-    const app: Hono = createApp(
-      logger,
-      serveStatic,
-      mockedReader,
-      new Users(),
-      new GameHandler(),
-    );
+    const app: Hono = prepareApp();
 
     const r: Response = await app.request("/game/player/hand", {
       headers: { cookie: "user-ID=1;game-ID=1" },
@@ -303,13 +273,7 @@ describe("/game/player/hand'", () => {
   });
 
   it("should respond with an 404 if player not found", async () => {
-    const app: Hono = createApp(
-      logger,
-      serveStatic,
-      mockedReader,
-      new Users(),
-      new GameHandler(),
-    );
+    const app: Hono = prepareApp();
 
     const r: Response = await app.request("/game/player/hand", {
       headers: { cookie: "user-ID=10;game-ID=1" },
@@ -323,20 +287,27 @@ describe("/game/player/hand'", () => {
 describe("fetchPlayersDetails", () => {
   it("should return players detail", async () => {
     const gameHandler = new GameHandler();
-    gameHandler.createGame([{ name: "sushanth", id: "1" }, {
-      id: "2",
-      name: "Sarup",
-    }, {
-      id: "3",
-      name: "hari",
-    }], mockedReader);
+    gameHandler.createGame(
+      [
+        { name: "sushanth", id: "1" },
+        {
+          id: "2",
+          name: "Sarup",
+        },
+        {
+          id: "3",
+          name: "hari",
+        },
+      ],
+      mockedReader
+    );
 
     const app: Hono = createApp(
       logger,
       serveStatic,
       mockedReader,
       new Users(),
-      gameHandler,
+      gameHandler
     );
 
     const r: Response = await app.request("/game/players-detail", {
@@ -369,7 +340,7 @@ describe("fetchPlayersDetails", () => {
   });
 });
 
-describe("/game/destination-tickets", () => {
+describe("GET /game/destination-tickets", () => {
   it("/game/destination-tickets should not allow non logged in user", async () => {
     const app = prepareApp();
     const r = await app.request("/game/destination-tickets");
@@ -380,7 +351,7 @@ describe("/game/destination-tickets", () => {
   it("/game/destination-tickets should give tickets for the logged in user", async () => {
     const app = prepareApp();
     const r = await app.request("/game/destination-tickets", {
-      headers: { cookie: "user-ID=jamesbond007" },
+      headers: { cookie: "user-ID=700" },
     });
 
     const expectedTickets = {
@@ -412,45 +383,18 @@ describe("/game/destination-tickets", () => {
   });
 });
 
-describe("/game/destination-tickets", () => {
-  it("/game/destination-tickets should not allow non logged in user", async () => {
+describe("POST /game/destination-tickets", () => {
+  it("should response with 200", async () => {
     const app = prepareApp();
-    const r = await app.request("/game/destination-tickets");
 
-    assertEquals(r.status, 303);
-  });
+    const body = JSON.stringify({ ticketIds: [1, 2] });
 
-  it("/game/destination-tickets should give tickets for the logged in user", async () => {
-    const app = prepareApp();
-    const r = await app.request("/game/destination-tickets", {
-      headers: { cookie: "user-ID=jamesbond007" },
+    const response = await app.request("/game/destination-tickets", {
+      method: "POST",
+      body,
+      headers: { cookie: "user-ID=1" },
     });
 
-    const expectedTickets = {
-      tickets: [
-        {
-          id: 1,
-          from: "LA",
-          to: "chicago",
-          points: 10,
-        },
-        {
-          id: 2,
-          from: "vancour",
-          to: "chicago",
-          points: 10,
-        },
-        {
-          id: 3,
-          from: "miami",
-          to: "chicago",
-          points: 10,
-        },
-      ],
-      mininumPickup: 2,
-    };
-
-    assertEquals(r.status, 200);
-    assertEquals(await r.json(), expectedTickets);
+    assertEquals(response.status, 200);
   });
 });
