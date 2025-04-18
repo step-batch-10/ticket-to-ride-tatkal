@@ -38,25 +38,35 @@ const generateTicket = (ticket) => {
 
 const displayTickets = (tickets) => {
   const ticketsSelector = cloneTemplate("#ticket-selector-template");
-  const container = ticketsSelector.querySelector(".tickets-container");
+  const container = ticketsSelector.querySelector("#ticket-container");
   const ticketTags = tickets.map(generateTicket);
 
   container.append(...ticketTags);
-  document.querySelector(".tickets-display").replaceChildren(ticketsSelector);
+  document.querySelector(".ticket-display").replaceChildren(ticketsSelector);
 };
 
-const closePopUp = (threshold) => async () => {
-  const selectedTickets = document.querySelectorAll(".selected");
+const sumbitTicketChoices = (threshold) => async () => {
+  const container = document.querySelector("#ticket-container");
+  const selectedTickets = container.querySelectorAll(".selected");
+  const ticketIds = Array.from(selectedTickets).map((t) => t.id);
+
+  const body = JSON.stringify({ ticketIds });
+
   if (selectedTickets.length < threshold) return;
-  await fetch("/game/destination-tickets", { method: "POST" });
-  document.querySelector(".ticket-selection").remove();
+
+  await fetch("/game/destination-tickets", {
+    method: "POST",
+    body,
+  });
+
+  document.querySelector("#ticket-selection").remove();
 };
 
 const handleTicketsSelection = (destinationCards) => {
   const { tickets, mininumPickup } = destinationCards;
   displayTickets(tickets);
   const chooseBtn = document.querySelector("#choose-tickets");
-  chooseBtn.addEventListener("click", closePopUp(mininumPickup));
+  chooseBtn.addEventListener("click", sumbitTicketChoices(mininumPickup));
 };
 
 const createFaceUpCard = (card) => {
