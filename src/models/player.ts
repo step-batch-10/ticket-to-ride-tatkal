@@ -24,7 +24,6 @@ export class Player {
   getHand() {
     return this.hand;
   }
-
   getId() {
     return this.id;
   }
