@@ -23,7 +23,7 @@ body {
 }
 
 .player-card {
-  width:100px;
+  width: 100px;
   height: 150px;
   padding: 10px;
   margin: 10px;
@@ -34,7 +34,7 @@ body {
   border: 1px solid white;
 }
 
-#other-resources{
+#other-resources {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,19 +44,18 @@ body {
   border: 2px solid red;
 }
 
-#player-resources{
+#player-resources {
   display: flex;
 }
 
-#cars{
+#cars {
   background-color: aqua;
   padding: 10px;
   width: 50px;
   height: 50px;
-
 }
 
-#player-hand{
+#player-hand {
   width: 70%;
   display: flex;
   flex-wrap: wrap;

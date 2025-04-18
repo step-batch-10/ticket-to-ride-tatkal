@@ -80,12 +80,12 @@ const createTrainCarCard = (card) => {
 const renderPlayerResources = async () => {
   const res = await fetch("/game/player/properties");
   const resources = await res.json();
-  const carsContainer = document.querySelector('#cars');
+  const carsContainer = document.querySelector("#cars");
   carsContainer.innerText = resources.cars;
-  const playerHandContainer = document.querySelector('#player-hand');
+  const playerHandContainer = document.querySelector("#player-hand");
   const cards = resources.hand.map(createTrainCarCard);
   playerHandContainer.append(...cards);
-}
+};
 
 const renderFaceupCards = async () => {
   const res = await fetch("/game/face-up-cards");
