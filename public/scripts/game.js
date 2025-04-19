@@ -81,6 +81,13 @@ const createTrainCarCard = (card) => {
   div.innerText = card.color;
   return div;
 };
+const createTicketCard = (card) => {
+  const div = document.createElement("div");
+  div.classList.add("player-ticket-card");
+  div.innerText = ` from : ${card.from}--> to:${card.to} --->points${card.points}`;
+  return div;
+};
+
 
 const renderPlayerResources = async () => {
   const res = await fetch("/game/player/properties");
@@ -90,6 +97,10 @@ const renderPlayerResources = async () => {
   const playerHandContainer = document.querySelector("#player-hand");
   const cards = resources.hand.map(createTrainCarCard);
   playerHandContainer.append(...cards);
+  // need change
+  const tickets = resources.tickets.map(createTicketCard)
+  const ticketContainer = document.querySelector('#player-ticket-cards');
+  ticketContainer.append(...tickets);
 };
 
 const renderFaceupCards = async () => {

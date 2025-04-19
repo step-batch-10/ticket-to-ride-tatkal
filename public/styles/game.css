@@ -74,8 +74,8 @@ body {
 
 #other-resources {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   width: 30%;
   height: 100%;
@@ -99,4 +99,23 @@ body {
   flex-wrap: wrap;
   gap: 10px;
   overflow-y: scroll;
+}
+
+#player-ticket-cards {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.player-ticket-card {
+  background-color: rgb(73, 42, 9);
+  color: rgb(219, 198, 136);
+  border-radius: 5px;
+  width: 100%;
+  height: 100px;
+  padding: 5px;
+  text-align: center;
 }
