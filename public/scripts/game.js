@@ -42,17 +42,20 @@ const displayTickets = (tickets) => {
   const ticketTags = tickets.map(generateTicket);
 
   container.append(...ticketTags);
-  document.querySelector(".ticket-display").replaceChildren(ticketsSelector);
+  const ticketArea = document.querySelector(".ticket-display");
+  ticketArea.classList.add("align-right");
+  ticketArea.replaceChildren(ticketsSelector);
 };
 
 const sumbitTicketChoices = (threshold) => async () => {
   const container = document.querySelector("#ticket-container");
   const selectedTickets = container.querySelectorAll(".selected");
   const ticketIds = Array.from(selectedTickets).map((t) => t.id);
+  if (selectedTickets.length < threshold) return;
 
   const body = JSON.stringify({ ticketIds });
-
-  if (selectedTickets.length < threshold) return;
+  const ticketArea = document.querySelector(".ticket-display");
+  ticketArea.classList.remove("align-right");
 
   await fetch("/game/destination-tickets", {
     method: "POST",

@@ -1,8 +1,15 @@
+* {
+  padding: 0;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Cinzel", serif;
   background-color: rgb(155, 92, 4);
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 
 .ticket {
@@ -36,6 +43,33 @@ body {
 
 .details {
   border: 1px solid white;
+}
+
+.align-right {
+  transform: translateX(-100%);
+}
+
+#ticket-selection {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+}
+
+#ticket-container {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 80%;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.ticket {
+  padding: 10px;
+  width: 100%;
 }
 
 #other-resources {
