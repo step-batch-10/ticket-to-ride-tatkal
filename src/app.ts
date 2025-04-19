@@ -73,7 +73,7 @@ const createApp = (
   serveStatic: ServeStatic,
   reader: Reader,
   users: Users,
-  gameHandler: GameHandler
+  gameHandler: GameHandler,
 ): Hono => {
   const app: Hono = new Hono();
   // for testing purpose created game
@@ -86,7 +86,7 @@ const createApp = (
       },
       { name: "susahnth", id: "2" },
     ],
-    reader
+    reader,
   );
   app.use(logger());
   app.use(setContext(reader, users, gameHandler));
