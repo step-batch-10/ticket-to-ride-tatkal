@@ -15,6 +15,7 @@ import {
   fetchPlayerDetails,
   fetchPlayerHand,
 } from "./handlers/gameHandler.ts";
+import { Ttr } from "./models/ttr.ts";
 
 const setContext =
   (reader: Reader, users: Users, gameHandler: GameHandler) =>
@@ -50,31 +51,14 @@ const handleLogin = async (c: Context) => {
 };
 
 const fetchTicketChoices = (c: Context) => {
-  const ticketChoices = {
-    tickets: [
-      {
-        id: 1,
-        from: "LA",
-        to: "chicago",
-        points: 10,
-      },
-      {
-        id: 2,
-        from: "vancour",
-        to: "chicago",
-        points: 10,
-      },
-      {
-        id: 3,
-        from: "miami",
-        to: "chicago",
-        points: 10,
-      },
-    ],
-    mininumPickup: 2,
+  const TTR: Ttr = c.get("game");
+  // will return top 3 DT cards.
+  const destinationTicketsInfo = {
+    tickets: TTR.getDestinationTickets(),
+    minimumPickup: 2,
   };
 
-  return c.json(ticketChoices);
+  return c.json(destinationTicketsInfo);
 };
 
 const updatePlayerTickets = async (c: Context) => {
@@ -89,9 +73,21 @@ const createApp = (
   serveStatic: ServeStatic,
   reader: Reader,
   users: Users,
-  gameHandler: GameHandler,
+  gameHandler: GameHandler
 ): Hono => {
   const app: Hono = new Hono();
+  // for testing purpose created game
+  gameHandler.createGame(
+    [
+      { name: "susahnth", id: "1" },
+      {
+        name: "susahnth",
+        id: "3",
+      },
+      { name: "susahnth", id: "2" },
+    ],
+    reader
+  );
   app.use(logger());
   app.use(setContext(reader, users, gameHandler));
 

@@ -1,17 +1,23 @@
-import { card, Game, svg, USAMap } from "./schemas.ts";
+import { card, Game, svg, Tickets } from "./schemas.ts";
 import { TrainCarCards } from "./train-car-cards.ts";
+import DestinationTickets from "./tickets.ts";
 import { Player } from "./player.ts";
 import { PlayerInfo } from "../types.ts";
+import { UsMap } from "./UsMap.ts";
+// const getTickets = () => tickets;
 
 export class Ttr implements Game {
   players: Player[];
-  map: USAMap;
+  map: UsMap;
   trainCarCards: TrainCarCards;
+  destinationCards: DestinationTickets;
 
-  constructor(players: Player[], map: USAMap) {
+  constructor(players: Player[], map: UsMap) {
     this.players = players;
     this.map = map;
     this.trainCarCards = new TrainCarCards();
+    this.destinationCards = map.getDestinationTickets();
+
     this.initializePlayers();
   }
 
@@ -24,7 +30,7 @@ export class Ttr implements Game {
     });
   }
 
-  static createTtr(players: PlayerInfo[], map: USAMap) {
+  static createTtr(players: PlayerInfo[], map: UsMap) {
     const playerInstances = players.map((playerInfo) => {
       return new Player(playerInfo);
     });
@@ -37,6 +43,10 @@ export class Ttr implements Game {
 
   getFaceUpCards(): card[] {
     return this.trainCarCards.getFaceUpCards();
+  }
+
+  getDestinationTickets(): Tickets[] {
+    return this.destinationCards.getTopThree();
   }
 
   getPlayers() {

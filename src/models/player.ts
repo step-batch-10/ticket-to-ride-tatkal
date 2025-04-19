@@ -17,7 +17,7 @@ export class Player {
   }
 
   addCardsToHand(...cards: card[]) {
-    this.hand.push(...cards);
+    return this.hand.push(...cards);
   }
 
   getTrainCars() {
@@ -30,6 +30,14 @@ export class Player {
 
   getId() {
     return this.id;
+  }
+
+  addDestinationTickets(tickets: Tickets[]) {
+    return this.destinationTickets.push(...tickets);
+  }
+
+  getDestinationTickets() {
+    return this.destinationTickets;
   }
 
   status() {
