@@ -17,7 +17,7 @@ const highlightPick = (ticketTag) => {
   list.toggle("selected");
 };
 
-const insertTicketInfo = (parentTag, selector, data) => {
+const insertTagInfo = (parentTag, selector, data) => {
   const tag = parentTag.querySelector(selector);
   tag.innerText = data;
 };
@@ -26,9 +26,9 @@ const generateTicket = (ticket) => {
   const ticketTemplate = cloneTemplate("#ticket-template");
   const ticketTag = ticketTemplate.querySelector(".ticket");
 
-  insertTicketInfo(ticketTemplate, ".from-station", ticket.from);
-  insertTicketInfo(ticketTemplate, ".to-station", ticket.to);
-  insertTicketInfo(ticketTemplate, ".points", ticket.points);
+  insertTagInfo(ticketTemplate, ".from-station", ticket.from);
+  insertTagInfo(ticketTemplate, ".to-station", ticket.to);
+  insertTagInfo(ticketTemplate, ".points", ticket.points);
 
   ticketTag.id = ticket.id;
   ticketTag.addEventListener("click", () => highlightPick(ticketTag));
@@ -104,10 +104,10 @@ const drawDestinationCards = async () => {
 
 const getPlayerCard = (name, trainCars, trainCarCards, tickets) => {
   const card = cloneTemplate("#player-card");
-  insertTicketInfo(card, ".player-name", name);
-  insertTicketInfo(card, ".cars", `cars: ${trainCars}`);
-  insertTicketInfo(card, ".train-car-cards", `train-cards: ${trainCarCards}`);
-  insertTicketInfo(card, ".destination-cards", `tickets: ${tickets}`);
+  insertTagInfo(card, ".player-name", name);
+  insertTagInfo(card, ".cars", `cars: ${trainCars}`);
+  insertTagInfo(card, ".train-car-cards", `train-cards: ${trainCarCards}`);
+  insertTagInfo(card, ".destination-cards", `tickets: ${tickets}`);
   return card;
 };
 
