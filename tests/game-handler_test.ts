@@ -2,7 +2,15 @@ import { assert, assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { GameHandler } from "../src/models/game-handlers.ts";
 
+import tickets from "../src/models/tickets.json" with { type: "json" };
 const mockedReader = (_path: string | URL): string => {
+  // deno-lint-ignore no-explicit-any
+  const loc: any = _path;
+  console.log(loc, "==================");
+  if (loc.endsWith(".json")) {
+    return JSON.stringify(tickets);
+  }
+
   return "usa map";
 };
 

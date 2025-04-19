@@ -6,10 +6,18 @@ import { Context, Hono } from "hono";
 import { UsMap } from "../src/models/UsMap.ts";
 import { Users } from "../src/models/users.ts";
 import { GameHandler } from "../src/models/game-handlers.ts";
+import dtickets from "../src/models/tickets.json" with { type: "json" };
 
 const logger = () => async (_: Context, n: Function) => await n();
 
 const mockedReader = (_path: string | URL): string => {
+  // deno-lint-ignore no-explicit-any
+  const loc: any = _path;
+
+  if (loc.endsWith(".json")) {
+    return JSON.stringify(dtickets);
+  }
+
   return "usa map";
 };
 
@@ -433,33 +441,21 @@ describe("GET /game/destination-tickets", () => {
       ],
       mockedReader,
     );
-    const app: Hono = prepareApp(gameHandler);
-    const r = await app.request("/game/destination-tickets", {
-      headers: { cookie: "user-ID=700" },
+    const app: Hono = createApp(
+      logger,
+      serveStatic,
+      mockedReader,
+      new Users(),
+      gameHandler,
+    );
+
+    const r: Response = await app.request("/game/destination-tickets", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
     });
 
     const expectedTickets = {
-      tickets: [
-        {
-          id: 1,
-          from: "LA",
-          to: "chicago",
-          points: 10,
-        },
-        {
-          id: 2,
-          from: "vancour",
-          to: "chicago",
-          points: 10,
-        },
-        {
-          id: 3,
-          from: "miami",
-          to: "chicago",
-          points: 10,
-        },
-      ],
-      mininumPickup: 2,
+      tickets: dtickets.slice(-3),
+      minimumPickup: 2,
     };
 
     assertEquals(r.status, 200);
