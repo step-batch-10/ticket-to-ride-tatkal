@@ -63,7 +63,9 @@ const fetchTicketChoices = (c: Context) => {
 
 const updatePlayerTickets = async (c: Context) => {
   const ids = await c.req.json();
-  console.log(ids);
+  const playerID = getCookie(c, "user-ID");
+  const game = c.get("game");
+  game.addDestinationTicketsTo(playerID, ids.ticketIds);
 
   return c.text("ok", 200);
 };

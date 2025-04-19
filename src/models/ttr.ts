@@ -49,6 +49,15 @@ export class Ttr implements Game {
     return this.destinationCards.getTopThree();
   }
 
+  addDestinationTicketsTo(playerId: string, ticketIds: string[]) {
+    const currentPlayer = this.players.find((player: Player) => {
+      return player.getId() === playerId;
+    });
+
+    const tickets = this.destinationCards.getTickets(ticketIds);
+    return currentPlayer?.addDestinationTickets(tickets);
+  }
+
   getPlayers() {
     return this.players;
   }

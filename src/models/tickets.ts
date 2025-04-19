@@ -2,14 +2,20 @@ import { Tickets } from "./schemas.ts";
 import _ from "lodash";
 
 class DestinationTickets {
-  readonly tickets: Tickets[];
+  readonly avaliableTickets: Tickets[];
+  readonly AllTickets;
 
   constructor(tickets: Tickets[]) {
-    this.tickets = tickets;
+    this.AllTickets = tickets;
+    this.avaliableTickets = [...tickets];
   }
 
   getTopThree() {
-    return this.tickets.splice(-3);
+    return this.avaliableTickets.splice(-3);
+  }
+
+  getTickets(ids: string[]) {
+    return this.AllTickets.filter((ticket) => ids.includes(ticket.id));
   }
 }
 export default DestinationTickets;
