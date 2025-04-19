@@ -92,7 +92,15 @@ const createApp = (
   gameHandler: GameHandler,
 ): Hono => {
   const app: Hono = new Hono();
-
+  // for testing purpose created game
+  gameHandler.createGame(
+    [
+      { name: "Sushanth", id: "1" },
+      { name: "Sushanth", id: "2" },
+      { name: "Sushanth", id: "3" },
+    ],
+    reader,
+  );
   app.use(logger());
   app.use(setContext(reader, users, gameHandler));
 
