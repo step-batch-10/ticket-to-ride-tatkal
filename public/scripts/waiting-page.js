@@ -5,10 +5,7 @@ const createList = (players) => {
     const listItem = document.createElement("li");
     const role = document.createElement("span");
 
-    listItem.setAttribute(
-      "class",
-      "list-group-item bg-dark text-light fw-bold d-flex justify-content-between align-items-center",
-    );
+    listItem.setAttribute("class", "list-group-item");
 
     listItem.textContent = player;
 
