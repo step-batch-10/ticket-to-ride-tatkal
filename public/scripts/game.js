@@ -61,7 +61,8 @@ const sumbitTicketChoices = (threshold) => async () => {
     method: "POST",
     body,
   });
-
+  renderPlayerCards();
+  renderPlayerResources();
   document.querySelector("#ticket-selection").remove();
 };
 
@@ -70,8 +71,6 @@ const handleTicketsSelection = (destinationCards) => {
   displayTickets(tickets);
   const chooseBtn = document.querySelector("#choose-tickets");
   chooseBtn.addEventListener("click", sumbitTicketChoices(minimumPickup));
-  renderPlayerCards();
-  renderPlayerResources();
 };
 
 const createTrainCarCard = (card) => {
@@ -84,10 +83,10 @@ const createTrainCarCard = (card) => {
 const createTicketCard = (card) => {
   const div = document.createElement("div");
   div.classList.add("player-ticket-card");
-  div.innerText = ` from : ${card.from}--> to:${card.to} --->points${card.points}`;
+  div.innerText =
+    ` from : ${card.from}--> to:${card.to} --->points${card.points}`;
   return div;
 };
-
 
 const renderPlayerResources = async () => {
   const res = await fetch("/game/player/properties");
@@ -96,11 +95,12 @@ const renderPlayerResources = async () => {
   carsContainer.innerText = resources.cars;
   const playerHandContainer = document.querySelector("#player-hand");
   const cards = resources.hand.map(createTrainCarCard);
-  playerHandContainer.append(...cards);
-  // need change
-  const tickets = resources.tickets.map(createTicketCard)
-  const ticketContainer = document.querySelector('#player-ticket-cards');
-  ticketContainer.append(...tickets);
+  playerHandContainer.replaceChildren(...cards);
+  console.log(resources);
+
+  const tickets = resources.tickets.map(createTicketCard);
+  const ticketContainer = document.querySelector("#player-ticket-cards");
+  ticketContainer.replaceChildren(...tickets);
 };
 
 const renderFaceupCards = async () => {
