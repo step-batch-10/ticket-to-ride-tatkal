@@ -7,7 +7,6 @@ import tickets from "../src/models/tickets.json" with { type: "json" };
 const mockedReader = (_path: string | URL): string => {
   // deno-lint-ignore no-explicit-any
   const loc: any = _path;
-  console.log(loc, "==================");
   if (loc.endsWith(".json")) {
     return JSON.stringify(tickets);
   }

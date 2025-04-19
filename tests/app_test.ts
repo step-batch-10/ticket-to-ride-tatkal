@@ -484,7 +484,7 @@ describe("POST /game/destination-tickets", () => {
     const response = await app.request("/game/destination-tickets", {
       method: "POST",
       body,
-      headers: { cookie: "user-ID=1" },
+      headers: { cookie: "user-ID=1;game-ID=1" },
     });
 
     assertEquals(response.status, 200);
