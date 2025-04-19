@@ -27,73 +27,54 @@ const displayTickets = (tags) => {
 
 // ----- Card Creation -----
 
-const createTrainCarCard = ({ color }) => {
-  const card = document.createElement("div");
-  card.className = "train-car-card";
-  card.style.backgroundColor = color;
-  card.innerText = color;
-  return card;
+const sumbitTicketChoices = (threshold) => async () => {
+  const container = document.querySelector("#ticket-container");
+  const selectedTickets = container.querySelectorAll(".selected");
+  const ticketIds = Array.from(selectedTickets).map((t) => t.id);
+  if (selectedTickets.length < threshold) return;
+
+  const body = JSON.stringify({ ticketIds });
+  const ticketArea = document.querySelector(".ticket-display");
+  ticketArea.classList.remove("align-right");
+
+  await fetch("/game/destination-tickets", {
+    method: "POST",
+    body,
+  });
+  renderPlayerCards();
+  renderPlayerResources();
+  document.querySelector("#ticket-selection").remove();
 };
 
-const createPlayerHandCard = ({ color, count }) => {
-  const card = createTrainCarCard({ color });
-  const countEl = document.createElement("p");
-  countEl.innerText = count;
-  card.appendChild(countEl);
-  return card;
+const handleTicketsSelection = (destinationCards) => {
+  const { tickets, minimumPickup } = destinationCards;
+  displayTickets(tickets);
+  const chooseBtn = document.querySelector("#choose-tickets");
+  chooseBtn.addEventListener("click", sumbitTicketChoices(minimumPickup));
 };
 
 const createTicketCard = ({ from, to, points, id }) => {
   const div = document.createElement("div");
 
   div.classList.add("player-ticket-card");
-  div.innerText = `from: ${from} → to: ${to} → points: ${points}`;
-  div.setAttribute("id", id);
-
+  div.innerText =
+    ` from : ${card.from}--> to:${card.to} --->points${card.points}`;
   return div;
 };
 
-const createFaceUpCard = (TCCardManager) => {
-  return (card, index) => {
-    const faceUpCard = createTrainCarCard(card);
-    const handleDrawCard = TCCardManager.drawFaceUpCard.bind(
-      TCCardManager,
-      index,
-      card.color,
-    );
-
-    faceUpCard.addEventListener("dblclick", handleDrawCard);
-
-    return faceUpCard;
-  };
-};
-
-// ----- Rendering Functions -----
-
-const renderMap = async () => {
-  const { svg } = await fetchJSON("/game/map");
-  document.querySelector("#mapContainer").innerHTML = svg;
-};
-
-const renderFaceupCards = async (TCCardManager) => {
-  const cards = await fetchJSON("/game/face-up-cards");
-  const cardElements = cards.map(createFaceUpCard(TCCardManager));
-  document.querySelector("#face-up-container").replaceChildren(...cardElements);
-};
-
 const renderPlayerResources = async () => {
-  const resources = await fetchJSON("/game/player/properties");
+  const res = await fetch("/game/player/properties");
+  const resources = await res.json();
+  const carsContainer = document.querySelector("#cars");
+  carsContainer.innerText = resources.cars;
+  const playerHandContainer = document.querySelector("#player-hand");
+  const cards = resources.hand.map(createTrainCarCard);
+  playerHandContainer.replaceChildren(...cards);
+  console.log(resources);
 
-  document.querySelector("#cars").innerText = resources.cars;
-
-  const cards = resources.hand.filter(({ count }) => count !== 0);
-  const handCards = cards.map(createPlayerHandCard);
-  document.querySelector("#player-hand").replaceChildren(...handCards);
-
-  const ticketCards = resources.tickets.map(createTicketCard);
-  document
-    .querySelector("#player-ticket-cards")
-    .replaceChildren(...ticketCards);
+  const tickets = resources.tickets.map(createTicketCard);
+  const ticketContainer = document.querySelector("#player-ticket-cards");
+  ticketContainer.replaceChildren(...tickets);
 };
 
 const renderPlayerCards = async () => {

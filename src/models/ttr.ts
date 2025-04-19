@@ -47,6 +47,7 @@ export class Ttr {
     const playerInstances = players.map((playerInfo) => {
       return new Player(playerInfo);
     });
+
     return new Ttr(playerInstances, map);
   }
 

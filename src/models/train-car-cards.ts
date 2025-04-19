@@ -21,6 +21,7 @@ export class TrainCarCards {
       "orange",
       "pink",
     ];
+
     this.initializeDeck();
     this.shuffle();
     this.refillFaceUpCards();
