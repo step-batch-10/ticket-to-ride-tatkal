@@ -4,29 +4,49 @@
 }
 
 .waiting-page {
-  /* background: url("usa2.png") no-repeat center center; */
-  /* background: url("background-1.webp") no-repeat center center; */
-  /* background: url("usa-map.png") no-repeat center center; */
-  /* background-size: contain; */
   background-size: cover;
-  background-color: black;
+  background-color: #2b1b0e;
   height: 100vh;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: white;
   text-align: center;
 }
 
 .waiting-container {
-  padding: 4px;
-  width: 25%;
-  max-width: 400px;
-  background-color: rgba(33, 25, 20, 0.85);
+  background-color: #c2a155;
+  border: 2px solid #5c4033;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 500px;
+  margin: 40px auto;
 }
 
 #waiting-list {
   list-style: none;
+  margin-top: 20px;
+}
+
+.list-group-item {
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  padding: 0.2% 10%;
+  margin: 5px 0px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  background-color: aliceblue;
+  border-radius: 3px;
+  width: min-content;
+  padding: 0px 5px;
+}
+
+.status {
+  margin: 10px 0px;
+  font-size: 20px;
 }
