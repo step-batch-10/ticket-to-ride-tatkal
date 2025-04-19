@@ -66,10 +66,12 @@ const sumbitTicketChoices = (threshold) => async () => {
 };
 
 const handleTicketsSelection = (destinationCards) => {
-  const { tickets, mininumPickup } = destinationCards;
+  const { tickets, minimumPickup } = destinationCards;
   displayTickets(tickets);
   const chooseBtn = document.querySelector("#choose-tickets");
-  chooseBtn.addEventListener("click", sumbitTicketChoices(mininumPickup));
+  chooseBtn.addEventListener("click", sumbitTicketChoices(minimumPickup));
+  renderPlayerCards();
+  renderPlayerResources();
 };
 
 const createTrainCarCard = (card) => {
@@ -134,13 +136,14 @@ const renderPlayerCards = async () => {
 const renderPage = () => {
   renderMap();
   renderFaceupCards();
-  renderPlayerResources();
   renderPlayerCards();
+  renderPlayerResources();
+  drawDestinationCards();
 };
 
 const main = () => {
-  const destinationBtn = document.querySelector("#destination-tickets");
-  destinationBtn.addEventListener("click", drawDestinationCards);
+  const _destinationBtn = document.querySelector("#destination-tickets");
+  // destinationBtn.addEventListener("click", drawDestinationCards);
 
   renderPage();
 };
