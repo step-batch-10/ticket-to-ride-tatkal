@@ -6,14 +6,16 @@ import { Users } from "./src/models/users.ts";
 import { GameHandler } from "./src/models/game-handlers.ts";
 
 const main = (): void => {
+  const args = {
+    logger,
+    serveStatic,
+    users: new Users(),
+    gameHandler: new GameHandler(),
+    reader: Deno.readTextFileSync,
+  };
+
   try {
-    const app: Hono = createApp(
-      logger,
-      serveStatic,
-      Deno.readTextFileSync,
-      new Users(),
-      new GameHandler(),
-    );
+    const app: Hono = createApp(args);
     const port: number = 3000;
 
     Deno.serve({ port }, app.fetch);

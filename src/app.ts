@@ -1,9 +1,7 @@
 import { Context, Hono, Next } from "hono";
-import { GameHandler } from "./models/game-handlers.ts";
-import { Reader } from "./models/schemas.ts";
 import { getCookie, setCookie } from "hono/cookie";
-import { Logger, ServeStatic } from "./types.ts";
-import { Users } from "./models/users.ts";
+import { MyCxt } from "./types.ts";
+
 import {
   addToWaitingQueue,
   getQueue,
@@ -17,19 +15,19 @@ import {
 } from "./handlers/gameHandler.ts";
 import { Ttr } from "./models/ttr.ts";
 
-const setContext =
-  (reader: Reader, users: Users, gameHandler: GameHandler) =>
-  async (context: Context, next: Next) => {
-    context.set("reader", reader);
-    context.set("users", users);
-    context.set("gameHandler", gameHandler);
-    const gameId = Number(getCookie(context, "game-ID"));
-    if (gameId) {
-      const game = gameHandler.getGame(gameId)?.game;
-      context.set("game", game);
-    }
-    await next();
-  };
+const setContext = (args: MyCxt) => async (c: Context, next: Next) => {
+  const { reader, users, gameHandler } = args;
+
+  c.set("reader", reader);
+  c.set("users", users);
+  c.set("gameHandler", gameHandler);
+  const gameId = Number(getCookie(c, "game-ID"));
+  if (gameId) {
+    const game = gameHandler.getGame(gameId)?.game;
+    c.set("game", game);
+  }
+  await next();
+};
 
 const authenticateUser = async (c: Context, next: Next) => {
   const userID: string | undefined = getCookie(c, "user-ID");
@@ -42,9 +40,9 @@ const authenticateUser = async (c: Context, next: Next) => {
 };
 
 const handleLogin = async (c: Context) => {
-  const fd: Object = await c.req.parseBody();
-  const user = c.get("users");
-  const userID: string = user.add(fd);
+  const userInfo: Object = await c.req.parseBody();
+  const users = c.get("users");
+  const userID: string = users.add(userInfo);
 
   setCookie(c, "user-ID", userID);
   return c.redirect("/", 303);
@@ -53,6 +51,7 @@ const handleLogin = async (c: Context) => {
 const fetchTicketChoices = (c: Context) => {
   const TTR: Ttr = c.get("game");
   // will return top 3 DT cards.
+
   const destinationTicketsInfo = {
     tickets: TTR.getDestinationTickets(),
     minimumPickup: 2,
@@ -70,36 +69,40 @@ const updatePlayerTickets = async (c: Context) => {
   return c.text("ok", 200);
 };
 
-const createApp = (
-  logger: Logger,
-  serveStatic: ServeStatic,
-  reader: Reader,
-  users: Users,
-  gameHandler: GameHandler,
-): Hono => {
+const createApp = (args: MyCxt): Hono => {
+  const { logger, serveStatic } = args;
+
+  const guest = new Hono();
+  guest.get("/login.html", serveStatic({ root: "./public" }));
+  guest.get("/styles/login.css", serveStatic({ root: "./public" }));
+  guest.get("/scripts/login.js", serveStatic({ root: "./public" }));
+  guest.post("/login", handleLogin);
+
+  const user: Hono = new Hono();
+  user.post("/wait", addToWaitingQueue);
+  user.get("/waiting-list", getQueue, redirectToGame);
+  user.get("/redirectToGame", redirectToGame);
+
+  const game: Hono = new Hono();
+  game.get("/game/map", fetchMap);
+  game.get("/game/face-up-cards", fetchFaceUps);
+  game.get("/game/players-detail", fetchPlayerDetails); // /game/players
+  game.get("/game/destination-tickets", fetchTicketChoices);
+
+  const player: Hono = new Hono();
+  player.get("/game/player/properties", fetchPlayerHand);
+  player.post("/game/destination-tickets", updatePlayerTickets);
+
   const app: Hono = new Hono();
-
   app.use(logger());
-  app.use(setContext(reader, users, gameHandler));
+  app.use(setContext(args));
+  app.route("/", guest);
+  app.use(authenticateUser);
+  app.route("/", user);
+  app.route("/", game);
+  app.route("/", player);
+  app.get(serveStatic({ root: "./public" }));
 
-  app.get("/login.html", serveStatic({ root: "./public" }));
-  app.get("/styles/login.css", serveStatic({ root: "./public" }));
-  app.get("/scripts/login.js", serveStatic({ root: "./public" }));
-  app.post("/login", handleLogin);
-
-  app.use("/*", authenticateUser);
-  app.post("/wait", addToWaitingQueue);
-  app.get("/waiting-list", getQueue);
-  app.get("/redirectToGame", redirectToGame);
-  // game routes
-  app.get("/game/map", fetchMap);
-  app.get("/game/face-up-cards", fetchFaceUps);
-  // player routes
-  app.get("/game/player/properties", fetchPlayerHand);
-  app.get("/game/destination-tickets", fetchTicketChoices);
-  app.post("/game/destination-tickets", updatePlayerTickets);
-  app.get("/game/players-detail", fetchPlayerDetails);
-  app.get("/*", serveStatic({ root: "./public" }));
   return app;
 };
 
