@@ -444,6 +444,34 @@ describe("POST /game/player/destination-tickets", () => {
   });
 });
 
+describe("POST /game/player/draw-deck-train-card", () => {
+  it("should response with 200 when user is current player", async () => {
+    const gameHandler = new GameManager();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const app: Hono = prepareApp(new Users(), gameHandler);
+
+    const body = JSON.stringify({ ticketIds: [1, 2] });
+
+    const response = await app.request("/game/player/draw-deck-train-card", {
+      method: "POST",
+      body,
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+
+    assertEquals(response.status, 200);
+  });
+});
+
 describe("/game/player/drawFaceup-card", () => {
   it("should return drawn card when face up cards is drawn", async () => {
     const gameHandler = new GameManager();

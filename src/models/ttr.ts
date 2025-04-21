@@ -12,6 +12,7 @@ export class Ttr implements Game {
   trainCarCards: TrainCarCards;
   destinationCards: DestinationTickets;
   currentPlayer: Player;
+
   constructor(players: Player[], map: UsMap) {
     this.players = players;
     this.map = map;
@@ -20,9 +21,18 @@ export class Ttr implements Game {
     this.initializePlayers();
     this.currentPlayer = this.players[0];
   }
+
   drawFaceUpCard(index: number) {
     const drawnCard = this.trainCarCards.drawFaceUp(index);
     this.currentPlayer.addCardsToHand(drawnCard);
+
+    return drawnCard;
+  }
+
+  drawBlindCard() {
+    const drawnCard = this.trainCarCards.drawCard();
+    this.currentPlayer.addCardsToHand(drawnCard);
+
     return drawnCard;
   }
 
