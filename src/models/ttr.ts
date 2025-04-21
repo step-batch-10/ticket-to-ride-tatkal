@@ -11,14 +11,19 @@ export class Ttr implements Game {
   map: UsMap;
   trainCarCards: TrainCarCards;
   destinationCards: DestinationTickets;
-
+  currentPlayer: Player;
   constructor(players: Player[], map: UsMap) {
     this.players = players;
     this.map = map;
     this.trainCarCards = new TrainCarCards();
     this.destinationCards = map.getDestinationTickets();
-
     this.initializePlayers();
+    this.currentPlayer = this.players[0];
+  }
+  drawFaceUpCard(index: number) {
+    const drawnCard = this.trainCarCards.drawFaceUp(index);
+    this.currentPlayer.addCardsToHand(drawnCard);
+    return drawnCard;
   }
 
   private initializePlayers() {

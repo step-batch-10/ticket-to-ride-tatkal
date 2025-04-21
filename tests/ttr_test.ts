@@ -107,3 +107,21 @@ describe("getTopThree destination tickets", () => {
     assertEquals(desTickets, tickets.slice(-3));
   });
 });
+
+describe("draw face up card", () => {
+  it("should return first face up card", () => {
+    const ttr = prepareTTR();
+    const faceUpCard = ttr.getFaceUpCards()[0];
+    const drawnCard = ttr.drawFaceUpCard(0);
+
+    assertEquals(faceUpCard, drawnCard);
+  });
+
+  it("should return 4th face up card", () => {
+    const ttr = prepareTTR();
+    const faceUpCard = ttr.getFaceUpCards()[3];
+    const drawnCard = ttr.drawFaceUpCard(3);
+
+    assertEquals(faceUpCard, drawnCard);
+  });
+});
