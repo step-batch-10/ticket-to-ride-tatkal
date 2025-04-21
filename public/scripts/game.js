@@ -102,9 +102,22 @@ const renderMap = async () => {
   document.querySelector("#mapContainer").innerHTML = svg;
 };
 
+const drawFaceUpEvent = (index) => async () => {
+  const _res = await fetch("/game/player/drawFaceup-card", {
+    method: "POST",
+    body: JSON.stringify({ index }),
+  });
+  renderPlayerResources();
+  //remove when poll
+};
+
 const renderFaceupCards = async () => {
   const cards = await fetchJSON("/game/face-up-cards");
-  const cardElements = cards.map(createTrainCarCard);
+  const cardElements = cards.map((card, index) => {
+    const faceUpCard = createTrainCarCard(card);
+    faceUpCard.addEventListener("dblclick", drawFaceUpEvent(index));
+    return faceUpCard;
+  });
   document.querySelector("#face-up-container").append(...cardElements);
 };
 

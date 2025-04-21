@@ -103,7 +103,7 @@ const playerRoutes = (): Hono => {
   player.use(setPlayerContext);
   player.get("/properties", fetchPlayerHand);
   player.post("/destination-tickets", updatePlayerTickets);
-  player.post("/drawFaceup-cards", drawFaceUpCard);
+  player.post("/drawFaceup-card", drawFaceUpCard);
 
   return player;
 };
