@@ -1,7 +1,7 @@
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/deno";
 import { Users } from "./models/users.ts";
-import { GameHandler } from "../src/models/game-handlers.ts";
+import { GameManager } from "../src/models/game-handlers.ts";
 
 type Logger = typeof logger;
 type ServeStatic = typeof serveStatic;
@@ -20,7 +20,7 @@ type MyCxt = {
   logger: Logger;
   serveStatic: ServeStatic;
   users: Users;
-  gameHandler: GameHandler;
+  gameHandler: GameManager;
   reader?: Reader;
 };
 

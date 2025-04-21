@@ -21,13 +21,21 @@ const mockedReader = (_path: string | URL): string => {
   return "usa map";
 };
 
-const prepareApp = (gameHandler: GameManager) => {
-  return createApp(logger, serveStatic, mockedReader, new Users(), gameHandler);
+const prepareApp = (users = new Users(), gameHandler = new GameManager()) => {
+  const args = {
+    logger,
+    serveStatic,
+    reader: mockedReader,
+    users,
+    gameHandler,
+  };
+
+  return createApp(args);
 };
 
 describe("User authentication", () => {
   it("should redirect the user to login if user is not authenticated", async () => {
-    const app: Hono = prepareApp(new GameManager());
+    const app: Hono = prepareApp();
     const r: Response = await app.request("/");
 
     assertEquals(r.status, 303);
@@ -36,7 +44,7 @@ describe("User authentication", () => {
   });
 
   it("should serve the home page for user, if user is authenticated", async () => {
-    const app: Hono = prepareApp(new GameManager());
+    const app: Hono = prepareApp();
     const r: Response = await app.request("/", {
       headers: { cookie: "user-ID=1" },
     });
@@ -50,13 +58,7 @@ describe("addToWaitingQueue", () => {
   it("should redirect to waiting page", async () => {
     const user = new Users();
     user.add({ username: "Sarup" });
-    const app: Hono = createApp(
-      logger,
-      serveStatic,
-      mockedReader,
-      user,
-      new GameManager(),
-    );
+    const app: Hono = prepareApp(user);
     const r: Response = await app.request("/wait", {
       method: "POST",
       headers: { cookie: "user-ID=1" },
@@ -65,7 +67,6 @@ describe("addToWaitingQueue", () => {
   });
 
   it("should return empty waitingList", async () => {
-    const gameHandler = new GameManager();
     const user = new Users();
     user.add({ username: "dhanoj" });
 
@@ -118,7 +119,7 @@ describe("usMap", () => {
 
 describe("App /login", () => {
   it("should set cookie with the user id, when given a username", async () => {
-    const app: Hono = prepareApp(new GameManager());
+    const app: Hono = prepareApp();
     const body = new FormData();
     body.append("username", "player");
 
