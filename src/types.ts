@@ -16,22 +16,20 @@ type PlayerInfo = {
   id: string;
 };
 
-type CreateAppArgs = {
-  logger: Logger;
-  serveStatic: ServeStatic;
+interface SetContextArgs {
   users: Users;
   gameHandler: GameManager;
   reader?: Reader;
-};
-type SetContextArgs = {
-  users: Users;
-  gameHandler: GameHandler;
-  reader?: Reader;
-};
+}
+
+interface CreateAppArgs extends SetContextArgs {
+  logger: Logger;
+  serveStatic: ServeStatic;
+}
 
 export type {
-  Logger,
   CreateAppArgs,
+  Logger,
   PlayerInfo,
   ServeStatic,
   SetContextArgs,
