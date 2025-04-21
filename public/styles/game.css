@@ -119,3 +119,9 @@ body {
   padding: 5px;
   text-align: center;
 }
+
+#blind-cards {
+  width: 100%;
+  height: 50%;
+  border: 1px solid black;
+}

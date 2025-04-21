@@ -156,12 +156,29 @@ const drawDestinationCards = async () => {
   handleTicketSelection(destinationCards);
 };
 
+const drawBlindCardEvent = async () => {
+  const _res = await fetch("/game/player/draw-blind-card", {
+    method: "POST",
+  });
+
+  console.log(_res);
+
+  renderPlayerCards(); //remove when poll
+  renderPlayerResources();
+};
+
+const drawBlindCard = () => {
+  const deck = document.getElementById("blind-cards");
+  deck.addEventListener("dblclick", drawBlindCardEvent);
+};
+
 const renderPage = () => {
   renderMap();
   renderFaceupCards();
   renderPlayerCards();
   renderPlayerResources();
   drawDestinationCards();
+  drawBlindCard();
 };
 
 const main = () => {

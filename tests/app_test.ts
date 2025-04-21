@@ -460,7 +460,7 @@ describe("POST /game/player/draw-deck-train-card", () => {
 
     const body = JSON.stringify({ ticketIds: [1, 2] });
 
-    const response = await app.request("/game/player/draw-deck-train-card", {
+    const response = await app.request("/game/player/draw-blind-card", {
       method: "POST",
       body,
       headers: { cookie: "user-ID=1;game-ID=1" },
