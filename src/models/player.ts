@@ -15,6 +15,7 @@ export class Player {
     this.hand = this.initializeHand();
     this.destinationTickets = [];
   }
+
   private initializeHand() {
     const colors = [
       "red",
