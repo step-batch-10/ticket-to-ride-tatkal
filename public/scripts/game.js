@@ -289,7 +289,9 @@ const renderPlayerResources = async () => {
   document.querySelector("#player-hand").replaceChildren(...handCards);
 
   const ticketCards = resources.tickets.map(createTicketCard);
-  document.querySelector("#player-ticket-cards").replaceChildren(...ticketCards);
+  document.querySelector("#player-ticket-cards").replaceChildren(
+    ...ticketCards,
+  );
 };
 
 const renderPlayerCards = async () => {
@@ -311,7 +313,6 @@ const drawDestinationCards = async () => {
   const destinationCards = await fetchJSON("/game/destination-tickets");
   handleTicketSelection(destinationCards);
 };
-
 
 const renderPage = () => {
   renderMap();
