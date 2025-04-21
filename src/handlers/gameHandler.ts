@@ -38,3 +38,9 @@ export const fetchPlayerDetails = (context: Context) => {
 
   return context.json(players);
 };
+
+export const drawFaceUpCard = async (context: Context) => {
+  const { index } = await context.req.json();
+  const card = context.get("game").drawFaceUpCard(index);
+  return context.json(card);
+};

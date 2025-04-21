@@ -67,6 +67,10 @@ export class Ttr implements Game {
     return this.players;
   }
 
+  getCurrentPlayer() {
+    return this.currentPlayer;
+  }
+
   getPlayerDetails() {
     return this.players.map((player) => player.status());
   }

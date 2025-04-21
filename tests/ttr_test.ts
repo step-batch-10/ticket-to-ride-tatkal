@@ -125,3 +125,10 @@ describe("draw face up card", () => {
     assertEquals(faceUpCard, drawnCard);
   });
 });
+describe("get current player", () => {
+  it("it should return first player as current player", () => {
+    const ttr = prepareTTR();
+
+    assertEquals(ttr.getCurrentPlayer().getId(), "1");
+  });
+});

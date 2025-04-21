@@ -443,3 +443,55 @@ describe("POST /game/player/destination-tickets", () => {
     assertEquals(response.status, 200);
   });
 });
+
+describe("/game/player/drawFaceup-card", () => {
+  it("should return drawn card when face up cards is drawn", async () => {
+    const gameHandler = new GameManager();
+    const gameId = gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const { game } = gameHandler.getGame(gameId)!;
+    const faceUpCard = game.getFaceUpCards()[0];
+    const app: Hono = prepareApp(new Users(), gameHandler);
+
+    const r: Response = await app.request("/game/player/drawFaceup-cards", {
+      method: "POST",
+      headers: { cookie: "user-ID=1;game-ID=1" },
+      body: '{"index":0}',
+    });
+    assertEquals(faceUpCard, await r.json());
+  });
+
+  it("should return third drawn card when face up cards is drawn", async () => {
+    const gameHandler = new GameManager();
+    const gameId = gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const { game } = gameHandler.getGame(gameId)!;
+    const faceUpCard = game.getFaceUpCards()[2];
+    const app: Hono = prepareApp(new Users(), gameHandler);
+
+    const r: Response = await app.request("/game/player/drawFaceup-cards", {
+      method: "POST",
+      headers: { cookie: "user-ID=1;game-ID=1" },
+      body: '{"index":2}',
+    });
+    assertEquals(faceUpCard, await r.json());
+  });
+});

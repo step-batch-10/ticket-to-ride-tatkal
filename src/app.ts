@@ -7,6 +7,7 @@ import {
   redirectToGame,
 } from "./handlers/waiting-handler.ts";
 import {
+  drawFaceUpCard,
   fetchFaceUps,
   fetchMap,
   fetchPlayerDetails,
@@ -91,11 +92,18 @@ const userRoutes = (): Hono => {
   return user;
 };
 
+const setPlayerContext = async (context: Context, next: Next) => {
+  const game = context.get("game");
+  context.set("currentPlayer", game.getCurrentPlayer());
+  await next();
+};
+
 const playerRoutes = (): Hono => {
   const player: Hono = new Hono();
-
+  player.use(setPlayerContext);
   player.get("/properties", fetchPlayerHand);
   player.post("/destination-tickets", updatePlayerTickets);
+  player.post("/drawFaceup-cards", drawFaceUpCard);
 
   return player;
 };
