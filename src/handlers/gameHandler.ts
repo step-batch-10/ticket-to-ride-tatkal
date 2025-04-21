@@ -50,5 +50,7 @@ export const drawCardFromDeck = (context: Context) => {
   const game = context.get("game");
   const card = game.drawBlindCard();
 
+  console.log("card", card);
+
   return context.json(card);
 };
