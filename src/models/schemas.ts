@@ -21,4 +21,8 @@ export interface Game {
   getMap(): svg;
 }
 
-export type Reader = typeof Deno.readTextFileSync; //to async
+export type Reader = typeof Deno.readTextFileSync;
+export type playerHandCard = {
+  color: string;
+  count: number;
+};

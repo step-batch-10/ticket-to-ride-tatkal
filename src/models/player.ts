@@ -1,10 +1,5 @@
-import { card, Tickets } from "./schemas.ts";
+import { card, playerHandCard, Tickets } from "./schemas.ts";
 import { PlayerInfo } from "../types.ts";
-
-type playerHandCard = {
-  color: string;
-  count: number;
-};
 
 export class Player {
   private id: string;
@@ -39,7 +34,6 @@ export class Player {
       const colorCards = this.hand.find(({ color }) => color === card.color);
       colorCards!.count++;
     });
-    // return this.hand.push(...cards);
   }
 
   getTrainCars() {
