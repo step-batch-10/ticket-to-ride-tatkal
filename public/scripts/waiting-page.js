@@ -33,12 +33,26 @@ const fetchplayers = async () => {
   return player;
 };
 
+const waitAndRedirect = (url, messageContainer, counter) => {
+  const intervalId = setInterval(
+    (messageContainer) => {
+      messageContainer.innerText = `Game will start in ${counter--} second(s)`;
+      if (counter < 0) {
+        clearInterval(intervalId);
+        globalThis.location.href = url;
+      }
+    },
+    1000,
+    messageContainer,
+  );
+};
+
 const redirectToGame = async () => {
   const res = await fetch("/redirectToGame");
-  const url = new URL(res.url);
 
-  if (url.pathname === "/game.html") {
-    globalThis.location.href = res.url;
+  if (res.redirected) {
+    const message = document.querySelector("#msg");
+    waitAndRedirect(res.url, message, 10);
   }
 };
 

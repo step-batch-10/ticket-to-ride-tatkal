@@ -108,6 +108,7 @@ const drawFaceUpEvent = (index) => async () => {
     body: JSON.stringify({ index }),
   });
   renderPlayerResources();
+  renderFaceupCards();
   //remove when poll
 };
 
@@ -118,7 +119,7 @@ const renderFaceupCards = async () => {
     faceUpCard.addEventListener("dblclick", drawFaceUpEvent(index));
     return faceUpCard;
   });
-  document.querySelector("#face-up-container").append(...cardElements);
+  document.querySelector("#face-up-container").replaceChildren(...cardElements);
 };
 
 const renderPlayerResources = async () => {

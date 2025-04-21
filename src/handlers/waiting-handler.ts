@@ -46,5 +46,5 @@ export const redirectToGame = (context: Context) => {
     return context.redirect("/game.html");
   }
 
-  return context.redirect("/waiting-page.html");
+  return context.json({ message: "game not started" });
 };

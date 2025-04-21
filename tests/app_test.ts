@@ -197,8 +197,7 @@ describe("redirectToGame", () => {
       headers: { cookie: "user-ID=1" },
     });
 
-    assertEquals(r.status, 302);
-    assertEquals(r.headers.get("location"), "/waiting-page.html");
+    assertEquals(await r.json(), { message: "game not started" });
   });
 
   it("should redirect to Waiting page when waiting list is not full", async () => {
@@ -213,8 +212,7 @@ describe("redirectToGame", () => {
       headers: { cookie: "user-ID=1" },
     });
 
-    assertEquals(r.status, 302);
-    assertEquals(r.headers.get("location"), "/waiting-page.html");
+    assertEquals(await r.json(), { message: "game not started" });
   });
 });
 
