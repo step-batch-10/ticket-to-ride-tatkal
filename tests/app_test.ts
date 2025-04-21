@@ -495,6 +495,7 @@ describe("/game/player/drawFaceup-card", () => {
       headers: { cookie: "user-ID=1;game-ID=1" },
       body: '{"index":0}',
     });
+
     assertEquals(faceUpCard, await r.json());
   });
 

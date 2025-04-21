@@ -105,7 +105,7 @@ const playerRoutes = (): Hono => {
   player.get("/properties", fetchPlayerHand);
   player.post("/destination-tickets", updatePlayerTickets);
   player.post("/draw-deck-train-card", drawCardFromDeck);
-  player.post("/drawFaceup-cards", drawFaceUpCard);
+  player.post("/drawFaceup-card", drawFaceUpCard);
 
   return player;
 };
