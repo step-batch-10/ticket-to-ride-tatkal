@@ -10,7 +10,7 @@ type Game = {
   game: Ttr;
 };
 
-export class GameHandler {
+export class GameManager {
   private nextId: number;
   private queue: WaitingQueue;
   private games: Game[];
@@ -27,7 +27,7 @@ export class GameHandler {
 
   createGame(players: PlayerInfo[], reader: Reader) {
     const gameId: number = this.generateGameId();
-    const map = UsMap.getInstance(reader);
+    const map = UsMap.getInstance(reader); // change Usmp to USAMap
     this.games.unshift({ gameId, players, game: Ttr.createTtr(players, map) });
 
     return gameId;
@@ -37,19 +37,17 @@ export class GameHandler {
     return this.games.find(({ gameId }) => gameId === id);
   }
 
-  addToQueue(name: PlayerInfo) {
-    return this.queue.add(name);
+  addToQueue(player: PlayerInfo, maxPlayers: number) {
+    return this.queue.add(player, maxPlayers);
   }
 
-  getWaitingList(player: string) {
-    const players = this.queue.getWaitingQueue(player);
-
-    return players.map(({ name }) => name);
-  }
-
-  getPlayersInfo(playerId: string) {
+  getWaitingList(playerId: string) {
     return this.queue.getWaitingQueue(playerId);
   }
+
+  // getPlayersInfo(playerId: string) {
+  //   return this.queue.getWaitingQueue(playerId);
+  // }
 
   private isPresent(players: PlayerInfo[], playerId: string) {
     return players.some(({ id }) => id === playerId);

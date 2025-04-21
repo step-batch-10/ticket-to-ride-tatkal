@@ -1,6 +1,6 @@
 import { assert, assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
-import { GameHandler } from "../src/models/game-handlers.ts";
+import { GameManager } from "../src/models/game-handlers.ts";
 
 import tickets from "../src/models/tickets.json" with { type: "json" };
 const mockedReader = (_path: string | URL): string => {
@@ -15,29 +15,31 @@ const mockedReader = (_path: string | URL): string => {
 
 describe("Game Handler", () => {
   it("should add to Queue", () => {
-    const gameHandler = new GameHandler();
-    const actual = gameHandler.addToQueue({ name: "sushanth", id: "1" });
+    const gameHandler = new GameManager();
+    const actual = gameHandler.addToQueue({ name: "sushanth", id: "1" }, 3);
     assert(actual);
   });
 
   it("Should return waiting List", () => {
-    const gameHandler = new GameHandler();
-    gameHandler.addToQueue({ name: "sushanth", id: "1" });
-    gameHandler.addToQueue({ name: "sarup", id: "2" });
-    gameHandler.addToQueue({ name: "hari", id: "3" });
+    const gameHandler = new GameManager();
+    gameHandler.addToQueue({ name: "sushanth", id: "1" }, 3);
+    gameHandler.addToQueue({ name: "sarup", id: "2" }, 3);
+    gameHandler.addToQueue({ name: "hari", id: "3" }, 3);
 
-    assertEquals(gameHandler.getWaitingList("1"), [
-      "sushanth",
-      "sarup",
-      "hari",
-    ]);
+    assertEquals(gameHandler.getWaitingList("1"), {
+      maxPlayers: 3,
+      players: [{ name: "sushanth", id: "1" }, { name: "sarup", id: "2" }, {
+        name: "hari",
+        id: "3",
+      }],
+    });
   });
 
   it("should create a game and return game id", () => {
-    const gameHandler = new GameHandler();
-    gameHandler.addToQueue({ name: "sushanth", id: "1" });
-    gameHandler.addToQueue({ name: "Sarup", id: "2" });
-    gameHandler.addToQueue({ name: "hari", id: "3" });
+    const gameHandler = new GameManager();
+    gameHandler.addToQueue({ name: "sushanth", id: "1" }, 3);
+    gameHandler.addToQueue({ name: "Sarup", id: "2" }, 3);
+    gameHandler.addToQueue({ name: "hari", id: "3" }, 3);
     const playerInfo = [{ name: "sushanth", id: "1" }, {
       name: "Sarup",
       id: "2",
@@ -49,10 +51,10 @@ describe("Game Handler", () => {
   });
 
   it("should return a game when the gameId is given", () => {
-    const gameHandler = new GameHandler();
-    gameHandler.addToQueue({ name: "sushanth", id: "1" });
-    gameHandler.addToQueue({ name: "Sarup", id: "2" });
-    gameHandler.addToQueue({ name: "hari", id: "3" });
+    const gameHandler = new GameManager();
+    gameHandler.addToQueue({ name: "sushanth", id: "1" }, 3);
+    gameHandler.addToQueue({ name: "Sarup", id: "2" }, 3);
+    gameHandler.addToQueue({ name: "hari", id: "3" }, 3);
     const playerInfo = [{ name: "sushanth", id: "1" }, {
       name: "Sarup",
       id: "2",

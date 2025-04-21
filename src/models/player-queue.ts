@@ -1,36 +1,43 @@
 import { PlayerInfo } from "../types.ts";
 
-type list = PlayerInfo[];
+type WaitingList = {
+  maxPlayers: number;
+  players: PlayerInfo[];
+};
 
 export class WaitingQueue {
-  waitingQueue: list[];
+  waitingQueue: WaitingList[];
 
   constructor() {
     this.waitingQueue = [];
   }
 
-  add(player: PlayerInfo) {
-    const last = this.waitingQueue.at(0);
+  add(player: PlayerInfo, maxPlayers: number) {
+    const currentWaitingList = this.waitingQueue.find(
+      (waitingList) => waitingList.maxPlayers === maxPlayers,
+    );
 
-    if (last && last.length < 3) {
-      last.push(player);
+    const players = currentWaitingList?.players;
+
+    if (players && players.length < maxPlayers) {
+      players.push(player);
     } else {
-      this.waitingQueue.unshift([player]);
+      this.waitingQueue.unshift({ players: [player], maxPlayers });
     }
 
     return true;
   }
 
-  private isPresent(list: PlayerInfo[], player: string) {
-    return list.some(({ id }) => id === player);
+  private isPresent(waitingList: WaitingList, playerId: string) {
+    return waitingList.players.some(({ id }) => id === playerId);
   }
 
   getWaitingQueue(playerId: string) {
-    const players = this.waitingQueue.find((list) =>
+    const waitingList = this.waitingQueue.find((list) =>
       this.isPresent(list, playerId)
     );
 
-    return players ? players : [];
+    return waitingList ? waitingList : { players: [] };
   }
 
   isFull(playerId: string) {
@@ -38,6 +45,6 @@ export class WaitingQueue {
       this.isPresent(list, playerId)
     );
 
-    return queue?.length === 3;
+    return queue?.players?.length === 3;
   }
 }

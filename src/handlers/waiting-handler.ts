@@ -5,16 +5,16 @@ import { PlayerInfo } from "../types.ts";
 export const addToWaitingQueue = (context: Context) => {
   const userId = getCookie(context, "user-ID");
   const name: string = context.get("users").getInfo(userId).username;
-
-  context.get("gameHandler").addToQueue({ id: userId, name });
+  context.get("gameHandler").addToQueue({ id: userId, name }, 3);
 
   return context.redirect("/waiting-page.html");
 };
 
 export const getQueue = (context: Context) => {
-  const userId = getCookie(context, "user-ID");
+  const userId = getCookie(context, "user-ID"); // set userId in middleWare
+  const { players } = context.get("gameHandler").getWaitingList(userId);
 
-  return context.json(context.get("gameHandler").getWaitingList(userId));
+  return context.json(players.map((player: PlayerInfo) => player.name));
 };
 
 const getGameId = (
@@ -36,10 +36,12 @@ const getGameId = (
 
 export const redirectToGame = (context: Context) => {
   const userId = getCookie(context, "user-ID");
-  const waitingList = context.get("gameHandler").getPlayersInfo(userId);
+  const { maxPlayers, players } = context
+    .get("gameHandler")
+    .getWaitingList(userId);
 
-  if (waitingList.length === 3) {
-    const gameId = getGameId(context, userId, waitingList);
+  if (maxPlayers === players.length) {
+    const gameId = getGameId(context, userId, players);
     setCookie(context, "game-ID", gameId);
     return context.redirect("/game.html");
   }
