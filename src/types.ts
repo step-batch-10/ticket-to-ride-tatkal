@@ -16,12 +16,24 @@ type PlayerInfo = {
   id: string;
 };
 
-type MyCxt = {
+type CreateAppArgs = {
   logger: Logger;
   serveStatic: ServeStatic;
   users: Users;
   gameHandler: GameManager;
   reader?: Reader;
 };
+type SetContextArgs = {
+  users: Users;
+  gameHandler: GameHandler;
+  reader?: Reader;
+};
 
-export type { Logger, MyCxt, PlayerInfo, ServeStatic, User };
+export type {
+  Logger,
+  CreateAppArgs,
+  PlayerInfo,
+  ServeStatic,
+  SetContextArgs,
+  User,
+};

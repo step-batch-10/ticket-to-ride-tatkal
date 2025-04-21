@@ -1,7 +1,6 @@
 import { Context, Hono, Next } from "hono";
 import { getCookie, setCookie } from "hono/cookie";
-import { MyCxt } from "./types.ts";
-
+import { CreateAppArgs, ServeStatic, SetContextArgs } from "./types.ts";
 import {
   addToWaitingQueue,
   getQueue,
@@ -15,17 +14,19 @@ import {
 } from "./handlers/gameHandler.ts";
 import { Ttr } from "./models/ttr.ts";
 
-const setContext = (args: MyCxt) => async (c: Context, next: Next) => {
+const setContext = (args: SetContextArgs) => async (c: Context, next: Next) => {
   const { reader, users, gameHandler } = args;
+  const gameId = Number(getCookie(c, "game-ID"));
 
   c.set("reader", reader);
   c.set("users", users);
   c.set("gameHandler", gameHandler);
-  const gameId = Number(getCookie(c, "game-ID"));
+
   if (gameId) {
     const game = gameHandler.getGame(gameId)?.game;
     c.set("game", game);
   }
+
   await next();
 };
 
@@ -69,38 +70,59 @@ const updatePlayerTickets = async (c: Context) => {
   return c.text("ok", 200);
 };
 
-const createApp = (args: MyCxt): Hono => {
-  const { logger, serveStatic } = args;
-
+const guestRoutes = (serveStatic: ServeStatic): Hono => {
   const guest = new Hono();
+
   guest.get("/login.html", serveStatic({ root: "./public" }));
   guest.get("/styles/login.css", serveStatic({ root: "./public" }));
   guest.get("/scripts/login.js", serveStatic({ root: "./public" }));
   guest.post("/login", handleLogin);
 
+  return guest;
+};
+
+const userRoutes = (): Hono => {
   const user: Hono = new Hono();
+
   user.post("/wait", addToWaitingQueue);
   user.get("/waiting-list", getQueue, redirectToGame);
   user.get("/redirectToGame", redirectToGame);
 
-  const game: Hono = new Hono();
-  game.get("/game/map", fetchMap);
-  game.get("/game/face-up-cards", fetchFaceUps);
-  game.get("/game/players-detail", fetchPlayerDetails); // /game/players
-  game.get("/game/destination-tickets", fetchTicketChoices);
+  return user;
+};
 
+const playerRoutes = (): Hono => {
   const player: Hono = new Hono();
-  player.get("/game/player/properties", fetchPlayerHand);
-  player.post("/game/destination-tickets", updatePlayerTickets);
 
+  player.get("/properties", fetchPlayerHand);
+  player.post("/destination-tickets", updatePlayerTickets);
+
+  return player;
+};
+
+const gameRoutes = (): Hono => {
+  const game: Hono = new Hono();
+
+  game.get("/map", fetchMap);
+  game.get("/face-up-cards", fetchFaceUps);
+  game.get("/players-detail", fetchPlayerDetails); // /players
+  game.get("/destination-tickets", fetchTicketChoices);
+  game.route("/player", playerRoutes());
+
+  return game;
+};
+
+const createApp = (args: CreateAppArgs): Hono => {
+  const { serveStatic, logger, gameHandler, users, reader } = args;
   const app: Hono = new Hono();
+
   app.use(logger());
-  app.use(setContext(args));
-  app.route("/", guest);
+  app.use(setContext({ reader, users, gameHandler }));
+  app.route("/", guestRoutes(serveStatic));
   app.use(authenticateUser);
-  app.route("/", user);
-  app.route("/", game);
-  app.route("/", player);
+
+  app.route("/", userRoutes());
+  app.route("/game", gameRoutes());
   app.get(serveStatic({ root: "./public" }));
 
   return app;
