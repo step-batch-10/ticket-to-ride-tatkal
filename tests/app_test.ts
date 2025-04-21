@@ -321,7 +321,7 @@ describe("/game/player/hand'", () => {
     });
 
     const properties = await r.json();
-    assertEquals(properties.hand.length, 4);
+    assertEquals(properties.hand.length, 9);
     assertEquals(properties.cars, 45);
   });
 
