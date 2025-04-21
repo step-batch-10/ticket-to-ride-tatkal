@@ -50,7 +50,7 @@ const submitTicketChoices = (threshold) => async () => {
   if (selected.length < threshold) return;
 
   const ticketIds = Array.from(selected).map((t) => t.id);
-  await fetch("/game/destination-tickets", {
+  await fetch("/game/player/destination-tickets", {
     method: "POST",
     body: JSON.stringify({ ticketIds }),
   });
