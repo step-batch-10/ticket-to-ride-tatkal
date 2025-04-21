@@ -416,7 +416,7 @@ describe("GET /game/destination-tickets", () => {
   });
 });
 
-describe("POST /game/destination-tickets", () => {
+describe("POST /game/player/destination-tickets", () => {
   it("should response with 200", async () => {
     const gameHandler = new GameManager();
     gameHandler.createGame(
@@ -434,7 +434,7 @@ describe("POST /game/destination-tickets", () => {
 
     const body = JSON.stringify({ ticketIds: [1, 2] });
 
-    const response = await app.request("/game/destination-tickets", {
+    const response = await app.request("/game/player/destination-tickets", {
       method: "POST",
       body,
       headers: { cookie: "user-ID=1;game-ID=1" },
