@@ -24,6 +24,7 @@ export class TrainCarCards {
     this.initializeDeck();
     this.shuffle();
     this.refillFaceUpCards();
+    this.validateAndRefillFaceUp();
   }
 
   getFaceUpCards(): card[] {
@@ -64,6 +65,17 @@ export class TrainCarCards {
     return this.discardPile.push(...cards);
   }
 
+  private validateAndRefillFaceUp(): void {
+    const colors = this.faceUpCards.map(({ color }) => color);
+    const locoCount = _.countBy(colors).locomotive;
+    if (locoCount > 2) {
+      this.discard(this.faceUpCards);
+      this.faceUpCards = [];
+      this.refillFaceUpCards();
+      this.validateAndRefillFaceUp();
+    }
+  }
+
   drawFaceUp(index: number): card | never {
     if (index < 0 || index >= this.faceUpCards.length) {
       throw new Error("Invalid index for face-up cards.");
@@ -71,6 +83,8 @@ export class TrainCarCards {
 
     const card = this.faceUpCards[index];
     this.faceUpCards[index] = this.drawCard();
+    this.validateAndRefillFaceUp();
+
     return card;
   }
 }
