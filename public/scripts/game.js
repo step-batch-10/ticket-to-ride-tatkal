@@ -1,3 +1,4 @@
+import { DrawTCC } from "./draw-TCC.js";
 import { DestinationTickets, fetchJSON } from "./draw-tickets.js";
 
 const cloneTemplate = (id) => {
@@ -52,6 +53,21 @@ const createTicketCard = ({ from, to, points, id }) => {
   return div;
 };
 
+const createFaceUpCard = (TCCardManager) => {
+  return (card, index) => {
+    const faceUpCard = createTrainCarCard(card);
+    const handleDrawCard = TCCardManager.drawFaceUpCard.bind(
+      TCCardManager,
+      index,
+      card.color,
+    );
+
+    faceUpCard.addEventListener("dblclick", handleDrawCard);
+
+    return faceUpCard;
+  };
+};
+
 // ----- Rendering Functions -----
 
 const renderMap = async () => {
@@ -59,23 +75,9 @@ const renderMap = async () => {
   document.querySelector("#mapContainer").innerHTML = svg;
 };
 
-const drawFaceUpEvent = (index) => async () => {
-  const _res = await fetch("/game/player/drawFaceup-card", {
-    method: "POST",
-    body: JSON.stringify({ index }),
-  });
-  renderPlayerResources();
-  renderFaceupCards();
-  //remove when poll
-};
-
-const renderFaceupCards = async () => {
+const renderFaceupCards = async (TCCardManager) => {
   const cards = await fetchJSON("/game/face-up-cards");
-  const cardElements = cards.map((card, index) => {
-    const faceUpCard = createTrainCarCard(card);
-    faceUpCard.addEventListener("dblclick", drawFaceUpEvent(index));
-    return faceUpCard;
-  });
+  const cardElements = cards.map(createFaceUpCard(TCCardManager));
   document.querySelector("#face-up-container").replaceChildren(...cardElements);
 };
 
@@ -158,9 +160,16 @@ const drawBlindCard = () => {
   deck.addEventListener("dblclick", drawBlindCardEvent);
 };
 
+const getDrawCardInstance = () => {
+  const instance = new DrawTCC();
+  return () => instance;
+};
+
+const drawTCCInstance = getDrawCardInstance();
+
 const renderPage = () => {
   renderMap();
-  renderFaceupCards();
+  renderFaceupCards(drawTCCInstance());
   renderPlayerCards();
   renderPlayerResources();
   drawDestinationCards(new DestinationTickets());

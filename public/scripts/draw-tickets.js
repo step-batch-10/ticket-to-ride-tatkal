@@ -1,7 +1,8 @@
 import _ from "https://cdn.skypack.dev/lodash";
 
-const fetchJSON = async (url) => {
-  const response = await fetch(url);
+const fetchJSON = async (url, method = "GET", body = null) => {
+  const options = { method, body };
+  const response = await fetch(url, options);
   return await response.json();
 };
 
