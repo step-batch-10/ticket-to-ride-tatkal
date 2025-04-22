@@ -125,3 +125,48 @@ body {
   height: 50%;
   border: 1px solid black;
 }
+
+.red {
+  background-color: rgba(255, 0, 0, 0.763);
+}
+.blue {
+  background-color: blue;
+}
+.yellow {
+  background-color: yellow;
+}
+.pink {
+  background-color: pink;
+}
+.green {
+  background-color: green;
+}
+.white {
+  background-color: whitesmoke;
+}
+.orange {
+  background-color: orange;
+}
+.black {
+  background-color: black;
+}
+
+.locomotive {
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    /* Red */ #ff8000b7,
+    /* Orange */ #ffff00,
+    /* Yellow */ #00ff00,
+    /* Green */ #0000ff,
+    /* Blue */ #4b0082,
+    /* Indigo */ #8b00ff /* Violet */
+  );
+}
+
+.card-count {
+  color: brown;
+  text-shadow: 0px 0px 50px burlywood;
+  font-size: 3rem;
+  font-weight: 900;
+}

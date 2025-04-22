@@ -29,9 +29,10 @@ const displayTickets = (tags) => {
 
 const createTrainCarCard = ({ color }) => {
   const card = document.createElement("div");
+
   card.className = "train-car-card";
-  card.style.backgroundColor = color;
-  card.innerText = color;
+  card.classList.add(color);
+
   return card;
 };
 
@@ -73,13 +74,24 @@ const renderFaceupCards = async (TCCardManager) => {
   document.querySelector("#face-up-container").replaceChildren(...cardElements);
 };
 
+const createPlayerHandCard = (card) => {
+  const handCard = createTrainCarCard(card);
+  const count = document.createElement("p");
+  count.innerText = card.count;
+  count.classList.add("card-count");
+  handCard.appendChild(count);
+  return handCard;
+};
+
 const renderPlayerResources = async () => {
   const res = await fetch("/game/player/properties");
   const resources = await res.json();
   const carsContainer = document.querySelector("#cars");
   carsContainer.innerText = resources.cars;
   const playerHandContainer = document.querySelector("#player-hand");
-  const cards = resources.hand.map(createTrainCarCard);
+  const cards = resources.hand
+    .filter(({ count }) => count > 0)
+    .map(createPlayerHandCard);
   playerHandContainer.replaceChildren(...cards);
   console.log(resources);
 
