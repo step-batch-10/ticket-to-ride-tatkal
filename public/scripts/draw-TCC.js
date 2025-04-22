@@ -32,7 +32,7 @@ export class DrawTCC {
     const drawnCard = await fetchJSON(
       "/game/player/drawFaceup-card",
       "POST",
-      JSON.stringify({ index })
+      JSON.stringify({ index }),
     );
 
     this.#currentState += drawnCard.color === "locomotive" ? 2 : 1;
