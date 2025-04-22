@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e  # Exit immediately if a command fails
+
+echo "=> deno fmt"
+deno fmt --check
+
+echo "=> deno lint"
+deno lint
+
+echo "=> deno test"
+deno task check-coverage
+deno coverage --html 
+
+echo "✅ All checks passed"
