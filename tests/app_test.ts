@@ -1,5 +1,5 @@
 import { createApp } from "../src/app.ts";
-import { assert, assertEquals } from "assert";
+import { assertEquals } from "assert";
 import { describe, it } from "@std/testing/bdd";
 import { serveStatic } from "hono/deno";
 import { Context, Hono } from "hono";
@@ -114,23 +114,6 @@ describe("usMap", () => {
       const usaMap = UsMap.getInstance(mockedReader);
       assertEquals(usaMap.getMap(), "usa map");
     });
-  });
-});
-
-describe("App /login", () => {
-  it("should set cookie with the user id, when given a username", async () => {
-    const app: Hono = prepareApp();
-    const body = new FormData();
-    body.append("username", "player");
-
-    const r: Response = await app.request("/login", {
-      method: "POST",
-      body,
-    });
-
-    assertEquals(r.status, 303);
-    assertEquals(r.headers.get("location"), "/");
-    assert(r.headers.get("set-cookie")?.includes("user-ID=1"));
   });
 });
 

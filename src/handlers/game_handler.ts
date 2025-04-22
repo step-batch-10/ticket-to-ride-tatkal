@@ -1,6 +1,7 @@
 import { Context } from "hono";
 import { getCookie } from "hono/cookie";
 import { Player } from "../models/player.ts";
+import { Ttr } from "../models/ttr.ts";
 
 export const fetchMap = (context: Context) => {
   const game = context.get("game");
@@ -11,6 +12,27 @@ export const fetchMap = (context: Context) => {
 export const fetchFaceUps = (context: Context) => {
   const game = context.get("game");
   return context.json(game.getFaceUpCards());
+};
+
+export const fetchTicketChoices = (c: Context) => {
+  const TTR: Ttr = c.get("game");
+  // const minimumPickup = TTR.getState() === "setup" ? 2 : 1;
+
+  const destinationTicketsInfo = {
+    tickets: TTR.getDestinationTickets(),
+    minimumPickup: 2,
+  };
+
+  return c.json(destinationTicketsInfo);
+};
+
+export const updatePlayerTickets = async (c: Context) => {
+  const { tickets } = await c.req.json();
+  const playerID = getCookie(c, "user-ID");
+  const game = c.get("game");
+  game.addDestinationTicketsTo(playerID, tickets);
+
+  return c.text("ok", 200);
 };
 
 export const fetchPlayerHand = (context: Context) => {
