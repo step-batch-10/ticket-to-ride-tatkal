@@ -27,10 +27,12 @@ export const fetchTicketChoices = (c: Context) => {
 };
 
 export const updatePlayerTickets = async (c: Context) => {
-  const { tickets } = await c.req.json();
+  const { selected, rest } = await c.req.json();
   const playerID = getCookie(c, "user-ID");
   const game = c.get("game");
-  game.addDestinationTicketsTo(playerID, tickets);
+
+  game.addDestinationTicketsTo(playerID, selected);
+  game.stackUnderDestinationDeck(rest);
 
   return c.text("ok", 200);
 };
