@@ -3,6 +3,18 @@ body {
   background-color: #2b1b0e;
 }
 
+a {
+  color: #d4b26e;
+}
+
+a:hover {
+  color: bisque;
+}
+
+.cp-issue {
+  font-size: 8px;
+}
+
 .bg-theme {
   background-color: #2b1b0e;
 }
