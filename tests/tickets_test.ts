@@ -11,7 +11,7 @@ describe("Tickets", () => {
 
   it("should return the top 3 of destinationCards", () => {
     const DT = new DestinationTickets(tickets);
-    assertEquals(DT.getTopThree(), tickets.slice(-3));
+    assertEquals(DT.getTopThree(), tickets.splice(-3));
   });
 
   it("should return the selected tickets", () => {

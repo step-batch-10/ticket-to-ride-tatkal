@@ -430,7 +430,9 @@ describe("POST /game/player/destination-tickets", () => {
     );
     const app: Hono = prepareApp(new Users(), gameHandler);
 
-    const body = JSON.stringify({ ticketIds: [1, 2] });
+    const body = JSON.stringify({
+      tickets: [{ id: "9", from: "A", to: "B", points: 10 }],
+    });
 
     const response = await app.request("/game/player/destination-tickets", {
       method: "POST",
