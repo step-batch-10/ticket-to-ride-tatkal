@@ -129,6 +129,7 @@ const confirmTickets = (ticket, ticketManager) => {
   return async () => {
     const id = ticket.getAttribute("id");
     const areConfirmed = await ticketManager.confirmTickets(id);
+
     if (!areConfirmed) return;
     await renderPlayerCards();
     await renderPlayerResources();
@@ -140,6 +141,9 @@ const confirmTickets = (ticket, ticketManager) => {
 };
 
 const drawDestinationCards = async (ticketManager) => {
+  const { isActive } = await fetchJSON("/game/player/status");
+  if (!isActive) return;
+
   const tickets = await ticketManager.getTopThree();
   const tags = tickets.map(createTicketCard);
   tags.forEach((t) => {
@@ -181,11 +185,17 @@ const renderPage = () => {
   drawBlindCard();
 };
 
+// const poll = async () => {
+//   const gameStatus = await fetchJSON("/game/status");
+//   console.log("gameStatus: ", gameStatus);
+
+//   if (!gameStatus.isActive) return
+// };
+
 const main = () => {
   const destinationBtn = document.querySelector("#destination-tickets");
   const dtHandler = () => drawDestinationCards(new DestinationTickets());
   destinationBtn.addEventListener("click", dtHandler);
-
   renderPage();
 };
 
