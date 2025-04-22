@@ -73,6 +73,10 @@ export class Ttr {
     return currentPlayer?.addDestinationTickets(tickets);
   }
 
+  stackUnderDestinationDeck(tickets: Tickets[]) {
+    return this.destinationCards.stackUnderDeck(tickets);
+  }
+
   getPlayers() {
     return this.players;
   }
