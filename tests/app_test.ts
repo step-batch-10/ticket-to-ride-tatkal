@@ -445,7 +445,7 @@ describe("POST /game/player/destination-tickets", () => {
   });
 });
 
-describe("POST /game/player/draw-deck-train-card", () => {
+describe("POST /game/player/draw-blind-card", () => {
   it("should response with 200 when user is current player", async () => {
     const gameHandler = new GameManager();
     gameHandler.createGame(

@@ -32,10 +32,23 @@ export class DrawTCC {
     const drawnCard = await fetchJSON(
       "/game/player/drawFaceup-card",
       "POST",
-      JSON.stringify({ index }),
+      JSON.stringify({ index })
     );
 
     this.#currentState += drawnCard.color === "locomotive" ? 2 : 1;
+
+    if (this.#currentState === this.#actionState.ENDED) {
+      changePlayer();
+      this.#currentState = this.#actionState.STARTED;
+    }
+  }
+
+  async drawBlindCard() {
+    const _res = await fetch("/game/player/draw-blind-card", {
+      method: "POST",
+    });
+
+    this.#currentState++;
 
     if (this.#currentState === this.#actionState.ENDED) {
       changePlayer();
