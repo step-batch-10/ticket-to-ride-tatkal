@@ -26,7 +26,7 @@ const createStatus = (totalPlayers, playerCount) => {
   status.appendChild(div);
 };
 
-const fetchplayers = async () => {
+const fetchPlayers = async () => {
   const res = await fetch("/waiting-list");
   const player = await res.json();
 
@@ -47,23 +47,24 @@ const waitAndRedirect = (url, messageContainer, counter) => {
   );
 };
 
-const redirectToGame = async () => {
+const redirectToGame = async (intervalId) => {
   const res = await fetch("/redirectToGame");
 
   if (res.redirected) {
+    clearInterval(intervalId);
     const message = document.querySelector("#msg");
-    waitAndRedirect(res.url, message, 10);
+    waitAndRedirect(res.url, message, 3);
   }
 };
 
 const main = () => {
   const totalPlayers = 3;
-  setInterval(async () => {
-    const players = await fetchplayers();
+  const id = setInterval(async () => {
+    const players = await fetchPlayers();
     createStatus(totalPlayers, players.length);
     createList(players);
-    await redirectToGame();
-  }, 1000);
+    await redirectToGame(id);
+  }, 2000);
 };
 
 globalThis.onload = main;
