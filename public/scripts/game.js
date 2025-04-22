@@ -59,7 +59,7 @@ const createFaceUpCard = (TCCardManager) => {
     const handleDrawCard = TCCardManager.drawFaceUpCard.bind(
       TCCardManager,
       index,
-      card.color
+      card.color,
     );
 
     faceUpCard.addEventListener("dblclick", handleDrawCard);
