@@ -1,25 +1,21 @@
-import { card, Game, svg, Tickets } from "./schemas.ts";
+import { card, PlayerInfo, svg, Tickets } from "./schemas.ts";
 import { TrainCarCards } from "./train-car-cards.ts";
 import DestinationTickets from "./tickets.ts";
 import { Player } from "./player.ts";
-import { PlayerInfo } from "../types.ts";
 import { UsMap } from "./UsMap.ts";
-// const getTickets = () => tickets;
 
-export class Ttr implements Game {
-  players: Player[];
-  map: UsMap;
-  trainCarCards: TrainCarCards;
-  destinationCards: DestinationTickets;
-  private state: "playing" | "setup" | "finalTurn";
-  currentPlayer: Player;
+export class Ttr {
+  private players: Player[];
+  private map: UsMap;
+  private trainCarCards: TrainCarCards;
+  private destinationCards: DestinationTickets;
+  private currentPlayer: Player;
 
   constructor(players: Player[], map: UsMap) {
     this.players = players;
     this.map = map;
     this.trainCarCards = new TrainCarCards();
     this.destinationCards = map.getDestinationTickets();
-    this.state = "setup";
     this.initializePlayers();
     this.currentPlayer = this.players[0];
   }

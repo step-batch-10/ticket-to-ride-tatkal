@@ -1,4 +1,4 @@
-import { User } from "../types.ts";
+import { User } from "./schemas.ts";
 
 class Users {
   private nextID: number;

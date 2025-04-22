@@ -1,6 +1,10 @@
 import { Context, Hono, Next } from "hono";
 import { getCookie, setCookie } from "hono/cookie";
-import { CreateAppArgs, ServeStatic, SetContextArgs } from "./types.ts";
+import {
+  CreateAppArgs,
+  ServeStatic,
+  SetContextArgs,
+} from "./models/schemas.ts";
 import {
   addToWaitingQueue,
   getQueue,

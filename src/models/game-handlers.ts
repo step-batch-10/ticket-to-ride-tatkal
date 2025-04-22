@@ -1,14 +1,7 @@
 import { Ttr } from "./ttr.ts";
 import { UsMap } from "./UsMap.ts";
 import { WaitingQueue } from "./player-queue.ts";
-import { type Reader } from "./schemas.ts";
-import { PlayerInfo } from "../types.ts";
-
-type Game = {
-  gameId: number;
-  players: PlayerInfo[];
-  game: Ttr;
-};
+import { Game, PlayerInfo, Reader } from "./schemas.ts";
 
 export class GameManager {
   private nextId: number;

@@ -1,4 +1,4 @@
-import { PlayerInfo } from "../types.ts";
+import { PlayerInfo } from "./schemas.ts";
 
 type WaitingList = {
   maxPlayers: number;

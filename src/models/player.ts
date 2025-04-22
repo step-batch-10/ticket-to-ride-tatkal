@@ -1,5 +1,4 @@
-import { card, playerHandCard, Tickets } from "./schemas.ts";
-import { PlayerInfo } from "../types.ts";
+import { card, playerHandCard, PlayerInfo, Tickets } from "./schemas.ts";
 
 export class Player {
   private id: string;

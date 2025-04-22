@@ -1,6 +1,6 @@
 import { getCookie, setCookie } from "hono/cookie";
 import { Context } from "hono";
-import { PlayerInfo } from "../types.ts";
+import { PlayerInfo } from "../models/schemas.ts";
 
 export const addToWaitingQueue = (context: Context) => {
   const userId = getCookie(context, "user-ID");

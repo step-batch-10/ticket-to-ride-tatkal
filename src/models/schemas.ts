@@ -1,28 +1,73 @@
-export type svg = string;
+import { logger } from "hono/logger";
+import { serveStatic } from "hono/deno";
+import { Users } from "./users.ts";
+import { GameManager } from "./game-handlers.ts";
+import { Ttr } from "./ttr.ts";
 
-export type card = {
+type Logger = typeof logger;
+type ServeStatic = typeof serveStatic;
+type Reader = typeof Deno.readTextFileSync;
+
+type User = {
+  username: String;
+};
+
+type PlayerInfo = {
+  name: string;
+  id: string;
+};
+
+type Game = {
+  gameId: number;
+  players: PlayerInfo[];
+  game: Ttr;
+};
+
+interface SetContextArgs {
+  users: Users;
+  gameHandler: GameManager;
+  reader?: Reader;
+}
+
+interface CreateAppArgs extends SetContextArgs {
+  logger: Logger;
+  serveStatic: ServeStatic;
+}
+
+type svg = string;
+
+type card = {
   color: string;
 };
 
-export interface Tickets {
+interface Tickets {
   id: string;
   from: string;
   to: string;
   points: number;
 }
 
-export interface USAMap {
+interface USAMap {
   getMap(): svg;
 }
 
-export interface Game {
-  map: USAMap;
-
-  getMap(): svg;
-}
-
-export type Reader = typeof Deno.readTextFileSync;
-export type playerHandCard = {
+type playerHandCard = {
   color: string;
   count: number;
+};
+
+export type {
+  CreateAppArgs,
+  Logger,
+  PlayerInfo,
+  ServeStatic,
+  SetContextArgs,
+  User,
+  Game,
+  playerHandCard,
+  USAMap,
+  Tickets,
+  card,
+  svg,
+  Reader,
 };

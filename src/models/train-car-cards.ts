@@ -1,10 +1,12 @@
 import { card } from "./schemas.ts";
 import _ from "lodash";
+
 export class TrainCarCards {
   private deck: card[];
   private discardPile: card[];
   private faceUpCards: card[];
   private colors: string[];
+
   constructor() {
     this.deck = [];
     this.discardPile = [];
@@ -27,6 +29,7 @@ export class TrainCarCards {
   getFaceUpCards(): card[] {
     return this.faceUpCards;
   }
+
   getDeck() {
     return this.deck;
   }
