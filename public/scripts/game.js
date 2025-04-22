@@ -27,40 +27,40 @@ const displayTickets = (tags) => {
 
 // ----- Card Creation -----
 
-const sumbitTicketChoices = (threshold) => async () => {
-  const container = document.querySelector("#ticket-container");
-  const selectedTickets = container.querySelectorAll(".selected");
-  const ticketIds = Array.from(selectedTickets).map((t) => t.id);
-  if (selectedTickets.length < threshold) return;
+// const sumbitTicketChoices = (threshold) => async () => {
+//   const container = document.querySelector("#ticket-container");
+//   const selectedTickets = container.querySelectorAll(".selected");
+//   const ticketIds = Array.from(selectedTickets).map((t) => t.id);
+//   if (selectedTickets.length < threshold) return;
 
-  const body = JSON.stringify({ ticketIds });
-  const ticketArea = document.querySelector(".ticket-display");
-  ticketArea.classList.remove("align-right");
+//   const body = JSON.stringify({ ticketIds });
+//   const ticketArea = document.querySelector(".ticket-display");
+//   ticketArea.classList.remove("align-right");
 
-  await fetch("/game/destination-tickets", {
-    method: "POST",
-    body,
-  });
-  renderPlayerCards();
-  renderPlayerResources();
-  document.querySelector("#ticket-selection").remove();
-};
+//   await fetch("/game/destination-tickets", {
+//     method: "POST",
+//     body,
+//   });
+//   renderPlayerCards();
+//   renderPlayerResources();
+//   document.querySelector("#ticket-selection").remove();
+// };
 
-const handleTicketsSelection = (destinationCards) => {
-  const { tickets, minimumPickup } = destinationCards;
-  displayTickets(tickets);
-  const chooseBtn = document.querySelector("#choose-tickets");
-  chooseBtn.addEventListener("click", sumbitTicketChoices(minimumPickup));
-};
+// const handleTicketsSelection = (destinationCards) => {
+//   const { tickets, minimumPickup } = destinationCards;
+//   displayTickets(tickets);
+//   const chooseBtn = document.querySelector("#choose-tickets");
+//   chooseBtn.addEventListener("click", sumbitTicketChoices(minimumPickup));
+// };
 
-const createTicketCard = ({ from, to, points, id }) => {
-  const div = document.createElement("div");
+// const createTicketCard = ({ from, to, points, id }) => {
+//   const div = document.createElement("div");
 
-  div.classList.add("player-ticket-card");
-  div.innerText =
-    ` from : ${card.from}--> to:${card.to} --->points${card.points}`;
-  return div;
-};
+//   div.classList.add("player-ticket-card");
+//   div.innerText =
+//     ` from : ${card.from}--> to:${card.to} --->points${card.points}`;
+//   return div;
+// };
 
 const renderPlayerResources = async () => {
   const res = await fetch("/game/player/properties");
