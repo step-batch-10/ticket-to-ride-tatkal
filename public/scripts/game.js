@@ -1,7 +1,4 @@
-const fetchJSON = async (url) => {
-  const response = await fetch(url);
-  return await response.json();
-};
+import { DestinationTickets, fetchJSON } from "./draw-tickets.js";
 
 const cloneTemplate = (id) => {
   return document.querySelector(id).content.cloneNode(true);
@@ -17,57 +14,14 @@ const highlightTicket = (ticket) => {
 
 // ----- Ticket Generation -----
 
-const createTicketElement = (ticket) => {
-  const ticketTemplate = cloneTemplate("#ticket-template");
-  const ticketElement = ticketTemplate.querySelector(".ticket");
-
-  insertText(ticketTemplate, ".from-station", ticket.from);
-  insertText(ticketTemplate, ".to-station", ticket.to);
-  insertText(ticketTemplate, ".points", ticket.points);
-
-  ticketElement.id = ticket.id;
-  ticketElement.addEventListener("click", () => highlightTicket(ticketElement));
-
-  return ticketElement;
-};
-
-const displayTickets = (tickets) => {
+const displayTickets = (tags) => {
   const selectorTemplate = cloneTemplate("#ticket-selector-template");
   const container = selectorTemplate.querySelector("#ticket-container");
-
-  const ticketElements = tickets.map(createTicketElement);
-  container.append(...ticketElements);
-
   const ticketDisplay = document.querySelector(".ticket-display");
+
+  container.append(...tags);
   ticketDisplay.classList.add("align-right");
   ticketDisplay.replaceChildren(selectorTemplate);
-};
-
-const submitTicketChoices = (threshold) => async () => {
-  const container = document.querySelector("#ticket-container");
-  const selected = container.querySelectorAll(".selected");
-
-  if (selected.length < threshold) return;
-
-  const ticketIds = Array.from(selected).map((t) => t.id);
-  await fetch("/game/player/destination-tickets", {
-    method: "POST",
-    body: JSON.stringify({ ticketIds }),
-  });
-
-  const ticketArea = document.querySelector(".ticket-display");
-  ticketArea.classList.remove("align-right");
-
-  await renderPlayerCards();
-  await renderPlayerResources();
-  document.querySelector("#ticket-selection")?.remove();
-};
-
-const handleTicketSelection = ({ tickets, minimumPickup }) => {
-  displayTickets(tickets);
-  document
-    .querySelector("#choose-tickets")
-    .addEventListener("click", submitTicketChoices(minimumPickup));
 };
 
 // ----- Card Creation -----
@@ -88,10 +42,13 @@ const createPlayerHandCard = ({ color, count }) => {
   return card;
 };
 
-const createTicketCard = ({ from, to, points }) => {
+const createTicketCard = ({ from, to, points, id }) => {
   const div = document.createElement("div");
-  div.className = "player-ticket-card";
+
+  div.classList.add("player-ticket-card");
   div.innerText = `from: ${from} → to: ${to} → points: ${points}`;
+  div.setAttribute("id", id);
+
   return div;
 };
 
@@ -151,9 +108,40 @@ const renderPlayerCards = async () => {
   });
 };
 
-const drawDestinationCards = async () => {
-  const destinationCards = await fetchJSON("/game/destination-tickets");
-  handleTicketSelection(destinationCards);
+// =============== draw Destination Tickets ========================
+
+const handleTicketSelection = (ticket, ticketManager) => {
+  return () => {
+    const id = ticket.getAttribute("id");
+    highlightTicket(ticket);
+    ticketManager.toggleSelection(id);
+  };
+};
+
+const confirmTickets = (ticketManager) => {
+  return async () => {
+    const areConfirmed = await ticketManager.confirmTickets();
+    if (!areConfirmed) return;
+    await renderPlayerCards();
+    await renderPlayerResources();
+
+    const ticketArea = document.querySelector(".ticket-display");
+    ticketArea.classList.remove("align-right");
+    document.querySelector("#ticket-selection")?.remove();
+  };
+};
+
+const drawDestinationCards = async (ticketManager) => {
+  const tickets = await ticketManager.getTopThree();
+  const tags = tickets.map(createTicketCard);
+  tags.forEach((t) => {
+    t.setAttribute("tabIndex", "0");
+    t.addEventListener("click", handleTicketSelection(t, ticketManager));
+  });
+
+  displayTickets(tags);
+  const chooseBtn = document.querySelector("#choose-tickets");
+  chooseBtn.addEventListener("click", confirmTickets(ticketManager));
 };
 
 const drawBlindCardEvent = async () => {
@@ -177,13 +165,13 @@ const renderPage = () => {
   renderFaceupCards();
   renderPlayerCards();
   renderPlayerResources();
-  drawDestinationCards();
+  drawDestinationCards(new DestinationTickets());
   drawBlindCard();
 };
 
 const main = () => {
-  // const destinationBtn = document.querySelector("#destination-tickets");
-  // destinationBtn.addEventListener("click", drawDestinationCards);
+  const destinationBtn = document.querySelector("#destination-tickets");
+  destinationBtn.addEventListener("click", drawDestinationCards);
   renderPage();
 };
 
