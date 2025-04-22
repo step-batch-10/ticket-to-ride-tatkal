@@ -38,6 +38,10 @@ export class GameManager {
     return this.queue.getWaitingQueue(playerId);
   }
 
+  // getPlayersInfo(playerId: string) {
+  //   return this.queue.getWaitingQueue(playerId);
+  // }
+
   private isPresent(players: PlayerInfo[], playerId: string) {
     return players.some(({ id }) => id === playerId);
   }
