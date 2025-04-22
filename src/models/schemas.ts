@@ -56,10 +56,34 @@ type playerHandCard = {
   count: number;
 };
 
+interface Player {
+  id: string;
+  name: string;
+  trainCars: number;
+  trainCarCards: number;
+  tickets: number;
+}
+
+interface PlayerResources extends Player {
+  destinationTickets: Tickets[];
+  playerHandCards: playerHandCard[];
+}
+
+interface GameStatus {
+  currentPlayerID: string;
+  isActive: Boolean;
+  players: Player[];
+  map: string;
+  playerResources: PlayerResources;
+  faceUpCards: card[];
+  state: "setup" | "playing" | "finalTurn";
+}
+
 export type {
   card,
   CreateAppArgs,
   Game,
+  GameStatus,
   Logger,
   playerHandCard,
   PlayerInfo,
