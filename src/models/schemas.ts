@@ -57,17 +57,17 @@ type playerHandCard = {
 };
 
 export type {
+  card,
   CreateAppArgs,
+  Game,
   Logger,
+  playerHandCard,
   PlayerInfo,
+  Reader,
   ServeStatic,
   SetContextArgs,
-  User,
-  Game,
-  playerHandCard,
-  USAMap,
-  Tickets,
-  card,
   svg,
-  Reader,
+  Tickets,
+  USAMap,
+  User,
 };
