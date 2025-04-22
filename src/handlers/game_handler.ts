@@ -76,3 +76,10 @@ export const drawCardFromDeck = (context: Context) => {
 
   return context.json(card);
 };
+
+export const fetchGameStatus = (context: Context) => {
+  const game = context.get("game");
+  const playerId = getCookie(context, "user-ID");
+
+  return context.json(game.status(playerId));
+};

@@ -87,6 +87,7 @@ export type {
   Logger,
   playerHandCard,
   PlayerInfo,
+  PlayerResources,
   Reader,
   ServeStatic,
   SetContextArgs,

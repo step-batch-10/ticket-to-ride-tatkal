@@ -1,4 +1,4 @@
-import { card, PlayerInfo, svg, Tickets } from "./schemas.ts";
+import { card, GameStatus, PlayerInfo, svg, Tickets } from "./schemas.ts";
 import { TrainCarCards } from "./train-car-cards.ts";
 import DestinationTickets from "./tickets.ts";
 import { Player } from "./player.ts";
@@ -10,6 +10,7 @@ export class Ttr {
   private trainCarCards: TrainCarCards;
   private destinationCards: DestinationTickets;
   private currentPlayer: Player;
+  private state: "setup" | "playing" | "finalTurn";
 
   constructor(players: Player[], map: UsMap) {
     this.players = players;
@@ -17,6 +18,7 @@ export class Ttr {
     this.trainCarCards = new TrainCarCards();
     this.destinationCards = map.getDestinationTickets();
     this.initializePlayers();
+    this.state = "setup";
     this.currentPlayer = this.players[0];
   }
 
@@ -88,5 +90,19 @@ export class Ttr {
 
   getPlayerDetails() {
     return this.players.map((player) => player.status());
+  }
+
+  status(playerID: string): GameStatus {
+    const dummy: GameStatus = {
+      currentPlayerID: "1",
+      isActive: playerID === "1",
+      players: this.getPlayerDetails(),
+      map: this.getMap(),
+      playerResources: this.currentPlayer.getPlayerResources(),
+      faceUpCards: this.getFaceUpCards(),
+      state: this.state,
+    };
+
+    return dummy;
   }
 }

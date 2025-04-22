@@ -1,4 +1,10 @@
-import { card, playerHandCard, PlayerInfo, Tickets } from "./schemas.ts";
+import {
+  card,
+  playerHandCard,
+  PlayerInfo,
+  PlayerResources,
+  Tickets,
+} from "./schemas.ts";
 
 export class Player {
   private id: string;
@@ -64,6 +70,14 @@ export class Player {
       trainCars: this.trainCars,
       trainCarCards: this.hand.reduce((total, card) => card.count + total, 0),
       tickets: this.destinationTickets.length,
+    };
+  }
+
+  getPlayerResources(): PlayerResources {
+    return {
+      ...this.status(),
+      destinationTickets: this.getDestinationTickets(),
+      playerHandCards: this.getHand(),
     };
   }
 }

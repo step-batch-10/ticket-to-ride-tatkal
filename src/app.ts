@@ -15,6 +15,7 @@ import {
   drawCardFromDeck,
   drawFaceUpCard,
   fetchFaceUps,
+  fetchGameStatus,
   fetchMap,
   fetchPlayerDetails,
   fetchPlayerHand,
@@ -83,6 +84,7 @@ const playerRoutes = (): Hono => {
   player.post("/destination-tickets", updatePlayerTickets);
   player.post("/draw-blind-card", drawCardFromDeck);
   player.post("/drawFaceup-card", drawFaceUpCard);
+  player.get("/status", fetchGameStatus);
 
   return player;
 };
