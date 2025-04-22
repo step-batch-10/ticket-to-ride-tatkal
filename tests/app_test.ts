@@ -508,3 +508,28 @@ describe("/game/player/drawFaceup-card", () => {
     assertEquals(faceUpCard, await r.json());
   });
 });
+
+describe("GET /game/player/status", () => {
+  it("should return with status of the game", async () => {
+    const gameHandler = new GameManager();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+    const app: Hono = prepareApp(new Users(), gameHandler);
+
+    const response = await app.request("/game/player/status", {
+      method: "GET",
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+
+    assertEquals(response.status, 200);
+  });
+});
