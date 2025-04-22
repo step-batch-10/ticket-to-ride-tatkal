@@ -1,4 +1,4 @@
-import { deleteCookie, setCookie } from "hono/cookie";
+import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { Context } from "hono";
 
 export const handleLogin = async (c: Context) => {
@@ -11,6 +11,8 @@ export const handleLogin = async (c: Context) => {
 };
 
 export const handleLogout = (c: Context) => {
+  const userID = getCookie(c, "user-ID");
+  c.get("users").delete(userID);
   deleteCookie(c, "user-ID");
   return c.redirect("/login.html", 303);
 };

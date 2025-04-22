@@ -1,4 +1,4 @@
-import { assertEquals } from "assert";
+import { assert, assertEquals, assertFalse } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { Users } from "../src/models/users.ts";
 
@@ -16,5 +16,21 @@ describe("Users details", () => {
     const userDetails = users.getInfo("1");
 
     assertEquals(userDetails?.username, "Anna");
+  });
+
+  it("should return true if user deleted", () => {
+    const users = new Users();
+
+    users.add({ username: "Anna" });
+
+    assert(users.delete("1"));
+  });
+
+  it("should return false if  no user deleted", () => {
+    const users = new Users();
+
+    users.add({ username: "Anna" });
+
+    assertFalse(users.delete("2"));
   });
 });
