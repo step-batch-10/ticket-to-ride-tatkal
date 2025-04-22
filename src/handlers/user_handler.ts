@@ -12,5 +12,5 @@ export const handleLogin = async (c: Context) => {
 
 export const handleLogout = (c: Context) => {
   deleteCookie(c, "user-ID");
-  return c.redirect("/", 303);
+  return c.redirect("/login.html", 303);
 };

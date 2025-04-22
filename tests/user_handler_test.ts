@@ -59,7 +59,7 @@ describe("Test for user logout", () => {
     });
 
     assertEquals(r.status, 303);
-    assertEquals(r.headers.get("location"), "/");
+    assertEquals(r.headers.get("location"), "/login.html");
     assertFalse(r.headers.get("set-cookie")?.includes("user-ID=1"));
   });
 });
