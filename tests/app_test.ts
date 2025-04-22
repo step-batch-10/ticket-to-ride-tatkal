@@ -405,7 +405,7 @@ describe("GET /game/destination-tickets", () => {
     });
 
     const expectedTickets = {
-      tickets: dtickets.slice(-3),
+      tickets: dtickets.slice(0, 3),
       minimumPickup: 2,
     };
 
@@ -431,7 +431,8 @@ describe("POST /game/player/destination-tickets", () => {
     const app: Hono = prepareApp(new Users(), gameHandler);
 
     const body = JSON.stringify({
-      tickets: [{ id: "9", from: "A", to: "B", points: 10 }],
+      selected: [{ id: "9", from: "A", to: "B", points: 10 }],
+      rest: [],
     });
 
     const response = await app.request("/game/player/destination-tickets", {

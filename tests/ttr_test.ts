@@ -104,7 +104,7 @@ describe("getTopThree destination tickets", () => {
 
     const desTickets = ttr.getDestinationTickets();
 
-    assertEquals(desTickets, tickets.slice(-3));
+    assertEquals(desTickets, tickets.slice(0, 3));
   });
 });
 
