@@ -36,9 +36,6 @@ const createTrainCarCard = ({ color }) => {
 };
 
 const createPlayerHandCard = ({ color, count }) => {
-  if (count === 0) {
-    return "";
-  }
   const card = createTrainCarCard({ color });
   const countEl = document.createElement("p");
   countEl.innerText = count;
@@ -62,7 +59,7 @@ const createFaceUpCard = (TCCardManager) => {
     const handleDrawCard = TCCardManager.drawFaceUpCard.bind(
       TCCardManager,
       index,
-      card.color,
+      card.color
     );
 
     faceUpCard.addEventListener("dblclick", handleDrawCard);
@@ -89,7 +86,8 @@ const renderPlayerResources = async () => {
 
   document.querySelector("#cars").innerText = resources.cars;
 
-  const handCards = resources.hand.map(createPlayerHandCard);
+  const cards = resources.hand.filter(({ count }) => count !== 0);
+  const handCards = cards.map(createPlayerHandCard);
   document.querySelector("#player-hand").replaceChildren(...handCards);
 
   const ticketCards = resources.tickets.map(createTicketCard);

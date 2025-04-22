@@ -29,6 +29,7 @@ export class Player {
     ];
     return colors.map((color) => ({ color, count: 0 }));
   }
+  
   addCardsToHand(...cards: card[]) {
     cards.forEach((card) => {
       const colorCards = this.hand.find(({ color }) => color === card.color);
