@@ -11,6 +11,7 @@ export class Ttr implements Game {
   map: UsMap;
   trainCarCards: TrainCarCards;
   destinationCards: DestinationTickets;
+  private state: "playing" | "setup" | "finalTurn";
   currentPlayer: Player;
 
   constructor(players: Player[], map: UsMap) {
@@ -18,6 +19,7 @@ export class Ttr implements Game {
     this.map = map;
     this.trainCarCards = new TrainCarCards();
     this.destinationCards = map.getDestinationTickets();
+    this.state = "setup";
     this.initializePlayers();
     this.currentPlayer = this.players[0];
   }
@@ -64,12 +66,14 @@ export class Ttr implements Game {
     return this.destinationCards.getTopThree();
   }
 
-  addDestinationTicketsTo(playerId: string, ticketIds: string[]) {
-    const currentPlayer = this.players.find((player: Player) => {
-      return player.getId() === playerId;
+  private getPlayer(playerID: string) {
+    return this.players.find((player: Player) => {
+      return player.getId() === playerID;
     });
+  }
 
-    const tickets = this.destinationCards.getTickets(ticketIds);
+  addDestinationTicketsTo(playerId: string, tickets: Tickets[]) {
+    const currentPlayer = this.getPlayer(playerId);
     return currentPlayer?.addDestinationTickets(tickets);
   }
 

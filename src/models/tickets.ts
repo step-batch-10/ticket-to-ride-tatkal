@@ -11,7 +11,7 @@ class DestinationTickets {
   }
 
   getTopThree() {
-    return this.avaliableTickets.splice(-3);
+    return this.avaliableTickets.slice(-3);
   }
 
   getTickets(ids: string[]) {

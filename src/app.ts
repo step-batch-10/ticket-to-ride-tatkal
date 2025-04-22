@@ -53,7 +53,7 @@ const handleLogin = async (c: Context) => {
 
 const fetchTicketChoices = (c: Context) => {
   const TTR: Ttr = c.get("game");
-  // will return top 3 DT cards.
+  // const minimumPickup = TTR.getState() === "setup" ? 2 : 1;
 
   const destinationTicketsInfo = {
     tickets: TTR.getDestinationTickets(),
@@ -64,10 +64,10 @@ const fetchTicketChoices = (c: Context) => {
 };
 
 const updatePlayerTickets = async (c: Context) => {
-  const ids = await c.req.json();
+  const { tickets } = await c.req.json();
   const playerID = getCookie(c, "user-ID");
   const game = c.get("game");
-  game.addDestinationTicketsTo(playerID, ids.ticketIds);
+  game.addDestinationTicketsTo(playerID, tickets);
 
   return c.text("ok", 200);
 };
