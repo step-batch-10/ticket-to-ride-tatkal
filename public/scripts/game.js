@@ -118,9 +118,10 @@ const handleTicketSelection = (ticket, ticketManager) => {
   };
 };
 
-const confirmTickets = (ticketManager) => {
+const confirmTickets = (ticket, ticketManager) => {
   return async () => {
-    const areConfirmed = await ticketManager.confirmTickets();
+    const id = ticket.getAttribute("id");
+    const areConfirmed = await ticketManager.confirmTickets(id);
     if (!areConfirmed) return;
     await renderPlayerCards();
     await renderPlayerResources();
@@ -137,19 +138,16 @@ const drawDestinationCards = async (ticketManager) => {
   tags.forEach((t) => {
     t.setAttribute("tabIndex", "0");
     t.addEventListener("click", handleTicketSelection(t, ticketManager));
+    t.addEventListener("dblclick", confirmTickets(t, ticketManager));
   });
 
   displayTickets(tags);
-  const chooseBtn = document.querySelector("#choose-tickets");
-  chooseBtn.addEventListener("click", confirmTickets(ticketManager));
 };
 
 const drawBlindCardEvent = async () => {
   const _res = await fetch("/game/player/draw-blind-card", {
     method: "POST",
   });
-
-  console.log(_res);
 
   renderPlayerCards(); //remove when poll
   renderPlayerResources();

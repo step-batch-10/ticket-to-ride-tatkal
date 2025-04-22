@@ -19,7 +19,7 @@ body {
 }
 
 .selected {
-  border: 5px solid black;
+  border: 5px solid goldenrod;
 }
 
 #players-container {

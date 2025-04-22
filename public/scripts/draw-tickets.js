@@ -40,15 +40,19 @@ class DestinationTickets {
     return true;
   }
 
-  async confirmTickets() {
+  async confirmTickets(id) {
     const areEnough = this.#selectedTickets.length >= this.#threshold;
     const areValid = this.#selectedTickets.every((t) => t !== undefined);
+    const triggeredTicket = _.find(this.#selectedTickets, { id });
 
-    if (!(areEnough && areValid)) return false;
+    if (!(areEnough && areValid && triggeredTicket)) return false;
 
     const res = await fetch("/game/player/destination-tickets", {
       method: "POST",
-      body: JSON.stringify({ tickets: this.#selectedTickets }),
+      body: JSON.stringify({
+        selected: this.#selectedTickets,
+        rest: _.without(this.#tickets, ...this.#selectedTickets),
+      }),
     });
 
     return res.ok;
