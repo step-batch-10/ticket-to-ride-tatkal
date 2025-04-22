@@ -1,6 +1,10 @@
 import { Tickets } from "./schemas.ts";
 import _ from "lodash";
 
+const isSubset = <T>(superset: T[], subset: T[]): boolean => {
+  return subset.every((sb) => superset.some((sp) => _.isEqual(sp, sb)));
+};
+
 class DestinationTickets {
   readonly avaliableTickets: Tickets[];
   readonly allTickets;
@@ -15,12 +19,11 @@ class DestinationTickets {
   }
 
   getTickets(ids: string[]) {
-    const t = this.allTickets.filter((ticket) => ids.includes(ticket.id));
-    return t;
+    return this.allTickets.filter((ticket) => ids.includes(ticket.id));
   }
 
   stackUnderDeck(tickets: Tickets[]) {
-    if (!tickets.every((t) => _.includes(this.allTickets, t))) {
+    if (!isSubset(this.allTickets, tickets)) {
       return false;
     }
 
@@ -30,3 +33,4 @@ class DestinationTickets {
 }
 
 export default DestinationTickets;
+export { isSubset };

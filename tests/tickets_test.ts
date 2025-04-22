@@ -1,6 +1,7 @@
 import { assert, assertEquals, assertFalse } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import DestinationTickets from "../src/models/tickets.ts";
+import { isSubset } from "../src/models/tickets.ts";
 import tickets from "../src/models/tickets.json" with { type: "json" };
 
 describe("Tickets", () => {
@@ -27,6 +28,15 @@ describe("Tickets", () => {
   it("should return true when ticket is valid", () => {
     const DT = new DestinationTickets(tickets);
     const ticket = tickets[0];
+
     assert(DT.stackUnderDeck([ticket]));
+    assertEquals(DT.avaliableTickets.at(-1), ticket);
+  });
+});
+
+describe("isSubset", () => {
+  it("should return boolean if it is a subset", () => {
+    assert(isSubset([{ a: 1 }, { b: 3 }, { c: 5 }], [{ a: 1 }, { b: 3 }]));
+    assertFalse(isSubset([{ a: 1 }, { b: 3 }, { c: 5 }], [{ a: 4 }]));
   });
 });
