@@ -51,7 +51,7 @@ const createFaceUpCard = (TCCardManager) => {
     const handleDrawCard = TCCardManager.drawFaceUpCard.bind(
       TCCardManager,
       index,
-      card.color,
+      card.color
     );
 
     faceUpCard.addEventListener("dblclick", handleDrawCard);
@@ -171,7 +171,9 @@ const renderPage = () => {
 
 const main = () => {
   const destinationBtn = document.querySelector("#destination-tickets");
-  destinationBtn.addEventListener("click", drawDestinationCards);
+  const dtHandler = () => drawDestinationCards(new DestinationTickets());
+  destinationBtn.addEventListener("click", dtHandler);
+
   renderPage();
 };
 
