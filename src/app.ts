@@ -1,5 +1,6 @@
 import { Context, Hono, Next } from "hono";
-import { getCookie, setCookie } from "hono/cookie";
+import { getCookie } from "hono/cookie";
+import { handleLogin, handleLogout } from "./handlers/user_handler.ts";
 import {
   CreateAppArgs,
   ServeStatic,
@@ -9,7 +10,7 @@ import {
   addToWaitingQueue,
   getQueue,
   redirectToGame,
-} from "./handlers/waiting-handler.ts";
+} from "./handlers/waiting_handler.ts";
 import {
   drawCardFromDeck,
   drawFaceUpCard,
@@ -17,8 +18,9 @@ import {
   fetchMap,
   fetchPlayerDetails,
   fetchPlayerHand,
-} from "./handlers/gameHandler.ts";
-import { Ttr } from "./models/ttr.ts";
+  fetchTicketChoices,
+  updatePlayerTickets,
+} from "./handlers/game_handler.ts";
 
 const setContext = (args: SetContextArgs) => async (c: Context, next: Next) => {
   const { reader, users, gameHandler } = args;
@@ -46,39 +48,6 @@ const authenticateUser = async (c: Context, next: Next) => {
   await next();
 };
 
-const handleLogin = async (c: Context) => {
-  const userInfo: Object = await c.req.parseBody();
-  const users = c.get("users");
-  const userID: string = users.add(userInfo);
-
-  setCookie(c, "user-ID", userID);
-  return c.redirect("/", 303);
-};
-
-const fetchTicketChoices = (c: Context) => {
-  const TTR: Ttr = c.get("game");
-  const tickets = TTR.getDestinationTickets();
-  // const minimumPickup = TTR.getState() === "setup" ? 2 : 1;
-
-  const destinationTicketsInfo = {
-    tickets,
-    minimumPickup: 2,
-  };
-
-  return c.json(destinationTicketsInfo);
-};
-
-const updatePlayerTickets = async (c: Context) => {
-  const { selected, rest } = await c.req.json();
-  const playerID = getCookie(c, "user-ID");
-  const game = c.get("game");
-
-  game.addDestinationTicketsTo(playerID, selected);
-  game.stackUnderDestinationDeck(rest);
-
-  return c.text("ok", 200);
-};
-
 const guestRoutes = (serveStatic: ServeStatic): Hono => {
   const guest = new Hono();
 
@@ -93,6 +62,7 @@ const guestRoutes = (serveStatic: ServeStatic): Hono => {
 const userRoutes = (): Hono => {
   const user: Hono = new Hono();
 
+  user.delete("/logout", handleLogout);
   user.post("/wait", addToWaitingQueue);
   user.get("/waiting-list", getQueue, redirectToGame);
   user.get("/redirectToGame", redirectToGame);
