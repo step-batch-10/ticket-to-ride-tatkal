@@ -36,6 +36,9 @@ const createTrainCarCard = ({ color }) => {
 };
 
 const createPlayerHandCard = ({ color, count }) => {
+  if (count === 0) {
+    return "";
+  }
   const card = createTrainCarCard({ color });
   const countEl = document.createElement("p");
   countEl.innerText = count;
