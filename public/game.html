@@ -31,10 +31,10 @@
 
   <body>
     <div class="row h-100">
-      <div class="col-2 h-100 shadow" id="players-container"></div>
-      <div class="col-8 h-100 shadow">
+      <div class="col-2 h-100 panel" id="players-container"></div>
+      <div class="col-8 p-0 h-100">
         <section id="mapContainer" class="h-75 overflow-scroll"></section>
-        <section id="player-resources" class="h-25 overflow-scroll shadow">
+        <section id="player-resources" class="h-25 overflow-scroll panel">
           <div id="other-resources">
             <div id="player-ticket-cards"></div>
             <div id="cars"></div>
@@ -42,27 +42,25 @@
           <div id="player-hand"></div>
         </section>
       </div>
-      <div class="col-2 h-100 shadow position-relative">
+      <div class="col-2 h-100 position-relative panel">
         <div
           class="h-75 d-flex flex-row flex-wrap gap-3 justify-content-center align-items-center"
           id="face-up-container"
         >
         </div>
         <div
-          class="h-75 d-flex flex-column gap-1 ticket-display position-absolute top-0 start-100 bg-white w-100"
+          class="h-75 d-flex flex-column gap-1 ticket-display position-absolute top-0 start-100 panel w-100"
         >
         </div>
         <div class="h-25 d-flex flex-column gap-1">
-          <button id="destination-tickets" class="action">
+          <div id="destination-tickets" class="action action-btn flex-1">
             Destination Cards
-          </button>
-          <div id="blind-cards" class="action">Deck of Train Cards</div>
+          </div>
+          <div id="blind-cards" class="action action-btn flex-1">
+            Deck of Train Cards
+          </div>
         </div>
       </div>
-
-      <!-- <div class="ticket-display alert alert-success"></div> -->
-
-      <!-- template for destination tickets -->
 
       <template id="ticket-selector-template">
         <div id="ticket-selection">
