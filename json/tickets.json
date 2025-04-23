@@ -1,80 +1,32 @@
 [
-  {
-    "id": "1",
-    "from": "LA",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "2",
-    "from": "vancour",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "3",
-    "from": "miami",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "4",
-    "from": "new york",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "5",
-    "from": "houston",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "6",
-    "from": "phoenix",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "7",
-    "from": "denver",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "8",
-    "from": "seattle",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "9",
-    "from": "boston",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "10",
-    "from": "atlanta",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "11",
-    "from": "detroit",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "12",
-    "from": "dallas",
-    "to": "chicago",
-    "points": 10
-  },
-  {
-    "id": "13",
-    "from": "minneapolis",
-    "to": "chicago",
-    "points": 10
-  }
+  { "id": "1", "from": "Los Angeles", "to": "New York", "points": 21 },
+  { "id": "2", "from": "Duluth", "to": "Houston", "points": 8 },
+  { "id": "3", "from": "Sault St. Marie", "to": "Nashville", "points": 8 },
+  { "id": "4", "from": "New York", "to": "Atlanta", "points": 6 },
+  { "id": "5", "from": "Portland", "to": "Nashville", "points": 17 },
+  { "id": "6", "from": "Vancouver", "to": "Montreal", "points": 20 },
+  { "id": "7", "from": "Duluth", "to": "El Paso", "points": 10 },
+  { "id": "8", "from": "Toronto", "to": "Miami", "points": 10 },
+  { "id": "9", "from": "Portland", "to": "Phoenix", "points": 11 },
+  { "id": "10", "from": "Dallas", "to": "New York", "points": 11 },
+  { "id": "11", "from": "Calgary", "to": "Salt Lake City", "points": 7 },
+  { "id": "12", "from": "Calgary", "to": "Phoenix", "points": 13 },
+  { "id": "13", "from": "Los Angeles", "to": "Miami", "points": 20 },
+  { "id": "14", "from": "Winnipeg", "to": "Little Rock", "points": 11 },
+  { "id": "15", "from": "San Francisco", "to": "Atlanta", "points": 17 },
+  { "id": "16", "from": "Kansas City", "to": "Houston", "points": 5 },
+  { "id": "17", "from": "Los Angeles", "to": "Chicago", "points": 16 },
+  { "id": "18", "from": "Denver", "to": "Pittsburgh", "points": 11 },
+  { "id": "19", "from": "Chicago", "to": "Santa Fe", "points": 9 },
+  { "id": "20", "from": "Vancouver", "to": "Santa Fe", "points": 13 },
+  { "id": "21", "from": "Boston", "to": "Miami", "points": 12 },
+  { "id": "22", "from": "Chicago", "to": "New Orleans", "points": 7 },
+  { "id": "23", "from": "Montreal", "to": "Atlanta", "points": 9 },
+  { "id": "24", "from": "Seattle", "to": "New York", "points": 22 },
+  { "id": "25", "from": "Denver", "to": "El Paso", "points": 4 },
+  { "id": "26", "from": "Helena", "to": "Los Angeles", "points": 8 },
+  { "id": "27", "from": "Winnipeg", "to": "Houston", "points": 12 },
+  { "id": "28", "from": "Montreal", "to": "New Orleans", "points": 13 },
+  { "id": "29", "from": "Sault St. Marie", "to": "Oklahoma City", "points": 9 },
+  { "id": "30", "from": "Seattle", "to": "Los Angeles", "points": 9 }
 ]
