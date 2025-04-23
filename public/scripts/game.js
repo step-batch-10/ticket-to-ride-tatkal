@@ -1,4 +1,5 @@
 // ================== Imports ======================
+import { DrawTCC } from "./draw-TCC.js";
 import { DestinationTickets, fetchJSON } from "./draw-tickets.js";
 
 const ContinueGame = async () => {
@@ -17,7 +18,6 @@ const displayTickets = (tags) => {
   ticketDisplay.classList.add("align-right");
   ticketDisplay.replaceChildren(selectorTemplate);
 };
-import { DrawTCC } from "./draw-TCC.js";
 
 // ================== Card Creation ==================
 const createDiv = (classNames = []) => {
@@ -46,9 +46,8 @@ export const createTicketCard = ({ from, to, points, id }) => {
 export const createFaceUpCard = (TCCardManager) => (card, index) => {
   const faceUpCard = createTrainCarCard(card);
   faceUpCard.classList.add("action");
-  faceUpCard.addEventListener(
-    "dblclick",
-    () => TCCardManager.drawFaceUpCard(index, card.color),
+  faceUpCard.addEventListener("dblclick", () =>
+    TCCardManager.drawFaceUpCard(index, card.color)
   );
   return faceUpCard;
 };
@@ -186,37 +185,25 @@ const drawBlindCard = () => {
 
 // ================== Page Render ==================
 const renderPage = () => {
-  renderMap();
-  renderFaceupCards(drawTCCInstance());
-  renderPlayerCards();
-  renderPlayerResources();
-  drawBlindCard();
-};
-
-const poll = () => {
-  const intervalId = setInterval(async () => {
-    const { isActive } = await fetchJSON("/game/player/status");
-
-    if (isActive) {
-      return clearInterval(intervalId);
-    }
-
-    renderPage();
-  }, 2000);
+  setInterval(async () => {
+    masterRender(await fetchJSON("/game/player/status"));
+  }, 1000);
 };
 
 const main = async () => {
-  const destinationBtn = document.querySelector("#destination-tickets");
-  const dtHandler = () => drawDestinationCards(new DestinationTickets());
-  destinationBtn.addEventListener("click", dtHandler);
-  const { state } = await fetchJSON("/game/player/status");
+  const ticketManager = new DestinationTickets();
+  document
+    .querySelector("#destination-tickets")
+    .addEventListener("click", () => drawDestinationCards(ticketManager));
 
+  const { state } = await fetchJSON("/game/player/status");
   if (state === "setup") {
+    // server is rejecting the request bcz of not curr player, need to handle
     drawDestinationCards(new DestinationTickets());
   }
 
+  drawBlindCard();
   renderPage();
-  poll();
 };
 
 globalThis.onload = main;
