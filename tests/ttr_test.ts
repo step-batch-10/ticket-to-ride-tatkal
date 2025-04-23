@@ -1,4 +1,4 @@
-import { assertEquals } from "assert";
+import { assert, assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { Ttr } from "../src/models/ttr.ts";
 import { UsMap } from "../src/models/UsMap.ts";
@@ -89,10 +89,10 @@ const prepareTTR = () =>
   Ttr.createTtr(
     [
       { name: "susahnth", id: "1" },
-      { name: "susahnth", id: "3" },
+      { name: "susahnth", id: "2" },
       {
         name: "susahnth",
-        id: "2",
+        id: "3",
       },
     ],
     UsMap.getInstance(mockedReader),
@@ -125,10 +125,31 @@ describe("draw face up card", () => {
     assertEquals(faceUpCard, drawnCard);
   });
 });
+
 describe("get current player", () => {
   it("it should return first player as current player", () => {
     const ttr = prepareTTR();
 
     assertEquals(ttr.getCurrentPlayer().getId(), "1");
+  });
+});
+
+describe("change Player ", () => {
+  it("should change the current player to next player", () => {
+    const ttr = prepareTTR();
+
+    assertEquals(ttr.getCurrentPlayer().getId(), "1");
+    assert(ttr.changePlayer());
+    assertEquals(ttr.getCurrentPlayer().getId(), "2");
+  });
+
+  it("should change the game state once all setup moves are done", () => {
+    const ttr = prepareTTR();
+
+    ttr.changePlayer();
+    ttr.changePlayer();
+    ttr.changePlayer();
+
+    assertEquals(ttr.getState(), "playing");
   });
 });

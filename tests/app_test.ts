@@ -349,40 +349,28 @@ describe("fetchPlayersDetails", () => {
 });
 
 describe("GET /game/destination-tickets", () => {
-  it("/game/destination-tickets should not allow non logged in user", async () => {
+  const prepareGameApp = () => {
     const gameHandler = new GameManager();
     gameHandler.createGame(
       [
         { name: "susahnth", id: "1" },
-        {
-          name: "susahnth",
-          id: "3",
-        },
         { name: "susahnth", id: "2" },
+        { name: "susahnth", id: "3" },
       ],
       mockedReader,
     );
-    const app: Hono = prepareApp(new Users(), gameHandler);
+
+    return prepareApp(new Users(), gameHandler);
+  };
+  it("/game/destination-tickets should not allow non logged in user", async () => {
+    const app: Hono = prepareGameApp();
     const r = await app.request("/game/destination-tickets");
 
     assertEquals(r.status, 303);
   });
 
   it("/game/destination-tickets should give tickets for the logged in user", async () => {
-    const gameHandler = new GameManager();
-    gameHandler.createGame(
-      [
-        { name: "susahnth", id: "1" },
-        {
-          name: "susahnth",
-          id: "3",
-        },
-        { name: "susahnth", id: "2" },
-      ],
-      mockedReader,
-    );
-    const app: Hono = prepareApp(new Users(), gameHandler);
-
+    const app: Hono = prepareGameApp();
     const r: Response = await app.request("/game/destination-tickets", {
       headers: { cookie: "user-ID=1;game-ID=1" },
     });
@@ -394,6 +382,35 @@ describe("GET /game/destination-tickets", () => {
 
     assertEquals(r.status, 200);
     assertEquals(await r.json(), expectedTickets);
+  });
+
+  it("should return minimum pickup of 1 if the game status is playing", async () => {
+    const app: Hono = prepareGameApp();
+
+    const r1 = await app.request("/game/player/done", {
+      method: "PATCH",
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+    const r2 = await app.request("/game/player/done", {
+      method: "PATCH",
+      headers: { cookie: "user-ID=2;game-ID=1" },
+    });
+    const r3 = await app.request("/game/player/done", {
+      method: "PATCH",
+      headers: { cookie: "user-ID=3;game-ID=1" },
+    });
+
+    assertEquals(r1.status, 200);
+    assertEquals(r2.status, 200);
+    assertEquals(r3.status, 200);
+
+    const r: Response = await app.request("/game/destination-tickets", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+    const { minimumPickup } = await r.json();
+
+    assertEquals(r.status, 200);
+    assertEquals(minimumPickup, 1);
   });
 });
 
@@ -527,6 +544,31 @@ describe("GET /game/player/status", () => {
 
     const response = await app.request("/game/player/status", {
       method: "GET",
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+
+    assertEquals(response.status, 200);
+  });
+});
+
+describe("GET /game/player/done", () => {
+  it("should return ok and should change the current player", async () => {
+    const gameHandler = new GameManager();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+
+    const app: Hono = prepareApp(new Users(), gameHandler);
+    const response = await app.request("/game/player/done", {
+      method: "PATCH",
       headers: { cookie: "user-ID=1;game-ID=1" },
     });
 
