@@ -46,8 +46,9 @@ export const createTicketCard = ({ from, to, points, id }) => {
 export const createFaceUpCard = (TCCardManager) => (card, index) => {
   const faceUpCard = createTrainCarCard(card);
   faceUpCard.classList.add("action");
-  faceUpCard.addEventListener("dblclick", () =>
-    TCCardManager.drawFaceUpCard(index, card.color)
+  faceUpCard.addEventListener(
+    "dblclick",
+    () => TCCardManager.drawFaceUpCard(index, card.color),
   );
   return faceUpCard;
 };
