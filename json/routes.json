@@ -1,702 +1,802 @@
 [
   {
-    "id": 1,
-    "cityA": "Vancouver",
-    "cityB": "Calgary",
+    "id": "r1",
+    "cityA": "c1",
+    "cityB": "c2",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr1"
   },
   {
-    "id": 2,
-    "cityA": "Vancouver",
-    "cityB": "Seattle",
+    "id": "r2",
+    "cityA": "c1",
+    "cityB": "c3",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr2"
   },
   {
-    "id": 3,
-    "cityA": "Vancouver",
-    "cityB": "Seattle",
+    "id": "r3",
+    "cityA": "c1",
+    "cityB": "c3",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr3"
   },
   {
-    "id": 4,
-    "cityA": "Seattle",
-    "cityB": "Calgary",
+    "id": "r4",
+    "cityA": "c3",
+    "cityB": "c2",
     "distance": 4,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr4"
   },
   {
-    "id": 5,
-    "cityA": "Seattle",
-    "cityB": "Helena",
+    "id": "r5",
+    "cityA": "c3",
+    "cityB": "c4",
     "distance": 6,
-    "color": "yellow"
+    "color": "yellow",
+    "carId": "cr5"
   },
   {
-    "id": 6,
-    "cityA": "Seattle",
-    "cityB": "Portland",
+    "id": "r6",
+    "cityA": "c3",
+    "cityB": "c5",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr6"
   },
   {
-    "id": 7,
-    "cityA": "Seattle",
-    "cityB": "Portland",
+    "id": "r7",
+    "cityA": "c3",
+    "cityB": "c5",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr7"
   },
   {
-    "id": 8,
-    "cityA": "Portland",
-    "cityB": "Salt Lake City",
+    "id": "r8",
+    "cityA": "c5",
+    "cityB": "c6",
     "distance": 6,
-    "color": "blue"
+    "color": "blue",
+    "carId": "cr8"
   },
   {
-    "id": 9,
-    "cityA": "Portland",
-    "cityB": "San Francisco",
+    "id": "r9",
+    "cityA": "c5",
+    "cityB": "c7",
     "distance": 5,
-    "color": "green"
+    "color": "green",
+    "carId": "cr9"
   },
   {
-    "id": 10,
-    "cityA": "Portland",
-    "cityB": "San Francisco",
+    "id": "r10",
+    "cityA": "c5",
+    "cityB": "c7",
     "distance": 5,
-    "color": "pink"
+    "color": "pink",
+    "carId": "cr10"
   },
   {
-    "id": 11,
-    "cityA": "San Francisco",
-    "cityB": "Salt Lake City",
+    "id": "r11",
+    "cityA": "c7",
+    "cityB": "c6",
     "distance": 5,
-    "color": "orange"
+    "color": "orange",
+    "carId": "cr11"
   },
   {
-    "id": 12,
-    "cityA": "San Francisco",
-    "cityB": "Salt Lake City",
+    "id": "r12",
+    "cityA": "c7",
+    "cityB": "c6",
     "distance": 5,
-    "color": "white"
+    "color": "white",
+    "carId": "cr12"
   },
   {
-    "id": 13,
-    "cityA": "San Francisco",
-    "cityB": "Los Angeles",
+    "id": "r13",
+    "cityA": "c7",
+    "cityB": "c8",
     "distance": 3,
-    "color": "yellow"
+    "color": "yellow",
+    "carId": "cr13"
   },
   {
-    "id": 14,
-    "cityA": "San Francisco",
-    "cityB": "Los Angeles",
+    "id": "r14",
+    "cityA": "c7",
+    "cityB": "c8",
     "distance": 3,
-    "color": "pink"
+    "color": "pink",
+    "carId": "cr14"
   },
   {
-    "id": 15,
-    "cityA": "Los Angeles",
-    "cityB": "Las Vegas",
+    "id": "r15",
+    "cityA": "c8",
+    "cityB": "c9",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr15"
   },
   {
-    "id": 16,
-    "cityA": "Los Angeles",
-    "cityB": "Phoenix",
+    "id": "r16",
+    "cityA": "c8",
+    "cityB": "c10",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr16"
   },
   {
-    "id": 17,
-    "cityA": "Los Angeles",
-    "cityB": "El Paso",
+    "id": "r17",
+    "cityA": "c8",
+    "cityB": "c11",
     "distance": 6,
-    "color": "black"
+    "color": "black",
+    "carId": "cr17"
   },
   {
-    "id": 18,
-    "cityA": "Calgary",
-    "cityB": "Winnipeg",
+    "id": "r18",
+    "cityA": "c2",
+    "cityB": "c12",
     "distance": 6,
-    "color": "white"
+    "color": "white",
+    "carId": "cr18"
   },
   {
-    "id": 19,
-    "cityA": "Calgary",
-    "cityB": "Helena",
+    "id": "r19",
+    "cityA": "c2",
+    "cityB": "c4",
     "distance": 4,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr19"
   },
   {
-    "id": 20,
-    "cityA": "Helena",
-    "cityB": "Winnipeg",
+    "id": "r20",
+    "cityA": "c4",
+    "cityB": "c12",
     "distance": 4,
-    "color": "blue"
+    "color": "blue",
+    "carId": "cr20"
   },
   {
-    "id": 21,
-    "cityA": "Helena",
-    "cityB": "Salt Lake City",
+    "id": "r21",
+    "cityA": "c4",
+    "cityB": "c6",
     "distance": 3,
-    "color": "pink"
+    "color": "pink",
+    "carId": "cr21"
   },
   {
-    "id": 22,
-    "cityA": "Helena",
-    "cityB": "Denver",
+    "id": "r22",
+    "cityA": "c4",
+    "cityB": "c13",
     "distance": 4,
-    "color": "green"
+    "color": "green",
+    "carId": "cr22"
   },
   {
-    "id": 23,
-    "cityA": "Helena",
-    "cityB": "Duluth",
+    "id": "r23",
+    "cityA": "c4",
+    "cityB": "c14",
     "distance": 6,
-    "color": "orange"
+    "color": "orange",
+    "carId": "cr23"
   },
   {
-    "id": 24,
-    "cityA": "Helena",
-    "cityB": "Omaha",
+    "id": "r24",
+    "cityA": "c4",
+    "cityB": "c15",
     "distance": 5,
-    "color": "red"
+    "color": "red",
+    "carId": "cr24"
   },
   {
-    "id": 25,
-    "cityA": "Salt Lake City",
-    "cityB": "Denver",
+    "id": "r25",
+    "cityA": "c6",
+    "cityB": "c13",
     "distance": 3,
-    "color": "red"
+    "color": "red",
+    "carId": "cr25"
   },
   {
-    "id": 26,
-    "cityA": "Salt Lake City",
-    "cityB": "Denver",
+    "id": "r26",
+    "cityA": "c6",
+    "cityB": "c13",
     "distance": 3,
-    "color": "yellow"
+    "color": "yellow",
+    "carId": "cr26"
   },
   {
-    "id": 27,
-    "cityA": "Las Vegas",
-    "cityB": "Salt Lake City",
+    "id": "r27",
+    "cityA": "c9",
+    "cityB": "c6",
     "distance": 3,
-    "color": "orange"
+    "color": "orange",
+    "carId": "cr27"
   },
   {
-    "id": 28,
-    "cityA": "Phoenix",
-    "cityB": "Denver",
+    "id": "r28",
+    "cityA": "c10",
+    "cityB": "c13",
     "distance": 5,
-    "color": "white"
+    "color": "white",
+    "carId": "cr28"
   },
   {
-    "id": 29,
-    "cityA": "Phoenix",
-    "cityB": "Santa Fe",
+    "id": "r29",
+    "cityA": "c10",
+    "cityB": "c25",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr29"
   },
   {
-    "id": 30,
-    "cityA": "Phoenix",
-    "cityB": "El Paso",
+    "id": "r30",
+    "cityA": "c10",
+    "cityB": "c11",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr30"
   },
   {
-    "id": 31,
-    "cityA": "Winnipeg",
-    "cityB": "Sault St. Marie",
+    "id": "r31",
+    "cityA": "c12",
+    "cityB": "c16",
     "distance": 6,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr31"
   },
   {
-    "id": 32,
-    "cityA": "Winnipeg",
-    "cityB": "Duluth",
+    "id": "r32",
+    "cityA": "c12",
+    "cityB": "c14",
     "distance": 4,
-    "color": "black"
+    "color": "black",
+    "carId": "cr32"
   },
   {
-    "id": 33,
-    "cityA": "Duluth",
-    "cityB": "Sault St. Marie",
+    "id": "r33",
+    "cityA": "c14",
+    "cityB": "c16",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr33"
   },
   {
-    "id": 34,
-    "cityA": "Duluth",
-    "cityB": "Toronto",
+    "id": "r34",
+    "cityA": "c14",
+    "cityB": "c17",
     "distance": 6,
-    "color": "pink"
+    "color": "pink",
+    "carId": "cr34"
   },
   {
-    "id": 35,
-    "cityA": "Duluth",
-    "cityB": "Chicago",
+    "id": "r35",
+    "cityA": "c14",
+    "cityB": "c18",
     "distance": 3,
-    "color": "red"
+    "color": "red",
+    "carId": "cr35"
   },
   {
-    "id": 36,
-    "cityA": "Duluth",
-    "cityB": "Omaha",
+    "id": "r36",
+    "cityA": "c14",
+    "cityB": "c15",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr36"
   },
   {
-    "id": 37,
-    "cityA": "Duluth",
-    "cityB": "Omaha",
+    "id": "r37",
+    "cityA": "c14",
+    "cityB": "c15",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr37"
   },
   {
-    "id": 38,
-    "cityA": "Omaha",
-    "cityB": "Chicago",
+    "id": "r38",
+    "cityA": "c15",
+    "cityB": "c18",
     "distance": 4,
-    "color": "blue"
+    "color": "blue",
+    "carId": "cr38"
   },
   {
-    "id": 39,
-    "cityA": "Omaha",
-    "cityB": "Kansas City",
+    "id": "r39",
+    "cityA": "c15",
+    "cityB": "c19",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr39"
   },
   {
-    "id": 40,
-    "cityA": "Omaha",
-    "cityB": "Kansas City",
+    "id": "r40",
+    "cityA": "c15",
+    "cityB": "c19",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr40"
   },
   {
-    "id": 41,
-    "cityA": "Kansas City",
-    "cityB": "Saint Louis",
+    "id": "r41",
+    "cityA": "c19",
+    "cityB": "c20",
     "distance": 2,
-    "color": "blue"
+    "color": "blue",
+    "carId": "cr41"
   },
   {
-    "id": 42,
-    "cityA": "Kansas City",
-    "cityB": "Saint Louis",
+    "id": "r42",
+    "cityA": "c19",
+    "cityB": "c20",
     "distance": 2,
-    "color": "pink"
+    "color": "pink",
+    "carId": "cr42"
   },
   {
-    "id": 43,
-    "cityA": "Kansas City",
-    "cityB": "Oklahoma City",
+    "id": "r43",
+    "cityA": "c19",
+    "cityB": "c21",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "carId": "cr43"
   },
   {
-    "id": 44,
-    "cityA": "Kansas City",
-    "cityB": "Oklahoma City",
-    "distance": 2,
-    "color": "gray"
+    "id": "r44",
+    "cityA": "c19",
+    "cityB": "c23",
+    "distance": 4,
+    "color": "yellow",
+    "carId": "cr44"
   },
   {
-    "id": 45,
-    "cityA": "Oklahoma City",
-    "cityB": "Little Rock",
-    "distance": 2,
-    "color": "gray"
+    "id": "r45",
+    "cityA": "c23",
+    "cityB": "c22",
+    "distance": 3,
+    "color": "yellow",
+    "carId": "cr45"
   },
   {
-    "id": 46,
-    "cityA": "Oklahoma City",
-    "cityB": "Dallas",
-    "distance": 2,
-    "color": "gray"
+    "id": "r46",
+    "cityA": "c23",
+    "cityB": "c22",
+    "distance": 3,
+    "color": "green",
+    "carId": "cr46"
   },
   {
-    "id": 47,
-    "cityA": "Oklahoma City",
-    "cityB": "Dallas",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 48,
-    "cityA": "Dallas",
-    "cityB": "Little Rock",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 49,
-    "cityA": "Dallas",
-    "cityB": "Houston",
-    "distance": 1,
-    "color": "gray"
-  },
-  {
-    "id": 50,
-    "cityA": "Dallas",
-    "cityB": "Houston",
-    "distance": 1,
-    "color": "gray"
-  },
-  {
-    "id": 51,
-    "cityA": "Houston",
-    "cityB": "New Orleans",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 52,
-    "cityA": "El Paso",
-    "cityB": "Houston",
+    "id": "r47",
+    "cityA": "c22",
+    "cityB": "c24",
     "distance": 6,
-    "color": "green"
+    "color": "green",
+    "carId": "cr47"
   },
   {
-    "id": 53,
-    "cityA": "El Paso",
-    "cityB": "Dallas",
-    "distance": 4,
-    "color": "red"
-  },
-  {
-    "id": 54,
-    "cityA": "El Paso",
-    "cityB": "Oklahoma City",
-    "distance": 5,
-    "color": "yellow"
-  },
-  {
-    "id": 55,
-    "cityA": "El Paso",
-    "cityB": "Santa Fe",
+    "id": "r48",
+    "cityA": "c24",
+    "cityB": "c25",
     "distance": 2,
-    "color": "gray"
+    "color": "blue",
+    "carId": "cr48"
   },
   {
-    "id": 56,
-    "cityA": "Santa Fe",
-    "cityB": "Oklahoma City",
+    "id": "r49",
+    "cityA": "c25",
+    "cityB": "c27",
     "distance": 3,
-    "color": "blue"
+    "color": "pink",
+    "carId": "cr49"
   },
   {
-    "id": 57,
-    "cityA": "Oklahoma City",
-    "cityB": "Denver",
-    "distance": 4,
-    "color": "red"
-  },
-  {
-    "id": 58,
-    "cityA": "Santa Fe",
-    "cityB": "Denver",
+    "id": "r50",
+    "cityA": "c27",
+    "cityB": "c26",
     "distance": 2,
-    "color": "gray"
+    "color": "blue",
+    "carId": "cr50"
   },
   {
-    "id": 59,
-    "cityA": "Denver",
-    "cityB": "Kansas City",
+    "id": "r51",
+    "cityA": "c25",
+    "cityB": "c28",
+    "distance": 5,
+    "color": "green",
+    "carId": "cr51"
+  },
+  {
+    "id": "r52",
+    "cityA": "c28",
+    "cityB": "c29",
     "distance": 4,
-    "color": "black"
+    "color": "orange",
+    "carId": "cr52"
   },
   {
-    "id": 60,
-    "cityA": "Denver",
-    "cityB": "Kansas City",
-    "distance": 4,
-    "color": "orange"
-  },
-  {
-    "id": 61,
-    "cityA": "Denver",
-    "cityB": "Omaha",
-    "distance": 4,
-    "color": "pink"
-  },
-  {
-    "id": 62,
-    "cityA": "New Orleans",
-    "cityB": "Miami",
+    "id": "r53",
+    "cityA": "c28",
+    "cityB": "c30",
     "distance": 6,
-    "color": "red"
+    "color": "red",
+    "carId": "cr53"
   },
   {
-    "id": 63,
-    "cityA": "New Orleans",
-    "cityB": "Atlanta",
-    "distance": 4,
-    "color": "orange"
-  },
-  {
-    "id": 64,
-    "cityA": "New Orleans",
-    "cityB": "Atlanta",
-    "distance": 4,
-    "color": "yellow"
-  },
-  {
-    "id": 65,
-    "cityA": "New Orleans",
-    "cityB": "Little Rock",
-    "distance": 3,
-    "color": "green"
-  },
-  {
-    "id": 66,
-    "cityA": "Little Rock",
-    "cityB": "Nashville",
-    "distance": 3,
-    "color": "white"
-  },
-  {
-    "id": 67,
-    "cityA": "Little Rock",
-    "cityB": "Saint Louis",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 68,
-    "cityA": "Saint Louis",
-    "cityB": "Nashville",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 69,
-    "cityA": "Saint Louis",
-    "cityB": "Pittsburgh",
-    "distance": 5,
-    "color": "green"
-  },
-  {
-    "id": 70,
-    "cityA": "Saint Louis",
-    "cityB": "Chicago",
-    "distance": 2,
-    "color": "green"
-  },
-  {
-    "id": 71,
-    "cityA": "Saint Louis",
-    "cityB": "Chicago",
-    "distance": 2,
-    "color": "white"
-  },
-  {
-    "id": 72,
-    "cityA": "Chicago",
-    "cityB": "Pittsburgh",
-    "distance": 3,
-    "color": "black"
-  },
-  {
-    "id": 73,
-    "cityA": "Chicago",
-    "cityB": "Pittsburgh",
-    "distance": 3,
-    "color": "orange"
-  },
-  {
-    "id": 74,
-    "cityA": "Chicago",
-    "cityB": "Toronto",
-    "distance": 4,
-    "color": "white"
-  },
-  {
-    "id": 75,
-    "cityA": "Sault St. Marie",
-    "cityB": "Montreal",
-    "distance": 5,
-    "color": "black"
-  },
-  {
-    "id": 76,
-    "cityA": "Toronto",
-    "cityB": "Montreal",
-    "distance": 3,
-    "color": "gray"
-  },
-  {
-    "id": 77,
-    "cityA": "Sault St. Marie",
-    "cityB": "Toronto",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 78,
-    "cityA": "Toronto",
-    "cityB": "Pittsburgh",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 79,
-    "cityA": "Pittsburgh",
-    "cityB": "New York",
-    "distance": 2,
-    "color": "white"
-  },
-  {
-    "id": 80,
-    "cityA": "Pittsburgh",
-    "cityB": "New York",
-    "distance": 2,
-    "color": "green"
-  },
-  {
-    "id": 81,
-    "cityA": "Pittsburgh",
-    "cityB": "Washington",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 82,
-    "cityA": "Pittsburgh",
-    "cityB": "Raleigh",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 83,
-    "cityA": "Nashville",
-    "cityB": "Raleigh",
-    "distance": 3,
-    "color": "black"
-  },
-  {
-    "id": 84,
-    "cityA": "Nashville",
-    "cityB": "Atlanta",
+    "id": "r54",
+    "cityA": "c29",
+    "cityB": "c30",
     "distance": 1,
-    "color": "gray"
+    "color": "red",
+    "carId": "cr54"
   },
   {
-    "id": 85,
-    "cityA": "Nashville",
-    "cityB": "Pittsburgh",
-    "distance": 4,
-    "color": "yellow"
+    "id": "r55",
+    "cityA": "c29",
+    "cityB": "c30",
+    "distance": 1,
+    "color": "green",
+    "carId": "cr55"
   },
   {
-    "id": 86,
-    "cityA": "Atlanta",
-    "cityB": "Miami",
+    "id": "r56",
+    "cityA": "c30",
+    "cityB": "c31",
+    "distance": 6,
+    "color": "orange",
+    "carId": "cr56"
+  },
+  {
+    "id": "r57",
+    "cityA": "c30",
+    "cityB": "c32",
     "distance": 5,
-    "color": "blue"
+    "color": "blue",
+    "carId": "cr57"
   },
   {
-    "id": 87,
-    "cityA": "Atlanta",
-    "cityB": "Charleston",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 88,
-    "cityA": "Atlanta",
-    "cityB": "Raleigh",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 89,
-    "cityA": "Atlanta",
-    "cityB": "Raleigh",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 90,
-    "cityA": "Charleston",
-    "cityB": "Miami",
+    "id": "r58",
+    "cityA": "c32",
+    "cityB": "c33",
     "distance": 4,
-    "color": "pink"
+    "color": "red",
+    "carId": "cr58"
   },
   {
-    "id": 91,
-    "cityA": "Raleigh",
-    "cityB": "Charleston",
+    "id": "r59",
+    "cityA": "c33",
+    "cityB": "c34",
+    "distance": 6,
+    "color": "yellow",
+    "carId": "cr59"
+  },
+  {
+    "id": "r60",
+    "cityA": "c34",
+    "cityB": "c35",
+    "distance": 6,
+    "color": "green",
+    "carId": "cr60"
+  },
+  {
+    "id": "r61",
+    "cityA": "c34",
+    "cityB": "c36",
+    "distance": 5,
+    "color": "blue",
+    "carId": "cr61"
+  },
+  {
+    "id": "r62",
+    "cityA": "c35",
+    "cityB": "c36",
     "distance": 2,
-    "color": "gray"
+    "color": "green",
+    "carId": "cr62"
   },
   {
-    "id": 92,
-    "cityA": "Raleigh",
-    "cityB": "Washington",
-    "distance": 2,
-    "color": "gray"
+    "id": "r63",
+    "cityA": "c35",
+    "cityB": "c37",
+    "distance": 4,
+    "color": "green",
+    "carId": "cr63"
   },
   {
-    "id": 93,
-    "cityA": "Raleigh",
-    "cityB": "Washington",
-    "distance": 2,
-    "color": "gray"
-  },
-  {
-    "id": 94,
-    "cityA": "Washington",
-    "cityB": "New York",
-    "distance": 2,
-    "color": "orange"
-  },
-  {
-    "id": 95,
-    "cityA": "Washington",
-    "cityB": "New York",
-    "distance": 2,
-    "color": "black"
-  },
-  {
-    "id": 96,
-    "cityA": "New York",
-    "cityB": "Boston",
-    "distance": 2,
-    "color": "yellow"
-  },
-  {
-    "id": 97,
-    "cityA": "New York",
-    "cityB": "Boston",
-    "distance": 2,
-    "color": "red"
-  },
-  {
-    "id": 98,
-    "cityA": "New York",
-    "cityB": "Montreal",
+    "id": "r64",
+    "cityA": "c36",
+    "cityB": "c38",
     "distance": 3,
-    "color": "blue"
+    "color": "red",
+    "carId": "cr64"
   },
   {
-    "id": 99,
-    "cityA": "Boston",
-    "cityB": "Montreal",
-    "distance": 2,
-    "color": "gray"
+    "id": "r65",
+    "cityA": "c37",
+    "cityB": "c39",
+    "distance": 4,
+    "color": "blue",
+    "carId": "cr65"
   },
   {
-    "id": 100,
-    "cityA": "Boston",
-    "cityB": "Montreal",
+    "id": "r66",
+    "cityA": "c38",
+    "cityB": "c40",
+    "distance": 3,
+    "color": "yellow",
+    "carId": "cr66"
+  },
+  {
+    "id": "r67",
+    "cityA": "c39",
+    "cityB": "c41",
+    "distance": 4,
+    "color": "red",
+    "carId": "cr67"
+  },
+  {
+    "id": "r68",
+    "cityA": "c40",
+    "cityB": "c42",
+    "distance": 5,
+    "color": "green",
+    "carId": "cr68"
+  },
+  {
+    "id": "r69",
+    "cityA": "c41",
+    "cityB": "c43",
+    "distance": 6,
+    "color": "yellow",
+    "carId": "cr69"
+  },
+  {
+    "id": "r70",
+    "cityA": "c42",
+    "cityB": "c44",
     "distance": 2,
-    "color": "gray"
+    "color": "pink",
+    "carId": "cr70"
+  },
+  {
+    "id": "r71",
+    "cityA": "c43",
+    "cityB": "c45",
+    "distance": 3,
+    "color": "blue",
+    "carId": "cr71"
+  },
+  {
+    "id": "r72",
+    "cityA": "c44",
+    "cityB": "c46",
+    "distance": 5,
+    "color": "green",
+    "carId": "cr72"
+  },
+  {
+    "id": "r73",
+    "cityA": "c45",
+    "cityB": "c47",
+    "distance": 2,
+    "color": "red",
+    "carId": "cr73"
+  },
+  {
+    "id": "r74",
+    "cityA": "c46",
+    "cityB": "c48",
+    "distance": 4,
+    "color": "blue",
+    "carId": "cr74"
+  },
+  {
+    "id": "r75",
+    "cityA": "c47",
+    "cityB": "c49",
+    "distance": 5,
+    "color": "red",
+    "carId": "cr75"
+  },
+  {
+    "id": "r76",
+    "cityA": "c48",
+    "cityB": "c50",
+    "distance": 3,
+    "color": "orange",
+    "carId": "cr76"
+  },
+  {
+    "id": "r77",
+    "cityA": "c49",
+    "cityB": "c51",
+    "distance": 2,
+    "color": "yellow",
+    "carId": "cr77"
+  },
+  {
+    "id": "r78",
+    "cityA": "c50",
+    "cityB": "c52",
+    "distance": 3,
+    "color": "pink",
+    "carId": "cr78"
+  },
+  {
+    "id": "r79",
+    "cityA": "c51",
+    "cityB": "c53",
+    "distance": 4,
+    "color": "green",
+    "carId": "cr79"
+  },
+  {
+    "id": "r80",
+    "cityA": "c52",
+    "cityB": "c54",
+    "distance": 3,
+    "color": "blue",
+    "carId": "cr80"
+  },
+  {
+    "id": "r81",
+    "cityA": "c53",
+    "cityB": "c55",
+    "distance": 2,
+    "color": "red",
+    "carId": "cr81"
+  },
+  {
+    "id": "r82",
+    "cityA": "c54",
+    "cityB": "c56",
+    "distance": 4,
+    "color": "yellow",
+    "carId": "cr82"
+  },
+  {
+    "id": "r83",
+    "cityA": "c55",
+    "cityB": "c57",
+    "distance": 3,
+    "color": "green",
+    "carId": "cr83"
+  },
+  {
+    "id": "r84",
+    "cityA": "c56",
+    "cityB": "c58",
+    "distance": 5,
+    "color": "blue",
+    "carId": "cr84"
+  },
+  {
+    "id": "r85",
+    "cityA": "c57",
+    "cityB": "c59",
+    "distance": 3,
+    "color": "orange",
+    "carId": "cr85"
+  },
+  {
+    "id": "r86",
+    "cityA": "c58",
+    "cityB": "c60",
+    "distance": 5,
+    "color": "pink",
+    "carId": "cr86"
+  },
+  {
+    "id": "r87",
+    "cityA": "c59",
+    "cityB": "c61",
+    "distance": 4,
+    "color": "yellow",
+    "carId": "cr87"
+  },
+  {
+    "id": "r88",
+    "cityA": "c60",
+    "cityB": "c62",
+    "distance": 5,
+    "color": "blue",
+    "carId": "cr88"
+  },
+  {
+    "id": "r89",
+    "cityA": "c61",
+    "cityB": "c63",
+    "distance": 4,
+    "color": "red",
+    "carId": "cr89"
+  },
+  {
+    "id": "r90",
+    "cityA": "c62",
+    "cityB": "c64",
+    "distance": 2,
+    "color": "green",
+    "carId": "cr90"
+  },
+  {
+    "id": "r91",
+    "cityA": "c63",
+    "cityB": "c65",
+    "distance": 3,
+    "color": "yellow",
+    "carId": "cr91"
+  },
+  {
+    "id": "r92",
+    "cityA": "c64",
+    "cityB": "c66",
+    "distance": 5,
+    "color": "red",
+    "carId": "cr92"
+  },
+  {
+    "id": "r93",
+    "cityA": "c65",
+    "cityB": "c67",
+    "distance": 3,
+    "color": "green",
+    "carId": "cr93"
+  },
+  {
+    "id": "r94",
+    "cityA": "c66",
+    "cityB": "c68",
+    "distance": 5,
+    "color": "orange",
+    "carId": "cr94"
+  },
+  {
+    "id": "r95",
+    "cityA": "c67",
+    "cityB": "c69",
+    "distance": 4,
+    "color": "blue",
+    "carId": "cr95"
+  },
+  {
+    "id": "r96",
+    "cityA": "c68",
+    "cityB": "c70",
+    "distance": 3,
+    "color": "yellow",
+    "carId": "cr96"
+  },
+  {
+    "id": "r97",
+    "cityA": "c69",
+    "cityB": "c71",
+    "distance": 2,
+    "color": "green",
+    "carId": "cr97"
+  },
+  {
+    "id": "r98",
+    "cityA": "c70",
+    "cityB": "c72",
+    "distance": 4,
+    "color": "red",
+    "carId": "cr98"
+  },
+  {
+    "id": "r99",
+    "cityA": "c71",
+    "cityB": "c73",
+    "distance": 5,
+    "color": "yellow",
+    "carId": "cr99"
+  },
+  {
+    "id": "r100",
+    "cityA": "c72",
+    "cityB": "c74",
+    "distance": 6,
+    "color": "blue",
+    "carId": "cr100"
   }
 ]
