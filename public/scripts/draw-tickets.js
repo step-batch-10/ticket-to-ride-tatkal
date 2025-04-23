@@ -18,10 +18,10 @@ class DestinationTickets {
   }
 
   async getTopThree() {
-    const { tickets, minimumPickup } = await fetchJSON(
-      "/game/destination-tickets",
-    );
+    const response = await fetch("/game/destination-tickets");
+    if (!response.ok) return false;
 
+    const { tickets, minimumPickup } = await response.json();
     this.#tickets.unshift(...tickets);
     this.#threshold = minimumPickup;
 

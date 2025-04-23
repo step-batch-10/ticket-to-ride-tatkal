@@ -1,5 +1,22 @@
 // ================== Imports ======================
 import { DestinationTickets, fetchJSON } from "./draw-tickets.js";
+
+const ContinueGame = async () => {
+  await fetch("/game/player/done", { method: "PATCH" });
+  poll();
+};
+
+// ----- Ticket Generation ------------
+
+const displayTickets = (tags) => {
+  const selectorTemplate = cloneTemplate("#ticket-selector-template");
+  const container = selectorTemplate.querySelector("#ticket-container");
+  const ticketDisplay = document.querySelector(".ticket-display");
+
+  container.append(...tags);
+  ticketDisplay.classList.add("align-right");
+  ticketDisplay.replaceChildren(selectorTemplate);
+};
 import { DrawTCC } from "./draw-TCC.js";
 
 // ================== Card Creation ==================
@@ -22,9 +39,8 @@ export const createTicketCard = ({ from, to, points, id }) => {
 export const createFaceUpCard = (TCCardManager) => (card, index) => {
   const faceUpCard = createTrainCarCard(card);
   faceUpCard.classList.add("action");
-  faceUpCard.addEventListener(
-    "dblclick",
-    () => TCCardManager.drawFaceUpCard(index, card.color),
+  faceUpCard.addEventListener("dblclick", () =>
+    TCCardManager.drawFaceUpCard(index, card.color)
   );
   return faceUpCard;
 };
@@ -128,25 +144,18 @@ const handleTicketSelection = (ticket, ticketManager) => () => {
 const confirmTickets = (ticket, ticketManager) => async () => {
   const confirmed = await ticketManager.confirmTickets(ticket.dataset.ticketId);
   if (!confirmed) return;
+  ContinueGame();
 
   const ticketArea = document.querySelector(".ticket-display");
   ticketArea.classList.remove("align-right");
   document.querySelector("#ticket-selection")?.remove();
 };
 
-const displayTickets = (tags) => {
-  const template = cloneTemplate("#ticket-selector-template");
-  template.querySelector("#ticket-container").append(...tags);
-  const display = document.querySelector(".ticket-display");
-  display.classList.add("align-right");
-  display.replaceChildren(template);
-};
-
 const drawDestinationCards = async (ticketManager) => {
-  const { isActive } = await fetchJSON("/game/player/status");
-  if (!isActive) return;
-
+  //changes this inconsistent method!
   const tickets = await ticketManager.getTopThree();
+  if (!tickets) return;
+
   const ticketTags = tickets.map(createTicketCard);
 
   ticketTags.forEach((tag) => {
@@ -167,20 +176,37 @@ const drawBlindCard = () => {
 
 // ================== Page Render ==================
 const renderPage = () => {
-  setInterval(async () => {
-    masterRender(await fetchJSON("/game/player/status"));
-  }, 1000);
+  renderMap();
+  renderFaceupCards(drawTCCInstance());
+  renderPlayerCards();
+  renderPlayerResources();
+  drawBlindCard();
 };
 
-const main = () => {
-  const ticketManager = new DestinationTickets();
-  document
-    .querySelector("#destination-tickets")
-    .addEventListener("click", () => drawDestinationCards(ticketManager));
+const poll = () => {
+  const intervalId = setInterval(async () => {
+    const { isActive } = await fetchJSON("/game/player/status");
 
-  drawDestinationCards(ticketManager);
-  drawBlindCard();
+    if (isActive) {
+      return clearInterval(intervalId);
+    }
+
+    renderPage();
+  }, 2000);
+};
+
+const main = async () => {
+  const destinationBtn = document.querySelector("#destination-tickets");
+  const dtHandler = () => drawDestinationCards(new DestinationTickets());
+  destinationBtn.addEventListener("click", dtHandler);
+  const { state } = await fetchJSON("/game/player/status");
+
+  if (state === "setup") {
+    drawDestinationCards(new DestinationTickets());
+  }
+
   renderPage();
+  poll();
 };
 
 globalThis.onload = main;
