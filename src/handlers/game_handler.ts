@@ -2,6 +2,9 @@ import { Context } from "hono";
 import { getCookie } from "hono/cookie";
 import { Player } from "../models/player.ts";
 import { Ttr } from "../models/ttr.ts";
+import { Tickets } from "../models/schemas.ts";
+import { _ } from "https://cdn.skypack.dev/lodash";
+import cities from "../../json/cities.json" with { type: "json" };
 
 export const fetchMap = (context: Context) => {
   const game = context.get("game");
@@ -14,11 +17,19 @@ export const fetchFaceUps = (context: Context) => {
   return context.json(game.getFaceUpCards());
 };
 
+export const assignRouteCities = (tickets: Tickets[]) => {
+  return tickets.map((t) => {
+    const from = _.find(cities, { id: t.from });
+    const to = _.find(cities, { id: t.to });
+
+    return { ...t, fromCity: from.name, toCity: to.name };
+  });
+};
+
 export const fetchTicketChoices = (c: Context) => {
   const TTR: Ttr = c.get("game");
   const minimumPickup = TTR.getState() === "setup" ? 2 : 1;
-  const tickets = TTR.getDestinationTickets();
-
+  const tickets = assignRouteCities(TTR.getDestinationTickets());
   const destinationTicketsInfo = { tickets, minimumPickup };
 
   return c.json(destinationTicketsInfo);
@@ -28,8 +39,9 @@ export const updatePlayerTickets = async (c: Context) => {
   const { selected, rest } = await c.req.json();
   const playerID = getCookie(c, "user-ID");
   const game = c.get("game");
+  const selectedTickets = assignRouteCities(selected);
 
-  game.addDestinationTicketsTo(playerID, selected);
+  game.addDestinationTicketsTo(playerID, selectedTickets);
   game.stackUnderDestinationDeck(rest);
 
   return c.text("ok", 200);

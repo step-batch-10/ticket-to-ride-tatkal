@@ -4,7 +4,6 @@ import { DestinationTickets, fetchJSON } from "./draw_tickets.js";
 
 export const continueGame = async () => {
   await fetch("/game/player/done", { method: "PATCH" });
-  poll();
 };
 
 // ----- Ticket Generation ------------
@@ -36,9 +35,10 @@ export const createTrainCarCard = ({ color }) => {
 
   return card;
 };
-export const createTicketCard = ({ from, to, points, id }) => {
+export const createTicketCard = ({ fromCity, toCity, points, id }) => {
   const ticketCard = createDiv(["player-ticket-card"]);
-  ticketCard.innerText = `from: ${from} → to: ${to} → points: ${points}`;
+  ticketCard.innerText =
+    `from: ${fromCity} → to: ${toCity} → points: ${points}`;
   ticketCard.dataset.ticketId = id;
   return ticketCard;
 };
