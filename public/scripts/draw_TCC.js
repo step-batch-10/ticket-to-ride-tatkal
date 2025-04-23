@@ -1,4 +1,4 @@
-import { fetchJSON } from "./draw-tickets.js";
+import { fetchJSON } from "./draw_tickets.js";
 import { continueGame } from "./game.js";
 
 export class DrawTCC {

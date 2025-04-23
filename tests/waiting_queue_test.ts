@@ -1,6 +1,6 @@
 import { assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
-import { WaitingQueue } from "../src/models/player-queue.ts";
+import { WaitingQueue } from "../src/models/waiting_queue.ts";
 
 describe("WaitingQueue", () => {
   it("Should add a player to waiting queue and return true", () => {

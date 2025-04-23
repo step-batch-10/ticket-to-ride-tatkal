@@ -20,8 +20,8 @@ export class UsMap implements USAMap {
   }
 
   static getInstance(reader: Reader) {
-    const svg = reader("public/USA-map.html");
-    const tickets = reader("src/models/tickets.json");
+    const svg = reader("public/USA_map.html");
+    const tickets = reader("json/tickets.json");
     return new UsMap(svg, JSON.parse(tickets));
   }
 }

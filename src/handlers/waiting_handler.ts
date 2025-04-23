@@ -7,7 +7,7 @@ export const addToWaitingQueue = (context: Context) => {
   const name: string = context.get("users").getInfo(userId).username;
   context.get("gameHandler").addToQueue({ id: userId, name }, 3);
 
-  return context.redirect("/waiting-page.html");
+  return context.redirect("/waiting_page.html");
 };
 
 export const getQueue = (context: Context) => {

@@ -1,7 +1,7 @@
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/deno";
 import { Users } from "./users.ts";
-import { GameManager } from "./game-handlers.ts";
+import { GameManager } from "./game_manager.ts";
 import { Ttr } from "./ttr.ts";
 
 type Logger = typeof logger;

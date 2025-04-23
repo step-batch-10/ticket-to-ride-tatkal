@@ -3,7 +3,7 @@ import { createApp } from "./src/app.ts";
 import { logger } from "hono/logger";
 import { serveStatic } from "hono/deno";
 import { Users } from "./src/models/users.ts";
-import { GameManager } from "./src/models/game-handlers.ts";
+import { GameManager } from "./src/models/game_manager.ts";
 
 const main = (): void => {
   const args = {

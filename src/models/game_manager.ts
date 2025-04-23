@@ -1,6 +1,6 @@
 import { Ttr } from "./ttr.ts";
-import { UsMap } from "./USA-map.ts";
-import { WaitingQueue } from "./player-queue.ts";
+import { UsMap } from "./USA_map.ts";
+import { WaitingQueue } from "./waiting_queue.ts";
 import { Game, PlayerInfo, Reader } from "./schemas.ts";
 
 export class GameManager {

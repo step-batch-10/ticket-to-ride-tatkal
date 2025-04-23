@@ -1,6 +1,6 @@
 import { assert, assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
-import { GameManager } from "../src/models/game-handlers.ts";
+import { GameManager } from "../src/models/game_manager.ts";
 import tickets from "../json/tickets.json" with { type: "json" };
 
 const mockedReader = (_path: string | URL): string => {

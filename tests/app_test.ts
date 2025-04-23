@@ -3,9 +3,9 @@ import { assertEquals } from "assert";
 import { describe, it } from "@std/testing/bdd";
 import { serveStatic } from "hono/deno";
 import { Context, Hono } from "hono";
-import { UsMap } from "../src/models/USA-map.ts";
+import { UsMap } from "../src/models/USA_map.ts";
 import { Users } from "../src/models/users.ts";
-import { GameManager } from "../src/models/game-handlers.ts";
+import { GameManager } from "../src/models/game_manager.ts";
 import dtickets from "../json/tickets.json" with { type: "json" };
 
 const logger = () => async (_: Context, n: Function) => await n();

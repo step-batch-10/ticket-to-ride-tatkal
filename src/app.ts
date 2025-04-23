@@ -1,6 +1,6 @@
 import { Context, Hono, Next } from "hono";
 import { getCookie } from "hono/cookie";
-import { handleLogin, handleLogout } from "./handlers/user-handler.ts";
+import { handleLogin, handleLogout } from "./handlers/user_handler.ts";
 import {
   CreateAppArgs,
   ServeStatic,
@@ -10,7 +10,7 @@ import {
   addToWaitingQueue,
   getQueue,
   redirectToGame,
-} from "./handlers/waiting-handler.ts";
+} from "./handlers/waiting_handler.ts";
 import {
   changePlayer,
   drawCardFromDeck,
@@ -22,7 +22,7 @@ import {
   fetchPlayerHand,
   fetchTicketChoices,
   updatePlayerTickets,
-} from "./handlers/game-handler.ts";
+} from "./handlers/game_handler.ts";
 import { Player } from "./models/player.ts";
 
 const setContext = (args: SetContextArgs) => async (c: Context, next: Next) => {
@@ -82,10 +82,10 @@ const setPlayerContext = async (context: Context, next: Next) => {
 const authenticatePlayerMove = async (context: Context, next: Next) => {
   const game = context.get("game");
   context.set("currentPlayer", game.getCurrentPlayer());
-  const currentPlayer: Player = context.get("currentPlayer");
 
+  const currentPlayer: Player = context.get("currentPlayer");
   const playerId = getCookie(context, "user-ID");
-  console.log("=> ", playerId, currentPlayer.getId(), game.getState());
+
   if (playerId === currentPlayer.getId() || game.getState() === "setup") {
     await next();
   }

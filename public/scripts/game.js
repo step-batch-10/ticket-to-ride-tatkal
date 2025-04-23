@@ -1,6 +1,6 @@
 // ================== Imports ======================
-import { DrawTCC } from "./draw-TCC.js";
-import { DestinationTickets, fetchJSON } from "./draw-tickets.js";
+import { DrawTCC } from "./draw_TCC.js";
+import { DestinationTickets, fetchJSON } from "./draw_tickets.js";
 
 export const continueGame = async () => {
   await fetch("/game/player/done", { method: "PATCH" });

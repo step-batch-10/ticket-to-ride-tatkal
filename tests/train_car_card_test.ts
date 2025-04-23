@@ -1,4 +1,4 @@
-import { TrainCarCards } from "../src/models/train-car-cards.ts";
+import { TrainCarCards } from "../src/models/train_car_cards.ts";
 import { assertEquals, assertThrows } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 
