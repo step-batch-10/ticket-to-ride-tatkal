@@ -2,7 +2,7 @@ import { card, GameStatus, PlayerInfo, svg, Tickets } from "./schemas.ts";
 import { TrainCarCards } from "./train-car-cards.ts";
 import DestinationTickets from "./tickets.ts";
 import { Player } from "./player.ts";
-import { UsMap } from "./UsMap.ts";
+import { UsMap } from "./USA-map.ts";
 
 export class Ttr {
   private players: Player[];

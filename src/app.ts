@@ -1,6 +1,6 @@
 import { Context, Hono, Next } from "hono";
 import { getCookie } from "hono/cookie";
-import { handleLogin, handleLogout } from "./handlers/user_handler.ts";
+import { handleLogin, handleLogout } from "./handlers/user-handler.ts";
 import {
   CreateAppArgs,
   ServeStatic,
@@ -10,7 +10,7 @@ import {
   addToWaitingQueue,
   getQueue,
   redirectToGame,
-} from "./handlers/waiting_handler.ts";
+} from "./handlers/waiting-handler.ts";
 import {
   changePlayer,
   drawCardFromDeck,
@@ -22,7 +22,7 @@ import {
   fetchPlayerHand,
   fetchTicketChoices,
   updatePlayerTickets,
-} from "./handlers/game_handler.ts";
+} from "./handlers/game-handler.ts";
 import { Player } from "./models/player.ts";
 
 const setContext = (args: SetContextArgs) => async (c: Context, next: Next) => {

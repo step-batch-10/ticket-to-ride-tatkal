@@ -5,7 +5,7 @@ import { serveStatic } from "hono/deno";
 import { Context, Hono } from "hono";
 import { Users } from "../src/models/users.ts";
 import { GameManager } from "../src/models/game-handlers.ts";
-import dtickets from "../src/models/tickets.json" with { type: "json" };
+import dtickets from "../json/tickets.json" with { type: "json" };
 
 const logger = () => async (_: Context, n: Function) => await n();
 

@@ -2,7 +2,7 @@ import { assert, assertEquals, assertFalse } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import DestinationTickets from "../src/models/tickets.ts";
 import { isSubset } from "../src/models/tickets.ts";
-import tickets from "../src/models/tickets.json" with { type: "json" };
+import tickets from "../json/tickets.json" with { type: "json" };
 
 describe("Tickets", () => {
   it("should contain all destinations tickets that are provided", () => {

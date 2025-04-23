@@ -1,7 +1,7 @@
 import { assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { Player } from "../src/models/player.ts";
-import tickets from "../src/models/tickets.json" with { type: "json" };
+import tickets from "../json/tickets.json" with { type: "json" };
 
 describe("Player", () => {
   describe("getTrainCars", () => {
