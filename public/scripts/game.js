@@ -26,9 +26,16 @@ const createDiv = (classNames = []) => {
   return div;
 };
 
-export const createTrainCarCard = ({ color }) =>
-  createDiv(["train-car-card", color]);
+export const createTrainCarCard = ({ color }) => {
+  const card = createDiv(["train-car-card", color]);
+  const img = document.createElement("img");
+  img.className = "img";
+  img.src = "/assests/image.png";
 
+  card.appendChild(img);
+
+  return card;
+};
 export const createTicketCard = ({ from, to, points, id }) => {
   const ticketCard = createDiv(["player-ticket-card"]);
   ticketCard.innerText = `from: ${from} → to: ${to} → points: ${points}`;
@@ -53,6 +60,8 @@ const getDrawTCCInstance = (() => {
 
 export const createPlayerHandCard = ({ color, count }) => {
   const handCard = createTrainCarCard({ color });
+  handCard.classList.add("hand-card");
+
   const countElem = document.createElement("p");
   countElem.classList.add("card-count");
   countElem.innerText = count;

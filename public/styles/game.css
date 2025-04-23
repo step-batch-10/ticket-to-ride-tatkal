@@ -1,6 +1,6 @@
 * {
   padding: 0;
-  margin: 0 !important;
+  margin: 0;
   box-sizing: border-box;
 }
 
@@ -34,11 +34,14 @@ body {
 
 .train-car-card {
   width: 100px;
+  /* aspect-ratio: 2/3; */
   height: 150px;
-  padding: 10px;
-  margin: 10px;
+  margin: 0%;
+  border: 10px double white;
   border-radius: 5px;
-  box-shadow: 0px 0px 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .details {
@@ -94,11 +97,10 @@ body {
 }
 
 #player-hand {
-  width: 70%;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  overflow-y: scroll;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 #player-ticket-cards {
@@ -142,7 +144,7 @@ body {
   background-color: green;
 }
 .white {
-  background-color: whitesmoke;
+  background-color: gainsboro;
 }
 .orange {
   background-color: orange;
@@ -153,22 +155,35 @@ body {
 
 .locomotive {
   background: linear-gradient(
-    45deg,
-    #ff0000,
-    /* Red */ #ff8000b7,
-    /* Orange */ #ffff00,
-    /* Yellow */ #00ff00,
-    /* Green */ #0000ff,
-    /* Blue */ #4b0082,
-    /* Indigo */ #8b00ff /* Violet */
+    to right,
+    red 0%,
+    red 16.7%,
+    orange 16.7%,
+    orange 33.4%,
+    yellow 33.4%,
+    yellow 50.1%,
+    green 50.1%,
+    green 66.8%,
+    blue 66.8%,
+    blue 83.5%,
+    pink 83.5%,
+    pink 100%
   );
 }
 
 .card-count {
-  color: brown;
-  text-shadow: 0px 0px 50px burlywood;
-  font-size: 3rem;
-  font-weight: 900;
+  position: absolute;
+  left: -20px;
+  top: -20px;
+  width: 30%;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: content-box;
+  background-color: gold;
+  border: 1px solid black;
+  border-radius: 50%;
 }
 
 .disable {
@@ -177,4 +192,24 @@ body {
 }
 .highlight {
   border: 5px solid white;
+}
+
+.hand-card {
+  position: relative;
+  margin-left: -50px;
+  z-index: 1;
+  transition: transform 0.3 ease;
+}
+
+.hand-card:hover {
+  transform: translateY(-20%);
+}
+
+.train-car-card:first-child {
+  margin-left: 0;
+}
+
+.img {
+  width: 90%;
+  aspect-ratio: 1;
 }
