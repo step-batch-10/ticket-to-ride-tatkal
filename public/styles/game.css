@@ -170,3 +170,11 @@ body {
   font-size: 3rem;
   font-weight: 900;
 }
+
+.disable {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.highlight {
+  border: 5px solid white;
+}

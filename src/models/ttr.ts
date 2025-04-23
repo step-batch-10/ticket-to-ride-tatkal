@@ -93,16 +93,16 @@ export class Ttr {
   }
 
   status(playerID: string): GameStatus {
-    const dummy: GameStatus = {
-      currentPlayerID: "1",
+    const stats: GameStatus = {
+      currentPlayerID: this.currentPlayer.getId(),
       isActive: playerID === "1",
       players: this.getPlayerDetails(),
       map: this.getMap(),
-      playerResources: this.currentPlayer.getPlayerResources(),
+      playerResources: this.getPlayer(playerID)!.getPlayerResources(),
       faceUpCards: this.getFaceUpCards(),
       state: this.state,
     };
 
-    return dummy;
+    return stats;
   }
 }
