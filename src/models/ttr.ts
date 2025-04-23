@@ -116,8 +116,8 @@ export class Ttr {
   }
 
   changePlayer() {
-    this.currentPlayerIndex =
-      (this.currentPlayerIndex + 1) % this.players.length;
+    this.currentPlayerIndex = (this.currentPlayerIndex + 1) %
+      this.players.length;
     this.moves += 1;
 
     if (this.moves === this.players.length) {
