@@ -124,7 +124,7 @@ body {
   flex-direction: column;
   gap: 5px;
   align-items: center;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .player-ticket-card {
