@@ -16,12 +16,10 @@ export const fetchFaceUps = (context: Context) => {
 
 export const fetchTicketChoices = (c: Context) => {
   const TTR: Ttr = c.get("game");
-  // const minimumPickup = TTR.getState() === "setup" ? 2 : 1;
+  const minimumPickup = TTR.getState() === "setup" ? 2 : 1;
+  const tickets = TTR.getDestinationTickets();
 
-  const destinationTicketsInfo = {
-    tickets: TTR.getDestinationTickets(),
-    minimumPickup: 2,
-  };
+  const destinationTicketsInfo = { tickets, minimumPickup };
 
   return c.json(destinationTicketsInfo);
 };
@@ -42,7 +40,7 @@ export const fetchPlayerHand = (context: Context) => {
   const playerId = getCookie(context, "user-ID");
 
   const currentPlayer = game.getPlayers().find((player: Player) => {
-    return player.getId() == playerId;
+    return player.getId() === playerId;
   });
 
   if (!currentPlayer) {
@@ -82,4 +80,10 @@ export const fetchGameStatus = (context: Context) => {
   const playerId = getCookie(context, "user-ID");
 
   return context.json(game.status(playerId));
+};
+
+export const changePlayer = (context: Context) => {
+  const game = context.get("game");
+  game.changePlayer();
+  return context.text("ok");
 };

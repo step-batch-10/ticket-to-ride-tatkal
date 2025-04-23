@@ -10,6 +10,8 @@ export class Ttr {
   private trainCarCards: TrainCarCards;
   private destinationCards: DestinationTickets;
   private currentPlayer: Player;
+  private currentPlayerIndex: number;
+  private moves: number;
   private state: "setup" | "playing" | "finalTurn";
 
   constructor(players: Player[], map: UsMap) {
@@ -19,7 +21,9 @@ export class Ttr {
     this.destinationCards = map.getDestinationTickets();
     this.initializePlayers();
     this.state = "setup";
-    this.currentPlayer = this.players[0];
+    this.currentPlayerIndex = 0;
+    this.moves = 0;
+    this.currentPlayer = this.players[this.currentPlayerIndex];
   }
 
   drawFaceUpCard(index: number) {
@@ -93,9 +97,10 @@ export class Ttr {
   }
 
   status(playerID: string): GameStatus {
+    const currentPlayerID = this.currentPlayer.getId();
     const stats: GameStatus = {
-      currentPlayerID: this.currentPlayer.getId(),
-      isActive: playerID === "1",
+      currentPlayerID,
+      isActive: playerID === currentPlayerID,
       players: this.getPlayerDetails(),
       map: this.getMap(),
       playerResources: this.getPlayer(playerID)!.getPlayerResources(),
@@ -104,5 +109,22 @@ export class Ttr {
     };
 
     return stats;
+  }
+
+  getState() {
+    return this.state;
+  }
+
+  changePlayer() {
+    this.currentPlayerIndex =
+      (this.currentPlayerIndex + 1) % this.players.length;
+    this.moves += 1;
+
+    if (this.moves === this.players.length) {
+      this.state = "playing";
+    }
+
+    this.currentPlayer = this.players[this.currentPlayerIndex];
+    return true;
   }
 }

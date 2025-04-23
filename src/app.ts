@@ -12,6 +12,7 @@ import {
   redirectToGame,
 } from "./handlers/waiting_handler.ts";
 import {
+  changePlayer,
   drawCardFromDeck,
   drawFaceUpCard,
   fetchFaceUps,
@@ -22,6 +23,7 @@ import {
   fetchTicketChoices,
   updatePlayerTickets,
 } from "./handlers/game_handler.ts";
+import { Player } from "./models/player.ts";
 
 const setContext = (args: SetContextArgs) => async (c: Context, next: Next) => {
   const { reader, users, gameHandler } = args;
@@ -77,14 +79,31 @@ const setPlayerContext = async (context: Context, next: Next) => {
   await next();
 };
 
+const authenticatePlayerMove = async (context: Context, next: Next) => {
+  const game = context.get("game");
+  context.set("currentPlayer", game.getCurrentPlayer());
+  const currentPlayer: Player = context.get("currentPlayer");
+
+  const playerId = getCookie(context, "user-ID");
+
+  if (playerId === currentPlayer.getId()) {
+    await next();
+  }
+
+  return context.text("", 409);
+};
+
 const playerRoutes = (): Hono => {
   const player: Hono = new Hono();
   player.use(setPlayerContext);
   player.get("/properties", fetchPlayerHand);
+  player.get("/status", fetchGameStatus);
+
+  player.use(authenticatePlayerMove);
   player.post("/destination-tickets", updatePlayerTickets);
   player.post("/draw-blind-card", drawCardFromDeck);
   player.post("/drawFaceup-card", drawFaceUpCard);
-  player.get("/status", fetchGameStatus);
+  player.patch("/done", changePlayer);
 
   return player;
 };
@@ -95,7 +114,7 @@ const gameRoutes = (): Hono => {
   game.get("/map", fetchMap);
   game.get("/face-up-cards", fetchFaceUps);
   game.get("/players-detail", fetchPlayerDetails); // /players
-  game.get("/destination-tickets", fetchTicketChoices);
+  game.get("/destination-tickets", authenticatePlayerMove, fetchTicketChoices);
   game.route("/player", playerRoutes());
 
   return game;
