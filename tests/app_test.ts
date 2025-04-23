@@ -384,6 +384,24 @@ describe("GET /game/destination-tickets", () => {
     assertEquals(await r.json(), expectedTickets);
   });
 
+  it("/game/destination-tickets should give tickets for player in setup phase", async () => {
+    const app: Hono = prepareGameApp();
+    await app.request("/game/destination-tickets", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+    await app.request("/game/destination-tickets", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+    await app.request("/game/destination-tickets", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+    const r: Response = await app.request("/game/destination-tickets", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+
+    assertEquals(r.status, 200);
+  });
+
   it("should return minimum pickup of 1 if the game status is playing", async () => {
     const app: Hono = prepareGameApp();
 
@@ -405,11 +423,20 @@ describe("GET /game/destination-tickets", () => {
     assertEquals(r3.status, 200);
 
     const r: Response = await app.request("/game/destination-tickets", {
-      headers: { cookie: "user-ID=1;game-ID=1" },
+      headers: { cookie: "user-ID=2;game-ID=1" },
     });
-    const { minimumPickup } = await r.json();
 
-    assertEquals(r.status, 200);
+    assertEquals(r.status, 409);
+
+    const currentPlayerRes: Response = await app.request(
+      "/game/destination-tickets",
+      {
+        headers: { cookie: "user-ID=1;game-ID=1" },
+      },
+    );
+
+    const { minimumPickup } = await currentPlayerRes.json();
+    assertEquals(currentPlayerRes.status, 200);
     assertEquals(minimumPickup, 1);
   });
 });

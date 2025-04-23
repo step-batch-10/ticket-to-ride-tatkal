@@ -2,7 +2,7 @@
 import { DrawTCC } from "./draw-TCC.js";
 import { DestinationTickets, fetchJSON } from "./draw-tickets.js";
 
-const ContinueGame = async () => {
+export const continueGame = async () => {
   await fetch("/game/player/done", { method: "PATCH" });
   poll();
 };
@@ -154,7 +154,7 @@ const handleTicketSelection = (ticket, ticketManager) => () => {
 const confirmTickets = (ticket, ticketManager) => async () => {
   const confirmed = await ticketManager.confirmTickets(ticket.dataset.ticketId);
   if (!confirmed) return;
-  ContinueGame();
+  continueGame();
 
   const ticketArea = document.querySelector(".ticket-display");
   ticketArea.classList.remove("align-right");

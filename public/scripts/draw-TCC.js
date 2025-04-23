@@ -1,8 +1,5 @@
 import { fetchJSON } from "./draw-tickets.js";
-
-const changePlayer = () => {
-  alert("player changed");
-};
+import { continueGame } from "./game.js";
 
 export class DrawTCC {
   #actionState = {
@@ -38,7 +35,7 @@ export class DrawTCC {
     this.#currentState += drawnCard.color === "locomotive" ? 2 : 1;
 
     if (this.#currentState === this.#actionState.ENDED) {
-      changePlayer();
+      continueGame();
       this.#currentState = this.#actionState.STARTED;
     }
   }
@@ -51,7 +48,7 @@ export class DrawTCC {
     this.#currentState++;
 
     if (this.#currentState === this.#actionState.ENDED) {
-      changePlayer();
+      continueGame();
       this.#currentState = this.#actionState.STARTED;
     }
   }

@@ -85,8 +85,8 @@ const authenticatePlayerMove = async (context: Context, next: Next) => {
   const currentPlayer: Player = context.get("currentPlayer");
 
   const playerId = getCookie(context, "user-ID");
-
-  if (playerId === currentPlayer.getId()) {
+  console.log("=> ", playerId, currentPlayer.getId(), game.getState());
+  if (playerId === currentPlayer.getId() || game.getState() === "setup") {
     await next();
   }
 
