@@ -2,37 +2,48 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  user-select: none;
+}
+
+:root {
+  --minimal: #d9a441;
+  --bg1: #d2b48c;
+  --bg2: #4b3621;
+  --bg3: #c9b194;
 }
 
 body {
   font-family: "Cinzel", serif;
-  /* background-color: rgb(155, 92, 4); */
-  background-color: #a59d84;
+  background-color: var(--bg1);
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
+
 .panel {
-  background-color: #c1baa1;
+  background-color: var(--bg2);
 }
 .ticket {
   width: 100px;
   height: 100px;
-  border: 1px solid black;
+  border: 1px solid var(--minimal);
 }
 
 .selected {
-  border: 5px solid goldenrod;
+  /* border: 5px solid goldenrod; */
+  box-shadow: 0px 0px 10px var(--minimal);
 }
 
 #players-container {
-  color: white;
+  /* color: white; */
+  color: var(--minimal);
+  font-weight: bold;
 }
 
 .player-card {
   padding: 10px;
   margin: 10px;
-  border: 1px solid white;
+  border: 1px solid var(--minimal);
 }
 
 .train-car-card {
@@ -48,7 +59,7 @@ body {
 }
 
 .details {
-  border: 1px solid white;
+  border: 1px solid var(--minimal);
 }
 
 .align-right {
@@ -79,6 +90,7 @@ body {
 }
 
 #other-resources {
+  padding: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -116,24 +128,26 @@ body {
 }
 
 .player-ticket-card {
-  background-color: #e48f45;
-  /* background-color: rgb(73, 42, 9); */
-  color: rgb(219, 198, 136);
+  /* background-color: #e48f45; */
+  /* background-color: var(--bg3); */
+  color: var(--minimal);
   border-radius: 5px;
   width: 100%;
   height: 100px;
   padding: 5px;
   text-align: center;
+  border: 1px solid var(--minimal);
 }
 
 .action-btn {
   width: 100%;
   height: 45%;
-  border: 1px solid black;
+  border: 1px solid var(--minimal);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: var(--minimal);
 }
 
 .red {
@@ -190,16 +204,18 @@ body {
   align-items: center;
   box-sizing: content-box;
   background-color: gold;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 50%;
 }
 
 .disable {
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.7;
 }
+
 .highlight {
-  border: 5px solid white;
+  box-shadow: 0px 0px 10px var(--minimal);
+  color: gold;
 }
 
 .hand-card {
@@ -220,4 +236,9 @@ body {
 .img {
   width: 90%;
   aspect-ratio: 1;
+}
+
+#mapContainer {
+  background-image: url("/assests/map-bg-1.png");
+  background-size: cover;
 }
