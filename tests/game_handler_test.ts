@@ -2,6 +2,7 @@ import { assert, assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { GameManager } from "../src/models/game_manager.ts";
 import tickets from "../json/tickets.json" with { type: "json" };
+import { assignRouteCities } from "../src/handlers/game_handler.ts";
 
 const mockedReader = (_path: string | URL): string => {
   // deno-lint-ignore no-explicit-any
@@ -78,6 +79,21 @@ describe("Game Handler", () => {
       ],
       game,
     };
+
+    assertEquals(actual, expected);
+  });
+
+  it("Should retrun tickets with city names", () => {
+    const ticket = tickets[0];
+    const expected = [{
+      from: "c8",
+      fromCity: "Los Angeles",
+      id: "t1",
+      points: 21,
+      to: "c32",
+      toCity: "New York",
+    }];
+    const actual = assignRouteCities([ticket]);
 
     assertEquals(actual, expected);
   });

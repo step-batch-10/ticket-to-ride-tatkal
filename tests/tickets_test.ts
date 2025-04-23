@@ -17,7 +17,7 @@ describe("Tickets", () => {
 
   it("should return the selected tickets", () => {
     const DT = new DestinationTickets(tickets);
-    assertEquals(DT.getTickets(["1"]), [tickets[0]]);
+    assertEquals(DT.getTickets(["t1"]), [tickets[0]]);
   });
 
   it("should return false when ticket is invalid", () => {

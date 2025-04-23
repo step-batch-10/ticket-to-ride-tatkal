@@ -6,6 +6,7 @@ import { Context, Hono } from "hono";
 import { UsMap } from "../src/models/USA_map.ts";
 import { Users } from "../src/models/users.ts";
 import { GameManager } from "../src/models/game_manager.ts";
+import { assignRouteCities } from "../src/handlers/game_handler.ts";
 import dtickets from "../json/tickets.json" with { type: "json" };
 
 const logger = () => async (_: Context, n: Function) => await n();
@@ -375,8 +376,9 @@ describe("GET /game/destination-tickets", () => {
       headers: { cookie: "user-ID=1;game-ID=1" },
     });
 
+    const tickets = assignRouteCities(dtickets.slice(0, 3));
     const expectedTickets = {
-      tickets: dtickets.slice(0, 3),
+      tickets,
       minimumPickup: 2,
     };
 
@@ -458,7 +460,7 @@ describe("POST /game/player/destination-tickets", () => {
     const app: Hono = prepareApp(new Users(), gameHandler);
 
     const body = JSON.stringify({
-      selected: [{ id: "9", from: "A", to: "B", points: 10 }],
+      selected: [{ id: "t9", from: "c5", to: "c10", points: 10 }],
       rest: [],
     });
 
