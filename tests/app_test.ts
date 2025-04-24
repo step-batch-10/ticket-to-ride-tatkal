@@ -299,6 +299,7 @@ describe("/game/player/hand'", () => {
 describe("fetchPlayersDetails", () => {
   it("should return players detail", async () => {
     const gameHandler = new GameManager();
+
     gameHandler.createGame(
       [
         { name: "sushanth", id: "1" },
@@ -327,6 +328,7 @@ describe("fetchPlayersDetails", () => {
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
+        color: "red",
       },
       {
         id: "2",
@@ -334,13 +336,16 @@ describe("fetchPlayersDetails", () => {
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
+        color: "blue",
       },
+
       {
         id: "3",
         name: "hari",
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
+        color: "green",
       },
     ];
 

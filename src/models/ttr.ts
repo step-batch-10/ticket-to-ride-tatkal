@@ -48,8 +48,18 @@ export class Ttr {
   }
 
   static createTtr(players: PlayerInfo[], map: UsMap) {
-    const playerInstances = players.map((playerInfo) => {
-      return new Player(playerInfo);
+    const colors = [
+      "red",
+      "blue",
+      "green",
+      "yellow",
+      "black",
+      "white",
+      "orange",
+      "pink",
+    ];
+    const playerInstances = players.map((playerInfo, index) => {
+      return new Player(playerInfo, colors[index]);
     });
 
     return new Ttr(playerInstances, map);

@@ -12,13 +12,14 @@ export class Player {
   private trainCars: number;
   private hand: playerHandCard[];
   private destinationTickets: Tickets[];
-
-  constructor(PlayerDetails: PlayerInfo) {
+  private color: string;
+  constructor(PlayerDetails: PlayerInfo, color: string) {
     this.id = PlayerDetails.id;
     this.name = PlayerDetails.name;
     this.trainCars = 45;
     this.hand = this.initializeHand();
     this.destinationTickets = [];
+    this.color = color;
   }
 
   private initializeHand() {
@@ -67,10 +68,15 @@ export class Player {
     return {
       id: this.id,
       name: this.name,
+      color: this.color,
       trainCars: this.trainCars,
       trainCarCards: this.hand.reduce((total, card) => card.count + total, 0),
       tickets: this.destinationTickets.length,
     };
+  }
+
+  getColor() {
+    return this.color;
   }
 
   getPlayerResources(): PlayerResources {
