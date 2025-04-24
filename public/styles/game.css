@@ -242,3 +242,7 @@ body {
   background-image: url("/assests/map-bg-1.png");
   background-size: cover;
 }
+
+.hide-cars {
+  display: none;
+}
