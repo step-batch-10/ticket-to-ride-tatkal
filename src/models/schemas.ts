@@ -77,6 +77,7 @@ interface GameStatus {
   playerResources: PlayerResources;
   faceUpCards: card[];
   state: "setup" | "playing" | "finalTurn";
+  logs: string[];
 }
 
 export type {

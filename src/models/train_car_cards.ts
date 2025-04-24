@@ -51,13 +51,17 @@ export class TrainCarCards {
     this.deck.push(...colorCards, ...locomotiveCards);
   }
 
-  drawCard(): card {
-    return this.deck.pop() || { color: "black" };
+  drawCard(): card | undefined {
+    if (this.deck.length === 0) {
+      this.deck = _.shuffle(this.discardPile);
+      this.discardPile = [];
+    }
+    return this.deck.pop();
   }
 
   private refillFaceUpCards(): void {
     while (this.faceUpCards.length < 5) {
-      this.faceUpCards.push(this.drawCard());
+      this.faceUpCards.push(this.drawCard()!);
     }
   }
 
@@ -71,7 +75,7 @@ export class TrainCarCards {
     }
 
     const card = this.faceUpCards[index];
-    this.faceUpCards[index] = this.drawCard();
+    this.faceUpCards[index] = this.drawCard()!;
     return card;
   }
 }

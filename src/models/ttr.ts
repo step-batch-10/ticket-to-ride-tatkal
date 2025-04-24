@@ -12,6 +12,7 @@ export class Ttr {
   private currentPlayer: Player;
   private currentPlayerIndex: number;
   private moves: number;
+  private logs: string[];
   private state: "setup" | "playing" | "finalTurn";
   constructor(players: Player[], map: UsMap) {
     this.players = players;
@@ -23,16 +24,27 @@ export class Ttr {
     this.currentPlayerIndex = 0;
     this.moves = 0;
     this.currentPlayer = this.players[this.currentPlayerIndex];
+    this.logs = [];
   }
 
   drawFaceUpCard(index: number) {
     const drawnCard = this.trainCarCards.drawFaceUp(index);
+    this.logs.unshift(
+      `${
+        this.currentPlayer!.getName()
+      } drawn ${drawnCard.color} card from face up cards`,
+    );
+
     this.currentPlayer.addCardsToHand(drawnCard);
     return drawnCard;
   }
 
   drawBlindCard() {
-    const drawnCard = this.trainCarCards.drawCard();
+    const drawnCard = this.trainCarCards.drawCard()!;
+    this.logs.unshift(
+      `${this.currentPlayer!.getName()} drawn a card from deck`,
+    );
+
     this.currentPlayer.addCardsToHand(drawnCard);
 
     return drawnCard;
@@ -41,7 +53,7 @@ export class Ttr {
   private initializePlayers() {
     this.players.forEach((player) => {
       const cards = new Array(4).fill("").map(() => {
-        return this.trainCarCards.drawCard();
+        return this.trainCarCards.drawCard()!;
       });
       player.addCardsToHand(...cards);
     });
@@ -85,6 +97,9 @@ export class Ttr {
 
   addDestinationTicketsTo(playerId: string, tickets: Tickets[]) {
     const currentPlayer = this.getPlayer(playerId);
+    this.logs.unshift(
+      `${currentPlayer!.getName()} drawn ${tickets.length} tickets`,
+    );
     return currentPlayer?.addDestinationTickets(tickets);
   }
 
@@ -114,6 +129,7 @@ export class Ttr {
       playerResources: this.getPlayer(playerID)!.getPlayerResources(),
       faceUpCards: this.getFaceUpCards(),
       state: this.state,
+      logs: this.logs,
     };
 
     return stats;

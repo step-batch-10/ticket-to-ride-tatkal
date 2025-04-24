@@ -47,7 +47,9 @@ export class Player {
   getTrainCars() {
     return this.trainCars;
   }
-
+  getName() {
+    return this.name;
+  }
   getHand() {
     return this.hand;
   }
