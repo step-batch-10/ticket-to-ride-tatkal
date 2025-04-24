@@ -1,802 +1,612 @@
 [
-  {
-    "id": "r1",
-    "cityA": "c1",
-    "cityB": "c2",
-    "distance": 3,
-    "color": "gray",
-    "carId": "cr1"
-  },
-  {
-    "id": "r2",
-    "cityA": "c1",
-    "cityB": "c3",
-    "distance": 1,
-    "color": "gray",
-    "carId": "cr2"
-  },
-  {
-    "id": "r3",
-    "cityA": "c1",
-    "cityB": "c3",
-    "distance": 1,
-    "color": "gray",
-    "carId": "cr3"
-  },
-  {
-    "id": "r4",
-    "cityA": "c3",
-    "cityB": "c2",
-    "distance": 4,
-    "color": "gray",
-    "carId": "cr4"
-  },
+  { "id": "r1", "cityA": "c1", "cityB": "c2", "distance": 3, "color": "gray" },
+  { "id": "r2", "cityA": "c1", "cityB": "c3", "distance": 1, "color": "gray" },
+  { "id": "r3", "cityA": "c1", "cityB": "c3", "distance": 1, "color": "gray" },
+  { "id": "r4", "cityA": "c3", "cityB": "c2", "distance": 4, "color": "gray" },
   {
     "id": "r5",
     "cityA": "c3",
     "cityB": "c4",
     "distance": 6,
-    "color": "yellow",
-    "carId": "cr5"
+    "color": "yellow"
   },
-  {
-    "id": "r6",
-    "cityA": "c3",
-    "cityB": "c5",
-    "distance": 1,
-    "color": "gray",
-    "carId": "cr6"
-  },
-  {
-    "id": "r7",
-    "cityA": "c3",
-    "cityB": "c5",
-    "distance": 1,
-    "color": "gray",
-    "carId": "cr7"
-  },
-  {
-    "id": "r8",
-    "cityA": "c5",
-    "cityB": "c6",
-    "distance": 6,
-    "color": "blue",
-    "carId": "cr8"
-  },
-  {
-    "id": "r9",
-    "cityA": "c5",
-    "cityB": "c7",
-    "distance": 5,
-    "color": "green",
-    "carId": "cr9"
-  },
-  {
-    "id": "r10",
-    "cityA": "c5",
-    "cityB": "c7",
-    "distance": 5,
-    "color": "pink",
-    "carId": "cr10"
-  },
+  { "id": "r6", "cityA": "c3", "cityB": "c5", "distance": 1, "color": "gray" },
+  { "id": "r7", "cityA": "c3", "cityB": "c5", "distance": 1, "color": "gray" },
+  { "id": "r8", "cityA": "c5", "cityB": "c6", "distance": 6, "color": "blue" },
+  { "id": "r9", "cityA": "c5", "cityB": "c7", "distance": 5, "color": "green" },
+  { "id": "r10", "cityA": "c5", "cityB": "c7", "distance": 5, "color": "pink" },
   {
     "id": "r11",
     "cityA": "c7",
     "cityB": "c6",
     "distance": 5,
-    "color": "orange",
-    "carId": "cr11"
+    "color": "orange"
   },
   {
     "id": "r12",
     "cityA": "c7",
     "cityB": "c6",
     "distance": 5,
-    "color": "white",
-    "carId": "cr12"
+    "color": "white"
   },
   {
     "id": "r13",
     "cityA": "c7",
     "cityB": "c8",
     "distance": 3,
-    "color": "yellow",
-    "carId": "cr13"
+    "color": "yellow"
   },
-  {
-    "id": "r14",
-    "cityA": "c7",
-    "cityB": "c8",
-    "distance": 3,
-    "color": "pink",
-    "carId": "cr14"
-  },
-  {
-    "id": "r15",
-    "cityA": "c8",
-    "cityB": "c9",
-    "distance": 2,
-    "color": "gray",
-    "carId": "cr15"
-  },
+  { "id": "r14", "cityA": "c7", "cityB": "c8", "distance": 3, "color": "pink" },
+  { "id": "r15", "cityA": "c8", "cityB": "c9", "distance": 2, "color": "gray" },
   {
     "id": "r16",
     "cityA": "c8",
     "cityB": "c10",
     "distance": 3,
-    "color": "gray",
-    "carId": "cr16"
+    "color": "gray"
   },
   {
     "id": "r17",
     "cityA": "c8",
     "cityB": "c11",
     "distance": 6,
-    "color": "black",
-    "carId": "cr17"
+    "color": "black"
   },
   {
     "id": "r18",
     "cityA": "c2",
     "cityB": "c12",
     "distance": 6,
-    "color": "white",
-    "carId": "cr18"
+    "color": "white"
   },
-  {
-    "id": "r19",
-    "cityA": "c2",
-    "cityB": "c4",
-    "distance": 4,
-    "color": "gray",
-    "carId": "cr19"
-  },
+  { "id": "r19", "cityA": "c2", "cityB": "c4", "distance": 4, "color": "gray" },
   {
     "id": "r20",
     "cityA": "c4",
     "cityB": "c12",
     "distance": 4,
-    "color": "blue",
-    "carId": "cr20"
+    "color": "blue"
   },
-  {
-    "id": "r21",
-    "cityA": "c4",
-    "cityB": "c6",
-    "distance": 3,
-    "color": "pink",
-    "carId": "cr21"
-  },
+  { "id": "r21", "cityA": "c4", "cityB": "c6", "distance": 3, "color": "pink" },
   {
     "id": "r22",
     "cityA": "c4",
     "cityB": "c13",
     "distance": 4,
-    "color": "green",
-    "carId": "cr22"
+    "color": "green"
   },
   {
     "id": "r23",
     "cityA": "c4",
     "cityB": "c14",
     "distance": 6,
-    "color": "orange",
-    "carId": "cr23"
+    "color": "orange"
   },
-  {
-    "id": "r24",
-    "cityA": "c4",
-    "cityB": "c15",
-    "distance": 5,
-    "color": "red",
-    "carId": "cr24"
-  },
-  {
-    "id": "r25",
-    "cityA": "c6",
-    "cityB": "c13",
-    "distance": 3,
-    "color": "red",
-    "carId": "cr25"
-  },
+  { "id": "r24", "cityA": "c4", "cityB": "c15", "distance": 5, "color": "red" },
+  { "id": "r25", "cityA": "c6", "cityB": "c13", "distance": 3, "color": "red" },
   {
     "id": "r26",
     "cityA": "c6",
     "cityB": "c13",
     "distance": 3,
-    "color": "yellow",
-    "carId": "cr26"
+    "color": "yellow"
   },
   {
     "id": "r27",
     "cityA": "c9",
     "cityB": "c6",
     "distance": 3,
-    "color": "orange",
-    "carId": "cr27"
+    "color": "orange"
   },
   {
     "id": "r28",
     "cityA": "c10",
     "cityB": "c13",
     "distance": 5,
-    "color": "white",
-    "carId": "cr28"
+    "color": "white"
   },
   {
     "id": "r29",
     "cityA": "c10",
     "cityB": "c25",
     "distance": 3,
-    "color": "gray",
-    "carId": "cr29"
+    "color": "gray"
   },
   {
     "id": "r30",
     "cityA": "c10",
     "cityB": "c11",
     "distance": 3,
-    "color": "gray",
-    "carId": "cr30"
+    "color": "gray"
   },
   {
     "id": "r31",
     "cityA": "c12",
     "cityB": "c16",
     "distance": 6,
-    "color": "gray",
-    "carId": "cr31"
+    "color": "gray"
   },
   {
     "id": "r32",
     "cityA": "c12",
     "cityB": "c14",
     "distance": 4,
-    "color": "black",
-    "carId": "cr32"
+    "color": "black"
   },
   {
     "id": "r33",
     "cityA": "c14",
     "cityB": "c16",
     "distance": 3,
-    "color": "gray",
-    "carId": "cr33"
+    "color": "gray"
   },
   {
     "id": "r34",
     "cityA": "c14",
     "cityB": "c17",
     "distance": 6,
-    "color": "pink",
-    "carId": "cr34"
+    "color": "pink"
   },
   {
     "id": "r35",
     "cityA": "c14",
     "cityB": "c18",
     "distance": 3,
-    "color": "red",
-    "carId": "cr35"
+    "color": "red"
   },
   {
     "id": "r36",
     "cityA": "c14",
     "cityB": "c15",
     "distance": 2,
-    "color": "gray",
-    "carId": "cr36"
+    "color": "gray"
   },
   {
     "id": "r37",
     "cityA": "c14",
     "cityB": "c15",
     "distance": 2,
-    "color": "gray",
-    "carId": "cr37"
+    "color": "gray"
   },
   {
     "id": "r38",
     "cityA": "c15",
     "cityB": "c18",
     "distance": 4,
-    "color": "blue",
-    "carId": "cr38"
+    "color": "blue"
   },
   {
     "id": "r39",
     "cityA": "c15",
     "cityB": "c19",
     "distance": 1,
-    "color": "gray",
-    "carId": "cr39"
+    "color": "gray"
   },
   {
     "id": "r40",
     "cityA": "c15",
     "cityB": "c19",
     "distance": 1,
-    "color": "gray",
-    "carId": "cr40"
+    "color": "gray"
   },
   {
     "id": "r41",
     "cityA": "c19",
     "cityB": "c20",
     "distance": 2,
-    "color": "blue",
-    "carId": "cr41"
+    "color": "blue"
   },
   {
     "id": "r42",
     "cityA": "c19",
     "cityB": "c20",
     "distance": 2,
-    "color": "pink",
-    "carId": "cr42"
+    "color": "pink"
   },
   {
     "id": "r43",
     "cityA": "c19",
     "cityB": "c21",
     "distance": 2,
-    "color": "gray",
-    "carId": "cr43"
+    "color": "gray"
   },
   {
     "id": "r44",
     "cityA": "c19",
-    "cityB": "c23",
-    "distance": 4,
-    "color": "yellow",
-    "carId": "cr44"
+    "cityB": "c21",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r45",
-    "cityA": "c23",
+    "cityA": "c21",
     "cityB": "c22",
-    "distance": 3,
-    "color": "yellow",
-    "carId": "cr45"
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r46",
-    "cityA": "c23",
-    "cityB": "c22",
-    "distance": 3,
-    "color": "green",
-    "carId": "cr46"
+    "cityA": "c21",
+    "cityB": "c23",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r47",
-    "cityA": "c22",
-    "cityB": "c24",
-    "distance": 6,
-    "color": "green",
-    "carId": "cr47"
+    "cityA": "c21",
+    "cityB": "c23",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r48",
-    "cityA": "c24",
-    "cityB": "c25",
+    "cityA": "c23",
+    "cityB": "c22",
     "distance": 2,
-    "color": "blue",
-    "carId": "cr48"
+    "color": "gray"
   },
   {
     "id": "r49",
-    "cityA": "c25",
-    "cityB": "c27",
-    "distance": 3,
-    "color": "pink",
-    "carId": "cr49"
+    "cityA": "c23",
+    "cityB": "c24",
+    "distance": 1,
+    "color": "gray"
   },
   {
     "id": "r50",
-    "cityA": "c27",
-    "cityB": "c26",
-    "distance": 2,
-    "color": "blue",
-    "carId": "cr50"
+    "cityA": "c23",
+    "cityB": "c24",
+    "distance": 1,
+    "color": "gray"
   },
   {
     "id": "r51",
-    "cityA": "c25",
-    "cityB": "c28",
-    "distance": 5,
-    "color": "green",
-    "carId": "cr51"
+    "cityA": "c24",
+    "cityB": "c26",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r52",
-    "cityA": "c28",
-    "cityB": "c29",
-    "distance": 4,
-    "color": "orange",
-    "carId": "cr52"
+    "cityA": "c11",
+    "cityB": "c24",
+    "distance": 6,
+    "color": "green"
   },
   {
     "id": "r53",
-    "cityA": "c28",
-    "cityB": "c30",
-    "distance": 6,
-    "color": "red",
-    "carId": "cr53"
+    "cityA": "c11",
+    "cityB": "c23",
+    "distance": 4,
+    "color": "red"
   },
   {
     "id": "r54",
-    "cityA": "c29",
-    "cityB": "c30",
-    "distance": 1,
-    "color": "red",
-    "carId": "cr54"
+    "cityA": "c11",
+    "cityB": "c21",
+    "distance": 5,
+    "color": "yellow"
   },
   {
     "id": "r55",
-    "cityA": "c29",
-    "cityB": "c30",
-    "distance": 1,
-    "color": "green",
-    "carId": "cr55"
+    "cityA": "c11",
+    "cityB": "c25",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r56",
-    "cityA": "c30",
-    "cityB": "c31",
-    "distance": 6,
-    "color": "orange",
-    "carId": "cr56"
+    "cityA": "c25",
+    "cityB": "c21",
+    "distance": 3,
+    "color": "blue"
   },
   {
     "id": "r57",
-    "cityA": "c30",
-    "cityB": "c32",
-    "distance": 5,
-    "color": "blue",
-    "carId": "cr57"
+    "cityA": "c21",
+    "cityB": "c13",
+    "distance": 4,
+    "color": "red"
   },
   {
     "id": "r58",
-    "cityA": "c32",
-    "cityB": "c33",
-    "distance": 4,
-    "color": "red",
-    "carId": "cr58"
+    "cityA": "c25",
+    "cityB": "c13",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r59",
-    "cityA": "c33",
-    "cityB": "c34",
-    "distance": 6,
-    "color": "yellow",
-    "carId": "cr59"
+    "cityA": "c13",
+    "cityB": "c19",
+    "distance": 4,
+    "color": "black"
   },
   {
     "id": "r60",
-    "cityA": "c34",
-    "cityB": "c35",
-    "distance": 6,
-    "color": "green",
-    "carId": "cr60"
+    "cityA": "c13",
+    "cityB": "c19",
+    "distance": 4,
+    "color": "orange"
   },
   {
     "id": "r61",
-    "cityA": "c34",
-    "cityB": "c36",
-    "distance": 5,
-    "color": "blue",
-    "carId": "cr61"
+    "cityA": "c13",
+    "cityB": "c15",
+    "distance": 4,
+    "color": "pink"
   },
   {
     "id": "r62",
-    "cityA": "c35",
-    "cityB": "c36",
-    "distance": 2,
-    "color": "green",
-    "carId": "cr62"
+    "cityA": "c26",
+    "cityB": "c27",
+    "distance": 6,
+    "color": "red"
   },
   {
     "id": "r63",
-    "cityA": "c35",
-    "cityB": "c37",
+    "cityA": "c26",
+    "cityB": "c28",
     "distance": 4,
-    "color": "green",
-    "carId": "cr63"
+    "color": "orange"
   },
   {
     "id": "r64",
-    "cityA": "c36",
-    "cityB": "c38",
-    "distance": 3,
-    "color": "red",
-    "carId": "cr64"
+    "cityA": "c26",
+    "cityB": "c28",
+    "distance": 4,
+    "color": "yellow"
   },
   {
     "id": "r65",
-    "cityA": "c37",
-    "cityB": "c39",
-    "distance": 4,
-    "color": "blue",
-    "carId": "cr65"
+    "cityA": "c26",
+    "cityB": "c22",
+    "distance": 3,
+    "color": "green"
   },
   {
     "id": "r66",
-    "cityA": "c38",
-    "cityB": "c40",
+    "cityA": "c22",
+    "cityB": "c29",
     "distance": 3,
-    "color": "yellow",
-    "carId": "cr66"
+    "color": "white"
   },
   {
     "id": "r67",
-    "cityA": "c39",
-    "cityB": "c41",
-    "distance": 4,
-    "color": "red",
-    "carId": "cr67"
+    "cityA": "c22",
+    "cityB": "c20",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r68",
-    "cityA": "c40",
-    "cityB": "c42",
-    "distance": 5,
-    "color": "green",
-    "carId": "cr68"
+    "cityA": "c20",
+    "cityB": "c29",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r69",
-    "cityA": "c41",
-    "cityB": "c43",
-    "distance": 6,
-    "color": "yellow",
-    "carId": "cr69"
+    "cityA": "c20",
+    "cityB": "c30",
+    "distance": 5,
+    "color": "green"
   },
   {
     "id": "r70",
-    "cityA": "c42",
-    "cityB": "c44",
+    "cityA": "c20",
+    "cityB": "c18",
     "distance": 2,
-    "color": "pink",
-    "carId": "cr70"
+    "color": "green"
   },
   {
     "id": "r71",
-    "cityA": "c43",
-    "cityB": "c45",
-    "distance": 3,
-    "color": "blue",
-    "carId": "cr71"
+    "cityA": "c20",
+    "cityB": "c18",
+    "distance": 2,
+    "color": "white"
   },
   {
     "id": "r72",
-    "cityA": "c44",
-    "cityB": "c46",
-    "distance": 5,
-    "color": "green",
-    "carId": "cr72"
+    "cityA": "c18",
+    "cityB": "c30",
+    "distance": 3,
+    "color": "black"
   },
   {
     "id": "r73",
-    "cityA": "c45",
-    "cityB": "c47",
-    "distance": 2,
-    "color": "red",
-    "carId": "cr73"
+    "cityA": "c18",
+    "cityB": "c30",
+    "distance": 3,
+    "color": "orange"
   },
   {
     "id": "r74",
-    "cityA": "c46",
-    "cityB": "c48",
+    "cityA": "c18",
+    "cityB": "c17",
     "distance": 4,
-    "color": "blue",
-    "carId": "cr74"
+    "color": "white"
   },
   {
     "id": "r75",
-    "cityA": "c47",
-    "cityB": "c49",
+    "cityA": "c16",
+    "cityB": "c33",
     "distance": 5,
-    "color": "red",
-    "carId": "cr75"
+    "color": "black"
   },
   {
     "id": "r76",
-    "cityA": "c48",
-    "cityB": "c50",
+    "cityA": "c17",
+    "cityB": "c33",
     "distance": 3,
-    "color": "orange",
-    "carId": "cr76"
+    "color": "gray"
   },
   {
     "id": "r77",
-    "cityA": "c49",
-    "cityB": "c51",
+    "cityA": "c16",
+    "cityB": "c17",
     "distance": 2,
-    "color": "yellow",
-    "carId": "cr77"
+    "color": "gray"
   },
   {
     "id": "r78",
-    "cityA": "c50",
-    "cityB": "c52",
-    "distance": 3,
-    "color": "pink",
-    "carId": "cr78"
+    "cityA": "c17",
+    "cityB": "c30",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r79",
-    "cityA": "c51",
-    "cityB": "c53",
-    "distance": 4,
-    "color": "green",
-    "carId": "cr79"
+    "cityA": "c30",
+    "cityB": "c32",
+    "distance": 2,
+    "color": "white"
   },
   {
     "id": "r80",
-    "cityA": "c52",
-    "cityB": "c54",
-    "distance": 3,
-    "color": "blue",
-    "carId": "cr80"
+    "cityA": "c30",
+    "cityB": "c32",
+    "distance": 2,
+    "color": "green"
   },
   {
     "id": "r81",
-    "cityA": "c53",
-    "cityB": "c55",
+    "cityA": "c30",
+    "cityB": "c31",
     "distance": 2,
-    "color": "red",
-    "carId": "cr81"
+    "color": "gray"
   },
   {
     "id": "r82",
-    "cityA": "c54",
-    "cityB": "c56",
-    "distance": 4,
-    "color": "yellow",
-    "carId": "cr82"
+    "cityA": "c30",
+    "cityB": "c36",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r83",
-    "cityA": "c55",
-    "cityB": "c57",
+    "cityA": "c29",
+    "cityB": "c36",
     "distance": 3,
-    "color": "green",
-    "carId": "cr83"
+    "color": "black"
   },
   {
     "id": "r84",
-    "cityA": "c56",
-    "cityB": "c58",
-    "distance": 5,
-    "color": "blue",
-    "carId": "cr84"
+    "cityA": "c29",
+    "cityB": "c28",
+    "distance": 1,
+    "color": "gray"
   },
   {
     "id": "r85",
-    "cityA": "c57",
-    "cityB": "c59",
-    "distance": 3,
-    "color": "orange",
-    "carId": "cr85"
+    "cityA": "c29",
+    "cityB": "c30",
+    "distance": 4,
+    "color": "yellow"
   },
   {
     "id": "r86",
-    "cityA": "c58",
-    "cityB": "c60",
+    "cityA": "c28",
+    "cityB": "c27",
     "distance": 5,
-    "color": "pink",
-    "carId": "cr86"
+    "color": "blue"
   },
   {
     "id": "r87",
-    "cityA": "c59",
-    "cityB": "c61",
-    "distance": 4,
-    "color": "yellow",
-    "carId": "cr87"
+    "cityA": "c28",
+    "cityB": "c35",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r88",
-    "cityA": "c60",
-    "cityB": "c62",
-    "distance": 5,
-    "color": "blue",
-    "carId": "cr88"
+    "cityA": "c28",
+    "cityB": "c36",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r89",
-    "cityA": "c61",
-    "cityB": "c63",
-    "distance": 4,
-    "color": "red",
-    "carId": "cr89"
+    "cityA": "c28",
+    "cityB": "c36",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r90",
-    "cityA": "c62",
-    "cityB": "c64",
-    "distance": 2,
-    "color": "green",
-    "carId": "cr90"
+    "cityA": "c35",
+    "cityB": "c27",
+    "distance": 4,
+    "color": "pink"
   },
   {
     "id": "r91",
-    "cityA": "c63",
-    "cityB": "c65",
-    "distance": 3,
-    "color": "yellow",
-    "carId": "cr91"
+    "cityA": "c36",
+    "cityB": "c35",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r92",
-    "cityA": "c64",
-    "cityB": "c66",
-    "distance": 5,
-    "color": "red",
-    "carId": "cr92"
+    "cityA": "c36",
+    "cityB": "c31",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r93",
-    "cityA": "c65",
-    "cityB": "c67",
-    "distance": 3,
-    "color": "green",
-    "carId": "cr93"
+    "cityA": "c36",
+    "cityB": "c31",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r94",
-    "cityA": "c66",
-    "cityB": "c68",
-    "distance": 5,
-    "color": "orange",
-    "carId": "cr94"
+    "cityA": "c31",
+    "cityB": "c32",
+    "distance": 2,
+    "color": "orange"
   },
   {
     "id": "r95",
-    "cityA": "c67",
-    "cityB": "c69",
-    "distance": 4,
-    "color": "blue",
-    "carId": "cr95"
+    "cityA": "c31",
+    "cityB": "c32",
+    "distance": 2,
+    "color": "black"
   },
   {
     "id": "r96",
-    "cityA": "c68",
-    "cityB": "c70",
-    "distance": 3,
-    "color": "yellow",
-    "carId": "cr96"
+    "cityA": "c32",
+    "cityB": "c34",
+    "distance": 2,
+    "color": "yellow"
   },
   {
     "id": "r97",
-    "cityA": "c69",
-    "cityB": "c71",
+    "cityA": "c32",
+    "cityB": "c34",
     "distance": 2,
-    "color": "green",
-    "carId": "cr97"
+    "color": "red"
   },
   {
     "id": "r98",
-    "cityA": "c70",
-    "cityB": "c72",
-    "distance": 4,
-    "color": "red",
-    "carId": "cr98"
+    "cityA": "c32",
+    "cityB": "c33",
+    "distance": 3,
+    "color": "blue"
   },
   {
     "id": "r99",
-    "cityA": "c71",
-    "cityB": "c73",
-    "distance": 5,
-    "color": "yellow",
-    "carId": "cr99"
+    "cityA": "c34",
+    "cityB": "c33",
+    "distance": 2,
+    "color": "gray"
   },
   {
     "id": "r100",
-    "cityA": "c72",
-    "cityB": "c74",
-    "distance": 6,
-    "color": "blue",
-    "carId": "cr100"
+    "cityA": "c34",
+    "cityB": "c33",
+    "distance": 2,
+    "color": "gray"
   }
 ]
