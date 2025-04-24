@@ -1,4 +1,4 @@
-import { fetchJSON } from "./draw-tickets.js";
+import { fetchJSON } from "./draw_tickets.js";
 import { continueGame, showAction } from "./game.js";
 
 export class DrawTCC {
@@ -41,10 +41,7 @@ export class DrawTCC {
   }
 
   async drawBlindCard() {
-    const drawnCard = await fetchJSON(
-      "/game/player/draw-blind-card",
-      "POST",
-    );
+    const drawnCard = await fetchJSON("/game/player/draw-blind-card", "POST");
     showAction(`${drawnCard.color} card drawn from deck`);
     this.#currentState++;
 

@@ -13,7 +13,6 @@ export class Ttr {
   private currentPlayerIndex: number;
   private moves: number;
   private state: "setup" | "playing" | "finalTurn";
-
   constructor(players: Player[], map: UsMap) {
     this.players = players;
     this.map = map;
@@ -29,7 +28,6 @@ export class Ttr {
   drawFaceUpCard(index: number) {
     const drawnCard = this.trainCarCards.drawFaceUp(index);
     this.currentPlayer.addCardsToHand(drawnCard);
-
     return drawnCard;
   }
 
