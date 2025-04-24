@@ -141,7 +141,8 @@ const renderLogs = (logs) => {
   const logContainer = document.querySelector("#logs");
   const logMessages = logs.map((log) => {
     const pTag = document.createElement("p");
-    pTag.innerText = log;
+    pTag.innerText =
+      `${log.playerName} drawn ${log.assets} card(s) from ${log.from}`;
     return pTag;
   });
   logContainer.replaceChildren(...logMessages);

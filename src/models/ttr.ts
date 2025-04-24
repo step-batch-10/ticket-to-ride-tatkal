@@ -1,4 +1,11 @@
-import { card, GameStatus, PlayerInfo, svg, Tickets } from "./schemas.ts";
+import {
+  ActivityLog,
+  card,
+  GameStatus,
+  PlayerInfo,
+  svg,
+  Tickets,
+} from "./schemas.ts";
 import { TrainCarCards } from "./train_car_cards.ts";
 import DestinationTickets from "./tickets.ts";
 import { Player } from "./player.ts";
@@ -12,8 +19,9 @@ export class Ttr {
   private currentPlayer: Player;
   private currentPlayerIndex: number;
   private moves: number;
-  private logs: string[];
+  private logs: ActivityLog[];
   private state: "setup" | "playing" | "finalTurn";
+
   constructor(players: Player[], map: UsMap) {
     this.players = players;
     this.map = map;
@@ -26,14 +34,17 @@ export class Ttr {
     this.currentPlayer = this.players[this.currentPlayerIndex];
     this.logs = [];
   }
+  private registerLog(from: string, assets: string | number) {
+    this.logs.unshift({
+      playerName: this.currentPlayer!.getName(),
+      from,
+      assets,
+    });
+  }
 
   drawFaceUpCard(index: number) {
     const drawnCard = this.trainCarCards.drawFaceUp(index);
-    this.logs.unshift(
-      `${
-        this.currentPlayer!.getName()
-      } drawn ${drawnCard.color} card from face up cards`,
-    );
+    this.registerLog("face up cards", drawnCard.color);
 
     this.currentPlayer.addCardsToHand(drawnCard);
     return drawnCard;
@@ -41,9 +52,7 @@ export class Ttr {
 
   drawBlindCard() {
     const drawnCard = this.trainCarCards.drawCard()!;
-    this.logs.unshift(
-      `${this.currentPlayer!.getName()} drawn a card from deck`,
-    );
+    this.registerLog("deck", "a");
 
     this.currentPlayer.addCardsToHand(drawnCard);
 
@@ -97,9 +106,7 @@ export class Ttr {
 
   addDestinationTicketsTo(playerId: string, tickets: Tickets[]) {
     const currentPlayer = this.getPlayer(playerId);
-    this.logs.unshift(
-      `${currentPlayer!.getName()} drawn ${tickets.length} tickets`,
-    );
+    this.registerLog("destination tickets", tickets.length);
     return currentPlayer?.addDestinationTickets(tickets);
   }
 

@@ -69,6 +69,12 @@ interface PlayerResources extends Player {
   playerHandCards: playerHandCard[];
 }
 
+type ActivityLog = {
+  playerName: string;
+  from: string;
+  assets: string | number;
+};
+
 interface GameStatus {
   currentPlayerID: string;
   isActive: Boolean;
@@ -77,10 +83,11 @@ interface GameStatus {
   playerResources: PlayerResources;
   faceUpCards: card[];
   state: "setup" | "playing" | "finalTurn";
-  logs: string[];
+  logs: ActivityLog[];
 }
 
 export type {
+  ActivityLog,
   card,
   CreateAppArgs,
   Game,
