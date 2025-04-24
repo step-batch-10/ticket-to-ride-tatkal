@@ -1,4 +1,5 @@
 import _ from "https://cdn.skypack.dev/lodash";
+import { showAction } from "./game.js";
 
 const fetchJSON = async (url, method = "GET", body = null) => {
   const options = { method, body };
@@ -47,7 +48,7 @@ class DestinationTickets {
     const triggeredTicket = _.find(this.#selectedTickets, { id });
 
     if (!(areEnough && areValid && triggeredTicket)) return false;
-
+    showAction(`Drawn ${this.#selectedTickets.length} ticket(s)`);
     const res = await fetch("/game/player/destination-tickets", {
       method: "POST",
       body: JSON.stringify({

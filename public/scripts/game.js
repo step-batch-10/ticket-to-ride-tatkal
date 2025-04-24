@@ -6,6 +6,16 @@ export const continueGame = async () => {
   await fetch("/game/player/done", { method: "PATCH" });
 };
 
+export const showAction = (msg, state = "success") => {
+  const toastLive = document.getElementById("liveToast");
+  toastLive.classList.add(`bg-${state}`);
+  toastLive.querySelector(".toast-body").innerText = msg;
+  const toast = new bootstrap.Toast(toastLive, { delay: 3000 });
+  console.log("hello");
+
+  toast.show();
+};
+
 // ----- Ticket Generation ------------
 
 const displayTickets = (tags) => {

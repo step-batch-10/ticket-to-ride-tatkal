@@ -1,5 +1,5 @@
-import { fetchJSON } from "./draw_tickets.js";
-import { continueGame } from "./game.js";
+import { fetchJSON } from "./draw-tickets.js";
+import { continueGame, showAction } from "./game.js";
 
 export class DrawTCC {
   #actionState = {
@@ -22,7 +22,7 @@ export class DrawTCC {
 
   async drawFaceUpCard(index, color) {
     if (this.#isValidLocomotiveDraw(color)) {
-      alert("You can't take locomotive");
+      showAction("You can't draw locomotive", "danger");
       return false;
     }
 
@@ -31,7 +31,7 @@ export class DrawTCC {
       "POST",
       JSON.stringify({ index }),
     );
-
+    showAction(`${drawnCard.color} card drawn from face up cards`);
     this.#currentState += drawnCard.color === "locomotive" ? 2 : 1;
 
     if (this.#currentState === this.#actionState.ENDED) {
@@ -41,10 +41,11 @@ export class DrawTCC {
   }
 
   async drawBlindCard() {
-    const _res = await fetch("/game/player/draw-blind-card", {
-      method: "POST",
-    });
-
+    const drawnCard = await fetchJSON(
+      "/game/player/draw-blind-card",
+      "POST",
+    );
+    showAction(`${drawnCard.color} card drawn from deck`);
     this.#currentState++;
 
     if (this.#currentState === this.#actionState.ENDED) {
