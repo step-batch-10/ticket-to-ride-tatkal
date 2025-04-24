@@ -104,8 +104,11 @@ export const renderPlayerResources = ({
   trainCars,
   playerHandCards,
   destinationTickets,
+  color,
 }) => {
-  document.querySelector("#cars").innerText = trainCars;
+  const cars = document.querySelector("#cars");
+  cars.innerText = trainCars;
+  cars.classList.add(color);
   const cards = playerHandCards
     .filter(({ count }) => count > 0)
     .map(createPlayerHandCard);
@@ -118,8 +121,10 @@ export const renderPlayerCards = (players, currentPlayerID) => {
   const container = document.getElementById("players-container");
   container.replaceChildren();
 
-  players.forEach(({ id, name, trainCars, trainCarCards, tickets }) => {
+  players.forEach(({ id, name, trainCars, trainCarCards, tickets, color }) => {
     const card = cloneTemplate("#player-card");
+    console.log(card.querySelector(".player-badge").classList.add(color));
+
     insertText(card, ".player-name", name);
     insertText(card, ".cars", `cars: ${trainCars}`);
     insertText(card, ".train-car-cards", `train-cards: ${trainCarCards}`);

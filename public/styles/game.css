@@ -30,7 +30,6 @@ body {
 }
 
 .selected {
-  /* border: 5px solid goldenrod; */
   box-shadow: 0px 0px 10px var(--minimal);
 }
 
@@ -41,6 +40,7 @@ body {
 }
 
 .player-card {
+  position: relative;
   padding: 10px;
   margin: 10px;
   border: 1px solid var(--minimal);
@@ -104,11 +104,16 @@ body {
 }
 
 #cars {
-  background-color: rgb(255, 187, 0);
   padding: 10px;
   width: 50px;
   height: 50px;
   border-radius: 5px;
+  display: flex;
+  place-content: center;
+  position: relative;
+  right: -50px;
+  text-shadow: 0px 0px 1px black;
+  color: white;
 }
 
 #player-hand {
@@ -128,8 +133,6 @@ body {
 }
 
 .player-ticket-card {
-  /* background-color: #e48f45; */
-  /* background-color: var(--bg3); */
   color: var(--minimal);
   border-radius: 5px;
   width: 100%;
@@ -204,7 +207,6 @@ body {
   align-items: center;
   box-sizing: content-box;
   background-color: gold;
-  /* border: 1px solid black; */
   border-radius: 50%;
 }
 
@@ -245,4 +247,13 @@ body {
 
 .hide-cars {
   display: none;
+}
+
+.player-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
