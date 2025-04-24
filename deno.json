@@ -11,7 +11,8 @@
     "useTabs": false,
     "lineWidth": 80,
     "indentWidth": 2,
-    "semiColons": true
+    "semiColons": true,
+    "exclude": ["./public/USA_map.html"]
   },
   "lint": {
     "rules": {
