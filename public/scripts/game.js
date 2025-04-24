@@ -11,7 +11,6 @@ export const showAction = (msg, state = "success") => {
   toastLive.classList.add(`bg-${state}`);
   toastLive.querySelector(".toast-body").innerText = msg;
   const toast = new bootstrap.Toast(toastLive, { delay: 3000 });
-  console.log("hello");
 
   toast.show();
 };
@@ -138,6 +137,16 @@ const renderPlayerCards = (players, currentPlayerID) => {
   });
 };
 
+const renderLogs = (logs) => {
+  const logContainer = document.querySelector("#logs");
+  const logMessages = logs.map((log) => {
+    const pTag = document.createElement("p");
+    pTag.innerText = log;
+    return pTag;
+  });
+  logContainer.replaceChildren(...logMessages);
+};
+
 const unBlockCurrentPlayer = (isCurrentPlayer) => {
   const actions = document.querySelectorAll(".action");
   actions.forEach((el) => el.classList.toggle("disable", !isCurrentPlayer));
@@ -150,12 +159,14 @@ const masterRender = ({
   players,
   isActive,
   currentPlayerID,
+  logs,
 }) => {
   renderMap(map);
   renderFaceupCards(getDrawTCCInstance(), faceUpCards);
   renderPlayerResources(playerResources);
   renderPlayerCards(players, currentPlayerID);
   unBlockCurrentPlayer(isActive);
+  renderLogs(logs);
 };
 
 // ================== Ticket Handling ==================
