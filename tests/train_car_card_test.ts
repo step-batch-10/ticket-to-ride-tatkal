@@ -33,9 +33,11 @@ describe("trainCarCards", () => {
     it("should return drawn card even deck is empty", () => {
       // deno-lint-ignore no-explicit-any
       const cards: any = new TrainCarCards();
+      const lastCard = cards.getDeck().at(-1);
       cards.deck = [];
-
-      assertEquals(cards.drawCard(), { color: "black" });
+      cards.discardPile = [lastCard];
+      assertEquals(cards.drawCard(), lastCard);
+      assertEquals(cards.discardPile, []);
     });
   });
 
