@@ -35,7 +35,7 @@ const createDiv = (classNames = []) => {
   return div;
 };
 
-export const createTrainCarCard = ({ color }) => {
+const createTrainCarCard = ({ color }) => {
   const card = createDiv(["train-car-card", color]);
   const img = document.createElement("img");
   img.className = "img";
@@ -53,7 +53,7 @@ export const createTicketCard = ({ fromCity, toCity, points, id }) => {
   return ticketCard;
 };
 
-export const createFaceUpCard = (TCCardManager) => (card, index) => {
+const createFaceUpCard = (TCCardManager) => (card, index) => {
   const faceUpCard = createTrainCarCard(card);
   faceUpCard.classList.add("action");
   faceUpCard.addEventListener(
@@ -68,7 +68,7 @@ const getDrawTCCInstance = (() => {
   return () => instance;
 })();
 
-export const createPlayerHandCard = ({ color, count }) => {
+const createPlayerHandCard = ({ color, count }) => {
   const handCard = createTrainCarCard({ color });
   handCard.classList.add("hand-card");
 
@@ -79,11 +79,11 @@ export const createPlayerHandCard = ({ color, count }) => {
   return handCard;
 };
 
-export const insertText = (parent, selector, text) => {
+const insertText = (parent, selector, text) => {
   parent.querySelector(selector).innerText = text;
 };
 
-export const cloneTemplate = (id) =>
+const cloneTemplate = (id) =>
   document.querySelector(id).content.cloneNode(true);
 
 // ================== Render Functions ==================
@@ -91,16 +91,16 @@ const renderChildren = (selector, elements) => {
   document.querySelector(selector).replaceChildren(...elements);
 };
 
-export const renderMap = (svg) => {
+const renderMap = (svg) => {
   document.querySelector("#mapContainer").innerHTML = svg;
 };
 
-export const renderFaceupCards = (TCCardManager, cards) => {
+const renderFaceupCards = (TCCardManager, cards) => {
   const elements = cards.map(createFaceUpCard(TCCardManager));
   renderChildren("#face-up-container", elements);
 };
 
-export const renderPlayerResources = ({
+const renderPlayerResources = ({
   trainCars,
   playerHandCards,
   destinationTickets,
@@ -117,7 +117,7 @@ export const renderPlayerResources = ({
   renderChildren("#player-ticket-cards", tickets);
 };
 
-export const renderPlayerCards = (players, currentPlayerID) => {
+const renderPlayerCards = (players, currentPlayerID) => {
   const container = document.getElementById("players-container");
   container.replaceChildren();
 
@@ -138,12 +138,12 @@ export const renderPlayerCards = (players, currentPlayerID) => {
   });
 };
 
-export const unBlockCurrentPlayer = (isCurrentPlayer) => {
+const unBlockCurrentPlayer = (isCurrentPlayer) => {
   const actions = document.querySelectorAll(".action");
   actions.forEach((el) => el.classList.toggle("disable", !isCurrentPlayer));
 };
 
-export const masterRender = ({
+const masterRender = ({
   map,
   faceUpCards,
   playerResources,

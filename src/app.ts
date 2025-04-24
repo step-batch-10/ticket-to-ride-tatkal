@@ -81,9 +81,7 @@ const setPlayerContext = async (context: Context, next: Next) => {
 
 const authenticatePlayerMove = async (context: Context, next: Next) => {
   const game = context.get("game");
-  context.set("currentPlayer", game.getCurrentPlayer());
-
-  const currentPlayer: Player = context.get("currentPlayer");
+  const currentPlayer: Player = game.getCurrentPlayer();
   const playerId = getCookie(context, "user-ID");
 
   if (playerId === currentPlayer.getId() || game.getState() === "setup") {
@@ -102,7 +100,7 @@ const playerRoutes = (): Hono => {
   player.use(authenticatePlayerMove);
   player.post("/destination-tickets", updatePlayerTickets);
   player.post("/draw-blind-card", drawCardFromDeck);
-  player.post("/drawFaceup-card", drawFaceUpCard);
+  player.post("/draw-faceup-card", drawFaceUpCard);
   player.patch("/done", changePlayer);
 
   return player;

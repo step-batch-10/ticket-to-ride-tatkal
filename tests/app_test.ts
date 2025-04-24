@@ -507,7 +507,7 @@ describe("POST /game/player/draw-blind-card", () => {
   });
 });
 
-describe("/game/player/drawFaceup-card", () => {
+describe("/game/player/draw-faceup-card", () => {
   it("should return drawn card when face up cards is drawn", async () => {
     const gameHandler = new GameManager();
     const gameId = gameHandler.createGame(
@@ -525,7 +525,7 @@ describe("/game/player/drawFaceup-card", () => {
     const faceUpCard = game.getFaceUpCards()[0];
     const app: Hono = prepareApp(new Users(), gameHandler);
 
-    const r: Response = await app.request("/game/player/drawFaceup-card", {
+    const r: Response = await app.request("/game/player/draw-faceup-card", {
       method: "POST",
       headers: { cookie: "user-ID=1;game-ID=1" },
       body: '{"index":0}',
@@ -551,7 +551,7 @@ describe("/game/player/drawFaceup-card", () => {
     const faceUpCard = game.getFaceUpCards()[2];
     const app: Hono = prepareApp(new Users(), gameHandler);
 
-    const r: Response = await app.request("/game/player/drawFaceup-card", {
+    const r: Response = await app.request("/game/player/draw-faceup-card", {
       method: "POST",
       headers: { cookie: "user-ID=1;game-ID=1" },
       body: '{"index":2}',

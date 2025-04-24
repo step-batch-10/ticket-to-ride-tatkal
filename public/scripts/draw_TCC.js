@@ -27,7 +27,7 @@ export class DrawTCC {
     }
 
     const drawnCard = await fetchJSON(
-      "/game/player/drawFaceup-card",
+      "/game/player/draw-faceup-card",
       "POST",
       JSON.stringify({ index }),
     );
