@@ -40,6 +40,20 @@ type card = {
   color: string;
 };
 
+type Route = {
+  id: string;
+  carId: string;
+  cityA: string;
+  cityB: string;
+  distance: number;
+  color: string;
+};
+
+type City = {
+  id: string;
+  name: string;
+};
+
 interface Tickets {
   id: string;
   from: string;
@@ -89,6 +103,7 @@ interface GameStatus {
 export type {
   ActivityLog,
   card,
+  City,
   CreateAppArgs,
   Game,
   GameStatus,
@@ -97,6 +112,7 @@ export type {
   PlayerInfo,
   PlayerResources,
   Reader,
+  Route,
   ServeStatic,
   SetContextArgs,
   svg,

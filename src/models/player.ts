@@ -1,3 +1,4 @@
+import { _ } from "https://cdn.skypack.dev/lodash";
 import {
   card,
   playerHandCard,
@@ -46,6 +47,20 @@ export class Player {
 
   getTrainCars() {
     return this.trainCars;
+  }
+
+  deductTrainCars(usedCars: number) {
+    this.trainCars -= usedCars;
+    return this.trainCars;
+  }
+
+  deductTrainCarCards(usedCards: playerHandCard[]) {
+    usedCards.map((c) => {
+      const card = _.find(this.hand, { color: c.color });
+      card.count -= c.count;
+    });
+
+    return this.hand;
   }
   getName() {
     return this.name;

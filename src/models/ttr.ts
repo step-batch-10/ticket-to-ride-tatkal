@@ -1,8 +1,11 @@
 import {
   ActivityLog,
   card,
+  City,
   GameStatus,
+  playerHandCard,
   PlayerInfo,
+  Route,
   svg,
   Tickets,
 } from "./schemas.ts";
@@ -10,6 +13,7 @@ import { TrainCarCards } from "./train_car_cards.ts";
 import DestinationTickets from "./tickets.ts";
 import { Player } from "./player.ts";
 import { UsMap } from "./USA_map.ts";
+import { _ } from "https://cdn.skypack.dev/lodash";
 
 export class Ttr {
   private players: Player[];
@@ -21,6 +25,7 @@ export class Ttr {
   private moves: number;
   private logs: ActivityLog[];
   private state: "setup" | "playing" | "finalTurn";
+
 
   constructor(players: Player[], map: UsMap) {
     this.players = players;
@@ -90,6 +95,10 @@ export class Ttr {
     return this.map.getMap();
   }
 
+  getCities(): City[] {
+    return this.map.getCities();
+  }
+
   getFaceUpCards(): card[] {
     return this.trainCarCards.getFaceUpCards();
   }
@@ -156,6 +165,68 @@ export class Ttr {
     }
 
     this.currentPlayer = this.players[this.currentPlayerIndex];
+    return true;
+  }
+
+  private getUsedTrainCarCards(
+    noOfColorCards: number,
+    route: Route,
+    cardColor: string,
+  ) {
+    const usedTrainCarCards: playerHandCard[] = [];
+    if (noOfColorCards - route.distance >= 0) {
+      usedTrainCarCards.push({ color: cardColor, count: route.distance });
+      return usedTrainCarCards;
+    }
+
+    usedTrainCarCards.push(
+      { color: cardColor, count: noOfColorCards },
+      { color: "locomotive", count: route.distance - noOfColorCards },
+    );
+    return usedTrainCarCards;
+  }
+
+  private getRouteStatus(
+    route: Route,
+    playerHand: playerHandCard[] | undefined,
+    cardColor: string,
+  ) {
+    const isCardUsable = !(
+      route.color === cardColor ||
+      route.color === "gray" ||
+      cardColor === "locomotive"
+    );
+    if (isCardUsable) {
+      return { claimable: false, usedTrainCarCards: [] };
+    }
+
+    const isLocomotive = cardColor === "locomotive";
+    const noOfColorCards = _.find(playerHand, { color: cardColor }).count;
+    const noOfLocomotives = _.find(playerHand, { color: "locomotive" }).count;
+    const totalCards = isLocomotive
+      ? noOfLocomotives
+      : noOfColorCards + noOfLocomotives;
+
+    const claimable = route.distance <= totalCards;
+    const usedTrainCarCards: playerHandCard[] = this.getUsedTrainCarCards(
+      noOfColorCards,
+      route,
+      cardColor,
+    );
+
+    return { claimable, usedTrainCarCards };
+  }
+
+  claimRoute(playerID: string, routeId: string, cardColor: string) {
+    const route = _.find(this.map.getRoutes(), { id: routeId });
+    const player = this.getPlayer(playerID);
+    const playerHand = player?.getHand();
+    const routeStatus = this.getRouteStatus(route, playerHand, cardColor);
+    if (!routeStatus.claimable) return false;
+
+    player?.deductTrainCars(route.distance);
+    player?.deductTrainCarCards(routeStatus.usedTrainCarCards);
+
     return true;
   }
 }
