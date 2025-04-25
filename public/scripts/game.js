@@ -40,7 +40,7 @@ const createTrainCarCard = ({ color }) => {
   const card = createDiv(["train-car-card", color]);
   const img = document.createElement("img");
   img.className = "img";
-  img.src = "/assests/image.png";
+  img.src = "/assets/image.png";
 
   card.appendChild(img);
 

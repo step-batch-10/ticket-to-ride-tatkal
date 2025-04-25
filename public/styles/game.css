@@ -250,7 +250,7 @@ body {
 }
 
 #mapContainer {
-  background-image: url("/assests/map-bg-1.png");
+  background-image: url("/assets/map-bg-1.png");
   background-size: cover;
   display: flex;
   justify-content: center;
