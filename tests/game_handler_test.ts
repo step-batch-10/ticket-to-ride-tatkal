@@ -3,6 +3,7 @@ import { describe, it } from "jsr:@std/testing/bdd";
 import { GameManager } from "../src/models/game_manager.ts";
 import tickets from "../json/tickets.json" with { type: "json" };
 import { assignRouteCities } from "../src/handlers/game_handler.ts";
+import cities from "../json/cities.json" with { type: "json" };
 
 const mockedReader = (_path: string | URL): string => {
   // deno-lint-ignore no-explicit-any
@@ -93,7 +94,7 @@ describe("Game Handler", () => {
       to: "c32",
       toCity: "New York",
     }];
-    const actual = assignRouteCities([ticket]);
+    const actual = assignRouteCities(cities, [ticket]);
 
     assertEquals(actual, expected);
   });

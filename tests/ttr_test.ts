@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "assert";
+import { assert, assertEquals, assertFalse } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { Ttr } from "../src/models/ttr.ts";
 import { UsMap } from "../src/models/USA_map.ts";
@@ -151,5 +151,51 @@ describe("change Player ", () => {
     ttr.changePlayer();
 
     assertEquals(ttr.getState(), "playing");
+  });
+});
+
+describe("claimRoute ", () => {
+  it("should return true when route is claimed", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    ttr.players[0].hand = [{ color: "red", count: 1 }, {
+      color: "locomotive",
+      count: 0,
+    }];
+
+    assert(ttr.claimRoute("1", "r2", "red"));
+  });
+
+  it("should return false when route is not claimed", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    ttr.players[0].hand = [{ color: "red", count: 1 }, {
+      color: "locomotive",
+      count: 0,
+    }];
+
+    assertFalse(ttr.claimRoute("1", "r25", "red"));
+  });
+
+  it("should return false when route color does'nt match with card color", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    ttr.players[0].hand = [{ color: "yellow", count: 5 }, {
+      color: "locomotive",
+      count: 0,
+    }];
+
+    assertFalse(ttr.claimRoute("1", "r25", "yellow"));
+  });
+
+  it("should return true when card color is locomotive and the count is greater than distance", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    ttr.players[0].hand = [{
+      color: "locomotive",
+      count: 4,
+    }];
+
+    assert(ttr.claimRoute("1", "r25", "locomotive"));
   });
 });

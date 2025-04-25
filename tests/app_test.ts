@@ -9,6 +9,7 @@ import { GameManager } from "../src/models/game_manager.ts";
 import { assignRouteCities } from "../src/handlers/game_handler.ts";
 import dtickets from "../json/tickets.json" with { type: "json" };
 import cities from "../json/cities.json" with { type: "json" };
+import { _ } from "https://cdn.skypack.dev/lodash";
 
 const logger = () => async (_: Context, n: Function) => await n();
 
@@ -608,5 +609,84 @@ describe("GET /game/player/done", () => {
     });
 
     assertEquals(response.status, 200);
+  });
+});
+
+describe("POST /game/player/claim-route", () => {
+  it("should return true and should claim the route", async () => {
+    const gameHandler = new GameManager();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+
+    const game = gameHandler.getGame(1)?.game;
+    const cards = game?.status("1").playerResources.playerHandCards;
+    const card = cards?.find(({ count }) => count > 0);
+    const color = card?.color;
+
+    const app: Hono = prepareApp(new Users(), gameHandler);
+    const response = await app.request("/game/player/claim-route", {
+      method: "POST",
+      headers: { cookie: "user-ID=1;game-ID=1" },
+      body: JSON.stringify({ routeId: "r2", cardColor: color }),
+    });
+
+    assertEquals(await response.json(), { claimed: true });
+  });
+
+  it("should return false and should not claim the route because of difference in route and card color", async () => {
+    const gameHandler = new GameManager();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+
+    const app: Hono = prepareApp(new Users(), gameHandler);
+    const response = await app.request("/game/player/claim-route", {
+      method: "POST",
+      headers: { cookie: "user-ID=1;game-ID=1" },
+      body: JSON.stringify({ routeId: "r28", cardColor: "red" }),
+    });
+
+    assertEquals(await response.json(), { claimed: false });
+  });
+
+  it("should return false and should not claim the route because of difference in route and card distance", async () => {
+    const gameHandler = new GameManager();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+
+    const app: Hono = prepareApp(new Users(), gameHandler);
+    const response = await app.request("/game/player/claim-route", {
+      method: "POST",
+      headers: { cookie: "user-ID=1;game-ID=1" },
+      body: JSON.stringify({ routeId: "r28", cardColor: "white" }),
+    });
+
+    assertEquals(await response.json(), { claimed: false });
   });
 });
