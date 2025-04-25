@@ -1,8 +1,15 @@
 * {
   padding: 0%;
   margin: 0%;
+  font-family: "Raleway";
 }
 
+:root {
+  --minimal: #d9a441;
+  --bg1: #d2b48c;
+  --bg2: #4b3621;
+  --bg3: #c9b194;
+}
 .waiting-page {
   background-size: cover;
   background-color: #2b1b0e;
@@ -16,12 +23,13 @@
 }
 
 .waiting-container {
-  background-color: #c2a155;
   border: 2px solid #5c4033;
   border-radius: 12px;
   padding: 20px;
-  max-width: 500px;
+  width: 500px;
   margin: 40px auto;
+  color: var(--minimal);
+  border: 1px solid var(--minimal);
 }
 
 #waiting-list {
@@ -37,10 +45,12 @@
   margin: 5px 0px;
   justify-content: space-between;
   align-items: center;
+  padding-top: 8px;
+  border-top: 0.5px solid var(--minimal);
 }
 
 .badge {
-  background-color: aliceblue;
+  border: 1px solid var(--minimal);
   border-radius: 3px;
   width: min-content;
   padding: 0px 5px;

@@ -1,6 +1,12 @@
 body {
-  font-family: "Cinzel", serif;
-  background-color: #2b1b0e;
+  /* font-family: "IM Fell English", serif; */
+  /* font-family: "Playfair Display", serif; */
+  font-family: "Raleway", serif;
+  background-color: hsl(27, 51%, 11%);
+}
+
+h1 {
+  color: #d4b26e;
 }
 
 a {
@@ -74,7 +80,7 @@ a:hover {
 
 /* Font */
 .font-fantasy {
-  font-family: "Cinzel", serif;
+  font-family: "IM Fell English", serif;
 }
 
 /* Layout Utilities */

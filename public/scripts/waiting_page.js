@@ -52,7 +52,7 @@ const redirectToGame = async (intervalId) => {
 
   if (res.redirected) {
     clearInterval(intervalId);
-    const message = document.querySelector("#msg");
+    const message = document.querySelector(".status");
     waitAndRedirect(res.url, message, 3);
   }
 };

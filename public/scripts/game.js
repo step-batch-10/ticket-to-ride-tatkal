@@ -8,6 +8,8 @@ export const continueGame = async () => {
 
 export const showAction = (msg, state = "success") => {
   const toastLive = document.getElementById("liveToast");
+
+  toastLive.classList.remove(`bg-danger`);
   toastLive.classList.add(`bg-${state}`);
   toastLive.querySelector(".toast-body").innerText = msg;
   const toast = new bootstrap.Toast(toastLive, { delay: 3000 });
@@ -142,7 +144,7 @@ const renderLogs = (logs) => {
   const logMessages = logs.map((log) => {
     const pTag = document.createElement("p");
     pTag.innerText =
-      `${log.playerName} drawn ${log.assets} card(s) from ${log.from}`;
+      `>${log.playerName} drawn ${log.assets} card(s) from ${log.from}`;
     return pTag;
   });
   logContainer.replaceChildren(...logMessages);
