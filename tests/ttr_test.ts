@@ -198,4 +198,71 @@ describe("claimRoute ", () => {
 
     assert(ttr.claimRoute("1", "r25", "locomotive"));
   });
+
+  it("should initiate the final turn if current player has less than 3 train cars", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    ttr.players[0].hand = [{
+      color: "locomotive",
+      count: 4,
+    }];
+    ttr.currentPlayer.trainCars = 5;
+    ttr.claimRoute("1", "r25", "locomotive");
+
+    assertEquals(ttr.getState(), "finalTurn");
+  });
+
+  it("should not initiate the final turn if current player has more than 3 train cars", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    ttr.players[0].hand = [{
+      color: "locomotive",
+      count: 4,
+    }];
+    ttr.currentPlayer.trainCars = 8;
+    ttr.claimRoute("1", "r25", "locomotive");
+    assertEquals(ttr.getState(), "setup");
+  });
+
+  it("should not initiate final turn again if its already initiated", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    ttr.players[0].hand = [{
+      color: "locomotive",
+      count: 4,
+    }];
+
+    ttr.currentPlayer.trainCars = 5;
+
+    ttr.claimRoute("1", "r25", "locomotive");
+
+    ttr.changePlayer();
+
+    ttr.players[1].hand = [{
+      color: "locomotive",
+      count: 4,
+    }];
+
+    ttr.currentPlayer.trainCars = 3;
+    ttr.claimRoute("2", "r2", "locomotive");
+
+    assertEquals(ttr.finalTurnInitiator, "1");
+  });
+  it("should end game if final turn", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    ttr.players[0].hand = [{
+      color: "locomotive",
+      count: 4,
+    }];
+
+    ttr.currentPlayer.trainCars = 5;
+
+    ttr.claimRoute("1", "r25", "locomotive");
+    ttr.changePlayer();
+    ttr.changePlayer();
+    ttr.changePlayer();
+
+    assertEquals(ttr.getState(), "end");
+  });
 });

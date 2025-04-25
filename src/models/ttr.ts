@@ -24,7 +24,8 @@ export class Ttr {
   private currentPlayerIndex: number;
   private moves: number;
   private logs: ActivityLog[];
-  private state: "setup" | "playing" | "finalTurn";
+  private state: "setup" | "playing" | "finalTurn" | "end";
+  private finalTurnInitiator: string | null;
 
   constructor(players: Player[], map: UsMap) {
     this.players = players;
@@ -37,7 +38,9 @@ export class Ttr {
     this.moves = 0;
     this.currentPlayer = this.players[this.currentPlayerIndex];
     this.logs = [];
+    this.finalTurnInitiator = null;
   }
+
   private registerLog(from: string, assets: string | number) {
     this.logs.unshift({
       playerName: this.currentPlayer!.getName(),
@@ -48,6 +51,7 @@ export class Ttr {
 
   drawFaceUpCard(index: number) {
     const drawnCard = this.trainCarCards.drawFaceUp(index);
+
     this.registerLog("face up cards", drawnCard.color);
 
     this.currentPlayer.addCardsToHand(drawnCard);
@@ -96,6 +100,11 @@ export class Ttr {
 
   getCities(): City[] {
     return this.map.getCities();
+  }
+
+  private initiateFinalTurn(id: string) {
+    this.state = "finalTurn";
+    this.finalTurnInitiator = id;
   }
 
   getFaceUpCards(): card[] {
@@ -163,7 +172,12 @@ export class Ttr {
       this.state = "playing";
     }
 
+    if (this.currentPlayer.getId() === this.finalTurnInitiator) {
+      this.state = "end";
+    }
+
     this.currentPlayer = this.players[this.currentPlayerIndex];
+
     return true;
   }
 
@@ -226,6 +240,11 @@ export class Ttr {
     player?.deductTrainCars(route.distance);
     player?.deductTrainCarCards(routeStatus.usedTrainCarCards);
 
+    if (player!.getTrainCars() < 3 && !this.finalTurnInitiator) {
+      this.registerLog("claiming route", "final round");
+      this.changePlayer();
+      this.initiateFinalTurn(player!.getId());
+    }
     return true;
   }
 }

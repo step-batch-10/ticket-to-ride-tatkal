@@ -96,7 +96,7 @@ interface GameStatus {
   map: string;
   playerResources: PlayerResources;
   faceUpCards: card[];
-  state: "setup" | "playing" | "finalTurn";
+  state: "setup" | "playing" | "finalTurn" | "end";
   logs: ActivityLog[];
 }
 

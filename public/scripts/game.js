@@ -144,7 +144,7 @@ const renderLogs = (logs) => {
   const logMessages = logs.map((log) => {
     const pTag = document.createElement("p");
     pTag.innerText =
-      `>${log.playerName} drawn ${log.assets} card(s) from ${log.from}`;
+      `> ${log.playerName} drawn ${log.assets} card(s) from ${log.from}`;
     return pTag;
   });
   logContainer.replaceChildren(...logMessages);
@@ -155,6 +155,18 @@ const unBlockCurrentPlayer = (isCurrentPlayer) => {
   actions.forEach((el) => el.classList.toggle("disable", !isCurrentPlayer));
 };
 
+const gameState = (initialState) => {
+  let state = initialState;
+  return (currentGameState) => {
+    if (state !== currentGameState) {
+      showAction(`Game state changed to "${currentGameState}"`);
+      state = currentGameState;
+    }
+  };
+};
+
+const announceGameStateChange = gameState("setup");
+
 const masterRender = ({
   map,
   faceUpCards,
@@ -163,6 +175,7 @@ const masterRender = ({
   isActive,
   currentPlayerID,
   logs,
+  state,
 }) => {
   renderMap(map);
   renderFaceupCards(getDrawTCCInstance(), faceUpCards);
@@ -170,6 +183,7 @@ const masterRender = ({
   renderPlayerCards(players, currentPlayerID);
   unBlockCurrentPlayer(isActive);
   renderLogs(logs);
+  announceGameStateChange(state);
 };
 
 // ================== Ticket Handling ==================
