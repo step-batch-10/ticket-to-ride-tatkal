@@ -92,6 +92,13 @@ const authenticatePlayerMove = async (context: Context, next: Next) => {
   return context.text("", 409);
 };
 
+const validateGetDt = async (context: Context, next: Next) => {
+  const game = context.get("game");
+  if (game.canGetDestTickets()) await next();
+
+  return context.json({ message: "invalid", isError: true }, 403);
+};
+
 const playerRoutes = (): Hono => {
   const player: Hono = new Hono();
   player.use(setPlayerContext);
@@ -99,6 +106,7 @@ const playerRoutes = (): Hono => {
   player.get("/status", fetchGameStatus);
 
   player.use(authenticatePlayerMove);
+  player.get("/destination-tickets", validateGetDt, fetchTicketChoices);
   player.post("/destination-tickets", updatePlayerTickets);
   player.post("/draw-blind-card", drawCardFromDeck);
   player.post("/draw-faceup-card", drawFaceUpCard);
@@ -113,8 +121,7 @@ const gameRoutes = (): Hono => {
 
   game.get("/map", fetchMap);
   game.get("/face-up-cards", fetchFaceUps);
-  game.get("/players-detail", fetchPlayerDetails); // /players
-  game.get("/destination-tickets", authenticatePlayerMove, fetchTicketChoices);
+  game.get("/players-detail", fetchPlayerDetails);
   game.route("/player", playerRoutes());
 
   return game;

@@ -26,6 +26,8 @@ export class Ttr {
   private logs: ActivityLog[];
   private state: "setup" | "playing" | "finalTurn" | "end";
   private finalTurnInitiator: string | null;
+  private currentAction: string | null;
+  private noOfTCCsCollected: number;
 
   constructor(players: Player[], map: UsMap) {
     this.players = players;
@@ -38,6 +40,8 @@ export class Ttr {
     this.moves = 0;
     this.currentPlayer = this.players[this.currentPlayerIndex];
     this.logs = [];
+    this.noOfTCCsCollected = 0;
+    this.currentAction = null;
     this.finalTurnInitiator = null;
   }
 
@@ -49,12 +53,43 @@ export class Ttr {
     });
   }
 
+  private getPlayer(playerID: string) {
+    return this.players.find((player: Player) => {
+      return player.getId() === playerID;
+    });
+  }
+
+  private setCurrentAction(action: string | null) {
+    this.currentAction = action;
+  }
+
+  canDrawATCC() {
+    return this.currentAction === null || this.currentAction === "TCC";
+  }
+
+  canGetDestTickets() {
+    return this.currentAction === null;
+  }
+
+  canChooseDestTickets() {
+    return this.currentAction === "DT";
+  }
+
+  private handleTCCAction() {
+    this.noOfTCCsCollected += 1;
+    const action = this.noOfTCCsCollected === 2 ? null : "TCC";
+
+    this.setCurrentAction(action);
+    this.noOfTCCsCollected %= 2;
+  }
+
   drawFaceUpCard(index: number) {
     const drawnCard = this.trainCarCards.drawFaceUp(index);
 
     this.registerLog("face up cards", drawnCard.color);
-
     this.currentPlayer.addCardsToHand(drawnCard);
+    this.handleTCCAction();
+
     return drawnCard;
   }
 
@@ -63,6 +98,7 @@ export class Ttr {
     this.registerLog("deck", "a");
 
     this.currentPlayer.addCardsToHand(drawnCard);
+    this.handleTCCAction();
 
     return drawnCard;
   }
@@ -112,16 +148,12 @@ export class Ttr {
   }
 
   getDestinationTickets(): Tickets[] {
+    this.setCurrentAction("DT");
     return this.destinationCards.getTopThree();
   }
 
-  private getPlayer(playerID: string) {
-    return this.players.find((player: Player) => {
-      return player.getId() === playerID;
-    });
-  }
-
   addDestinationTicketsTo(playerId: string, tickets: Tickets[]) {
+    this.setCurrentAction(null);
     const currentPlayer = this.getPlayer(playerId);
     this.registerLog("destination tickets", tickets.length);
     return currentPlayer?.addDestinationTickets(tickets);
