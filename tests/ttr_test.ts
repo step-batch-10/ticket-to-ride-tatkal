@@ -1,4 +1,4 @@
-import { assert, assertEquals, assertFalse } from "assert";
+import { assert, assertEquals, assertFalse,  } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { Ttr } from "../src/models/ttr.ts";
 import { UsMap } from "../src/models/USA_map.ts";
@@ -151,6 +151,58 @@ describe("change Player ", () => {
     ttr.changePlayer();
 
     assertEquals(ttr.getState(), "playing");
+  });
+});
+
+describe("can perform destionation tickets action", () => {
+  it("should allow to take destination tickets if it is the starrting action in the player's turn ", () => {
+    const ttr = prepareTTR();
+
+    assert(ttr.canGetDestTickets());
+    ttr.addDestinationTicketsTo("1", []);
+    assert(ttr.canGetDestTickets());
+  });
+
+  it("should not allow to take destination tickets if any action is initiated in the player's turn ", () => {
+    const ttr = prepareTTR();
+
+    assert(ttr.canGetDestTickets());
+    ttr.getDestinationTickets();
+    assertFalse(ttr.canGetDestTickets());
+    ttr.getFaceUpCards();
+    assertFalse(ttr.canGetDestTickets());
+  });
+
+  it("should allow to choose destination tickets if the player has shown the 3 tickets", () => {
+    const ttr = prepareTTR();
+
+    ttr.getDestinationTickets();
+    assert(ttr.canChooseDestTickets());
+  });
+
+  it("should not allow to choose destination tickets if the player has not shown the 3 tickets", () => {
+    const ttr = prepareTTR();
+
+    assertFalse(ttr.canChooseDestTickets());
+  });
+});
+
+describe("can draw train car cards", () => {
+  it("should allow the player to draw a card if the player chose to draw train car cards", () => {
+    const ttr = prepareTTR();
+
+    assert(ttr.canDrawATCC());
+    ttr.drawFaceUpCard(1);
+    assert(ttr.canDrawATCC());
+    ttr.drawBlindCard();
+    assert(ttr.canGetDestTickets());
+  });
+
+  it("should not allow the player to draw a card if the player initiated any other action", () => {
+    const ttr = prepareTTR();
+
+    ttr.getDestinationTickets();
+    assertFalse(ttr.canDrawATCC());
   });
 });
 
