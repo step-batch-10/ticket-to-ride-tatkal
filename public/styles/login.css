@@ -1,6 +1,4 @@
 body {
-  /* font-family: "IM Fell English", serif; */
-  /* font-family: "Playfair Display", serif; */
   font-family: "Raleway", serif;
   background-color: hsl(27, 51%, 11%);
 }
@@ -37,7 +35,6 @@ a:hover {
   border: 2px solid #8b5e3c;
 }
 
-/* Button Utilities */
 .btn-gold {
   background-color: #d4b26e;
   color: #3b2b1e;
@@ -53,7 +50,6 @@ a:hover {
   color: #3b2b1e;
 }
 
-/* Color Utilities */
 .bg-dark-brown {
   background-color: #2b1b0e;
 }
@@ -62,12 +58,10 @@ a:hover {
   color: #d4b26e;
 }
 
-/* Border Utilities */
 .border-gold {
   border: 2px solid #8b5e3c;
 }
 
-/* Input Field Utilities */
 .input-gold {
   background-color: #d4b26e;
   color: #3b2b1e;
@@ -78,12 +72,10 @@ a:hover {
   color: #3b2b1e;
 }
 
-/* Font */
 .font-fantasy {
   font-family: "IM Fell English", serif;
 }
 
-/* Layout Utilities */
 .center-flex {
   display: flex;
   justify-content: center;

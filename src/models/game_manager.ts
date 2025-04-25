@@ -20,7 +20,7 @@ export class GameManager {
 
   createGame(players: PlayerInfo[], reader: Reader) {
     const gameId: number = this.generateGameId();
-    const map = USAMap.getInstance(reader); // change Usmp to USAMap
+    const map = USAMap.getInstance(reader);
     this.games.unshift({ gameId, players, game: Ttr.createTtr(players, map) });
 
     return gameId;
@@ -37,10 +37,6 @@ export class GameManager {
   getWaitingList(playerId: string) {
     return this.queue.getWaitingQueue(playerId);
   }
-
-  // getPlayersInfo(playerId: string) {
-  //   return this.queue.getWaitingQueue(playerId);
-  // }
 
   private isPresent(players: PlayerInfo[], playerId: string) {
     return players.some(({ id }) => id === playerId);

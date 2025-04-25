@@ -11,7 +11,7 @@ export const addToWaitingQueue = (context: Context) => {
 };
 
 export const getQueue = (context: Context) => {
-  const userId = getCookie(context, "user-ID"); // set userId in middleWare
+  const userId = getCookie(context, "user-ID");
   const { players } = context.get("gameHandler").getWaitingList(userId);
 
   return context.json(players.map((player: PlayerInfo) => player.name));
