@@ -21,6 +21,7 @@ import {
   fetchPlayerDetails,
   fetchPlayerHand,
   fetchTicketChoices,
+  handleClaimRoute,
   updatePlayerTickets,
 } from "./handlers/game_handler.ts";
 import { Player } from "./models/player.ts";
@@ -101,6 +102,7 @@ const playerRoutes = (): Hono => {
   player.post("/destination-tickets", updatePlayerTickets);
   player.post("/draw-blind-card", drawCardFromDeck);
   player.post("/draw-faceup-card", drawFaceUpCard);
+  player.post("/claim-route", handleClaimRoute);
   player.patch("/done", changePlayer);
 
   return player;

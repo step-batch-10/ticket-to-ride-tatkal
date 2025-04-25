@@ -2,9 +2,8 @@ import { Context } from "hono";
 import { getCookie } from "hono/cookie";
 import { Player } from "../models/player.ts";
 import { Ttr } from "../models/ttr.ts";
-import { Tickets } from "../models/schemas.ts";
+import { City, Tickets } from "../models/schemas.ts";
 import { _ } from "https://cdn.skypack.dev/lodash";
-import cities from "../../json/cities.json" with { type: "json" };
 
 export const fetchMap = (context: Context) => {
   const game = context.get("game");
@@ -17,7 +16,7 @@ export const fetchFaceUps = (context: Context) => {
   return context.json(game.getFaceUpCards());
 };
 
-export const assignRouteCities = (tickets: Tickets[]) => {
+export const assignRouteCities = (cities: City[], tickets: Tickets[]) => {
   return tickets.map((t) => {
     const from = _.find(cities, { id: t.from });
     const to = _.find(cities, { id: t.to });
@@ -27,9 +26,10 @@ export const assignRouteCities = (tickets: Tickets[]) => {
 };
 
 export const fetchTicketChoices = (c: Context) => {
-  const TTR: Ttr = c.get("game");
-  const minimumPickup = TTR.getState() === "setup" ? 2 : 1;
-  const tickets = assignRouteCities(TTR.getDestinationTickets());
+  const ttr: Ttr = c.get("game");
+  const cities = ttr.getCities();
+  const minimumPickup = ttr.getState() === "setup" ? 2 : 1;
+  const tickets = assignRouteCities(cities, ttr.getDestinationTickets());
   const destinationTicketsInfo = { tickets, minimumPickup };
 
   return c.json(destinationTicketsInfo);
@@ -38,11 +38,12 @@ export const fetchTicketChoices = (c: Context) => {
 export const updatePlayerTickets = async (c: Context) => {
   const { selected, rest } = await c.req.json();
   const playerID = getCookie(c, "user-ID");
-  const game = c.get("game");
-  const selectedTickets = assignRouteCities(selected);
+  const ttr = c.get("game");
+  const cities = ttr.getCities();
+  const selectedTickets = assignRouteCities(cities, selected);
 
-  game.addDestinationTicketsTo(playerID, selectedTickets);
-  game.stackUnderDestinationDeck(rest);
+  ttr.addDestinationTicketsTo(playerID, selectedTickets);
+  ttr.stackUnderDestinationDeck(rest);
 
   return c.text("ok", 200);
 };
@@ -97,5 +98,15 @@ export const fetchGameStatus = (context: Context) => {
 export const changePlayer = (context: Context) => {
   const game = context.get("game");
   game.changePlayer();
+
   return context.text("ok");
+};
+
+export const handleClaimRoute = async (context: Context) => {
+  const { routeId, cardColor } = await context.req.json();
+  const playerId = getCookie(context, "user-ID");
+  const game = context.get("game");
+  const claimed = game.claimRoute(playerId, routeId, cardColor);
+
+  return context.json({ claimed });
 };
