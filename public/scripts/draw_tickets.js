@@ -19,7 +19,7 @@ class DestinationTickets {
   }
 
   async getTopThree() {
-    const response = await fetch("/game/destination-tickets");
+    const response = await fetch("/game/player/destination-tickets");
     if (!response.ok) return false;
 
     const { tickets, minimumPickup } = await response.json();

@@ -122,9 +122,8 @@ const renderPlayerCards = (players, currentPlayerID) => {
   const container = document.getElementById("players-container");
   container.replaceChildren();
 
-  players.forEach(({ id, name, trainCars, trainCarCards, tickets, color }) => {
+  players.forEach(({ id, name, trainCars, trainCarCards, tickets }) => {
     const card = cloneTemplate("#player-card");
-    console.log(card.querySelector(".player-badge").classList.add(color));
 
     insertText(card, ".player-name", name);
     insertText(card, ".cars", `cars: ${trainCars}`);
