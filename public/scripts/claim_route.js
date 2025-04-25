@@ -1,19 +1,22 @@
+import { continueGame } from "./game.js";
+
 export class ClaimRoute {
   #cardColor;
 
   constructor() {
-    this.#cardColor = null;
+    this.#cardColor = "";
   }
 
-  assignCardColor(event) {
-    this.#cardColor = event.target.classList[1];
+  assignCardColor(color) {
+    this.#cardColor = color;
   }
 
-  async claimRoute(event) {
-    const routeId = event.target.id;
+  async claimRoute(routeId) {
     await fetch("/game/player/claim-route", {
       method: "POST",
       body: JSON.stringify({ routeId, cardColor: this.#cardColor }),
     });
+
+    continueGame();
   }
 }

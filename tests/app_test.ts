@@ -3,7 +3,7 @@ import { assertEquals } from "assert";
 import { describe, it } from "@std/testing/bdd";
 import { serveStatic } from "hono/deno";
 import { Context, Hono } from "hono";
-import { UsMap } from "../src/models/USA_map.ts";
+import { USAMap } from "../src/models/USA_map.ts";
 import { Users } from "../src/models/users.ts";
 import { GameManager } from "../src/models/game_manager.ts";
 import { assignRouteCities } from "../src/handlers/game_handler.ts";
@@ -114,7 +114,7 @@ describe("addToWaitingQueue", () => {
 describe("usMap", () => {
   describe("fetchMap", () => {
     it("should give map data of map file", () => {
-      const usaMap = UsMap.getInstance(mockedReader);
+      const usaMap = USAMap.getInstance(mockedReader);
       assertEquals(usaMap.getMap(), "usa map");
     });
   });

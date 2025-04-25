@@ -1,5 +1,5 @@
 import { Ttr } from "./ttr.ts";
-import { UsMap } from "./USA_map.ts";
+import { USAMap } from "./USA_map.ts";
 import { WaitingQueue } from "./waiting_queue.ts";
 import { Game, PlayerInfo, Reader } from "./schemas.ts";
 
@@ -20,7 +20,7 @@ export class GameManager {
 
   createGame(players: PlayerInfo[], reader: Reader) {
     const gameId: number = this.generateGameId();
-    const map = UsMap.getInstance(reader); // change Usmp to USAMap
+    const map = USAMap.getInstance(reader); // change Usmp to USAMap
     this.games.unshift({ gameId, players, game: Ttr.createTtr(players, map) });
 
     return gameId;

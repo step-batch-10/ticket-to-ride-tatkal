@@ -70,16 +70,26 @@ describe("deduct trainCars", () => {
 
 describe("deduct trainCarCards", () => {
   it("should return deducted TrainCarCards", () => {
-    // deno-lint-ignore no-explicit-any
-    const player: any = new Player({ name: "susahnth", id: "1" }, "red");
-    player.hand = [{ color: "red", count: 1 }, {
-      color: "locomotive",
-      count: 0,
-    }];
+    const player = new Player({ name: "susahnth", id: "1" }, "red");
 
     assertEquals(player.deductTrainCarCards([{ color: "red", count: 1 }]), [{
       color: "red",
-      count: 0,
-    }, { color: "locomotive", count: 0 }]);
+    }]);
+  });
+});
+
+describe("addClaimedRoute", () => {
+  it("should add a route", () => {
+    const player = new Player({ name: "susahnth", id: "1" }, "red");
+    const route = {
+      "id": "r1",
+      "carId": "cr1",
+      "cityA": "c1",
+      "cityB": "c2",
+      "distance": 3,
+      "color": "gray",
+    };
+    assertEquals(player.addClaimedRoute(route), 1);
+    assertEquals(player.getClaimedRoutes(), [route]);
   });
 });

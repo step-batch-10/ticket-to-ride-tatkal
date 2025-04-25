@@ -49,6 +49,11 @@ type Route = {
   color: string;
 };
 
+type ClaimedRoute = {
+  carId: string;
+  playerColor: string;
+};
+
 type City = {
   id: string;
   name: string;
@@ -59,10 +64,6 @@ interface Tickets {
   from: string;
   to: string;
   points: number;
-}
-
-interface USAMap {
-  getMap(): svg;
 }
 
 type playerHandCard = {
@@ -93,17 +94,18 @@ interface GameStatus {
   currentPlayerID: string;
   isActive: Boolean;
   players: Player[];
-  map: string;
   playerResources: PlayerResources;
   faceUpCards: card[];
   state: "setup" | "playing" | "finalTurn" | "end";
   logs: ActivityLog[];
+  claimedRoutes: ClaimedRoute[];
 }
 
 export type {
   ActivityLog,
   card,
   City,
+  ClaimedRoute,
   CreateAppArgs,
   Game,
   GameStatus,
@@ -117,6 +119,5 @@ export type {
   SetContextArgs,
   svg,
   Tickets,
-  USAMap,
   User,
 };

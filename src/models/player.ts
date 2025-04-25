@@ -4,6 +4,7 @@ import {
   playerHandCard,
   PlayerInfo,
   PlayerResources,
+  Route,
   Tickets,
 } from "./schemas.ts";
 
@@ -14,12 +15,15 @@ export class Player {
   private hand: playerHandCard[];
   private destinationTickets: Tickets[];
   private color: string;
+  private claimedRoutes: Route[];
+
   constructor(PlayerDetails: PlayerInfo, color: string) {
     this.id = PlayerDetails.id;
     this.name = PlayerDetails.name;
     this.trainCars = 45;
     this.hand = this.initializeHand();
     this.destinationTickets = [];
+    this.claimedRoutes = [];
     this.color = color;
   }
 
@@ -45,6 +49,14 @@ export class Player {
     });
   }
 
+  addClaimedRoute(route: Route) {
+    return this.claimedRoutes.push(route);
+  }
+
+  getClaimedRoutes() {
+    return this.claimedRoutes;
+  }
+
   getTrainCars() {
     return this.trainCars;
   }
@@ -54,17 +66,19 @@ export class Player {
     return this.trainCars;
   }
 
-  deductTrainCarCards(usedCards: playerHandCard[]) {
-    usedCards.map((c) => {
+  deductTrainCarCards(usedCards: playerHandCard[]): card[] {
+    return usedCards.flatMap((c) => {
       const card = _.find(this.hand, { color: c.color });
       card.count -= c.count;
-    });
 
-    return this.hand;
+      return new Array(c.count).fill({ color: c.color });
+    });
   }
+
   getName() {
     return this.name;
   }
+
   getHand() {
     return this.hand;
   }

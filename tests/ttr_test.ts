@@ -1,7 +1,7 @@
-import { assert, assertEquals, assertFalse,  } from "assert";
+import { assert, assertEquals, assertFalse } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { Ttr } from "../src/models/ttr.ts";
-import { UsMap } from "../src/models/USA_map.ts";
+import { USAMap } from "../src/models/USA_map.ts";
 import tickets from "../json/tickets.json" with { type: "json" };
 
 const mockedReader = (_path: string | URL): string => {
@@ -26,7 +26,7 @@ describe("Ttr", () => {
           },
           { name: "susahnth", id: "2" },
         ],
-        UsMap.getInstance(mockedReader),
+        USAMap.getInstance(mockedReader),
       );
       assertEquals(ttr.getMap(), "usa map");
     });
@@ -43,7 +43,7 @@ describe("Ttr", () => {
           },
           { name: "susahnth", id: "2" },
         ],
-        UsMap.getInstance(mockedReader),
+        USAMap.getInstance(mockedReader),
       );
       assertEquals(ttr.getFaceUpCards().length, 5);
     });
@@ -60,7 +60,7 @@ describe("Ttr", () => {
             id: "2",
           },
         ],
-        UsMap.getInstance(mockedReader),
+        USAMap.getInstance(mockedReader),
       );
       assertEquals(ttr.getPlayers().length, 3);
     });
@@ -77,7 +77,7 @@ describe("Ttr", () => {
             id: "2",
           },
         ],
-        UsMap.getInstance(mockedReader),
+        USAMap.getInstance(mockedReader),
       );
 
       assertEquals(ttr.getDestinationTickets().length, 3);
@@ -95,7 +95,7 @@ const prepareTTR = () =>
         id: "3",
       },
     ],
-    UsMap.getInstance(mockedReader),
+    USAMap.getInstance(mockedReader),
   );
 
 describe("getTopThree destination tickets", () => {

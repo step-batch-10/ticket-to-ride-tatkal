@@ -1,4 +1,4 @@
-// ================== Imports ======================
+import { ClaimRoute } from "./claim_route.js";
 import { DrawTCC } from "./draw_TCC.js";
 import { DestinationTickets, fetchJSON } from "./draw_tickets.js";
 
@@ -17,8 +17,6 @@ export const showAction = (msg, state = "success") => {
   toast.show();
 };
 
-// ----- Ticket Generation ------------
-
 const displayTickets = (tags) => {
   const selectorTemplate = cloneTemplate("#ticket-selector-template");
   const container = selectorTemplate.querySelector("#ticket-container");
@@ -29,7 +27,6 @@ const displayTickets = (tags) => {
   ticketDisplay.replaceChildren(selectorTemplate);
 };
 
-// ================== Card Creation ==================
 const createDiv = (classNames = []) => {
   const div = document.createElement("div");
   classNames.forEach((cls) => div.classList.add(cls));
@@ -69,6 +66,17 @@ const getDrawTCCInstance = (() => {
   return () => instance;
 })();
 
+const getClaimRouteInstance = (() => {
+  const instance = new ClaimRoute();
+  return () => instance;
+})();
+
+const storeColor = (e) => {
+  const color = e.currentTarget.classList[1];
+
+  getClaimRouteInstance().assignCardColor(color);
+};
+
 const createPlayerHandCard = ({ color, count }) => {
   const handCard = createTrainCarCard({ color });
   handCard.classList.add("hand-card");
@@ -77,6 +85,8 @@ const createPlayerHandCard = ({ color, count }) => {
   countElem.classList.add("card-count");
   countElem.innerText = count;
   handCard.appendChild(countElem);
+  handCard.addEventListener("click", storeColor);
+
   return handCard;
 };
 
@@ -87,12 +97,11 @@ const insertText = (parent, selector, text) => {
 const cloneTemplate = (id) =>
   document.querySelector(id).content.cloneNode(true);
 
-// ================== Render Functions ==================
 const renderChildren = (selector, elements) => {
   document.querySelector(selector).replaceChildren(...elements);
 };
 
-const renderMap = (svg) => {
+const renderMap = ({ svg }) => {
   document.querySelector("#mapContainer").innerHTML = svg;
 };
 
@@ -124,6 +133,7 @@ const renderPlayerCards = (players, currentPlayerID) => {
 
   players.forEach(({ id, name, trainCars, trainCarCards, tickets }) => {
     const card = cloneTemplate("#player-card");
+    card.querySelector(".player-badge").classList.add(color);
 
     insertText(card, ".player-name", name);
     insertText(card, ".cars", `cars: ${trainCars}`);
@@ -149,6 +159,18 @@ const renderLogs = (logs) => {
   logContainer.replaceChildren(...logMessages);
 };
 
+const renderClaimedRoute = (claimedRoutes) => {
+  claimedRoutes.forEach((r) => {
+    const car = document.querySelector(`#${r.carId}`);
+    const paths = car.querySelectorAll("path");
+    car.style.display = "inline";
+
+    paths.forEach((p) => {
+      p.style.fill = r.playerColor;
+    });
+  });
+};
+
 const unBlockCurrentPlayer = (isCurrentPlayer) => {
   const actions = document.querySelectorAll(".action");
   actions.forEach((el) => el.classList.toggle("disable", !isCurrentPlayer));
@@ -167,25 +189,24 @@ const gameState = (initialState) => {
 const announceGameStateChange = gameState("setup");
 
 const masterRender = ({
-  map,
   faceUpCards,
   playerResources,
   players,
   isActive,
   currentPlayerID,
   logs,
+  claimedRoutes,
   state,
 }) => {
-  renderMap(map);
   renderFaceupCards(getDrawTCCInstance(), faceUpCards);
   renderPlayerResources(playerResources);
   renderPlayerCards(players, currentPlayerID);
   unBlockCurrentPlayer(isActive);
   renderLogs(logs);
+  renderClaimedRoute(claimedRoutes);
   announceGameStateChange(state);
 };
 
-// ================== Ticket Handling ==================
 const highlightTicket = (ticket) => ticket.classList.toggle("selected");
 
 const handleTicketSelection = (ticket, ticketManager) => () => {
@@ -219,14 +240,26 @@ const drawDestinationCards = async (ticketManager) => {
   displayTickets(ticketTags);
 };
 
-// ================== Draw Blind Card ==================
 const drawBlindCard = () => {
   document
     .getElementById("blind-cards")
     .addEventListener("dblclick", () => getDrawTCCInstance().drawBlindCard());
 };
 
-// ================== Page Render ==================
+const sendRequestToClaim = (e) => {
+  const routeId = e.currentTarget.id;
+
+  getClaimRouteInstance().claimRoute(routeId);
+};
+
+const claimRoute = () => {
+  const routes = document.querySelectorAll(".routes");
+
+  routes.forEach((route) => {
+    route.addEventListener("dblclick", sendRequestToClaim);
+  });
+};
+
 const renderPage = () => {
   setInterval(async () => {
     masterRender(await fetchJSON("/game/player/status"));
@@ -245,7 +278,9 @@ const main = async () => {
     drawDestinationCards(new DestinationTickets());
   }
 
+  renderMap(await fetchJSON("/game/map"));
   drawBlindCard();
+  claimRoute();
   renderPage();
 };
 
