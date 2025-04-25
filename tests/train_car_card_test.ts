@@ -1,7 +1,7 @@
 import { TrainCarCards } from "../src/models/train_car_cards.ts";
-import { assertEquals, assertThrows } from "assert";
+import { assert, assertEquals, assertThrows } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
-
+import { card } from "../src/models/schemas.ts";
 describe("trainCarCards", () => {
   describe("getFaceUpCards", () => {
     it("should return 5 faceup cards", () => {
@@ -48,11 +48,32 @@ describe("trainCarCards", () => {
       assertEquals(cards.drawFaceUp(0), firstFaceUp);
       assertEquals(cards.getFaceUpCards().length, 5);
     });
+
     it("should throw error when index is greater than 5", () => {
       const cards = new TrainCarCards();
       assertThrows(() => {
         cards.drawFaceUp(6);
       });
+    });
+
+    it("should get face up cards with less than 3 locomotive", () => {
+      // deno-lint-ignore no-explicit-any
+      const cards: any = new TrainCarCards();
+      cards.faceUpCards = [
+        { color: "locomotive" },
+        { color: "locomotive" },
+        { color: "locomotive" },
+        { color: "locomotive" },
+        { color: "red" },
+      ];
+
+      cards.drawFaceUp(4);
+      const locoCount = cards.faceUpCards.filter(
+        (card: card) => card.color === "locomotive",
+      ).length;
+      console.log("loco count", locoCount);
+
+      assert(locoCount < 3);
     });
   });
 

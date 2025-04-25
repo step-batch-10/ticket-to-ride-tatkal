@@ -25,6 +25,7 @@ export class TrainCarCards {
     this.initializeDeck();
     this.shuffle();
     this.refillFaceUpCards();
+    this.validateAndRefillFaceUp();
   }
 
   getFaceUpCards(): card[] {
@@ -76,6 +77,19 @@ export class TrainCarCards {
 
     const card = this.faceUpCards[index];
     this.faceUpCards[index] = this.drawCard()!;
+    this.validateAndRefillFaceUp();
+
     return card;
+  }
+
+  private validateAndRefillFaceUp(): void {
+    const colors = this.faceUpCards.map(({ color }) => color);
+    const locoCount = _.countBy(colors).locomotive;
+    if (locoCount > 2) {
+      this.discard(this.faceUpCards);
+      this.faceUpCards = [];
+      this.refillFaceUpCards();
+      this.validateAndRefillFaceUp();
+    }
   }
 }

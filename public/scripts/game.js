@@ -43,6 +43,7 @@ const createTrainCarCard = ({ color }) => {
 
   return card;
 };
+
 export const createTicketCard = ({ fromCity, toCity, points, id }) => {
   const ticketCard = createDiv(["player-ticket-card"]);
   ticketCard.innerText =
@@ -207,11 +208,23 @@ const masterRender = ({
   announceGameStateChange(state);
 };
 
+const glow = (ele) => {
+  console.log(ele);
+
+  ele.style.fill = "red";
+};
+
+const highlightStations = ({ from, to }) => {
+  glow(document.querySelector(`#${from} ellipse`));
+  glow(document.querySelector(`#${to} ellipse`));
+};
+
 const highlightTicket = (ticket) => ticket.classList.toggle("selected");
 
-const handleTicketSelection = (ticket, ticketManager) => () => {
-  highlightTicket(ticket);
-  ticketManager.toggleSelection(ticket.dataset.ticketId);
+const handleTicketSelection = (tag, ticketManager, ticket) => () => {
+  highlightTicket(tag);
+  highlightStations(ticket);
+  ticketManager.toggleSelection(tag.dataset.ticketId);
 };
 
 const confirmTickets = (ticket, ticketManager) => async () => {
@@ -227,13 +240,17 @@ const confirmTickets = (ticket, ticketManager) => async () => {
 const drawDestinationCards = async (ticketManager) => {
   //changes this inconsistent method!
   const tickets = await ticketManager.getTopThree();
+
   if (!tickets) return;
 
   const ticketTags = tickets.map(createTicketCard);
 
-  ticketTags.forEach((tag) => {
+  ticketTags.forEach((tag, index) => {
     tag.tabIndex = 0;
-    tag.addEventListener("click", handleTicketSelection(tag, ticketManager));
+    tag.addEventListener(
+      "click",
+      handleTicketSelection(tag, ticketManager, tickets[index]),
+    );
     tag.addEventListener("dblclick", confirmTickets(tag, ticketManager));
   });
 
