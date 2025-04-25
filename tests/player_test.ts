@@ -17,19 +17,19 @@ describe("getHand", () => {
   });
 });
 
-  describe("getColor", () => {
-    it("should return red", () => {
-      const player = new Player({ name: "susahnth", id: "1" }, "red");
-      assertEquals(player.getColor(), "red");
-    });
+describe("getColor", () => {
+  it("should return red", () => {
+    const player = new Player({ name: "susahnth", id: "1" }, "red");
+    assertEquals(player.getColor(), "red");
   });
+});
 
-  describe("getName", () => {
-    it("should return red", () => {
-      const player = new Player({ name: "sushanth", id: "1" }, "red");
-      assertEquals(player.getName(), "sushanth");
-    });
+describe("getName", () => {
+  it("should return red", () => {
+    const player = new Player({ name: "sushanth", id: "1" }, "red");
+    assertEquals(player.getName(), "sushanth");
   });
+});
 
 describe("getId", () => {
   it("should return id of the player", () => {

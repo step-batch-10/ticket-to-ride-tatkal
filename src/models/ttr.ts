@@ -26,7 +26,6 @@ export class Ttr {
   private logs: ActivityLog[];
   private state: "setup" | "playing" | "finalTurn";
 
-
   constructor(players: Player[], map: UsMap) {
     this.players = players;
     this.map = map;
