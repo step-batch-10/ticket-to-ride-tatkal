@@ -71,7 +71,6 @@ describe("trainCarCards", () => {
       const locoCount = cards.faceUpCards.filter(
         (card: card) => card.color === "locomotive",
       ).length;
-      console.log("loco count", locoCount);
 
       assert(locoCount < 3);
     });
