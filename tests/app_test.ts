@@ -573,9 +573,9 @@ describe("POST /game/player/claim-route", () => {
         { name: "susahnth", id: "1" },
         {
           name: "susahnth",
-          id: "3",
+          id: "2",
         },
-        { name: "susahnth", id: "2" },
+        { name: "susahnth", id: "3" },
       ],
       mockedReader,
     );

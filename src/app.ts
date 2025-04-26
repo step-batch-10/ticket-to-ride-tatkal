@@ -89,7 +89,7 @@ const authenticatePlayerMove = async (context: Context, next: Next) => {
     await next();
   }
 
-  return context.text("", 409);
+  return context.json({}, 409);
 };
 
 const canPerformGetDT = async (context: Context, next: Next) => {

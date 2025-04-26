@@ -307,6 +307,8 @@ export class Ttr {
       carId: route.carId,
       playerColor: player.getColor(),
     });
+
+    this.changePlayer();
   }
 
   claimRoute(playerID: string, routeId: string, cardColor: string) {
@@ -324,7 +326,6 @@ export class Ttr {
 
     if (player.getTrainCars() < 3 && !this.finalTurnInitiator) {
       this.registerLog("claiming route", "final round");
-      this.changePlayer();
       this.initiateFinalTurn(player.getId());
     }
 
