@@ -117,6 +117,14 @@ const canPerformDrawTCC = async (context: Context, next: Next) => {
   return context.json({ message: "invalid", isError: true }, 403);
 };
 
+const canPerformClaimRoute = async (context: Context, next: Next) => {
+  const game = context.get("game");
+
+  if (game.canPerformClaimRoute()) await next();
+
+  return context.json({ message: "invalid", isError: true }, 403);
+};
+
 const playerRoutes = (): Hono => {
   const player: Hono = new Hono();
   player.use(setPlayerContext);
@@ -128,7 +136,7 @@ const playerRoutes = (): Hono => {
   player.post("/destination-tickets", canPerformSelectDT, updatePlayerTickets);
   player.post("/draw-blind-card", canPerformDrawTCC, drawCardFromDeck);
   player.post("/draw-faceup-card", canPerformDrawTCC, drawFaceUpCard);
-  player.post("/claim-route", handleClaimRoute);
+  player.post("/claim-route", canPerformClaimRoute, handleClaimRoute);
 
   return player;
 };
@@ -139,6 +147,8 @@ const gameRoutes = (): Hono => {
   game.get("/map", fetchMap);
   game.get("/face-up-cards", fetchFaceUps);
   game.get("/players-detail", fetchPlayerDetails);
+  game.get("/setup/destination-tickets", fetchTicketChoices);
+  game.post("/setup/destination-tickets", updatePlayerTickets);
   game.route("/player", playerRoutes());
 
   return game;
