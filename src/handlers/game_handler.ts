@@ -28,7 +28,7 @@ export const assignRouteCities = (cities: City[], tickets: Tickets[]) => {
 export const fetchTicketChoices = (c: Context) => {
   const ttr: Ttr = c.get("game");
   const cities = ttr.getCities();
-  const minimumPickup = 2;
+  const minimumPickup = ttr.getMinimumPickUp();
   const tickets = assignRouteCities(cities, ttr.getDestinationTickets());
   const destinationTicketsInfo = { tickets, minimumPickup };
 

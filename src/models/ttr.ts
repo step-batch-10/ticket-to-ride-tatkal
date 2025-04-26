@@ -25,6 +25,7 @@ export class Ttr {
   private moves: number;
   private logs: ActivityLog[];
   private state: "setup" | "playing" | "finalTurn" | "end";
+  private minimumPickup = 2;
   private finalTurnInitiator: string | null;
   private currentAction: string | null;
   private noOfTCCsCollected: number;
@@ -51,6 +52,10 @@ export class Ttr {
       from,
       assets,
     });
+  }
+
+  getMinimumPickUp() {
+    return this.minimumPickup;
   }
 
   private getPlayer(playerID: string) {
@@ -221,6 +226,7 @@ export class Ttr {
     this.moves += 1;
 
     if (this.moves === this.players.length) {
+      this.minimumPickup = 1;
       this.state = "playing";
     }
 
