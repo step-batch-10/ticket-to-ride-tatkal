@@ -12,7 +12,6 @@ import {
   redirectToGame,
 } from "./handlers/waiting_handler.ts";
 import {
-  changePlayer,
   drawCardFromDeck,
   drawFaceUpCard,
   fetchFaceUps,
@@ -76,6 +75,7 @@ const userRoutes = (): Hono => {
 
 const setPlayerContext = async (context: Context, next: Next) => {
   const game = context.get("game");
+
   context.set("currentPlayer", game.getCurrentPlayer());
   await next();
 };
@@ -85,16 +85,34 @@ const authenticatePlayerMove = async (context: Context, next: Next) => {
   const currentPlayer: Player = game.getCurrentPlayer();
   const playerId = getCookie(context, "user-ID");
 
-  if (playerId === currentPlayer.getId() || game.getState() === "setup") {
+  if (playerId === currentPlayer.getId()) {
     await next();
   }
 
   return context.text("", 409);
 };
 
-const validateGetDt = async (context: Context, next: Next) => {
+const canPerformGetDT = async (context: Context, next: Next) => {
   const game = context.get("game");
+
   if (game.canGetDestTickets()) await next();
+
+  return context.json({ message: "invalid", isError: true }, 403);
+};
+
+const canPerformSelectDT = async (context: Context, next: Next) => {
+  const game = context.get("game");
+
+  if (game.canChooseDestTickets()) await next();
+
+  return context.json({ message: "invalid", isError: true }, 403);
+};
+
+const canPerformDrawTCC = async (context: Context, next: Next) => {
+  const game = context.get("game");
+  const { color } = await context.req.json();
+
+  if (game.canDrawATCC(color)) await next();
 
   return context.json({ message: "invalid", isError: true }, 403);
 };
@@ -106,12 +124,11 @@ const playerRoutes = (): Hono => {
   player.get("/status", fetchGameStatus);
 
   player.use(authenticatePlayerMove);
-  player.get("/destination-tickets", validateGetDt, fetchTicketChoices);
-  player.post("/destination-tickets", updatePlayerTickets);
-  player.post("/draw-blind-card", drawCardFromDeck);
-  player.post("/draw-faceup-card", drawFaceUpCard);
+  player.get("/destination-tickets", canPerformGetDT, fetchTicketChoices);
+  player.post("/destination-tickets", canPerformSelectDT, updatePlayerTickets);
+  player.post("/draw-blind-card", canPerformDrawTCC, drawCardFromDeck);
+  player.post("/draw-faceup-card", canPerformDrawTCC, drawFaceUpCard);
   player.post("/claim-route", handleClaimRoute);
-  player.patch("/done", changePlayer);
 
   return player;
 };

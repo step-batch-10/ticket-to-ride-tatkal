@@ -1,3 +1,4 @@
+import { _ } from "https://cdn.skypack.dev/lodash";
 import {
   ActivityLog,
   card,
@@ -13,7 +14,6 @@ import { TrainCarCards } from "./train_car_cards.ts";
 import DestinationTickets from "./tickets.ts";
 import { Player } from "./player.ts";
 import { USAMap } from "./USA_map.ts";
-import { _ } from "https://cdn.skypack.dev/lodash";
 
 export class Ttr {
   private players: Player[];
@@ -29,10 +29,10 @@ export class Ttr {
   private currentAction: string | null;
   private noOfTCCsCollected: number;
 
-  constructor(players: Player[], map: USAMap) {
+  constructor(players: Player[], map: USAMap, tcc?: TrainCarCards) {
     this.players = players;
     this.map = map;
-    this.trainCarCards = new TrainCarCards();
+    this.trainCarCards = tcc || new TrainCarCards();
     this.destinationCards = map.getDestinationTickets();
     this.initializePlayers();
     this.state = "setup";
@@ -63,24 +63,43 @@ export class Ttr {
     this.currentAction = action;
   }
 
-  canDrawATCC() {
-    return this.currentAction === null || this.currentAction === "TCC";
+  private hasNoCurrentAction() {
+    return this.currentAction === null;
+  }
+
+  private isCurrentActionTCC() {
+    return this.currentAction === "TCC";
+  }
+
+  canDrawATCC(color?: string): Boolean {
+    const isLocoFirst = color === "locomotive" && this.noOfTCCsCollected === 1;
+    const isAllowed = this.hasNoCurrentAction() || this.isCurrentActionTCC();
+
+    return !isLocoFirst && isAllowed;
   }
 
   canGetDestTickets() {
-    return this.currentAction === null;
+    return this.hasNoCurrentAction();
   }
 
   canChooseDestTickets() {
     return this.currentAction === "DT";
   }
 
-  private handleTCCAction() {
-    this.noOfTCCsCollected += 1;
-    const action = this.noOfTCCsCollected === 2 ? null : "TCC";
+  private hasDrawTCCActionOver(color: string | undefined) {
+    return this.noOfTCCsCollected === 2 || color === "locomotive";
+  }
 
-    this.setCurrentAction(action);
-    this.noOfTCCsCollected %= 2;
+  private handleTCCAction(color?: string) {
+    this.noOfTCCsCollected += 1;
+
+    if (this.hasDrawTCCActionOver(color)) {
+      this.changePlayer();
+      this.setCurrentAction(null);
+      this.noOfTCCsCollected = 0;
+    }
+
+    this.setCurrentAction("TCC");
   }
 
   drawFaceUpCard(index: number) {
@@ -88,7 +107,7 @@ export class Ttr {
 
     this.registerLog("face up cards", drawnCard.color);
     this.currentPlayer.addCardsToHand(drawnCard);
-    this.handleTCCAction();
+    this.handleTCCAction(drawnCard.color);
 
     return drawnCard;
   }
@@ -112,7 +131,7 @@ export class Ttr {
     });
   }
 
-  static createTtr(players: PlayerInfo[], map: USAMap) {
+  static createTtr(players: PlayerInfo[], map: USAMap, tcc?: TrainCarCards) {
     const colors = [
       "red",
       "blue",
@@ -127,7 +146,7 @@ export class Ttr {
       return new Player(playerInfo, colors[index]);
     });
 
-    return new Ttr(playerInstances, map);
+    return new Ttr(playerInstances, map, tcc);
   }
 
   getMap(): svg {
@@ -156,6 +175,7 @@ export class Ttr {
     this.setCurrentAction(null);
     const currentPlayer = this.getPlayer(playerId);
     this.registerLog("destination tickets", tickets.length);
+    this.changePlayer();
     return currentPlayer?.addDestinationTickets(tickets);
   }
 

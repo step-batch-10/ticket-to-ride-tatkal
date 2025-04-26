@@ -28,7 +28,7 @@ export const assignRouteCities = (cities: City[], tickets: Tickets[]) => {
 export const fetchTicketChoices = (c: Context) => {
   const ttr: Ttr = c.get("game");
   const cities = ttr.getCities();
-  const minimumPickup = ttr.getState() === "setup" ? 2 : 1;
+  const minimumPickup = 2;
   const tickets = assignRouteCities(cities, ttr.getDestinationTickets());
   const destinationTicketsInfo = { tickets, minimumPickup };
 
@@ -93,13 +93,6 @@ export const fetchGameStatus = (context: Context) => {
   const playerId = getCookie(context, "user-ID");
 
   return context.json(game.status(playerId));
-};
-
-export const changePlayer = (context: Context) => {
-  const game = context.get("game");
-  game.changePlayer();
-
-  return context.text("ok");
 };
 
 export const handleClaimRoute = async (context: Context) => {
