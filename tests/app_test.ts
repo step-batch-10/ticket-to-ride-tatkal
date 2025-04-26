@@ -642,6 +642,45 @@ describe("POST /game/player/claim-route", () => {
     assertEquals(await response.json(), { claimed: true });
   });
 
+  it("should return false and should not claim the route as it is already claimed", async () => {
+    const gameHandler = new GameManager();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+        { name: "susahnth", id: "2" },
+      ],
+      mockedReader,
+    );
+
+    const game = gameHandler.getGame(1)?.game;
+    const cards = game?.status("1").playerResources.playerHandCards;
+    const card = cards?.find(({ count }) => count > 0);
+    const color = card?.color;
+    const app: Hono = prepareApp(new Users(), gameHandler);
+
+    await app.request("/game/player/claim-route", {
+      method: "POST",
+      headers: { cookie: "user-ID=1;game-ID=1" },
+      body: JSON.stringify({ routeId: "r2", cardColor: color }),
+    });
+
+    const cards1 = game?.status("1").playerResources.playerHandCards;
+    const card1 = cards1?.find(({ count }) => count > 0);
+    const color1 = card1?.color;
+
+    const response = await app.request("/game/player/claim-route", {
+      method: "POST",
+      headers: { cookie: "user-ID=2;game-ID=1" },
+      body: JSON.stringify({ routeId: "r2", cardColor: color1 }),
+    });
+
+    assertEquals(await response.json(), { claimed: false });
+  });
+
   it("should return false and should not claim the route because of difference in route and card color", async () => {
     const gameHandler = new GameManager();
     gameHandler.createGame(
