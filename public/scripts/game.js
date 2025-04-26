@@ -44,11 +44,16 @@ const createTrainCarCard = ({ color }) => {
   return card;
 };
 
-export const createTicketCard = ({ fromCity, toCity, points, id }) => {
+export const createTicketCard = (
+  { from, to, fromCity, toCity, points, id },
+) => {
   const ticketCard = createDiv(["player-ticket-card"]);
   ticketCard.innerText =
     `from: ${fromCity} → to: ${toCity} → points: ${points}`;
   ticketCard.dataset.ticketId = id;
+  ticketCard.addEventListener("click", () => {
+    highlightTicket(ticketCard, { from, to });
+  });
   return ticketCard;
 };
 
@@ -225,8 +230,8 @@ const highlightTicket = (tag, ticket) => {
   return status;
 };
 
-const handleTicketSelection = (tag, ticketManager, ticket) => () => {
-  highlightTicket(tag, ticket);
+const handleTicketSelection = (tag, ticketManager) => () => {
+  // highlightTicket(tag, ticket);
   ticketManager.toggleSelection(tag.dataset.ticketId);
 };
 
@@ -254,11 +259,11 @@ const drawDestinationCards = async (ticketManager) => {
 
   const ticketTags = tickets.map(createTicketCard);
 
-  ticketTags.forEach((tag, index) => {
+  ticketTags.forEach((tag) => {
     tag.tabIndex = 0;
     tag.addEventListener(
       "click",
-      handleTicketSelection(tag, ticketManager, tickets[index]),
+      handleTicketSelection(tag, ticketManager),
     );
     tag.addEventListener(
       "dblclick",
