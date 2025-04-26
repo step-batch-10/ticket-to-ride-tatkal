@@ -1,4 +1,5 @@
 import { continueGame } from "./game.js";
+import { fetchJSON } from "./draw_tickets.js";
 
 export class ClaimRoute {
   #cardColor;
@@ -12,11 +13,9 @@ export class ClaimRoute {
   }
 
   async claimRoute(routeId) {
-    await fetch("/game/player/claim-route", {
-      method: "POST",
-      body: JSON.stringify({ routeId, cardColor: this.#cardColor }),
-    });
+    const body = JSON.stringify({ routeId, cardColor: this.#cardColor });
+    const res = await fetchJSON("/game/player/claim-route", "POST", body);
 
-    continueGame();
+    if (res.claimed) continueGame();
   }
 }

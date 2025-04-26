@@ -217,58 +217,54 @@ export class Ttr {
     noOfColorCards: number,
     route: Route,
     cardColor: string,
-  ) {
-    const usedTrainCarCards: playerHandCard[] = [];
-    if (noOfColorCards - route.distance >= 0) {
-      usedTrainCarCards.push({ color: cardColor, count: route.distance });
-      return usedTrainCarCards;
-    }
+  ): playerHandCard[] {
+    const colorCardCount = Math.min(noOfColorCards, route.distance);
+    const locomotiveCount = Math.max(0, route.distance - colorCardCount);
 
-    usedTrainCarCards.push(
-      { color: cardColor, count: noOfColorCards },
-      { color: "locomotive", count: route.distance - noOfColorCards },
+    return [
+      { color: cardColor, count: colorCardCount },
+      { color: "locomotive", count: locomotiveCount },
+    ];
+  }
+
+  private canClaimRoute(route: Route, cardColor: string): boolean {
+    const claimedRoute = _.find(this.map.getClaimedRoutes(), {
+      carId: route.carId,
+    });
+
+    return (
+      (route.color === cardColor ||
+        route.color === "gray" ||
+        cardColor === "locomotive") &&
+      !claimedRoute
     );
-    return usedTrainCarCards;
   }
 
-  isRouteClaimable(route: Route, cardColor: string) {
-    return !(
-      route.color === cardColor ||
-      route.color === "gray" ||
-      cardColor === "locomotive"
-    );
+  private getCardCounts(playerHand: playerHandCard[], cardColor: string) {
+    const noOfColorCards = _.find(playerHand, { color: cardColor })?.count;
+    const noOfLocomotives = _.find(playerHand, { color: "locomotive" })?.count;
+    const totalCards = cardColor === "locomotive"
+      ? noOfLocomotives
+      : noOfColorCards + noOfLocomotives;
+
+    return { noOfColorCards, noOfLocomotives, totalCards };
   }
 
-  getTotalCards(
-    isLocomotive: boolean,
-    noOfColorCards: number,
-    noOfLocomotives: number,
-  ) {
-    return isLocomotive ? noOfLocomotives : noOfColorCards + noOfLocomotives;
-  }
-
-  private getRouteStatus(
+  private evaluateRouteClaim(
     route: Route,
-    playerHand: playerHandCard[] | undefined,
+    playerHand: playerHandCard[],
     cardColor: string,
   ) {
-    const isRouteClimbable = this.isRouteClaimable(route, cardColor);
-
-    if (isRouteClimbable) {
+    if (!this.canClaimRoute(route, cardColor)) {
       return { claimable: false, usedTrainCarCards: [] };
     }
 
-    const isLocomotive = cardColor === "locomotive";
-    const noOfColorCards = _.find(playerHand, { color: cardColor }).count;
-    const noOfLocomotives = _.find(playerHand, { color: "locomotive" }).count;
-    const totalCards = this.getTotalCards(
-      isLocomotive,
-      noOfColorCards,
-      noOfLocomotives,
+    const { noOfColorCards, totalCards } = this.getCardCounts(
+      playerHand,
+      cardColor,
     );
-
     const claimable = route.distance <= totalCards;
-    const usedTrainCarCards: playerHandCard[] = this.getUsedTrainCarCards(
+    const usedTrainCarCards = this.getUsedTrainCarCards(
       noOfColorCards,
       route,
       cardColor,
@@ -277,31 +273,41 @@ export class Ttr {
     return { claimable, usedTrainCarCards };
   }
 
+  private updatePlayerAfterClaim(
+    player: Player,
+    route: Route,
+    usedCards: playerHandCard[],
+  ) {
+    player.deductTrainCars(route.distance);
+    const deducted = player.deductTrainCarCards(usedCards);
+    this.trainCarCards.discard(deducted);
+
+    player.addClaimedRoute(route);
+    this.map.addClaimedRoute({
+      carId: route.carId,
+      playerColor: player.getColor(),
+    });
+  }
+
   claimRoute(playerID: string, routeId: string, cardColor: string) {
-    const route = _.find(this.map.getRoutes(), { id: routeId });
-    const player = this.getPlayer(playerID);
-    const playerHand = player?.getHand();
-    const routeStatus = this.getRouteStatus(route, playerHand, cardColor);
-    if (!routeStatus.claimable) return false;
+    const route = _.find(this.map.getRoutes(), { id: routeId })!;
+    const player = this.getPlayer(playerID)!;
+    const playerHand = player.getHand()!;
+    const { claimable, usedTrainCarCards } = this.evaluateRouteClaim(
+      route,
+      playerHand,
+      cardColor,
+    );
+    if (!claimable) return false;
 
-    if (player) {
-      player.deductTrainCars(route.distance);
-      const usedCards = player.deductTrainCarCards(
-        routeStatus.usedTrainCarCards,
-      );
-      this.trainCarCards.discard(usedCards);
-      player?.addClaimedRoute(route);
-      this.map.addClaimedRoute({
-        carId: route.carId,
-        playerColor: player.getColor(),
-      });
-    }
+    this.updatePlayerAfterClaim(player, route, usedTrainCarCards);
 
-    if (player!.getTrainCars() < 3 && !this.finalTurnInitiator) {
+    if (player.getTrainCars() < 3 && !this.finalTurnInitiator) {
       this.registerLog("claiming route", "final round");
       this.changePlayer();
-      this.initiateFinalTurn(player!.getId());
+      this.initiateFinalTurn(player.getId());
     }
+
     return true;
   }
 }

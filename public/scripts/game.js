@@ -131,7 +131,7 @@ const renderPlayerCards = (players, currentPlayerID) => {
   const container = document.getElementById("players-container");
   container.replaceChildren();
 
-  players.forEach(({ id, name, trainCars, trainCarCards, tickets }) => {
+  players.forEach(({ id, name, trainCars, trainCarCards, tickets, color }) => {
     const card = cloneTemplate("#player-card");
     card.querySelector(".player-badge").classList.add(color);
 
