@@ -11,15 +11,17 @@ class DestinationTickets {
   #tickets;
   #threshold;
   #selectedTickets;
+  #reqUrl;
 
-  constructor() {
+  constructor(reqUrl) {
+    this.#reqUrl = reqUrl;
     this.#tickets = [];
     this.#threshold = 1;
     this.#selectedTickets = [];
   }
 
   async getTopThree() {
-    const response = await fetch("/game/player/destination-tickets");
+    const response = await fetch(this.#reqUrl);
     if (!response.ok) return false;
 
     const { tickets, minimumPickup } = await response.json();
@@ -46,15 +48,16 @@ class DestinationTickets {
     const areEnough = this.#selectedTickets.length >= this.#threshold;
     const areValid = this.#selectedTickets.every((t) => t !== undefined);
     const triggeredTicket = _.find(this.#selectedTickets, { id });
+    const body = JSON.stringify({
+      selected: this.#selectedTickets,
+      rest: _.without(this.#tickets, ...this.#selectedTickets),
+    });
 
     if (!(areEnough && areValid && triggeredTicket)) return false;
     showAction(`Drawn ${this.#selectedTickets.length} ticket(s)`);
-    const res = await fetch("/game/player/destination-tickets", {
+    const res = await fetch(this.#reqUrl, {
       method: "POST",
-      body: JSON.stringify({
-        selected: this.#selectedTickets,
-        rest: _.without(this.#tickets, ...this.#selectedTickets),
-      }),
+      body,
     });
 
     return res.ok;

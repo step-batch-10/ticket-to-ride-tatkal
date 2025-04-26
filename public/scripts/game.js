@@ -53,8 +53,7 @@ export const createTicketCard = ({
   id,
 }) => {
   const ticketCard = createDiv(["player-ticket-card"]);
-  ticketCard.innerText =
-    `from: ${fromCity} → to: ${toCity} → points: ${points}`;
+  ticketCard.innerText = `from: ${fromCity} → to: ${toCity} → points: ${points}`;
   ticketCard.dataset.ticketId = id;
   ticketCard.addEventListener("click", () => {
     highlightTicket(ticketCard, { from, to });
@@ -65,9 +64,8 @@ export const createTicketCard = ({
 const createFaceUpCard = (TCCardManager) => (card, index) => {
   const faceUpCard = createTrainCarCard(card);
   faceUpCard.classList.add("action");
-  faceUpCard.addEventListener(
-    "dblclick",
-    () => TCCardManager.drawFaceUpCard(index, card.color),
+  faceUpCard.addEventListener("dblclick", () =>
+    TCCardManager.drawFaceUpCard(index, card.color)
   );
   return faceUpCard;
 };
@@ -163,8 +161,7 @@ const renderLogs = (logs) => {
   const logContainer = document.querySelector("#logs");
   const logMessages = logs.map((log) => {
     const pTag = document.createElement("p");
-    pTag.innerText =
-      `> ${log.playerName} drawn ${log.assets} card(s) from ${log.from}`;
+    pTag.innerText = `> ${log.playerName} drawn ${log.assets} card(s) from ${log.from}`;
     return pTag;
   });
   logContainer.replaceChildren(...logMessages);
@@ -182,9 +179,11 @@ const renderClaimedRoute = (claimedRoutes) => {
   });
 };
 
-const unBlockCurrentPlayer = (isCurrentPlayer) => {
-  const actions = document.querySelectorAll(".action");
-  actions.forEach((el) => el.classList.toggle("disable", !isCurrentPlayer));
+const unBlockCurrentPlayer = (isCurrentPlayer, state) => {
+  if (state !== "setup") {
+    const actions = document.querySelectorAll(".action");
+    actions.forEach((el) => el.classList.toggle("disable", !isCurrentPlayer));
+  }
 };
 
 const gameState = (initialState) => {
@@ -213,7 +212,7 @@ const masterRender = ({
   renderFaceupCards(getDrawTCCInstance(), faceUpCards);
   renderPlayerResources(playerResources);
   renderPlayerCards(players, currentPlayerID);
-  unBlockCurrentPlayer(isActive);
+  unBlockCurrentPlayer(isActive, state);
   renderLogs(logs);
   renderClaimedRoute(claimedRoutes);
   announceGameStateChange(state);
@@ -270,10 +269,14 @@ const drawDestinationCards = async (ticketManager) => {
 
   ticketTags.forEach((tag) => {
     tag.tabIndex = 0;
+    tag.addEventListener(
+      "click",
+      handleTicketSelection(tag, ticketManager, tickets[index])
+    );
     tag.addEventListener("click", handleTicketSelection(tag, ticketManager));
     tag.addEventListener(
       "dblclick",
-      confirmTickets(tag, ticketManager, tickets),
+      confirmTickets(tag, ticketManager, tickets)
     );
   });
 
@@ -306,19 +309,25 @@ const renderPage = () => {
   }, 1000);
 };
 
-const main = async () => {
-  const ticketManager = new DestinationTickets();
-  document
-    .querySelector("#destination-tickets")
-    .addEventListener("click", () => drawDestinationCards(ticketManager));
+const handleDestinationTicketDeck = async () => {
+  const DTReqManager = new DestinationTickets(
+    "/game/player/destination-tickets"
+  );
+
+  const SetUpDTReqManager = new DestinationTickets(
+    "/game/setup/destination-tickets"
+  );
+
+  const DTDeck = document.querySelector("#destination-tickets");
+  DTDeck.addEventListener("click", () => drawDestinationCards(DTReqManager));
 
   const { state } = await fetchJSON("/game/player/status");
-  if (state === "setup") {
-    // server is rejecting the request bcz of not curr player, need to handle
-    drawDestinationCards(new DestinationTickets());
-  }
+  if (state === "setup") drawDestinationCards(SetUpDTReqManager);
+};
 
+const main = async () => {
   renderMap(await fetchJSON("/game/map"));
+  handleDestinationTicketDeck();
   drawBlindCard();
   claimRoute();
   renderPage();
