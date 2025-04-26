@@ -209,6 +209,7 @@ const masterRender = ({
   claimedRoutes,
   state,
 }) => {
+  if (state === "end") globalThis.location.href = "/score_board.html";
   renderFaceupCards(getDrawTCCInstance(), faceUpCards);
   renderPlayerResources(playerResources);
   renderPlayerCards(players, currentPlayerID);

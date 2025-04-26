@@ -103,3 +103,7 @@ a:hover {
 #settingsModal .form-check-input:focus {
   box-shadow: none;
 }
+
+#play-game-index {
+  background-color: #d4b26e;
+}

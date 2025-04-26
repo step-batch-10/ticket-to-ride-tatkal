@@ -1,0 +1,23 @@
+:root {
+  --minimal: #d9a441;
+  --bg1: #d2b48c;
+  --bg2: #4b3621;
+  --bg3: #c9b194;
+}
+
+body {
+  font-family: "Raleway", serif;
+  font-size: 1.2rem;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headding {
+  color: var(--minimal);
+  text-transform: capitalize;
+}
