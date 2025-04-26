@@ -269,10 +269,6 @@ const drawDestinationCards = async (ticketManager) => {
 
   ticketTags.forEach((tag) => {
     tag.tabIndex = 0;
-    tag.addEventListener(
-      "click",
-      handleTicketSelection(tag, ticketManager, tickets[index])
-    );
     tag.addEventListener("click", handleTicketSelection(tag, ticketManager));
     tag.addEventListener(
       "dblclick",
