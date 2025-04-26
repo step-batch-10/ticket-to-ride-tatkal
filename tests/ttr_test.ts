@@ -333,14 +333,11 @@ describe("claimRoute ", () => {
 
 describe("get minimumPickUp of destinationCards", () => {
   it("should return 2 during the setup phase", () => {
-
     const ttr = prepareTTR();
     assertEquals(ttr.getState(), "setup");
     assertEquals(ttr.getMinimumPickUp(), 2);
-
-  })
+  });
   it("should return 1 during the playing phase", () => {
-
     const ttr = prepareTTR();
     ttr.changePlayer();
     ttr.changePlayer();
@@ -348,5 +345,5 @@ describe("get minimumPickUp of destinationCards", () => {
 
     assertEquals(ttr.getState(), "playing");
     assertEquals(ttr.getMinimumPickUp(), 1);
-  })
-})
+  });
+});

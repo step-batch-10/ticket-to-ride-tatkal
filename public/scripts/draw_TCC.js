@@ -14,7 +14,7 @@ export class DrawTCC {
     const drawnCard = await fetchJSON(
       "/game/player/draw-faceup-card",
       "POST",
-      JSON.stringify({ index, color })
+      JSON.stringify({ index, color }),
     );
 
     this.#showAppropriateMessage(drawnCard);
@@ -24,7 +24,7 @@ export class DrawTCC {
     const drawnCard = await fetchJSON(
       "/game/player/draw-blind-card",
       "POST",
-      JSON.stringify({})
+      JSON.stringify({}),
     );
 
     this.#showAppropriateMessage(drawnCard);

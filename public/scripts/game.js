@@ -53,7 +53,8 @@ export const createTicketCard = ({
   id,
 }) => {
   const ticketCard = createDiv(["player-ticket-card"]);
-  ticketCard.innerText = `from: ${fromCity} → to: ${toCity} → points: ${points}`;
+  ticketCard.innerText =
+    `from: ${fromCity} → to: ${toCity} → points: ${points}`;
   ticketCard.dataset.ticketId = id;
   ticketCard.addEventListener("click", () => {
     highlightTicket(ticketCard, { from, to });
@@ -64,8 +65,9 @@ export const createTicketCard = ({
 const createFaceUpCard = (TCCardManager) => (card, index) => {
   const faceUpCard = createTrainCarCard(card);
   faceUpCard.classList.add("action");
-  faceUpCard.addEventListener("dblclick", () =>
-    TCCardManager.drawFaceUpCard(index, card.color)
+  faceUpCard.addEventListener(
+    "dblclick",
+    () => TCCardManager.drawFaceUpCard(index, card.color),
   );
   return faceUpCard;
 };
@@ -161,7 +163,8 @@ const renderLogs = (logs) => {
   const logContainer = document.querySelector("#logs");
   const logMessages = logs.map((log) => {
     const pTag = document.createElement("p");
-    pTag.innerText = `> ${log.playerName} drawn ${log.assets} card(s) from ${log.from}`;
+    pTag.innerText =
+      `> ${log.playerName} drawn ${log.assets} card(s) from ${log.from}`;
     return pTag;
   });
   logContainer.replaceChildren(...logMessages);
@@ -272,7 +275,7 @@ const drawDestinationCards = async (ticketManager) => {
     tag.addEventListener("click", handleTicketSelection(tag, ticketManager));
     tag.addEventListener(
       "dblclick",
-      confirmTickets(tag, ticketManager, tickets)
+      confirmTickets(tag, ticketManager, tickets),
     );
   });
 
@@ -307,11 +310,11 @@ const renderPage = () => {
 
 const handleDestinationTicketDeck = async () => {
   const DTReqManager = new DestinationTickets(
-    "/game/player/destination-tickets"
+    "/game/player/destination-tickets",
   );
 
   const SetUpDTReqManager = new DestinationTickets(
-    "/game/setup/destination-tickets"
+    "/game/setup/destination-tickets",
   );
 
   const DTDeck = document.querySelector("#destination-tickets");

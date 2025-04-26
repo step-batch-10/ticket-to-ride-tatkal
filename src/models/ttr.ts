@@ -221,8 +221,8 @@ export class Ttr {
   }
 
   changePlayer() {
-    this.currentPlayerIndex =
-      (this.currentPlayerIndex + 1) % this.players.length;
+    this.currentPlayerIndex = (this.currentPlayerIndex + 1) %
+      this.players.length;
     this.moves += 1;
 
     if (this.moves === this.players.length) {
@@ -242,7 +242,7 @@ export class Ttr {
   private getUsedTrainCarCards(
     noOfColorCards: number,
     route: Route,
-    cardColor: string
+    cardColor: string,
   ): playerHandCard[] {
     const colorCardCount = Math.min(noOfColorCards, route.distance);
     const locomotiveCount = Math.max(0, route.distance - colorCardCount);
@@ -269,10 +269,9 @@ export class Ttr {
   private getCardCounts(playerHand: playerHandCard[], cardColor: string) {
     const noOfColorCards = _.find(playerHand, { color: cardColor })?.count;
     const noOfLocomotives = _.find(playerHand, { color: "locomotive" })?.count;
-    const totalCards =
-      cardColor === "locomotive"
-        ? noOfLocomotives
-        : noOfColorCards + noOfLocomotives;
+    const totalCards = cardColor === "locomotive"
+      ? noOfLocomotives
+      : noOfColorCards + noOfLocomotives;
 
     return { noOfColorCards, noOfLocomotives, totalCards };
   }
@@ -284,7 +283,7 @@ export class Ttr {
   private evaluateRouteClaim(
     route: Route,
     playerHand: playerHandCard[],
-    cardColor: string
+    cardColor: string,
   ) {
     if (!this.canClaimRoute(route, cardColor)) {
       return { claimable: false, usedTrainCarCards: [] };
@@ -292,13 +291,13 @@ export class Ttr {
 
     const { noOfColorCards, totalCards } = this.getCardCounts(
       playerHand,
-      cardColor
+      cardColor,
     );
     const claimable = route.distance <= totalCards;
     const usedTrainCarCards = this.getUsedTrainCarCards(
       noOfColorCards,
       route,
-      cardColor
+      cardColor,
     );
 
     return { claimable, usedTrainCarCards };
@@ -307,7 +306,7 @@ export class Ttr {
   private updatePlayerAfterClaim(
     player: Player,
     route: Route,
-    usedCards: playerHandCard[]
+    usedCards: playerHandCard[],
   ) {
     player.deductTrainCars(route.distance);
     const deducted = player.deductTrainCarCards(usedCards);
@@ -329,7 +328,7 @@ export class Ttr {
     const { claimable, usedTrainCarCards } = this.evaluateRouteClaim(
       route,
       playerHand,
-      cardColor
+      cardColor,
     );
     if (!claimable) return false;
 
