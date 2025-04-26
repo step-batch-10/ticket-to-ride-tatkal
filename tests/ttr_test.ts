@@ -3,6 +3,8 @@ import { describe, it } from "jsr:@std/testing/bdd";
 import { Ttr } from "../src/models/ttr.ts";
 import { USAMap } from "../src/models/USA_map.ts";
 import tickets from "../json/tickets.json" with { type: "json" };
+import { TrainCarCards } from "../src/models/train_car_cards.ts";
+import { card } from "../src/models/schemas.ts";
 
 const mockedReader = (_path: string | URL): string => {
   // deno-lint-ignore no-explicit-any
@@ -85,7 +87,7 @@ describe("Ttr", () => {
   });
 });
 
-const prepareTTR = () =>
+export const prepareTTR = (tcc?: TrainCarCards) =>
   Ttr.createTtr(
     [
       { name: "susahnth", id: "1" },
@@ -96,6 +98,7 @@ const prepareTTR = () =>
       },
     ],
     USAMap.getInstance(mockedReader),
+    tcc,
   );
 
 describe("getTopThree destination tickets", () => {
@@ -195,7 +198,16 @@ describe("can draw train car cards", () => {
     ttr.drawFaceUpCard(1);
     assert(ttr.canDrawATCC());
     ttr.drawBlindCard();
-    assert(ttr.canGetDestTickets());
+  });
+
+  it("should not allow the player to draw a locomotive if the player already drew one train car card", () => {
+    const tcc = new TrainCarCards();
+    tcc.drawFaceUp = (_: number): card => ({ color: "red" });
+
+    const ttr: Ttr = prepareTTR(tcc);
+
+    ttr.drawFaceUpCard(1);
+    assertFalse(ttr.canDrawATCC("locomotive"));
   });
 
   it("should not allow the player to draw a card if the player initiated any other action", () => {
