@@ -106,7 +106,7 @@ describe("addToWaitingQueue", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     gameHandler.addToQueue({ name: "dhanoj", id: "1" }, 3);
     const user = new Users();
@@ -146,7 +146,7 @@ describe("redirectToGame", () => {
         { name: "hari", id: "3" },
         { name: "sarup", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const user = new Users();
     user.add({ username: "dhanoj" });
@@ -228,7 +228,7 @@ describe("/game/map", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const app: Hono = prepareApp(new Users(), gameHandler);
     const r: Response = await app.request("/game/map", {
@@ -251,7 +251,7 @@ describe("/game/face-up-cards", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const app: Hono = prepareApp(new Users(), gameHandler);
     const r: Response = await app.request("/game/face-up-cards", {
@@ -275,7 +275,7 @@ describe("/game/player/hand'", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const app: Hono = prepareApp(new Users(), gameHandler);
 
@@ -299,7 +299,7 @@ describe("/game/player/hand'", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const app: Hono = prepareApp(new Users(), gameHandler);
 
@@ -328,7 +328,7 @@ describe("fetchPlayersDetails", () => {
           name: "hari",
         },
       ],
-      mockedReader,
+      mockedReader
     );
 
     const app: Hono = prepareApp(new Users(), gameHandler);
@@ -407,7 +407,7 @@ describe("POST /game/player/destination-tickets", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const app: Hono = prepareApp(new Users(), gameHandler);
     const res = await app.request("/game/player/destination-tickets", {
@@ -442,7 +442,7 @@ describe("POST /game/player/draw-blind-card", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const app: Hono = prepareApp(new Users(), gameHandler);
 
@@ -470,7 +470,7 @@ describe("/game/player/draw-faceup-card", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const { game } = gameHandler.getGame(gameId)!;
     const faceUpCard = game.getFaceUpCards()[0];
@@ -496,7 +496,7 @@ describe("/game/player/draw-faceup-card", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const { game } = gameHandler.getGame(gameId)!;
     const faceUpCard = game.getFaceUpCards()[2];
@@ -523,7 +523,7 @@ describe("GET /game/player/status", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
     const app: Hono = prepareApp(new Users(), gameHandler);
 
@@ -548,7 +548,7 @@ describe("POST /game/player/claim-route", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
 
     const game = gameHandler.getGame(1)?.game;
@@ -616,7 +616,7 @@ describe("POST /game/player/claim-route", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
 
     const app: Hono = prepareApp(new Users(), gameHandler);
@@ -640,7 +640,7 @@ describe("POST /game/player/claim-route", () => {
         },
         { name: "susahnth", id: "2" },
       ],
-      mockedReader,
+      mockedReader
     );
 
     const app: Hono = prepareApp(new Users(), gameHandler);
@@ -677,5 +677,51 @@ describe("authenticatePlayerMove", () => {
     });
 
     assertEquals(res.status, 409);
+  });
+});
+
+describe('GET "/game/setup/destination-tickets"', () => {
+  it("should allow all players to fetch tickets from the game", async () => {
+    const app = prepareGameApp();
+    const pl1Get = await app.request("/game/setup/destination-tickets", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+    const pl2Get = await app.request("/game/setup/destination-tickets", {
+      headers: { cookie: "user-ID=2;game-ID=1" },
+    });
+
+    const { minimumPickup: pl1Min } = await pl1Get.json();
+    const { minimumPickup: pl2Min } = await pl2Get.json();
+
+    assertEquals(pl1Get.status, 200);
+    assertEquals(pl1Min, 2);
+
+    assertEquals(pl2Get.status, 200);
+    assertEquals(pl2Min, 2);
+  });
+});
+
+describe('GET "/game/setup/destination-tickets"', () => {
+  it("should allow all players to select tickets from the game", async () => {
+    const app = prepareGameApp();
+    const body = JSON.stringify({
+      selected: [{ id: "t9", from: "c5", to: "c10", points: 10 }],
+      rest: [],
+    });
+
+    const pl2Get = await app.request("/game/setup/destination-tickets", {
+      headers: { cookie: "user-ID=2;game-ID=1" },
+      method: "POST",
+      body,
+    });
+
+    const pl1Get = await app.request("/game/setup/destination-tickets", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+      method: "POST",
+      body,
+    });
+
+    assertEquals(pl2Get.status, 200);
+    assertEquals(pl1Get.status, 200);
   });
 });
