@@ -208,30 +208,39 @@ const masterRender = ({
   announceGameStateChange(state);
 };
 
-const glow = (ele) => {
-  console.log(ele);
-
-  ele.style.fill = "red";
+const glow = (ele, state) => {
+  ele.style.fill = state ? "red" : "#583927";
 };
 
-const highlightStations = ({ from, to }) => {
-  glow(document.querySelector(`#${from} ellipse`));
-  glow(document.querySelector(`#${to} ellipse`));
+const highlightStations = ({ from, to }, state) => {
+  glow(document.querySelector(`#${from} ellipse`), state);
+  glow(document.querySelector(`#${to} ellipse`), state);
 };
 
-const highlightTicket = (ticket) => ticket.classList.toggle("selected");
+const highlightTicket = (tag, ticket) => {
+  const status = tag.classList.toggle("selected");
+
+  highlightStations(ticket, status);
+
+  return status;
+};
 
 const handleTicketSelection = (tag, ticketManager, ticket) => () => {
-  highlightTicket(tag);
-  highlightStations(ticket);
+  highlightTicket(tag, ticket);
   ticketManager.toggleSelection(tag.dataset.ticketId);
 };
 
-const confirmTickets = (ticket, ticketManager) => async () => {
-  const confirmed = await ticketManager.confirmTickets(ticket.dataset.ticketId);
+const resetStations = (stations) => {
+  stations.forEach((station) => {
+    highlightStations(station, false);
+  });
+};
+
+const confirmTickets = (tag, ticketManager, tickets) => async () => {
+  const confirmed = await ticketManager.confirmTickets(tag.dataset.ticketId);
+  resetStations(tickets);
   if (!confirmed) return;
   continueGame();
-
   const ticketArea = document.querySelector(".ticket-display");
   ticketArea.classList.remove("align-right");
   document.querySelector("#ticket-selection")?.remove();
@@ -251,7 +260,10 @@ const drawDestinationCards = async (ticketManager) => {
       "click",
       handleTicketSelection(tag, ticketManager, tickets[index]),
     );
-    tag.addEventListener("dblclick", confirmTickets(tag, ticketManager));
+    tag.addEventListener(
+      "dblclick",
+      confirmTickets(tag, ticketManager, tickets),
+    );
   });
 
   displayTickets(ticketTags);
