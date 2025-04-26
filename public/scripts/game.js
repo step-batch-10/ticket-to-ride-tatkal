@@ -44,9 +44,14 @@ const createTrainCarCard = ({ color }) => {
   return card;
 };
 
-export const createTicketCard = (
-  { from, to, fromCity, toCity, points, id },
-) => {
+export const createTicketCard = ({
+  from,
+  to,
+  fromCity,
+  toCity,
+  points,
+  id,
+}) => {
   const ticketCard = createDiv(["player-ticket-card"]);
   ticketCard.innerText =
     `from: ${fromCity} → to: ${toCity} → points: ${points}`;
@@ -215,6 +220,9 @@ const masterRender = ({
 
 const glow = (ele, state) => {
   ele.style.fill = state ? "red" : "#583927";
+  ele.style.mixBlendMode = state ? "normal" : "darken";
+  ele.style.stroke = state ? "black" : "#583927";
+  ele.style.strokeWidth = state ? "5px" : "0px";
 };
 
 const highlightStations = ({ from, to }, state) => {
@@ -261,10 +269,7 @@ const drawDestinationCards = async (ticketManager) => {
 
   ticketTags.forEach((tag) => {
     tag.tabIndex = 0;
-    tag.addEventListener(
-      "click",
-      handleTicketSelection(tag, ticketManager),
-    );
+    tag.addEventListener("click", handleTicketSelection(tag, ticketManager));
     tag.addEventListener(
       "dblclick",
       confirmTickets(tag, ticketManager, tickets),
