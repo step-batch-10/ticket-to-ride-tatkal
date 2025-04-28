@@ -725,3 +725,220 @@ describe('GET "/game/setup/destination-tickets"', () => {
     assertEquals(pl1Get.status, 200);
   });
 });
+
+describe("fetchClaimableRoute", () => {
+  it("should return all claimable routes", async () => {
+    const gameHandler = new GameManager();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "2",
+        },
+        { name: "susahnth", id: "3" },
+      ],
+      mockedReader,
+    );
+
+    const game = gameHandler.getGame(1)?.game;
+    const cards = game?.status("1").playerResources.playerHandCards!;
+    const card = cards[0];
+    card.count = 1;
+    const color = card.color;
+    const locomotive = cards.at(-1)!;
+    locomotive.count = 0;
+
+    const app: Hono = prepareApp(new Users(), gameHandler);
+
+    const response = await app.request(
+      `/game/player/claimable-routes?color=${color}`,
+      {
+        headers: { cookie: "user-ID=1;game-ID=1" },
+      },
+    );
+
+    const expected = [
+      {
+        carId: "cr2",
+        cityA: "c1",
+        cityB: "c3",
+        color: "gray",
+        distance: 1,
+        id: "r2",
+      },
+      {
+        carId: "cr3",
+        cityA: "c1",
+        cityB: "c3",
+        color: "gray",
+        distance: 1,
+        id: "r3",
+      },
+      {
+        carId: "cr6",
+        cityA: "c3",
+        cityB: "c5",
+        color: "gray",
+        distance: 1,
+        id: "r6",
+      },
+      {
+        carId: "cr7",
+        cityA: "c3",
+        cityB: "c5",
+        color: "gray",
+        distance: 1,
+        id: "r7",
+      },
+      {
+        carId: "cr39",
+        cityA: "c15",
+        cityB: "c19",
+        color: "gray",
+        distance: 1,
+        id: "r39",
+      },
+      {
+        carId: "cr40",
+        cityA: "c15",
+        cityB: "c19",
+        color: "gray",
+        distance: 1,
+        id: "r40",
+      },
+      {
+        carId: "cr49",
+        cityA: "c23",
+        cityB: "c24",
+        color: "gray",
+        distance: 1,
+        id: "r49",
+      },
+      {
+        carId: "cr50",
+        cityA: "c23",
+        cityB: "c24",
+        color: "gray",
+        distance: 1,
+        id: "r50",
+      },
+      {
+        carId: "cr84",
+        cityA: "c29",
+        cityB: "c28",
+        color: "gray",
+        distance: 1,
+        id: "r84",
+      },
+    ];
+
+    assertEquals(await response.json(), expected);
+  });
+
+  it("should return nine claimable routes when give locomotive", async () => {
+    const gameHandler = new GameManager();
+    gameHandler.createGame(
+      [
+        { name: "susahnth", id: "1" },
+        {
+          name: "susahnth",
+          id: "2",
+        },
+        { name: "susahnth", id: "3" },
+      ],
+      mockedReader,
+    );
+
+    const game = gameHandler.getGame(1)?.game;
+    const cards = game?.status("1").playerResources.playerHandCards!;
+    const locomotive = cards.at(-1)!;
+    locomotive.count = 1;
+
+    const app: Hono = prepareApp(new Users(), gameHandler);
+
+    const response = await app.request(
+      `/game/player/claimable-routes?color=locomotive`,
+      {
+        headers: { cookie: "user-ID=1;game-ID=1" },
+      },
+    );
+
+    const expected = [
+      {
+        carId: "cr2",
+        cityA: "c1",
+        cityB: "c3",
+        color: "gray",
+        distance: 1,
+        id: "r2",
+      },
+      {
+        carId: "cr3",
+        cityA: "c1",
+        cityB: "c3",
+        color: "gray",
+        distance: 1,
+        id: "r3",
+      },
+      {
+        carId: "cr6",
+        cityA: "c3",
+        cityB: "c5",
+        color: "gray",
+        distance: 1,
+        id: "r6",
+      },
+      {
+        carId: "cr7",
+        cityA: "c3",
+        cityB: "c5",
+        color: "gray",
+        distance: 1,
+        id: "r7",
+      },
+      {
+        carId: "cr39",
+        cityA: "c15",
+        cityB: "c19",
+        color: "gray",
+        distance: 1,
+        id: "r39",
+      },
+      {
+        carId: "cr40",
+        cityA: "c15",
+        cityB: "c19",
+        color: "gray",
+        distance: 1,
+        id: "r40",
+      },
+      {
+        carId: "cr49",
+        cityA: "c23",
+        cityB: "c24",
+        color: "gray",
+        distance: 1,
+        id: "r49",
+      },
+      {
+        carId: "cr50",
+        cityA: "c23",
+        cityB: "c24",
+        color: "gray",
+        distance: 1,
+        id: "r50",
+      },
+      {
+        carId: "cr84",
+        cityA: "c29",
+        cityB: "c28",
+        color: "gray",
+        distance: 1,
+        id: "r84",
+      },
+    ];
+
+    assertEquals(await response.json(), expected);
+  });
+});
