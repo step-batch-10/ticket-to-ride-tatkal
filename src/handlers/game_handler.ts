@@ -103,3 +103,13 @@ export const handleClaimRoute = async (context: Context) => {
 
   return context.json({ claimed });
 };
+
+export const fetchClaimableRoute = (context: Context) => {
+  const color = context.req.query("color");
+  const playerId = getCookie(context, "user-ID");
+  const game = context.get("game");
+
+  const claimableRoutes = game.claimableRoutes(playerId, color);
+
+  return context.json(claimableRoutes);
+};

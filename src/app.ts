@@ -14,6 +14,7 @@ import {
 import {
   drawCardFromDeck,
   drawFaceUpCard,
+  fetchClaimableRoute,
   fetchFaceUps,
   fetchGameStatus,
   fetchMap,
@@ -130,6 +131,7 @@ const playerRoutes = (): Hono => {
   player.use(setPlayerContext);
   player.get("/properties", fetchPlayerHand);
   player.get("/status", fetchGameStatus);
+  player.get("/claimable-routes", fetchClaimableRoute);
 
   player.use(authenticatePlayerMove);
   player.get("/destination-tickets", canPerformGetDT, fetchTicketChoices);
