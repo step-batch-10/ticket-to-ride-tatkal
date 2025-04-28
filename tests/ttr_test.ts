@@ -16,7 +16,7 @@ const mockedReader = (_path: string | URL): string => {
   return "usa map";
 };
 
-const prepareTTR = (tcc?: TrainCarCards) =>
+export const prepareTTR = (tcc?: TrainCarCards) =>
   Ttr.createTtr(
     [
       { name: "sushanth", id: "1" },
