@@ -65,25 +65,25 @@ describe("Test for Ttr class", () => {
     });
   });
 
-const prepareTTR = (tcc?: TrainCarCards) =>
-  Ttr.createTtr(
-    [
-      { name: "susahnth", id: "1" },
-      { name: "susahnth", id: "2" },
-      {
-        name: "susahnth",
-        id: "3",
-      },
-    ],
-    USAMap.getInstance(mockedReader),
-    tcc,
-  );
+  const prepareTTR = (tcc?: TrainCarCards) =>
+    Ttr.createTtr(
+      [
+        { name: "susahnth", id: "1" },
+        { name: "susahnth", id: "2" },
+        {
+          name: "susahnth",
+          id: "3",
+        },
+      ],
+      USAMap.getInstance(mockedReader),
+      tcc,
+    );
 
-describe("getTopThree destination tickets", () => {
-  it("should return the top 3 tickets from the overall cards", () => {
-    const ttr = prepareTTR();
+  describe("getTopThree destination tickets", () => {
+    it("should return the top 3 tickets from the overall cards", () => {
+      const ttr = prepareTTR();
 
-    const desTickets = ttr.getDestinationTickets();
+      const desTickets = ttr.getDestinationTickets();
 
       assertEquals(desTickets, tickets.slice(0, 3));
     });
