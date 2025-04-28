@@ -1,95 +1,113 @@
 import { assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { Player } from "../src/models/player.ts";
-import tickets from "../json/tickets.json" with { type: "json" };
 
-describe("getTrainCars", () => {
-  it("should return 45 cars", () => {
-    const player = new Player({ name: "susahnth", id: "1" }, "red");
-    assertEquals(player.getTrainCars(), 45);
-  });
-});
+describe("Test for Player class", () => {
+  describe("when a player instance is created", () => {
+    it("should return a list of 45 cars on getTrainCars()", () => {
+      const player = new Player({ name: "sushanth", id: "1" }, "red");
 
-describe("getHand", () => {
-  it("should return array of 9 cards colors", () => {
-    const player = new Player({ name: "susahnth", id: "1" }, "red");
-    assertEquals(player.getHand().length, 9);
-  });
-});
+      assertEquals(player.getTrainCars(), 45);
+    });
 
-describe("getColor", () => {
-  it("should return red", () => {
-    const player = new Player({ name: "susahnth", id: "1" }, "red");
-    assertEquals(player.getColor(), "red");
-  });
-});
+    it("should return a list of 9 type of color cards on getHand()", () => {
+      const player = new Player({ name: "sushanth", id: "1" }, "red");
 
-describe("getName", () => {
-  it("should return red", () => {
-    const player = new Player({ name: "sushanth", id: "1" }, "red");
-    assertEquals(player.getName(), "sushanth");
-  });
-});
+      assertEquals(player.getHand().length, 9);
+    });
 
-describe("getId", () => {
-  it("should return id of the player", () => {
-    const player = new Player({ name: "susahnth", id: "1" }, "red");
-    assertEquals(player.getId(), "1");
-  });
-});
+    it("should return the assigned color of the player on getColor()", () => {
+      const player = new Player({ name: "sushanth", id: "1" }, "red");
 
-describe("addCardsToHand", () => {
-  it("should add cards to player hand", () => {
-    const player = new Player({ name: "susahnth", id: "1" }, "red");
-    player.addCardsToHand({ color: "red" });
-    assertEquals(player.getHand().length, 9);
-  });
-});
+      assertEquals(player.getColor(), "red");
+    });
 
-describe("get destination cards of player", () => {
-  it("should return all dt cards to player hand", () => {
-    const player = new Player({ name: "susahnth", id: "1" }, "red");
-    player.addDestinationTickets(tickets);
-    assertEquals(player.getDestinationTickets(), tickets);
-  });
-});
+    it("should return the id of player on getId()", () => {
+      const player = new Player({ name: "sushanth", id: "1" }, "red");
 
-describe("deduct trainCars", () => {
-  it("should return deducted number of trainCars", () => {
-    const player = new Player({ name: "susahnth", id: "1" }, "red");
+      assertEquals(player.getId(), "1");
+    });
 
-    assertEquals(player.deductTrainCars(5), 40);
+    it("should return the name of player on getName()", () => {
+      const player = new Player({ name: "sushanth", id: "1" }, "red");
+
+      assertEquals(player.getName(), "sushanth");
+    });
   });
 
-  it("should return deducted number of trainCars", () => {
-    const player = new Player({ name: "susahnth", id: "1" }, "red");
+  describe("when a card is added to hand by addCardsToHand", () => {
+    it("should add cards to player hand", () => {
+      const player = new Player({ name: "sushanth", id: "1" }, "red");
+      player.addCardsToHand({ color: "red" });
 
-    assertEquals(player.deductTrainCars(10), 35);
+      const actual = player.getHand().find((c) => c.color === "red");
+      assertEquals(actual?.count, 1);
+    });
   });
-});
 
-describe("deduct trainCarCards", () => {
-  it("should return deducted TrainCarCards", () => {
-    const player = new Player({ name: "susahnth", id: "1" }, "red");
+  describe("when player is adds some destination cards", () => {
+    it("should return all tickets on getDestinationTickets()", () => {
+      const player = new Player({ name: "susahnth", id: "1" }, "red");
+      const ticket = [{ "id": "t1", "from": "c8", "to": "c32", "points": 21 }];
 
-    assertEquals(player.deductTrainCarCards([{ color: "red", count: 1 }]), [{
-      color: "red",
-    }]);
+      player.addDestinationTickets(ticket);
+      const actual = player.getDestinationTickets();
+
+      assertEquals(actual.length, 1);
+      assertEquals(actual, ticket);
+    });
   });
-});
 
-describe("addClaimedRoute", () => {
-  it("should add a route", () => {
-    const player = new Player({ name: "susahnth", id: "1" }, "red");
-    const route = {
-      "id": "r1",
-      "carId": "cr1",
-      "cityA": "c1",
-      "cityB": "c2",
-      "distance": 3,
-      "color": "gray",
-    };
-    assertEquals(player.addClaimedRoute(route), 1);
-    assertEquals(player.getClaimedRoutes(), [route]);
+  describe("when player uses train cars", () => {
+    it("should deduct those many train cars in player hand", () => {
+      const player = new Player({ name: "susahnth", id: "1" }, "red");
+
+      assertEquals(player.deductTrainCars(5), 40);
+    });
+
+    it("should deduct the train car cards in player hand", () => {
+      const player = new Player({ name: "susahnth", id: "1" }, "red");
+
+      player.addCardsToHand({ color: "red" });
+      player.addCardsToHand({ color: "red" });
+      player.addCardsToHand({ color: "red" });
+
+      player.deductTrainCarCards([{ color: "red", count: 1 }]);
+      const actual = player.getHand().find((c) => c.color === "red");
+
+      assertEquals(actual?.count, 2);
+    });
+  });
+
+  describe("when player uses train car cards", () => {
+    it("should deduct the train car cards in player hand", () => {
+      const player = new Player({ name: "susahnth", id: "1" }, "red");
+
+      player.addCardsToHand({ color: "red" });
+      player.addCardsToHand({ color: "red" });
+      player.addCardsToHand({ color: "red" });
+
+      player.deductTrainCarCards([{ color: "red", count: 1 }]);
+      const actual = player.getHand().find((c) => c.color === "red");
+
+      assertEquals(actual?.count, 2);
+    });
+  });
+
+  describe("when player claims a route", () => {
+    it("should add the claimed route to player's data", () => {
+      const player = new Player({ name: "susahnth", id: "1" }, "red");
+      const route = {
+        "id": "r1",
+        "carId": "cr1",
+        "cityA": "c1",
+        "cityB": "c2",
+        "distance": 3,
+        "color": "gray",
+      };
+
+      assertEquals(player.addClaimedRoute(route), 1);
+      assertEquals(player.getClaimedRoutes(), [route]);
+    });
   });
 });
