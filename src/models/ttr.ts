@@ -29,6 +29,7 @@ export class Ttr {
   private finalTurnInitiator: string | null;
   private currentAction: string | null;
   private noOfTCCsCollected: number;
+  private routeScores: Map<number, number>;
 
   constructor(players: Player[], map: USAMap, tcc?: TrainCarCards) {
     this.players = players;
@@ -44,6 +45,14 @@ export class Ttr {
     this.noOfTCCsCollected = 0;
     this.currentAction = null;
     this.finalTurnInitiator = null;
+    this.routeScores = new Map([
+      [1, 1],
+      [2, 2],
+      [3, 4],
+      [4, 7],
+      [5, 10],
+      [6, 15],
+    ]);
   }
 
   private registerLog(from: string, assets: string | number) {
@@ -353,5 +362,19 @@ export class Ttr {
     });
 
     return claimable;
+  }
+
+  calculateRouteScores(playerId: string) {
+    const player = this.getPlayer(playerId);
+    const claimedRoutes = player?.getClaimedRoutes();
+
+    const totalScore = claimedRoutes?.reduce(
+      (totalRouteScore, { distance }) => {
+        return totalRouteScore + this.routeScores.get(distance)!;
+      },
+      0,
+    );
+
+    return totalScore;
   }
 }
