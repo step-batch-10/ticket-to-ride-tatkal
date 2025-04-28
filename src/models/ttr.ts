@@ -222,8 +222,8 @@ export class Ttr {
   }
 
   changePlayer() {
-    this.currentPlayerIndex = (this.currentPlayerIndex + 1) %
-      this.players.length;
+    this.currentPlayerIndex =
+      (this.currentPlayerIndex + 1) % this.players.length;
     this.moves += 1;
 
     if (this.moves === this.players.length) {
@@ -243,7 +243,7 @@ export class Ttr {
   private getUsedTrainCarCards(
     noOfColorCards: number,
     route: Route,
-    cardColor: string,
+    cardColor: string
   ): playerHandCard[] {
     const colorCardCount = Math.min(noOfColorCards, route.distance);
     const locomotiveCount = Math.max(0, route.distance - colorCardCount);
@@ -254,25 +254,25 @@ export class Ttr {
     ];
   }
 
-  private canClaimRoute(route: Route, cardColor: string): boolean {
-    const claimedRoute = _.find(this.map.getClaimedRoutes(), {
-      carId: route.carId,
-    });
+  private canClaimRoute(route: Route, cardColor: string, totalCards: number) {
+    const claimedRoutes = this.map.getClaimedRoutes();
 
-    return (
-      (route.color === cardColor ||
-        route.color === "gray" ||
-        cardColor === "locomotive") &&
-      !claimedRoute
-    );
+    const isUnclaimed = !_.some(claimedRoutes, { carId: route.carId });
+    const isColorMatched =
+      route.color === cardColor ||
+      route.color === "gray" ||
+      cardColor === "locomotive";
+
+    return isUnclaimed && route.distance <= totalCards && isColorMatched;
   }
 
   private getCardCounts(playerHand: playerHandCard[], cardColor: string) {
     const noOfColorCards = _.find(playerHand, { color: cardColor })?.count;
     const noOfLocomotives = _.find(playerHand, { color: "locomotive" })?.count;
-    const totalCards = cardColor === "locomotive"
-      ? noOfLocomotives
-      : noOfColorCards + noOfLocomotives;
+    const totalCards =
+      cardColor === "locomotive"
+        ? noOfLocomotives
+        : noOfColorCards + noOfLocomotives;
 
     return { noOfColorCards, noOfLocomotives, totalCards };
   }
@@ -284,21 +284,23 @@ export class Ttr {
   private evaluateRouteClaim(
     route: Route,
     playerHand: playerHandCard[],
-    cardColor: string,
+    cardColor: string
   ) {
-    if (!this.canClaimRoute(route, cardColor)) {
-      return { claimable: false, usedTrainCarCards: [] };
-    }
-
     const { noOfColorCards, totalCards } = this.getCardCounts(
       playerHand,
-      cardColor,
+      cardColor
     );
-    const claimable = route.distance <= totalCards;
+
+    const claimable = this.canClaimRoute(route, cardColor, totalCards);
+
+    if (!claimable) {
+      return { claimable, usedTrainCarCards: [] };
+    }
+
     const usedTrainCarCards = this.getUsedTrainCarCards(
       noOfColorCards,
       route,
-      cardColor,
+      cardColor
     );
 
     return { claimable, usedTrainCarCards };
@@ -307,7 +309,7 @@ export class Ttr {
   private updatePlayerAfterClaim(
     player: Player,
     route: Route,
-    usedCards: playerHandCard[],
+    usedCards: playerHandCard[]
   ) {
     player.deductTrainCars(route.distance);
     const deducted = player.deductTrainCarCards(usedCards);
@@ -329,7 +331,7 @@ export class Ttr {
     const { claimable, usedTrainCarCards } = this.evaluateRouteClaim(
       route,
       playerHand,
-      cardColor,
+      cardColor
     );
     if (!claimable) return false;
 
@@ -341,5 +343,17 @@ export class Ttr {
     }
 
     return true;
+  }
+
+  claimableRoutes(playerId: string, cardColor: string) {
+    const player = this.getPlayer(playerId)!;
+    const routes = this.map.getRoutes();
+    const { totalCards } = this.getCardCounts(player.getHand(), cardColor);
+
+    const claimable = routes.filter((route) => {
+      return this.canClaimRoute(route, cardColor, totalCards);
+    });
+
+    return claimable;
   }
 }
