@@ -285,3 +285,8 @@ body {
   color: var(--minimal);
   overflow-y: auto;
 }
+
+.highlight-routes {
+  stroke: "white";
+  stroke-width: "2px";
+}

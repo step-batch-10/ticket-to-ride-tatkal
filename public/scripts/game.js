@@ -82,8 +82,38 @@ const getClaimRouteInstance = (() => {
   return () => instance;
 })();
 
-const storeColor = (e) => {
+const removeAllHighlightRoutes = () => {
+  const highlightedRoutes = document.querySelectorAll(".highlight-routes");
+  console.log(highlightedRoutes);
+
+  highlightedRoutes.forEach((r) => {
+    r.classList.toggle("highlight-routes");
+    r.style.stroke = "#373737";
+    r.style.strokeWidth = "0.965281";
+  });
+};
+
+const highlightRoute = (id) => {
+  const routeContainer = document.querySelector(`#${id}`);
+  const rectangles = routeContainer.querySelectorAll("rect");
+
+  rectangles.forEach((r) => {
+    r.classList.add("highlight-routes");
+    r.style.stroke = "white";
+    r.style.strokeWidth = "2px";
+  });
+};
+
+const selectHandCard = async (e) => {
+  removeAllHighlightRoutes();
   const color = e.currentTarget.classList[1];
+  const claimableRoutes = await fetchJSON(
+    `/game/player/claimable-routes?color=${color}`,
+  );
+
+  claimableRoutes.forEach((cR) => {
+    highlightRoute(cR.id);
+  });
 
   getClaimRouteInstance().assignCardColor(color);
 };
@@ -96,7 +126,7 @@ const createPlayerHandCard = ({ color, count }) => {
   countElem.classList.add("card-count");
   countElem.innerText = count;
   handCard.appendChild(countElem);
-  handCard.addEventListener("click", storeColor);
+  handCard.addEventListener("click", selectHandCard);
 
   return handCard;
 };
@@ -242,7 +272,6 @@ const highlightTicket = (tag, ticket) => {
 };
 
 const handleTicketSelection = (tag, ticketManager) => () => {
-  // highlightTicket(tag, ticket);
   ticketManager.toggleSelection(tag.dataset.ticketId);
 };
 
@@ -289,6 +318,7 @@ const drawBlindCard = () => {
 };
 
 const sendRequestToClaim = (e) => {
+  removeAllHighlightRoutes();
   const routeId = e.currentTarget.id;
 
   getClaimRouteInstance().claimRoute(routeId);
