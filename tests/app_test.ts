@@ -3,12 +3,9 @@ import { assertEquals } from "assert";
 import { describe, it } from "@std/testing/bdd";
 import { serveStatic } from "hono/deno";
 import { Context, Hono } from "hono";
-import { USAMap } from "../src/models/USA_map.ts";
 import { Users } from "../src/models/users.ts";
 import { GameManager } from "../src/models/game_manager.ts";
-import { assignRouteCities } from "../src/handlers/game_handler.ts";
 import dtickets from "../json/tickets.json" with { type: "json" };
-import cities from "../json/cities.json" with { type: "json" };
 import { _ } from "https://cdn.skypack.dev/lodash";
 
 const logger = () => async (_: Context, n: Function) => await n();
@@ -50,26 +47,25 @@ export const prepareGameApp = () => {
   return prepareApp(new Users(), gameHandler);
 };
 
-
 describe("Test for User authentication", () => {
-  describe('when user is not authenticated', () => {
+  describe("when user is not authenticated", () => {
     it("should redirect to login page", async () => {
       const app: Hono = prepareApp();
       const r: Response = await app.request("/");
-      
+
       assertEquals(r.status, 303);
       assertEquals(r.headers.get("location"), "/login.html");
       await r.text();
     });
   });
-  
-  describe('when user is authenticated', () => {
+
+  describe("when user is authenticated", () => {
     it("should redirect to login page", async () => {
       const app: Hono = prepareApp();
       const r: Response = await app.request("/", {
         headers: { cookie: "user-ID=1" },
       });
-      
+
       assertEquals(r.status, 200);
       await r.text();
     });
@@ -87,82 +83,82 @@ describe("Test for waiting page", () => {
     });
 
     assertEquals(r.status, 302);
-    assertEquals(r.headers.get('location'), '/waiting_page.html');
+    assertEquals(r.headers.get("location"), "/waiting_page.html");
   });
 });
 
 describe("Test for waiting list", () => {
-  describe('when no player is added to queue', () => {
+  describe("when no player is added to queue", () => {
     it("should return empty waitingList", async () => {
       const user = new Users();
       user.add({ username: "dhanoj" });
-      
+
       const app: Hono = prepareApp(user);
       const r: Response = await app.request("/waiting-list", {
         headers: { cookie: "user-ID=1" },
       });
-      
+
       assertEquals(r.status, 200);
       assertEquals(await r.json(), []);
     });
-  })
+  });
 
-  describe('when fewer than max players are added to queue', () => {
+  describe("when fewer than max players are added to queue", () => {
     it("should return those many players in waitingList", async () => {
       const gameHandler = new GameManager();
       const players = [
         { name: "sushanth", id: "1" },
         { name: "sarup", id: "2" },
       ];
-      gameHandler.createGame(players,mockedReader);  
+      gameHandler.createGame(players, mockedReader);
       gameHandler.addToQueue(players[0], 3);
       gameHandler.addToQueue(players[1], 3);
-      
+
       const users = new Users();
       users.add({ username: "sushanth" });
       users.add({ username: "sarup" });
-    
+
       const app: Hono = prepareApp(users, gameHandler);
       const r: Response = await app.request("/waiting-list", {
         headers: { cookie: "user-ID=1" },
       });
-    
-      const actual = await r.json();
-    
-      assertEquals(r.status, 200);
-      assertEquals(actual, ["sushanth", 'sarup']);
-    });
-  })
 
-  describe('when only max players are added to queue', () => { 
-    it('should return the max players in waitingList', async () => {
+      const actual = await r.json();
+
+      assertEquals(r.status, 200);
+      assertEquals(actual, ["sushanth", "sarup"]);
+    });
+  });
+
+  describe("when only max players are added to queue", () => {
+    it("should return the max players in waitingList", async () => {
       const players = [
         { name: "sushanth", id: "1" },
         { name: "sarup", id: "2" },
       ];
 
       const gameHandler = new GameManager();
-      gameHandler.createGame(players,mockedReader);
+      gameHandler.createGame(players, mockedReader);
 
       const users = new Users();
       const app: Hono = prepareApp(users, gameHandler);
 
       gameHandler.addToQueue(players[0], 2);
       gameHandler.addToQueue(players[1], 2);
-      
+
       users.add({ username: "sushanth" });
       users.add({ username: "sarup" });
-      
+
       const r: Response = await app.request("/waiting-list", {
         headers: { cookie: "user-ID=1" },
       });
-      
+
       assertEquals(r.status, 200);
-      assertEquals((await r.json()), ["sushanth", 'sarup']);
-    })
+      assertEquals(await r.json(), ["sushanth", "sarup"]);
+    });
   });
 
-  describe('when more than max players are added to queue', () => {
+  describe("when more than max players are added to queue", () => {
     it("should return only extra players in waitingList", async () => {
       const players = [
         { name: "sushanth", id: "1" },
@@ -171,7 +167,7 @@ describe("Test for waiting list", () => {
       ];
 
       const gameHandler = new GameManager();
-      gameHandler.createGame(players,mockedReader);
+      gameHandler.createGame(players, mockedReader);
 
       const users = new Users();
       const app: Hono = prepareApp(users, gameHandler);
@@ -179,128 +175,106 @@ describe("Test for waiting list", () => {
       gameHandler.addToQueue(players[0], 2);
       gameHandler.addToQueue(players[1], 2);
       gameHandler.addToQueue(players[2], 2);
-      
+
       users.add({ username: "sushanth" });
       users.add({ username: "sarup" });
-      users.add({ username: "hari" });      
-      
+      users.add({ username: "hari" });
+
       const r: Response = await app.request("/waiting-list", {
         headers: { cookie: "user-ID=3" },
       });
-      
+
       const newQueue = await r.json();
 
       assertEquals(r.status, 200);
-      assertEquals(newQueue, ['hari']);
-    });
-  })
-});
-
-describe("usMap", () => {
-  describe("fetchMap", () => {
-    it("should give map data of map file", () => {
-      const usaMap = USAMap.getInstance(mockedReader);
-      assertEquals(usaMap.getMap(), "usa map");
+      assertEquals(newQueue, ["hari"]);
     });
   });
 });
 
-describe("redirectToGame", () => {
-  it("should redirect to game page with game id", async () => {
-    const gameHandler = new GameManager();
-    gameHandler.addToQueue({ name: "dhanoj", id: "1" }, 3);
-    gameHandler.addToQueue({ name: "sarup", id: "2" }, 3);
-    gameHandler.addToQueue({ name: "hari", id: "3" }, 3);
-    gameHandler.createGame(
-      [
+describe("Test for redirection when player arrived", () => {
+  describe("when max players have arrived but game is not created", () => {
+    it("should create a game and redirect to game page with game id", async () => {
+      const gameHandler = new GameManager();
+      const user = new Users();
+
+      gameHandler.addToQueue({ name: "dhanoj", id: "1" }, 2);
+      gameHandler.addToQueue({ name: "sarup", id: "2" }, 2);
+
+      user.add({ username: "dhanoj" });
+      user.add({ username: "sarup" });
+
+      const app: Hono = prepareApp(user, gameHandler);
+
+      const r: Response = await app.request("/redirectToGame", {
+        headers: { cookie: "user-ID=1" },
+      });
+
+      const actualGame = r.headers.get("set-cookie")?.split(";")[0];
+
+      assertEquals(r.status, 302);
+      assertEquals(r.headers.get("location"), "/game.html");
+      assertEquals(actualGame, "game-ID=1");
+    });
+  });
+
+  describe("when max players have arrived and game is created", () => {
+    it("should redirect to game page with game id", async () => {
+      const players = [
         { name: "dhanoj", id: "1" },
-        { name: "hari", id: "3" },
         { name: "sarup", id: "2" },
-      ],
-      mockedReader,
-    );
-    const user = new Users();
-    user.add({ username: "dhanoj" });
+      ];
+      const gameHandler = new GameManager();
+      const user = new Users();
 
-    const app: Hono = prepareApp(user, gameHandler);
+      gameHandler.addToQueue({ name: "dhanoj", id: "1" }, 2);
+      gameHandler.addToQueue({ name: "sarup", id: "2" }, 2);
+      gameHandler.createGame(players, mockedReader);
 
-    const r: Response = await app.request("/redirectToGame", {
-      headers: { cookie: "user-ID=1" },
+      user.add({ username: "dhanoj" });
+      user.add({ username: "sarup" });
+
+      const app: Hono = prepareApp(user, gameHandler);
+
+      const r: Response = await app.request("/redirectToGame", {
+        headers: { cookie: "user-ID=1" },
+      });
+
+      const actualGame = r.headers.get("set-cookie")?.split(";")[0];
+
+      assertEquals(r.status, 302);
+      assertEquals(r.headers.get("location"), "/game.html");
+      assertEquals(actualGame, "game-ID=1");
     });
-
-    assertEquals(r.status, 302);
-    assertEquals(r.headers.get("location"), "/game.html");
   });
 
-  it("should create game and redirect to game page with game id", async () => {
-    const gameHandler = new GameManager();
-    gameHandler.addToQueue({ name: "dhanoj", id: "3" }, 3);
-    gameHandler.addToQueue({ name: "sarup", id: "2" }, 3);
-    gameHandler.addToQueue({ name: "hari", id: "4" }, 3);
-    const user = new Users();
-    user.add({ username: "anjali" });
-    user.add({ username: "sarup" });
-    user.add({ username: "dhanoj" });
-    user.add({ username: "hari" });
+  describe(" when player is not present in waiting list", () => {
+    it("should return a json message that game has not started", async () => {
+      const gameHandler = new GameManager();
+      const user = new Users();
 
-    const app: Hono = prepareApp(user, gameHandler);
+      user.add({ username: "hari" });
 
-    const r: Response = await app.request("/redirectToGame", {
-      headers: { cookie: "user-ID=4" },
+      const app: Hono = prepareApp(user, gameHandler);
+      const r: Response = await app.request("/redirectToGame", {
+        headers: { cookie: "user-ID=1" },
+      });
+
+      assertEquals(await r.json(), { message: "game not started" });
     });
-
-    assertEquals(r.status, 302);
-    assertEquals(r.headers.get("location"), "/game.html");
-  });
-
-  it("should redirect to waiting page when player is not present in waiting list", async () => {
-    const gameHandler = new GameManager();
-    gameHandler.addToQueue({ name: "dhanoj", id: "4" }, 3);
-    gameHandler.addToQueue({ name: "sarup", id: "2" }, 3);
-    gameHandler.addToQueue({ name: "Anjali", id: "3" }, 3);
-
-    const user = new Users();
-    user.add({ username: "hari" });
-
-    const app: Hono = prepareApp(user, gameHandler);
-
-    const r: Response = await app.request("/redirectToGame", {
-      headers: { cookie: "user-ID=1" },
-    });
-
-    assertEquals(await r.json(), { message: "game not started" });
-  });
-
-  it("should redirect to Waiting page when waiting list is not full", async () => {
-    const gameHandler = new GameManager();
-    gameHandler.addToQueue({ name: "dhanoj", id: "1" }, 3);
-    const user = new Users();
-    user.add({ username: "dhanoj" });
-
-    const app: Hono = prepareApp(user, gameHandler);
-
-    const r: Response = await app.request("/redirectToGame", {
-      headers: { cookie: "user-ID=1" },
-    });
-
-    assertEquals(await r.json(), { message: "game not started" });
   });
 });
 
-describe("/game/map", () => {
-  it("get request to /game/map", async () => {
+describe("Test for game map", () => {
+  it("should return the game map", async () => {
+    const players = [
+      { name: "sushanth", id: "1" },
+      { name: "sarup", id: "2" },
+      { name: "sam", id: "3" },
+    ];
     const gameHandler = new GameManager();
-    gameHandler.createGame(
-      [
-        { name: "susahnth", id: "1" },
-        {
-          name: "susahnth",
-          id: "3",
-        },
-        { name: "susahnth", id: "2" },
-      ],
-      mockedReader,
-    );
+    gameHandler.createGame(players, mockedReader);
+
     const app: Hono = prepareApp(new Users(), gameHandler);
     const r: Response = await app.request("/game/map", {
       headers: { cookie: "user-ID=1;game-ID=1" },
@@ -310,20 +284,16 @@ describe("/game/map", () => {
   });
 });
 
-describe("/game/face-up-cards", () => {
-  it("should respond with 5 face-up-cards json", async () => {
+describe("Test for game face-up-cards", () => {
+  it("should respond with 5 face-up-cards in a json", async () => {
+    const players = [
+      { name: "sushanth", id: "1" },
+      { name: "sarup", id: "2" },
+      { name: "sam", id: "3" },
+    ];
     const gameHandler = new GameManager();
-    gameHandler.createGame(
-      [
-        { name: "susahnth", id: "1" },
-        {
-          name: "susahnth",
-          id: "3",
-        },
-        { name: "susahnth", id: "2" },
-      ],
-      mockedReader,
-    );
+    gameHandler.createGame(players, mockedReader);
+
     const app: Hono = prepareApp(new Users(), gameHandler);
     const r: Response = await app.request("/game/face-up-cards", {
       headers: { cookie: "user-ID=1;game-ID=1" },
@@ -334,73 +304,64 @@ describe("/game/face-up-cards", () => {
   });
 });
 
-describe("/game/player/hand'", () => {
-  it("should respond with an array of cards", async () => {
-    const gameHandler = new GameManager();
-    gameHandler.createGame(
-      [
-        { name: "susahnth", id: "1" },
-        {
-          name: "susahnth",
-          id: "3",
-        },
-        { name: "susahnth", id: "2" },
-      ],
-      mockedReader,
-    );
-    const app: Hono = prepareApp(new Users(), gameHandler);
+describe("Test for cards in player's hand", () => {
+  describe("when player is in game", () => {
+    it("should respond with an array of cards", async () => {
+      const players = [
+        { name: "sushanth", id: "1" },
+        { name: "sarup", id: "2" },
+        { name: "sam", id: "3" },
+      ];
 
-    const r: Response = await app.request("/game/player/properties", {
-      headers: { cookie: "user-ID=1;game-ID=1" },
+      const gameHandler = new GameManager();
+      gameHandler.createGame(players, mockedReader);
+
+      const app: Hono = prepareApp(new Users(), gameHandler);
+
+      const r: Response = await app.request("/game/player/properties", {
+        headers: { cookie: "user-ID=1;game-ID=1" },
+      });
+
+      const properties = await r.json();
+
+      assertEquals(properties.hand.length, 9);
+      assertEquals(properties.cars, 45);
     });
-
-    const properties = await r.json();
-    assertEquals(properties.hand.length, 9);
-    assertEquals(properties.cars, 45);
   });
 
-  it("should respond with an 404 if player not found", async () => {
-    const gameHandler = new GameManager();
-    gameHandler.createGame(
-      [
-        { name: "susahnth", id: "1" },
-        {
-          name: "susahnth",
-          id: "3",
-        },
-        { name: "susahnth", id: "2" },
-      ],
-      mockedReader,
-    );
-    const app: Hono = prepareApp(new Users(), gameHandler);
+  describe("when player is not in game", () => {
+    it("should respond with an 404", async () => {
+      const players = [
+        { name: "sushanth", id: "1" },
+        { name: "sarup", id: "2" },
+        { name: "sam", id: "3" },
+      ];
 
-    const r: Response = await app.request("/game/player/properties", {
-      headers: { cookie: "user-ID=10;game-ID=1" },
+      const gameHandler = new GameManager();
+      gameHandler.createGame(players, mockedReader);
+
+      const app: Hono = prepareApp(new Users(), gameHandler);
+      const r: Response = await app.request("/game/player/properties", {
+        headers: { cookie: "user-ID=10;game-ID=1" },
+      });
+
+      assertEquals(r.status, 404);
+      const message = await r.json();
+      assertEquals(message, { message: "player not found" });
     });
-    assertEquals(r.status, 404);
-    const message = await r.json();
-    assertEquals(message, { message: "player not found" });
   });
 });
 
-describe("fetchPlayersDetails", () => {
+describe("Test for fetching players details", () => {
   it("should return players detail", async () => {
-    const gameHandler = new GameManager();
+    const players = [
+      { name: "sushanth", id: "1" },
+      { name: "sarup", id: "2" },
+      { name: "sam", id: "3" },
+    ];
 
-    gameHandler.createGame(
-      [
-        { name: "sushanth", id: "1" },
-        {
-          id: "2",
-          name: "Sarup",
-        },
-        {
-          id: "3",
-          name: "hari",
-        },
-      ],
-      mockedReader,
-    );
+    const gameHandler = new GameManager();
+    gameHandler.createGame(players, mockedReader);
 
     const app: Hono = prepareApp(new Users(), gameHandler);
 
@@ -419,7 +380,7 @@ describe("fetchPlayersDetails", () => {
       },
       {
         id: "2",
-        name: "Sarup",
+        name: "sarup",
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
@@ -428,7 +389,7 @@ describe("fetchPlayersDetails", () => {
 
       {
         id: "3",
-        name: "hari",
+        name: "sam",
         tickets: 0,
         trainCarCards: 4,
         trainCars: 45,
@@ -441,63 +402,45 @@ describe("fetchPlayersDetails", () => {
   });
 });
 
-describe("GET /game/player/destination-tickets", () => {
-  it("/game/player/destination-tickets should not allow non logged in user", async () => {
-    const app: Hono = prepareGameApp();
-    const r = await app.request("/game/player/destination-tickets");
+describe("Test for game destination-tickets", () => {
+  describe("when user is not logged in", () => {
+    it("should respond with 303", async () => {
+      const app: Hono = prepareGameApp();
+      const r = await app.request("/game/destination-tickets");
 
-    assertEquals(r.status, 303);
+      assertEquals(r.status, 303);
+    });
   });
 
-  it("/game/player/destination-tickets should give tickets for the logged in user", async () => {
-    const app: Hono = prepareGameApp();
-    const r: Response = await app.request("/game/player/destination-tickets", {
-      headers: { cookie: "user-ID=1;game-ID=1" },
+  describe("when user is logged in and game state is setup", () => {
+    it("should respond with 200", async () => {
+      const players = [
+        { name: "sushanth", id: "1" },
+        { name: "sarup", id: "2" },
+        { name: "sam", id: "3" },
+      ];
+      const gameHandler = new GameManager();
+      gameHandler.createGame(players, mockedReader);
+
+      const app: Hono = prepareApp(new Users(), gameHandler);
+      const res = await app.request("/game/player/destination-tickets", {
+        headers: { cookie: "user-ID=1;game-ID=1" },
+      });
+
+      const body = JSON.stringify({
+        selected: [{ id: "t9", from: "c5", to: "c10", points: 10 }],
+        rest: [],
+      });
+
+      const response = await app.request("/game/player/destination-tickets", {
+        method: "POST",
+        body,
+        headers: { cookie: "user-ID=1;game-ID=1" },
+      });
+
+      assertEquals(res.status, 200);
+      assertEquals(response.status, 200);
     });
-
-    const tickets = assignRouteCities(cities, dtickets.slice(0, 3));
-    const expectedTickets = {
-      tickets,
-      minimumPickup: 2,
-    };
-
-    assertEquals(r.status, 200);
-    assertEquals(await r.json(), expectedTickets);
-  });
-});
-
-describe("POST /game/player/destination-tickets", () => {
-  it("should response with 200", async () => {
-    const gameHandler = new GameManager();
-    gameHandler.createGame(
-      [
-        { name: "susahnth", id: "1" },
-        {
-          name: "susahnth",
-          id: "3",
-        },
-        { name: "susahnth", id: "2" },
-      ],
-      mockedReader,
-    );
-    const app: Hono = prepareApp(new Users(), gameHandler);
-    const res = await app.request("/game/player/destination-tickets", {
-      headers: { cookie: "user-ID=1;game-ID=1" },
-    });
-
-    const body = JSON.stringify({
-      selected: [{ id: "t9", from: "c5", to: "c10", points: 10 }],
-      rest: [],
-    });
-
-    const response = await app.request("/game/player/destination-tickets", {
-      method: "POST",
-      body,
-      headers: { cookie: "user-ID=1;game-ID=1" },
-    });
-
-    assertEquals(res.status, 200);
-    assertEquals(response.status, 200);
   });
 });
 
