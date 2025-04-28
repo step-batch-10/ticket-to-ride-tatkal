@@ -1,9 +1,7 @@
 import { assert, assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { USAMap } from "../src/models/USA_map.ts";
-import tickets from "../../ticket-to-ride-tatkal/json/tickets.json" with {
-  type: "json",
-};
+import tickets from "../json/tickets.json" with { type: "json" };
 import DestinationTickets from "../../ticket-to-ride-tatkal/src/models/tickets.ts";
 
 const mockedReader = (_path: string | URL): string => {

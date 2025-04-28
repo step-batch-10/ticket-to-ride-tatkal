@@ -33,33 +33,37 @@ const prepareApp = (users = new Users(), gameHandler = new GameManager()) => {
 };
 
 describe("Test for user login", () => {
-  it("should set cookie with the user id, when given a username", async () => {
-    const app: Hono = prepareApp();
-    const body = new FormData();
-    body.append("username", "player");
+  describe("when given a username", () => {
+    it("should set cookie with the user id", async () => {
+      const app: Hono = prepareApp();
+      const body = new FormData();
+      body.append("username", "player");
 
-    const r: Response = await app.request("/login", {
-      method: "POST",
-      body,
+      const r: Response = await app.request("/login", {
+        method: "POST",
+        body,
+      });
+
+      assertEquals(r.status, 303);
+      assertEquals(r.headers.get("location"), "/");
+      assert(r.headers.get("set-cookie")?.includes("user-ID=1"));
     });
-
-    assertEquals(r.status, 303);
-    assertEquals(r.headers.get("location"), "/");
-    assert(r.headers.get("set-cookie")?.includes("user-ID=1"));
   });
 });
 
 describe("Test for user logout", () => {
-  it("should remove user cookie & redirect to login, on logout", async () => {
-    const app: Hono = prepareApp();
+  describe("when user logs out", () => {
+    it("should remove user cookie & redirect to login", async () => {
+      const app: Hono = prepareApp();
 
-    const r: Response = await app.request("/logout", {
-      method: "DELETE",
-      headers: { "cookie": "user-ID=1" },
+      const r: Response = await app.request("/logout", {
+        method: "DELETE",
+        headers: { "cookie": "user-ID=1" },
+      });
+
+      assertEquals(r.status, 303);
+      assertEquals(r.headers.get("location"), "/login.html");
+      assertFalse(r.headers.get("set-cookie")?.includes("user-ID=1"));
     });
-
-    assertEquals(r.status, 303);
-    assertEquals(r.headers.get("location"), "/login.html");
-    assertFalse(r.headers.get("set-cookie")?.includes("user-ID=1"));
   });
 });

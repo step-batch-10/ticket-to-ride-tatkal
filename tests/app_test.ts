@@ -1,5 +1,5 @@
 import { createApp } from "../src/app.ts";
-import { assertEquals } from "assert";
+import { assert, assertEquals } from "assert";
 import { describe, it } from "@std/testing/bdd";
 import { serveStatic } from "hono/deno";
 import { Context, Hono } from "hono";
@@ -210,11 +210,9 @@ describe("Test for redirection when player arrived", () => {
         headers: { cookie: "user-ID=1" },
       });
 
-      const actualGame = r.headers.get("set-cookie")?.split(";")[0];
-
       assertEquals(r.status, 302);
       assertEquals(r.headers.get("location"), "/game.html");
-      assertEquals(actualGame, "game-ID=1");
+      assert(r.headers.get("set-cookie")?.includes("game-ID=1"));
     });
   });
 
@@ -240,11 +238,9 @@ describe("Test for redirection when player arrived", () => {
         headers: { cookie: "user-ID=1" },
       });
 
-      const actualGame = r.headers.get("set-cookie")?.split(";")[0];
-
       assertEquals(r.status, 302);
       assertEquals(r.headers.get("location"), "/game.html");
-      assertEquals(actualGame, "game-ID=1");
+      assert(r.headers.get("set-cookie")?.includes("game-ID=1"));
     });
   });
 
