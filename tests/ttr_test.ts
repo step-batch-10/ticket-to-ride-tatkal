@@ -92,10 +92,7 @@ export const prepareTTR = (tcc?: TrainCarCards) =>
     [
       { name: "susahnth", id: "1" },
       { name: "susahnth", id: "2" },
-      {
-        name: "susahnth",
-        id: "3",
-      },
+      { name: "susahnth", id: "3" },
     ],
     USAMap.getInstance(mockedReader),
     tcc,
@@ -355,5 +352,57 @@ describe("get minimumPickUp of destinationCards", () => {
 
     assertEquals(ttr.getState(), "playing");
     assertEquals(ttr.getMinimumPickUp(), 1);
+  });
+});
+
+describe("Calculate Total Route Scores", () => {
+  it("Should give 0 when the player doesnt claim any route", () => {
+    const ttr = prepareTTR();
+
+    assertEquals(ttr.calculateRouteScores("1"), 0);
+  });
+
+  it("Should give 4 when the player claim a 3 cars route", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    ttr.players[0].claimedRoutes = [{
+      "id": "r1",
+      "carId": "cr1",
+      "cityA": "c1",
+      "cityB": "c2",
+      "distance": 3,
+      "color": "gray",
+    }];
+
+    assertEquals(ttr.calculateRouteScores("1"), 4);
+  });
+
+  it("Should give sum of route scores when the player claim some routes", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    ttr.players[0].claimedRoutes = [{
+      "id": "r1",
+      "carId": "cr1",
+      "cityA": "c1",
+      "cityB": "c2",
+      "distance": 3,
+      "color": "gray",
+    }, {
+      "id": "r23",
+      "carId": "cr23",
+      "cityA": "c4",
+      "cityB": "c14",
+      "distance": 6,
+      "color": "orange",
+    }, {
+      "id": "r24",
+      "carId": "cr24",
+      "cityA": "c4",
+      "cityB": "c15",
+      "distance": 5,
+      "color": "red",
+    }];
+
+    assertEquals(ttr.calculateRouteScores("1"), 29);
   });
 });
