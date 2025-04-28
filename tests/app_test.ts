@@ -50,28 +50,33 @@ export const prepareGameApp = () => {
   return prepareApp(new Users(), gameHandler);
 };
 
-describe("User authentication", () => {
-  it("should redirect the user to login if user is not authenticated", async () => {
-    const app: Hono = prepareApp();
-    const r: Response = await app.request("/");
 
-    assertEquals(r.status, 303);
-    assertEquals(r.headers.get("location"), "/login.html");
-    await r.text();
-  });
-
-  it("should serve the home page for user, if user is authenticated", async () => {
-    const app: Hono = prepareApp();
-    const r: Response = await app.request("/", {
-      headers: { cookie: "user-ID=1" },
+describe("Test for User authentication", () => {
+  describe('when user is not authenticated', () => {
+    it("should redirect to login page", async () => {
+      const app: Hono = prepareApp();
+      const r: Response = await app.request("/");
+      
+      assertEquals(r.status, 303);
+      assertEquals(r.headers.get("location"), "/login.html");
+      await r.text();
     });
-
-    assertEquals(r.status, 200);
-    await r.text();
+  });
+  
+  describe('when user is authenticated', () => {
+    it("should redirect to login page", async () => {
+      const app: Hono = prepareApp();
+      const r: Response = await app.request("/", {
+        headers: { cookie: "user-ID=1" },
+      });
+      
+      assertEquals(r.status, 200);
+      await r.text();
+    });
   });
 });
 
-describe("addToWaitingQueue", () => {
+describe("Test for waiting page", () => {
   it("should redirect to waiting page", async () => {
     const user = new Users();
     user.add({ username: "Sarup" });
@@ -80,49 +85,115 @@ describe("addToWaitingQueue", () => {
       method: "POST",
       headers: { cookie: "user-ID=1" },
     });
+
     assertEquals(r.status, 302);
+    assertEquals(r.headers.get('location'), '/waiting_page.html');
   });
+});
 
-  it("should return empty waitingList", async () => {
-    const user = new Users();
-    user.add({ username: "dhanoj" });
-
-    const app: Hono = prepareApp(user);
-    const r: Response = await app.request("/waiting-list", {
-      headers: { cookie: "user-ID=1" },
+describe("Test for waiting list", () => {
+  describe('when no player is added to queue', () => {
+    it("should return empty waitingList", async () => {
+      const user = new Users();
+      user.add({ username: "dhanoj" });
+      
+      const app: Hono = prepareApp(user);
+      const r: Response = await app.request("/waiting-list", {
+        headers: { cookie: "user-ID=1" },
+      });
+      
+      assertEquals(r.status, 200);
+      assertEquals(await r.json(), []);
     });
-    assertEquals(r.status, 200);
-    assertEquals(await r.json(), []);
-  });
+  })
 
-  it("should response with status 200 and return waitingList", async () => {
-    const gameHandler = new GameManager();
-    gameHandler.createGame(
-      [
-        { name: "susahnth", id: "1" },
-        {
-          name: "susahnth",
-          id: "3",
-        },
-        { name: "susahnth", id: "2" },
-      ],
-      mockedReader,
-    );
-    gameHandler.addToQueue({ name: "dhanoj", id: "1" }, 3);
-    const user = new Users();
-    user.add({ username: "dhanoj" });
-
-    const app: Hono = prepareApp(user, gameHandler);
-
-    const r: Response = await app.request("/waiting-list", {
-      headers: { cookie: "user-ID=1" },
+  describe('when fewer than max players are added to queue', () => {
+    it("should return those many players in waitingList", async () => {
+      const gameHandler = new GameManager();
+      const players = [
+        { name: "sushanth", id: "1" },
+        { name: "sarup", id: "2" },
+      ];
+      gameHandler.createGame(players,mockedReader);  
+      gameHandler.addToQueue(players[0], 3);
+      gameHandler.addToQueue(players[1], 3);
+      
+      const users = new Users();
+      users.add({ username: "sushanth" });
+      users.add({ username: "sarup" });
+    
+      const app: Hono = prepareApp(users, gameHandler);
+      const r: Response = await app.request("/waiting-list", {
+        headers: { cookie: "user-ID=1" },
+      });
+    
+      const actual = await r.json();
+    
+      assertEquals(r.status, 200);
+      assertEquals(actual, ["sushanth", 'sarup']);
     });
+  })
 
-    const actual = await r.json();
+  describe('when only max players are added to queue', () => { 
+    it('should return the max players in waitingList', async () => {
+      const players = [
+        { name: "sushanth", id: "1" },
+        { name: "sarup", id: "2" },
+      ];
 
-    assertEquals(r.status, 200);
-    assertEquals(actual, ["dhanoj"]);
+      const gameHandler = new GameManager();
+      gameHandler.createGame(players,mockedReader);
+
+      const users = new Users();
+      const app: Hono = prepareApp(users, gameHandler);
+
+      gameHandler.addToQueue(players[0], 2);
+      gameHandler.addToQueue(players[1], 2);
+      
+      users.add({ username: "sushanth" });
+      users.add({ username: "sarup" });
+      
+      const r: Response = await app.request("/waiting-list", {
+        headers: { cookie: "user-ID=1" },
+      });
+      
+      assertEquals(r.status, 200);
+      assertEquals((await r.json()), ["sushanth", 'sarup']);
+    })
   });
+
+  describe('when more than max players are added to queue', () => {
+    it("should return only extra players in waitingList", async () => {
+      const players = [
+        { name: "sushanth", id: "1" },
+        { name: "sarup", id: "2" },
+        { name: "hari", id: "3" },
+      ];
+
+      const gameHandler = new GameManager();
+      gameHandler.createGame(players,mockedReader);
+
+      const users = new Users();
+      const app: Hono = prepareApp(users, gameHandler);
+
+      gameHandler.addToQueue(players[0], 2);
+      gameHandler.addToQueue(players[1], 2);
+      gameHandler.addToQueue(players[2], 2);
+      
+      users.add({ username: "sushanth" });
+      users.add({ username: "sarup" });
+      users.add({ username: "hari" });      
+      
+      const r: Response = await app.request("/waiting-list", {
+        headers: { cookie: "user-ID=3" },
+      });
+      
+      const newQueue = await r.json();
+
+      assertEquals(r.status, 200);
+      assertEquals(newQueue, ['hari']);
+    });
+  })
 });
 
 describe("usMap", () => {
