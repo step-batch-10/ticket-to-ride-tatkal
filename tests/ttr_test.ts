@@ -1,4 +1,4 @@
-import { assert, assertEquals, assertFalse } from "assert";
+import { assert, assertEquals, assertFalse, assertNotEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { Ttr } from "../src/models/ttr.ts";
 import { USAMap } from "../src/models/USA_map.ts";
@@ -16,83 +16,64 @@ const mockedReader = (_path: string | URL): string => {
   return "usa map";
 };
 
-describe("Ttr", () => {
-  describe("getMap", () => {
-    it("should return map", () => {
-      const ttr = Ttr.createTtr(
-        [
-          { name: "susahnth", id: "1" },
-          {
-            name: "susahnth",
-            id: "3",
-          },
-          { name: "susahnth", id: "2" },
-        ],
-        USAMap.getInstance(mockedReader),
-      );
+const prepareTTR = (tcc?: TrainCarCards) =>
+  Ttr.createTtr(
+    [
+      { name: "sushanth", id: "1" },
+      { name: "dhanoj", id: "2" },
+      { name: "sarup", id: "3" },
+    ],
+    USAMap.getInstance(mockedReader),
+    tcc,
+  );
+
+describe("Test for Ttr class", () => {
+  describe("when ask for map after a ttr game is created", () => {
+    it("should return map and the state is setup", () => {
+      const ttr = prepareTTR();
+
       assertEquals(ttr.getMap(), "usa map");
+      assertEquals(ttr.getState(), "setup");
     });
   });
 
-  describe("getFaceUpCards", () => {
+  describe("the total face up cards by getFaceUpCards method", () => {
     it("should return an array of length 5 faceup cards", () => {
-      const ttr = Ttr.createTtr(
-        [
-          { name: "susahnth", id: "1" },
-          {
-            name: "susahnth",
-            id: "3",
-          },
-          { name: "susahnth", id: "2" },
-        ],
-        USAMap.getInstance(mockedReader),
-      );
+      const ttr = prepareTTR();
       assertEquals(ttr.getFaceUpCards().length, 5);
     });
   });
 
-  describe("getPlayers", () => {
+  describe("the total players by getPlayers method", () => {
     it("should return an array players", () => {
-      const ttr = Ttr.createTtr(
-        [
-          { name: "susahnth", id: "1" },
-          { name: "susahnth", id: "3" },
-          {
-            name: "susahnth",
-            id: "2",
-          },
-        ],
-        USAMap.getInstance(mockedReader),
-      );
-      assertEquals(ttr.getPlayers().length, 3);
+      const ttr = prepareTTR();
+      const allPlayers = ttr.getPlayers();
+
+      assertEquals(allPlayers.length, 3);
+
+      assertEquals(allPlayers[0].getId(), "1");
+      assertEquals(allPlayers[1].getId(), "2");
+      assertEquals(allPlayers[2].getId(), "3");
     });
   });
 
-  describe("getDestinationTickets", () => {
-    it("should return 3 destination tickets", () => {
-      const ttr = Ttr.createTtr(
-        [
-          { name: "susahnth", id: "1" },
-          { name: "susahnth", id: "3" },
-          {
-            name: "susahnth",
-            id: "2",
-          },
-        ],
-        USAMap.getInstance(mockedReader),
-      );
+  describe("all players get 3 destination tickets to choose from", () => {
+    it("should return an array of length 3", () => {
+      const ttr = prepareTTR();
 
       assertEquals(ttr.getDestinationTickets().length, 3);
     });
   });
-});
 
-export const prepareTTR = (tcc?: TrainCarCards) =>
+const prepareTTR = (tcc?: TrainCarCards) =>
   Ttr.createTtr(
     [
       { name: "susahnth", id: "1" },
       { name: "susahnth", id: "2" },
-      { name: "susahnth", id: "3" },
+      {
+        name: "susahnth",
+        id: "3",
+      },
     ],
     USAMap.getInstance(mockedReader),
     tcc,
@@ -104,254 +85,243 @@ describe("getTopThree destination tickets", () => {
 
     const desTickets = ttr.getDestinationTickets();
 
-    assertEquals(desTickets, tickets.slice(0, 3));
-  });
-});
-
-describe("draw face up card", () => {
-  it("should return first face up card", () => {
-    const ttr = prepareTTR();
-    const faceUpCard = ttr.getFaceUpCards()[0];
-    const drawnCard = ttr.drawFaceUpCard(0);
-
-    assertEquals(faceUpCard, drawnCard);
+      assertEquals(desTickets, tickets.slice(0, 3));
+    });
   });
 
-  it("should return 4th face up card", () => {
-    const ttr = prepareTTR();
-    const faceUpCard = ttr.getFaceUpCards()[3];
-    const drawnCard = ttr.drawFaceUpCard(3);
+  describe("when face up card is drawn", () => {
+    it("should return that face up card", () => {
+      const ttr = prepareTTR();
 
-    assertEquals(faceUpCard, drawnCard);
-  });
-});
+      const faceUpCard1 = ttr.getFaceUpCards()[0];
+      const drawnCard1 = ttr.drawFaceUpCard(0);
 
-describe("get current player", () => {
-  it("it should return first player as current player", () => {
-    const ttr = prepareTTR();
+      assertEquals(faceUpCard1, drawnCard1);
 
-    assertEquals(ttr.getCurrentPlayer().getId(), "1");
-  });
-});
+      const faceUpCard2 = ttr.getFaceUpCards()[3];
+      const drawnCard2 = ttr.drawFaceUpCard(3);
 
-describe("change Player ", () => {
-  it("should change the current player to next player", () => {
-    const ttr = prepareTTR();
-
-    assertEquals(ttr.getCurrentPlayer().getId(), "1");
-    assert(ttr.changePlayer());
-    assertEquals(ttr.getCurrentPlayer().getId(), "2");
+      assertEquals(faceUpCard2, drawnCard2);
+    });
   });
 
-  it("should change the game state once all setup moves are done", () => {
-    const ttr = prepareTTR();
+  describe("when getCurrentPLayer is called", () => {
+    it("should return first player's id", () => {
+      const ttr = prepareTTR();
 
-    ttr.changePlayer();
-    ttr.changePlayer();
-    ttr.changePlayer();
-
-    assertEquals(ttr.getState(), "playing");
-  });
-});
-
-describe("can perform destionation tickets action", () => {
-  it("should allow to take destination tickets if it is the starrting action in the player's turn ", () => {
-    const ttr = prepareTTR();
-
-    assert(ttr.canGetDestTickets());
-    ttr.addDestinationTicketsTo("1", []);
-    assert(ttr.canGetDestTickets());
+      assertEquals(ttr.getCurrentPlayer().getId(), "1");
+    });
   });
 
-  it("should not allow to take destination tickets if any action is initiated in the player's turn ", () => {
-    const ttr = prepareTTR();
+  describe("when Player is changed", () => {
+    it("should give current player as next player's id", () => {
+      const ttr = prepareTTR();
 
-    assert(ttr.canGetDestTickets());
-    ttr.getDestinationTickets();
-    assertFalse(ttr.canGetDestTickets());
-    ttr.getFaceUpCards();
-    assertFalse(ttr.canGetDestTickets());
+      assertEquals(ttr.getCurrentPlayer().getId(), "1");
+      assert(ttr.changePlayer());
+      assertEquals(ttr.getCurrentPlayer().getId(), "2");
+    });
   });
 
-  it("should allow to choose destination tickets if the player has shown the 3 tickets", () => {
-    const ttr = prepareTTR();
+  describe("when all players are done with seup moves", () => {
+    it("should change the game state to playing", () => {
+      const ttr = prepareTTR();
 
-    ttr.getDestinationTickets();
-    assert(ttr.canChooseDestTickets());
+      assertEquals(ttr.getState(), "setup");
+
+      ttr.changePlayer();
+      ttr.changePlayer();
+      ttr.changePlayer();
+
+      assertEquals(ttr.getState(), "playing");
+    });
   });
 
-  it("should not allow to choose destination tickets if the player has not shown the 3 tickets", () => {
-    const ttr = prepareTTR();
+  describe("can get destionation tickets action", () => {
+    it("should allow if it is the starting action in the player's turn ", () => {
+      const ttr = prepareTTR();
+      assert(ttr.canGetDestTickets());
 
-    assertFalse(ttr.canChooseDestTickets());
-  });
-});
+      ttr.addDestinationTicketsTo("1", []);
+      assert(ttr.canGetDestTickets());
+    });
 
-describe("can draw train car cards", () => {
-  it("should allow the player to draw a card if the player chose to draw train car cards", () => {
-    const ttr = prepareTTR();
+    it("should not allow if an action is already initiated", () => {
+      const ttr = prepareTTR();
+      assert(ttr.canGetDestTickets());
 
-    assert(ttr.canDrawATCC());
-    ttr.drawFaceUpCard(1);
-    assert(ttr.canDrawATCC());
-    ttr.drawBlindCard();
-  });
+      ttr.getDestinationTickets();
+      assertFalse(ttr.canGetDestTickets());
 
-  it("should not allow the player to draw a locomotive if the player already drew one train car card", () => {
-    const tcc = new TrainCarCards();
-    tcc.drawFaceUp = (_: number): card => ({ color: "red" });
+      ttr.getFaceUpCards();
+      assertFalse(ttr.canGetDestTickets());
+    });
 
-    const ttr: Ttr = prepareTTR(tcc);
+    it("should allow if the player is shown the 3 tickets", () => {
+      const ttr = prepareTTR();
 
-    ttr.drawFaceUpCard(1);
-    assertFalse(ttr.canDrawATCC("locomotive"));
-  });
+      ttr.getDestinationTickets();
+      assert(ttr.canChooseDestTickets());
+    });
 
-  it("should not allow the player to draw a card if the player initiated any other action", () => {
-    const ttr = prepareTTR();
+    it("should not allow if the player is not shown the 3 tickets", () => {
+      const ttr = prepareTTR();
 
-    ttr.getDestinationTickets();
-    assertFalse(ttr.canDrawATCC());
-  });
-
-  it("should change the player if the player drew 2 train car cards", () => {
-    const tcc = new TrainCarCards();
-    tcc.drawFaceUp = (_: number): card => ({ color: "red" });
-    const ttr: Ttr = prepareTTR(tcc);
-
-    ttr.drawFaceUpCard(1);
-    ttr.drawFaceUpCard(2);
-    assert(ttr.canGetDestTickets());
-  });
-});
-
-describe("claimRoute ", () => {
-  it("should return true when route is claimed", () => {
-    // deno-lint-ignore no-explicit-any
-    const ttr: any = prepareTTR();
-    ttr.players[0].hand = [{ color: "red", count: 1 }, {
-      color: "locomotive",
-      count: 0,
-    }];
-
-    assert(ttr.claimRoute("1", "r2", "red"));
+      assertFalse(ttr.canChooseDestTickets());
+    });
   });
 
-  it("should return false when route is not claimed", () => {
-    // deno-lint-ignore no-explicit-any
-    const ttr: any = prepareTTR();
-    ttr.players[0].hand = [{ color: "red", count: 1 }, {
-      color: "locomotive",
-      count: 0,
-    }];
+  describe("can draw train car cards action", () => {
+    it("should allow the player if the player chose to draw train car cards", () => {
+      const ttr = prepareTTR();
+      assert(ttr.canDrawATCC());
 
-    assertFalse(ttr.claimRoute("1", "r25", "red"));
+      ttr.drawFaceUpCard(1);
+      assert(ttr.canDrawATCC());
+
+      assert(ttr.drawBlindCard());
+    });
+
+    it("should not allow the player to draw a locomotive if the player already drew one train car card", () => {
+      const tcc = new TrainCarCards();
+      tcc.drawFaceUp = (_: number): card => ({ color: "red" });
+
+      const ttr: Ttr = prepareTTR(tcc);
+
+      ttr.drawFaceUpCard(1);
+      assertFalse(ttr.canDrawATCC("locomotive"));
+    });
+
+    it("should not allow if the player initiated other action", () => {
+      const ttr = prepareTTR();
+
+      ttr.getDestinationTickets();
+      assertFalse(ttr.canDrawATCC());
+    });
+
+    it("should change the player if the player drew 2 train car cards", () => {
+      const tcc = new TrainCarCards();
+      tcc.drawFaceUp = (_: number): card => ({ color: "red" });
+      const ttr: Ttr = prepareTTR(tcc);
+
+      const initialPLayer = ttr.getCurrentPlayer();
+
+      ttr.drawFaceUpCard(1);
+      ttr.drawFaceUpCard(2);
+
+      assertNotEquals(initialPLayer, ttr.getCurrentPlayer());
+    });
   });
 
-  it("should return false when route color does'nt match with card color", () => {
-    // deno-lint-ignore no-explicit-any
-    const ttr: any = prepareTTR();
-    ttr.players[0].hand = [{ color: "yellow", count: 5 }, {
-      color: "locomotive",
-      count: 0,
-    }];
+  describe("when a route is successfully claimed", () => {
+    it("should return true", () => {
+      // deno-lint-ignore no-explicit-any
+      const ttr: any = prepareTTR();
+      ttr.players[0].hand = [
+        { color: "red", count: 1 },
+        { color: "locomotive", count: 0 },
+      ];
 
-    assertFalse(ttr.claimRoute("1", "r25", "yellow"));
+      assert(ttr.claimRoute("1", "r2", "red"));
+    });
+
+    it("should return true when card color is locomotive and the count is greater than distance", () => {
+      // deno-lint-ignore no-explicit-any
+      const ttr: any = prepareTTR();
+      ttr.players[0].hand = [{
+        color: "locomotive",
+        count: 10,
+      }];
+
+      assert(ttr.claimRoute("1", "r5", "locomotive"));
+    });
   });
 
-  it("should return true when card color is locomotive and the count is greater than distance", () => {
-    // deno-lint-ignore no-explicit-any
-    const ttr: any = prepareTTR();
-    ttr.players[0].hand = [{
-      color: "locomotive",
-      count: 4,
-    }];
+  describe("when a route is not claimed", () => {
+    it("should return false", () => {
+      // deno-lint-ignore no-explicit-any
+      const ttr: any = prepareTTR();
+      ttr.players[0].hand = [
+        { color: "red", count: 1 },
+        { color: "locomotive", count: 0 },
+      ];
 
-    assert(ttr.claimRoute("1", "r25", "locomotive"));
+      assertFalse(ttr.claimRoute("1", "r25", "red"));
+    });
+
+    it("should return false when route color does'nt match with card color", () => {
+      // deno-lint-ignore no-explicit-any
+      const ttr: any = prepareTTR();
+      ttr.players[0].hand = [{ color: "green", count: 5 }, {
+        color: "locomotive",
+        count: 0,
+      }];
+
+      assertFalse(ttr.claimRoute("1", "r5", "yellow"));
+    });
   });
 
-  it("should initiate the final turn if current player has less than 3 train cars", () => {
-    // deno-lint-ignore no-explicit-any
-    const ttr: any = prepareTTR();
-    ttr.players[0].hand = [{
-      color: "locomotive",
-      count: 4,
-    }];
-    ttr.currentPlayer.trainCars = 5;
-    ttr.claimRoute("1", "r25", "locomotive");
+  describe(
+    "when current player has less than 3 train cars after route claim ",
+    () => {
+      it("should initiate the final round", () => {
+        // deno-lint-ignore no-explicit-any
+        const ttr: any = prepareTTR();
+        assertEquals(ttr.getState(), "setup");
 
-    assertEquals(ttr.getState(), "finalTurn");
+        ttr.players[0].hand = [{
+          color: "locomotive",
+          count: 4,
+        }];
+
+        ttr.currentPlayer.trainCars = 5;
+        ttr.claimRoute("1", "r25", "locomotive");
+
+        assertEquals(ttr.getState(), "finalTurn");
+      });
+    },
+  );
+
+  describe("when the final turn is done", () => {
+    it("should end game", () => {
+      // deno-lint-ignore no-explicit-any
+      const ttr: any = prepareTTR();
+
+      ttr.players[0].hand = [{
+        color: "locomotive",
+        count: 4,
+      }];
+
+      ttr.currentPlayer.trainCars = 5;
+      ttr.claimRoute("1", "r25", "locomotive");
+
+      ttr.changePlayer();
+      ttr.changePlayer();
+      ttr.changePlayer();
+
+      assertEquals(ttr.getState(), "end");
+    });
   });
 
-  it("should not initiate the final turn if current player has more than 3 train cars", () => {
-    // deno-lint-ignore no-explicit-any
-    const ttr: any = prepareTTR();
-    ttr.players[0].hand = [{
-      color: "locomotive",
-      count: 4,
-    }];
-    ttr.currentPlayer.trainCars = 8;
-    ttr.claimRoute("1", "r25", "locomotive");
-    assertEquals(ttr.getState(), "setup");
+  describe("when the game is in setup phase", () => {
+    it("should return 2 for minimum pickup", () => {
+      const ttr = prepareTTR();
+
+      assertEquals(ttr.getState(), "setup");
+      assertEquals(ttr.getMinimumPickUp(), 2);
+    });
   });
 
-  it("should not initiate final turn again if its already initiated", () => {
-    // deno-lint-ignore no-explicit-any
-    const ttr: any = prepareTTR();
-    ttr.players[0].hand = [{
-      color: "locomotive",
-      count: 4,
-    }];
+  describe("when the game is in playing phase", () => {
+    it("should return 1 for minimum pickup", () => {
+      const ttr = prepareTTR();
+      ttr.changePlayer();
+      ttr.changePlayer();
+      ttr.changePlayer();
 
-    ttr.currentPlayer.trainCars = 5;
-
-    ttr.claimRoute("1", "r25", "locomotive");
-
-    ttr.changePlayer();
-
-    ttr.players[1].hand = [{
-      color: "locomotive",
-      count: 4,
-    }];
-
-    ttr.currentPlayer.trainCars = 3;
-    ttr.claimRoute("2", "r2", "locomotive");
-
-    assertEquals(ttr.finalTurnInitiator, "1");
-  });
-  it("should end game if final turn", () => {
-    // deno-lint-ignore no-explicit-any
-    const ttr: any = prepareTTR();
-    ttr.players[0].hand = [{
-      color: "locomotive",
-      count: 4,
-    }];
-
-    ttr.currentPlayer.trainCars = 5;
-
-    ttr.claimRoute("1", "r25", "locomotive");
-    ttr.changePlayer();
-    ttr.changePlayer();
-    ttr.changePlayer();
-
-    assertEquals(ttr.getState(), "end");
-  });
-});
-
-describe("get minimumPickUp of destinationCards", () => {
-  it("should return 2 during the setup phase", () => {
-    const ttr = prepareTTR();
-    assertEquals(ttr.getState(), "setup");
-    assertEquals(ttr.getMinimumPickUp(), 2);
-  });
-  it("should return 1 during the playing phase", () => {
-    const ttr = prepareTTR();
-    ttr.changePlayer();
-    ttr.changePlayer();
-    ttr.changePlayer();
-
-    assertEquals(ttr.getState(), "playing");
-    assertEquals(ttr.getMinimumPickUp(), 1);
+      assertEquals(ttr.getState(), "playing");
+      assertEquals(ttr.getMinimumPickUp(), 1);
+    });
   });
 });
 
