@@ -57,7 +57,7 @@ export class ScoreBoard {
     from: string,
     to: string,
     graph: Graph,
-    visited = new Set<string>()
+    visited = new Set<string>(),
   ) {
     if (graph.hasEdge(from, to)) return true;
     if (visited.has(from)) return false;
@@ -77,19 +77,18 @@ export class ScoreBoard {
   getCompletedDestination(player: Player) {
     const destinationTickets = player.getDestinationTickets();
     const graph = player.getGraph();
-    const tickets: Tickets[] = [];
 
     destinationTickets.forEach((ticket) => {
       const completed = this.isDestinationCompleted(
         ticket.from,
         ticket.to,
-        graph
+        graph,
       );
 
-      tickets.push({ ...ticket, completed });
+      this.tickets.push({ ...ticket, completed });
     });
 
-    return tickets;
+    return this.tickets;
   }
 
   private playerScorecard(player: Player) {

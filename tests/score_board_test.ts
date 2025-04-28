@@ -2,6 +2,7 @@ import { assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { ScoreBoard } from "../src/models/score_board.ts";
 import { prepareTTR } from "./ttr_test.ts";
+import { Player } from "../src/models/player.ts";
 import { RouteScore } from "../src/models/schemas.ts";
 
 describe("populate score board", () => {
@@ -73,5 +74,66 @@ describe("populate score board", () => {
 
     assertEquals(routeScores.length, 1);
     assertEquals(routeScores[0], expected);
+  });
+});
+
+describe("playerScoreCard", () => {
+  const route = {
+    id: "r1",
+    carId: "cr1",
+    cityA: "c1",
+    cityB: "c2",
+    distance: 3,
+    color: "gray",
+  };
+  const ticket = {
+    id: "1",
+    from: "c1",
+    to: "c3",
+    points: 2,
+  };
+
+  it("should return completed destination tickets", () => {
+    const player = new Player({ name: "sushanth", id: "1" }, "red");
+    const scoreboard = new ScoreBoard([player]);
+
+    player.addDestinationTickets([ticket]);
+    player.addEdge(route);
+    player.addEdge({ ...route, cityA: "c2", cityB: "c3" });
+    scoreboard.getCompletedDestination(player);
+
+    assertEquals(scoreboard.getDestinationTickets(), [
+      { ...ticket, completed: true },
+    ]);
+  });
+
+  it("should return completed destination tickets", () => {
+    const player = new Player({ name: "sushanth", id: "1" }, "red");
+    const scoreboard = new ScoreBoard([player]);
+
+    player.addDestinationTickets([{ ...ticket, to: "c4" }]);
+    player.addEdge(route);
+    player.addEdge({ ...route, cityA: "c1", cityB: "c3" });
+    player.addEdge({ ...route, cityA: "c2", cityB: "c4" });
+    scoreboard.getCompletedDestination(player);
+
+    assertEquals(scoreboard.getDestinationTickets(), [
+      { ...ticket, to: "c4", completed: true },
+    ]);
+  });
+
+  it("should return false when destination is incomplete.", () => {
+    const player = new Player({ name: "sushanth", id: "1" }, "red");
+    const scoreboard = new ScoreBoard([player]);
+
+    player.addDestinationTickets([{ ...ticket, to: "c4" }]);
+    player.addEdge(route);
+    player.addEdge({ ...route, cityA: "c1", cityB: "c3" });
+    // player.addEdge({ ...route, cityA: "c2", cityB: "c4" });
+    scoreboard.getCompletedDestination(player);
+
+    assertEquals(scoreboard.getDestinationTickets(), [
+      { ...ticket, to: "c4", completed: false },
+    ]);
   });
 });
