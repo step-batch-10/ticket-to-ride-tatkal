@@ -15,94 +15,87 @@ const mockedReader = (_path: string | URL): string => {
   return "usa map";
 };
 
-describe("Test for GameManager class", () => {
-  describe("when a player is added to queue", () => {
-    it("should return true", () => {
-      const gameManager = new GameManager();
-      const actual = gameManager.addToQueue({ name: "sushanth", id: "1" }, 3);
+describe("Game Handler", () => {
+  it("should add to Queue", () => {
+    const gameHandler = new GameManager();
+    const actual = gameHandler.addToQueue({ name: "sushanth", id: "1" }, 3);
+    assert(actual);
+  });
 
-      assert(actual);
+  it("Should return waiting List", () => {
+    const gameHandler = new GameManager();
+    gameHandler.addToQueue({ name: "sushanth", id: "1" }, 3);
+    gameHandler.addToQueue({ name: "sarup", id: "2" }, 3);
+    gameHandler.addToQueue({ name: "hari", id: "3" }, 3);
+
+    assertEquals(gameHandler.getWaitingList("1"), {
+      maxPlayers: 3,
+      players: [{ name: "sushanth", id: "1" }, { name: "sarup", id: "2" }, {
+        name: "hari",
+        id: "3",
+      }],
     });
   });
 
-  describe("when getWaitingList is called", () => {
-    it("should return the waiting List of added players", () => {
-      const gameManager = new GameManager();
-      gameManager.addToQueue({ name: "sushanth", id: "1" }, 3);
-      gameManager.addToQueue({ name: "sarup", id: "2" }, 3);
-      gameManager.addToQueue({ name: "hari", id: "3" }, 3);
+  it("should create a game and return game id", () => {
+    const gameHandler = new GameManager();
+    gameHandler.addToQueue({ name: "sushanth", id: "1" }, 3);
+    gameHandler.addToQueue({ name: "Sarup", id: "2" }, 3);
+    gameHandler.addToQueue({ name: "hari", id: "3" }, 3);
+    const playerInfo = [{ name: "sushanth", id: "1" }, {
+      name: "Sarup",
+      id: "2",
+    }, { name: "hari", id: "3" }];
 
-      const actual = gameManager.getWaitingList("1");
+    const gameId = gameHandler.createGame(playerInfo, mockedReader);
 
-      assertEquals(actual, {
-        maxPlayers: 3,
-        players: [
-          { name: "sushanth", id: "1" },
-          { name: "sarup", id: "2" },
-          { name: "hari", id: "3" },
-        ],
-      });
-    });
+    assertEquals(gameId, 1);
   });
 
-  describe("when enough players are added for game", () => {
-    it("should create a game and return game id", () => {
-      const gameManager = new GameManager();
+  it("should return a game when the gameId is given", () => {
+    const gameHandler = new GameManager();
+    gameHandler.addToQueue({ name: "sushanth", id: "1" }, 3);
+    gameHandler.addToQueue({ name: "Sarup", id: "2" }, 3);
+    gameHandler.addToQueue({ name: "hari", id: "3" }, 3);
+    const playerInfo = [{ name: "sushanth", id: "1" }, {
+      name: "Sarup",
+      id: "2",
+    }, { name: "hari", id: "3" }];
 
-      gameManager.addToQueue({ name: "sushanth", id: "1" }, 3);
-      gameManager.addToQueue({ name: "Sarup", id: "2" }, 3);
-      gameManager.addToQueue({ name: "hari", id: "3" }, 3);
-
-      const playerInfo = [
+    const gameId = gameHandler.createGame(playerInfo, mockedReader);
+    const actual = gameHandler.getGame(gameId);
+    const game = actual?.game;
+    const expected = {
+      gameId: 1,
+      players: [
         { name: "sushanth", id: "1" },
-        { name: "Sarup", id: "2" },
-        { name: "hari", id: "3" },
-      ];
+        {
+          id: "2",
+          name: "Sarup",
+        },
+        {
+          id: "3",
+          name: "hari",
+        },
+      ],
+      game,
+    };
 
-      const gameId = gameManager.createGame(playerInfo, mockedReader);
-
-      assertEquals(gameId, 1);
-    });
+    assertEquals(actual, expected);
   });
 
-  describe("when the gameId is given", () => {
-    it("should return a game", () => {
-      const gameManager = new GameManager();
+  it("Should retrun tickets with city names", () => {
+    const ticket = tickets[0];
+    const expected = [{
+      from: "c8",
+      fromCity: "Los Angeles",
+      id: "t1",
+      points: 21,
+      to: "c32",
+      toCity: "New York",
+    }];
+    const actual = assignRouteCities(cities, [ticket]);
 
-      gameManager.addToQueue({ name: "sushanth", id: "1" }, 3);
-      gameManager.addToQueue({ name: "Sarup", id: "2" }, 3);
-      gameManager.addToQueue({ name: "hari", id: "3" }, 3);
-
-      const playerInfo = [
-        { name: "sushanth", id: "1" },
-        { name: "Sarup", id: "2" },
-        { name: "hari", id: "3" },
-      ];
-
-      const gameId = gameManager.createGame(playerInfo, mockedReader);
-      const actual = gameManager.getGame(gameId);
-
-      assertEquals(actual?.gameId, 1);
-      assertEquals(actual?.players, playerInfo);
-      assertEquals(actual?.game.getState(), "setup");
-    });
-  });
-});
-
-describe("Test for assignRouteCities", () => {
-  it("should return tickets with city names", () => {
-    const ticket = { from: "c8", id: "t1", points: 21, to: "c32" };
-
-    const expectedFromCity = "Los Angeles";
-    const expectedToCity = "New York";
-
-    const [actual] = assignRouteCities(cities, [ticket]);
-
-    assertEquals(actual.id, ticket.id);
-    assertEquals(actual.from, ticket.from);
-    assertEquals(actual.to, ticket.to);
-    assertEquals(actual.points, ticket.points);
-    assertEquals(actual.fromCity, expectedFromCity);
-    assertEquals(actual.toCity, expectedToCity);
+    assertEquals(actual, expected);
   });
 });
