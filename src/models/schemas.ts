@@ -101,6 +101,17 @@ interface GameStatus {
   claimedRoutes: ClaimedRoute[];
 }
 
+type RouteScore = {
+  trackLength: number;
+  points: number;
+  count: number;
+  totalPoints: number;
+};
+
+type PlayerScore = {
+  routeScores: RouteScore[];
+};
+
 export type {
   ActivityLog,
   card,
@@ -113,8 +124,10 @@ export type {
   playerHandCard,
   PlayerInfo,
   PlayerResources,
+  PlayerScore,
   Reader,
   Route,
+  RouteScore,
   ServeStatic,
   SetContextArgs,
   svg,
