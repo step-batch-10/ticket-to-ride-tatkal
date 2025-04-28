@@ -9,6 +9,7 @@ describe("trainCarCards", () => {
       assertEquals(cards.getFaceUpCards().length, 5);
     });
   });
+
   describe("getFaceUpCards", () => {
     it("should return 5 faceup cards", () => {
       const cards = new TrainCarCards();

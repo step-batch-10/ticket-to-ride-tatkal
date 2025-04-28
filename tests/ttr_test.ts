@@ -216,6 +216,16 @@ describe("can draw train car cards", () => {
     ttr.getDestinationTickets();
     assertFalse(ttr.canDrawATCC());
   });
+
+  it("should change the player if the player drew 2 train car cards", () => {
+    const tcc = new TrainCarCards();
+    tcc.drawFaceUp = (_: number): card => ({ color: "red" });
+    const ttr: Ttr = prepareTTR(tcc);
+
+    ttr.drawFaceUpCard(1);
+    ttr.drawFaceUpCard(2);
+    assert(ttr.canGetDestTickets());
+  });
 });
 
 describe("claimRoute ", () => {
