@@ -1,8 +1,10 @@
 import { assert, assertEquals } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { USAMap } from "../src/models/USA_map.ts";
-import tickets from "../json/tickets.json" with { type: "json" };
-import DestinationTickets from "../../ticket-to-ride-tatkal/src/models/tickets.ts";
+import tickets from "../json/tickets.json" with {
+  type: "json",
+};
+import DestinationTickets from "../src/models/tickets.ts";
 
 const mockedReader = (_path: string | URL): string => {
   // deno-lint-ignore no-explicit-any

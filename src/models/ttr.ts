@@ -318,6 +318,7 @@ export class Ttr {
       carId: route.carId,
       playerColor: player.getColor(),
     });
+    player.addEdge(route);
 
     this.changePlayer();
   }

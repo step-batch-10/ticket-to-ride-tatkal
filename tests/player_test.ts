@@ -1,4 +1,4 @@
-import { assertEquals } from "assert";
+import { assert, assertEquals, assertFalse } from "assert";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { Player } from "../src/models/player.ts";
 
@@ -48,7 +48,7 @@ describe("Test for Player class", () => {
   describe("when player is adds some destination cards", () => {
     it("should return all tickets on getDestinationTickets()", () => {
       const player = new Player({ name: "susahnth", id: "1" }, "red");
-      const ticket = [{ "id": "t1", "from": "c8", "to": "c32", "points": 21 }];
+      const ticket = [{ id: "t1", from: "c8", to: "c32", points: 21 }];
 
       player.addDestinationTickets(ticket);
       const actual = player.getDestinationTickets();
@@ -98,16 +98,35 @@ describe("Test for Player class", () => {
     it("should add the claimed route to player's data", () => {
       const player = new Player({ name: "susahnth", id: "1" }, "red");
       const route = {
-        "id": "r1",
-        "carId": "cr1",
-        "cityA": "c1",
-        "cityB": "c2",
-        "distance": 3,
-        "color": "gray",
+        id: "r1",
+        carId: "cr1",
+        cityA: "c1",
+        cityB: "c2",
+        distance: 3,
+        color: "gray",
       };
 
       assertEquals(player.addClaimedRoute(route), 1);
       assertEquals(player.getClaimedRoutes(), [route]);
+    });
+  });
+
+  describe("Adds a edge in graph", () => {
+    it("should add a edge in graph when a route in claimed", () => {
+      const player = new Player({ name: "susahnth", id: "1" }, "red");
+      const route = {
+        id: "r1",
+        carId: "cr1",
+        cityA: "c1",
+        cityB: "c2",
+        distance: 3,
+        color: "gray",
+      };
+      player.addEdge(route);
+      const graph = player.getGraph();
+
+      assert(graph.hasEdge("c1", "c2"));
+      assertFalse(graph.hasEdge("c1", "c3"));
     });
   });
 });

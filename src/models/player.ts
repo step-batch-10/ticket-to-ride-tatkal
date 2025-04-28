@@ -1,4 +1,5 @@
 import { _ } from "https://cdn.skypack.dev/lodash";
+import { Graph } from "https://esm.sh/graphlib@2.1.8";
 import {
   card,
   playerHandCard,
@@ -16,6 +17,7 @@ export class Player {
   private destinationTickets: Tickets[];
   private color: string;
   private claimedRoutes: Route[];
+  private graph: Graph;
 
   constructor(PlayerDetails: PlayerInfo, color: string) {
     this.id = PlayerDetails.id;
@@ -25,6 +27,7 @@ export class Player {
     this.destinationTickets = [];
     this.claimedRoutes = [];
     this.color = color;
+    this.graph = new Graph();
   }
 
   private initializeHand() {
@@ -51,6 +54,14 @@ export class Player {
 
   addClaimedRoute(route: Route) {
     return this.claimedRoutes.push(route);
+  }
+
+  addEdge(route: Route) {
+    this.graph.setEdge(route.cityA, route.cityB, { distance: route.distance });
+  }
+
+  getGraph() {
+    return this.graph;
   }
 
   getClaimedRoutes() {
