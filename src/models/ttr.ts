@@ -102,6 +102,7 @@ export class Ttr {
       this.changePlayer();
       this.setCurrentAction(null);
       this.noOfTCCsCollected = 0;
+      return;
     }
 
     this.setCurrentAction("TCC");
