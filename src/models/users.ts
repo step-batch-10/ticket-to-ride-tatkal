@@ -18,7 +18,7 @@ class Users {
   }
 
   getInfo(id: string) {
-    return this.users.get(id);
+    return this.users.get(id) || {};
   }
   delete(id: string) {
     return this.users.delete(id);
