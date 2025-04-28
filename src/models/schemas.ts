@@ -64,6 +64,7 @@ interface Tickets {
   from: string;
   to: string;
   points: number;
+  completed?: boolean;
 }
 
 type playerHandCard = {
@@ -110,6 +111,7 @@ type RouteScore = {
 
 type PlayerScore = {
   routeScores: RouteScore[];
+  destinationTickets: Tickets[];
 };
 
 export type {

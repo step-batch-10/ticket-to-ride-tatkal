@@ -1,13 +1,16 @@
 import { _ } from "https://cdn.skypack.dev/lodash";
 import { Player } from "./player.ts";
-import { PlayerScore, Route, RouteScore } from "./schemas.ts";
+import { PlayerScore, Route, RouteScore, Tickets } from "./schemas.ts";
+import { Graph } from "https://esm.sh/@types/graphlib@2.1.12/index.d.ts";
 
 export class ScoreBoard {
   private players: Player[];
   private routeScores: Map<number, number>;
+  private tickets: Tickets[];
 
   constructor(players: Player[]) {
     this.players = players;
+    this.tickets = [];
     this.routeScores = new Map([
       [1, 1],
       [2, 2],
@@ -50,10 +53,50 @@ export class ScoreBoard {
     return routeScores;
   }
 
+  private isDestinationCompleted(
+    from: string,
+    to: string,
+    graph: Graph,
+    visited = new Set<string>()
+  ) {
+    if (graph.hasEdge(from, to)) return true;
+    if (visited.has(from)) return false;
+
+    visited.add(from);
+    const neighbors = graph.neighbors(from);
+
+    return neighbors.some((n: string) =>
+      this.isDestinationCompleted(n, to, graph, visited)
+    );
+  }
+
+  getDestinationTickets() {
+    return this.tickets;
+  }
+
+  getCompletedDestination(player: Player) {
+    const destinationTickets = player.getDestinationTickets();
+    const graph = player.getGraph();
+    const tickets: Tickets[] = [];
+
+    destinationTickets.forEach((ticket) => {
+      const completed = this.isDestinationCompleted(
+        ticket.from,
+        ticket.to,
+        graph
+      );
+
+      tickets.push({ ...ticket, completed });
+    });
+
+    return tickets;
+  }
+
   private playerScorecard(player: Player) {
     const claimedRoutes = player.getClaimedRoutes();
     const playerScore: PlayerScore = {
       routeScores: this.getRouteScores(claimedRoutes),
+      destinationTickets: this.getCompletedDestination(player),
     };
 
     return playerScore;

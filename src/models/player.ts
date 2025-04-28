@@ -27,7 +27,7 @@ export class Player {
     this.destinationTickets = [];
     this.claimedRoutes = [];
     this.color = color;
-    this.graph = new Graph();
+    this.graph = new Graph({ directed: false });
   }
 
   private initializeHand() {
