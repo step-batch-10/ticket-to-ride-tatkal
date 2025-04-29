@@ -106,7 +106,9 @@ const highlightRoute = (id) => {
 
 const selectHandCard = async (e) => {
   removeAllHighlightRoutes();
-  const color = e.currentTarget.classList[1];
+  const currentCard = e.currentTarget;
+  currentCard.classList.toggle("selected-train-card-hand");
+  const color = currentCard.classList[1];
   const claimableRoutes = await fetchJSON(
     `/game/player/claimable-routes?color=${color}`,
   );

@@ -248,10 +248,14 @@ body {
 }
 
 .hand-card:hover {
-  animation: drawcards 1s ease-in;
+  box-shadow: 0px 0px 10px black;
 }
 
-@keyframes drawcards {
+.selected-train-card-hand {
+  animation: handcards 1s ease-in;
+}
+
+@keyframes handcards {
   50% {
     transform: translateY(-10%);
   }
