@@ -232,11 +232,19 @@ body {
   position: relative;
   margin-left: -50px;
   z-index: 1;
-  transition: transform 0.7s ease;
+}
+
+@keyframes drawcards {
+  50% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
 }
 
 .hand-card:hover {
-  transform: translateY(-20%);
+  animation: drawcards 1s ease-in;
 }
 
 .train-car-card:first-child {
