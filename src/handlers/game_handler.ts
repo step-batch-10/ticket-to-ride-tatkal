@@ -1,5 +1,5 @@
 import { Context } from "hono";
-import { getCookie } from "hono/cookie";
+import { deleteCookie, getCookie } from "hono/cookie";
 import { Player } from "../models/player.ts";
 import { Ttr } from "../models/ttr.ts";
 import { City, Tickets } from "../models/schemas.ts";
@@ -119,4 +119,10 @@ export const fetchScoreCard = (context: Context) => {
   const scoreCard = game.getScoreCard();
 
   return context.json(scoreCard);
+};
+
+export const exitHandler = (context: Context) => {
+  deleteCookie(context, "game-ID");
+
+  return context.redirect("/");
 };

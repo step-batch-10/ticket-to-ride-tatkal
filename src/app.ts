@@ -14,6 +14,7 @@ import {
 import {
   drawCardFromDeck,
   drawFaceUpCard,
+  exitHandler,
   fetchClaimableRoute,
   fetchFaceUps,
   fetchGameStatus,
@@ -154,6 +155,7 @@ const gameRoutes = (): Hono => {
   game.get("/setup/destination-tickets", fetchTicketChoices);
   game.post("/setup/destination-tickets", updatePlayerTickets);
   game.get("/scoreCards", fetchScoreCard);
+  game.get("/exit", exitHandler);
   game.route("/player", playerRoutes());
 
   return game;
