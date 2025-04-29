@@ -145,6 +145,17 @@ describe("playerScoreCard", () => {
       { ...ticket, to: "c4", completed: false },
     ]);
   });
+
+  it("should return false when destination is incomplete.", () => {
+    const player = new Player({ name: "sushanth", id: "1" }, "red");
+    const scoreboard = new ScoreBoard([player]);
+
+    player.addDestinationTickets([{ ...ticket, to: "c4" }]);
+
+    assertEquals(scoreboard.populateScoreBoard()[0].destinationTickets, [
+      { ...ticket, to: "c4", completed: false },
+    ]);
+  });
 });
 
 describe("populate game score summary", () => {

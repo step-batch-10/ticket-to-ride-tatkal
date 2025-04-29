@@ -68,8 +68,9 @@ export class ScoreBoard {
 
     visited.add(from);
     const neighbors = graph.neighbors(from);
+    if (!neighbors) return false;
 
-    return neighbors?.some((n: string) =>
+    return neighbors.some((n: string) =>
       this.isDestinationCompleted(n, to, graph, visited)
     );
   }
