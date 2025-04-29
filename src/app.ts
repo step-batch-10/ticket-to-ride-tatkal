@@ -152,7 +152,7 @@ const gameRoutes = (): Hono => {
   game.get("/players-detail", fetchPlayerDetails);
   game.get("/setup/destination-tickets", fetchTicketChoices);
   game.post("/setup/destination-tickets", updatePlayerTickets);
-  game.get("/scoreCard", fetchScoreCard);
+  game.get("/scoreCards", fetchScoreCard);
   game.route("/player", playerRoutes());
 
   return game;

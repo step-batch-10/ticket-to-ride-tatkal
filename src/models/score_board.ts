@@ -6,11 +6,9 @@ import { Graph } from "https://esm.sh/@types/graphlib@2.1.12/index.d.ts";
 export class ScoreBoard {
   private players: Player[];
   private routeScores: Map<number, number>;
-  private tickets: Tickets[];
 
   constructor(players: Player[]) {
     this.players = players;
-    this.tickets = [];
     this.routeScores = new Map([
       [1, 1],
       [2, 2],
@@ -66,18 +64,15 @@ export class ScoreBoard {
     visited.add(from);
     const neighbors = graph.neighbors(from);
 
-    return neighbors.some((n: string) =>
+    return neighbors?.some((n: string) =>
       this.isDestinationCompleted(n, to, graph, visited)
     );
-  }
-
-  getDestinationTickets() {
-    return this.tickets;
   }
 
   private evaluateTickets(player: Player) {
     const destinationTickets = player.getDestinationTickets();
     const graph = player.getGraph();
+    const tickets: Tickets[] = [];
 
     destinationTickets.forEach((ticket) => {
       const completed = this.isDestinationCompleted(
@@ -86,10 +81,10 @@ export class ScoreBoard {
         graph,
       );
 
-      this.tickets.push({ ...ticket, completed });
+      tickets.push({ ...ticket, completed });
     });
 
-    return this.tickets;
+    return tickets;
   }
 
   private playerScorecard(player: Player) {

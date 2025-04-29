@@ -17,7 +17,7 @@ const createTable = (player) => {
   table.append(clone);
 };
 
-const styleOffcanvas = () => {
+const styleOffcanvas = (offcanvas) => {
   offcanvas.style.width = "50vw";
   offcanvas.style.height = "100vh";
   offcanvas.style.position = "absolute";
@@ -25,9 +25,9 @@ const styleOffcanvas = () => {
 };
 
 const setCanvas = (offcanvasClone, player) => {
-  offcanvas = offcanvasClone.querySelector("div");
+  const offcanvas = offcanvasClone.querySelector("div");
   offcanvas.setAttribute("id", `score-card-${player}`);
-  styleOffcanvas();
+  styleOffcanvas(offcanvas);
 };
 
 const createTicket = (offcanvasClone, types, temp) => {
@@ -49,9 +49,8 @@ const createOffcanvas = (player) => {
   document.querySelector("body").append(offcanvasClone);
 };
 
-const main = () => {
-  // const scoreBoard = fetchJSON("/game/scoreBoard");
-  const scorecards = fetchJSON("/game/scoreCards");
+const main = async () => {
+  const scorecards = await fetchJSON("/game/scoreCards");
   console.log(scorecards);
   createTable("dhanoj");
   createOffcanvas("dhanoj");

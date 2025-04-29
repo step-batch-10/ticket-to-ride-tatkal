@@ -956,7 +956,7 @@ describe("fetchClaimableRoute", () => {
 describe('GET "/game/scoreCard"', () => {
   it("should return the scoreCard json", async () => {
     const app = prepareGameApp();
-    const scorecard = await app.request("/game/scoreCard", {
+    const scorecard = await app.request("/game/scoreCards", {
       headers: { cookie: "user-ID=1;game-ID=1" },
     });
     const expected = [
