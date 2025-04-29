@@ -25,6 +25,7 @@ import {
   fetchScoreCard,
   fetchTicketChoices,
   handleClaimRoute,
+  playAgainHandler,
   updatePlayerTickets,
 } from "./handlers/game_handler.ts";
 import { Player } from "./models/player.ts";
@@ -158,6 +159,7 @@ const gameRoutes = (): Hono => {
   game.get("/scoreCards", fetchScoreCard);
   game.get("/scoreBoard", fetchScoreBoard);
   game.get("/exit", exitHandler);
+  game.post("/play-again", playAgainHandler);
   game.route("/player", playerRoutes());
 
   return game;

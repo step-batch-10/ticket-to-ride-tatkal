@@ -133,3 +133,9 @@ export const exitHandler = (context: Context) => {
 
   return context.redirect("/");
 };
+
+export const playAgainHandler = (context: Context) => {
+  deleteCookie(context, "game-ID");
+
+  return context.redirect("/wait", 307);
+};
