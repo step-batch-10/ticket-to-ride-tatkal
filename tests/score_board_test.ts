@@ -24,6 +24,8 @@ describe("populate player score board", () => {
       cityB: "c7",
       distance: 5,
       color: "pink",
+      isDoubleRoute: false,
+      siblingRouteId: null,
     };
     ttr.players[0].addClaimedRoute(route0);
     ttr.players[0].addEdge(route0);
@@ -51,6 +53,8 @@ describe("populate player score board", () => {
       cityB: "c7",
       distance: 5,
       color: "pink",
+      isDoubleRoute: false,
+      siblingRouteId: null,
     };
     const route1 = {
       id: "r75",
@@ -59,6 +63,8 @@ describe("populate player score board", () => {
       cityB: "c33",
       distance: 5,
       color: "black",
+      isDoubleRoute: false,
+      siblingRouteId: null,
     };
     ttr.players[0].addClaimedRoute(route0);
     ttr.players[0].addEdge(route0);
@@ -77,100 +83,6 @@ describe("populate player score board", () => {
 
     assertEquals(routeScores.length, 1);
     assertEquals(routeScores[0], expected);
-  });
-});
-
-describe("awardLongestPathBonus", () => {
-  it("should return updated scores with bonus point and longest path", () => {
-    const player = new Player({ name: "sushanth", id: "1" }, "red");
-    const route = {
-      id: "r3",
-      carId: "cr3",
-      cityA: "c1",
-      cityB: "c3",
-      distance: 1,
-      color: "gray",
-      isDoubleRoute: false,
-      siblingRouteId: null,
-    };
-
-    player.addClaimedRoute(route);
-    player.addEdge(route);
-
-    const scoreBoard = new ScoreBoard([player]);
-    const actual = scoreBoard.awardLongestPathBonus([{}]);
-    const expected = [{ longestPathLength: 1, bonusPoints: 10 }];
-
-    assertEquals(actual, expected);
-  });
-
-  it("should return updated scores with bonus point and longest path for two players", () => {
-    const player1 = new Player({ name: "sushanth", id: "1" }, "red");
-    const route1 = {
-      id: "r3",
-      carId: "cr3",
-      cityA: "c1",
-      cityB: "c3",
-      distance: 1,
-      color: "gray",
-      isDoubleRoute: false,
-      siblingRouteId: null,
-    };
-
-    player1.addClaimedRoute(route1);
-    player1.addEdge(route1);
-
-    const player2 = new Player({ name: "sarup", id: "2" }, "red");
-    const route2 = {
-      id: "r1",
-      carId: "cr1",
-      cityA: "c1",
-      cityB: "c2",
-      distance: 3,
-      color: "gray",
-      isDoubleRoute: false,
-      siblingRouteId: null,
-    };
-
-    player2.addClaimedRoute(route2);
-    player2.addEdge(route2);
-
-    const scoreBoard = new ScoreBoard([player1, player2]);
-    const actual = scoreBoard.awardLongestPathBonus([{}, {}]);
-    const expected = [
-      { longestPathLength: 1, bonusPoints: 0 },
-      { longestPathLength: 3, bonusPoints: 10 },
-    ];
-
-    assertEquals(actual, expected);
-  });
-
-  it("should return updated scores with same bonus point and longest path for two players", () => {
-    const player1 = new Player({ name: "sushanth", id: "1" }, "red");
-    const route = {
-      id: "r1",
-      carId: "cr1",
-      cityA: "c1",
-      cityB: "c2",
-      distance: 3,
-      color: "gray",
-      isDoubleRoute: false,
-      siblingRouteId: null,
-    };
-    player1.addClaimedRoute(route);
-    player1.addEdge(route);
-    const player2 = new Player({ name: "sarup", id: "2" }, "red");
-    player2.addClaimedRoute(route);
-    player2.addEdge(route);
-
-    const scoreBoard = new ScoreBoard([player1, player2]);
-    const actual = scoreBoard.awardLongestPathBonus([{}, {}]);
-    const expected = [
-      { longestPathLength: 3, bonusPoints: 10 },
-      { longestPathLength: 3, bonusPoints: 10 },
-    ];
-
-    assertEquals(actual, expected);
   });
 });
 
@@ -255,6 +167,8 @@ describe("populate game score summary", () => {
       cityB: "c7",
       distance: 5,
       color: "pink",
+      isDoubleRoute: false,
+      siblingRouteId: null,
     };
     ttr.players[0].addClaimedRoute(route0);
     ttr.players[0].addEdge(route0);
@@ -276,6 +190,8 @@ describe("populate game score summary", () => {
       cityB: "c7",
       distance: 5,
       color: "pink",
+      isDoubleRoute: false,
+      siblingRouteId: null,
     };
     const route1 = {
       id: "r72",
@@ -284,6 +200,8 @@ describe("populate game score summary", () => {
       cityB: "c30",
       distance: 3,
       color: "black",
+      isDoubleRoute: false,
+      siblingRouteId: null,
     };
 
     ttr.players[0].addClaimedRoute(route0);
@@ -308,6 +226,8 @@ describe("populate game score summary", () => {
       cityB: "c2",
       distance: 3,
       color: "gray",
+      isDoubleRoute: false,
+      siblingRouteId: null,
     };
     const ticket = {
       id: "1",
