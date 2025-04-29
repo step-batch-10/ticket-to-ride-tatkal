@@ -214,10 +214,12 @@ describe("Test for Ttr class", () => {
     it("should return true when card color is locomotive and the count is greater than distance", () => {
       // deno-lint-ignore no-explicit-any
       const ttr: any = prepareTTR();
-      ttr.players[0].hand = [{
-        color: "locomotive",
-        count: 10,
-      }];
+      ttr.players[0].hand = [
+        {
+          color: "locomotive",
+          count: 10,
+        },
+      ];
 
       assert(ttr.claimRoute("1", "r5", "locomotive"));
     });
@@ -238,45 +240,71 @@ describe("Test for Ttr class", () => {
     it("should return false when route color does'nt match with card color", () => {
       // deno-lint-ignore no-explicit-any
       const ttr: any = prepareTTR();
-      ttr.players[0].hand = [{ color: "green", count: 5 }, {
-        color: "locomotive",
-        count: 0,
-      }];
+      ttr.players[0].hand = [
+        { color: "green", count: 5 },
+        {
+          color: "locomotive",
+          count: 0,
+        },
+      ];
 
       assertFalse(ttr.claimRoute("1", "r5", "yellow"));
     });
+
+    it("should return false when one of the double route is already claimed", () => {
+      // deno-lint-ignore no-explicit-any
+      const ttr: any = prepareTTR();
+      ttr.players[0].hand = [
+        { color: "green", count: 1 },
+      ];
+      ttr.players[0].claimedRoutes = [
+        {
+          id: "r3",
+          carId: "cr3",
+          cityA: "c1",
+          cityB: "c3",
+          distance: 1,
+          color: "gray",
+          isDoubleRoute: true,
+          siblingRouteId: "r2",
+        },
+      ];
+
+      assertFalse(ttr.claimRoute("1", "r2", "green"));
+    });
   });
 
-  describe(
-    "when current player has less than 3 train cars after route claim ",
-    () => {
-      it("should initiate the final round", () => {
-        // deno-lint-ignore no-explicit-any
-        const ttr: any = prepareTTR();
-        assertEquals(ttr.getState(), "setup");
+  describe("when current player has less than 3 train cars after route claim ", () => {
+    it("should initiate the final round", () => {
+      // deno-lint-ignore no-explicit-any
+      const ttr: any = prepareTTR();
+      assertEquals(ttr.getState(), "setup");
 
-        ttr.players[0].hand = [{
+      ttr.players[0].hand = [
+        {
           color: "locomotive",
           count: 4,
-        }];
+        },
+      ];
 
-        ttr.currentPlayer.trainCars = 5;
-        ttr.claimRoute("1", "r25", "locomotive");
+      ttr.currentPlayer.trainCars = 5;
+      ttr.claimRoute("1", "r25", "locomotive");
 
-        assertEquals(ttr.getState(), "finalTurn");
-      });
-    },
-  );
+      assertEquals(ttr.getState(), "finalTurn");
+    });
+  });
 
   describe("when the final turn is done", () => {
     it("should end game", () => {
       // deno-lint-ignore no-explicit-any
       const ttr: any = prepareTTR();
 
-      ttr.players[0].hand = [{
-        color: "locomotive",
-        count: 4,
-      }];
+      ttr.players[0].hand = [
+        {
+          color: "locomotive",
+          count: 4,
+        },
+      ];
 
       ttr.currentPlayer.trainCars = 5;
       ttr.claimRoute("1", "r25", "locomotive");

@@ -104,6 +104,8 @@ describe("Test for Player class", () => {
         cityB: "c2",
         distance: 3,
         color: "gray",
+        isDoubleRoute: false,
+        siblingRouteId: null,
       };
 
       assertEquals(player.addClaimedRoute(route), 1);
@@ -121,6 +123,8 @@ describe("Test for Player class", () => {
         cityB: "c2",
         distance: 3,
         color: "gray",
+        isDoubleRoute: false,
+        siblingRouteId: null,
       };
       player.addEdge(route);
       const graph = player.getGraph();

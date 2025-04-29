@@ -776,6 +776,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r2",
+        isDoubleRoute: true,
+        siblingRouteId: "r3",
       },
       {
         carId: "cr3",
@@ -784,6 +786,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r3",
+        isDoubleRoute: true,
+        siblingRouteId: "r2",
       },
       {
         carId: "cr6",
@@ -792,6 +796,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r6",
+        isDoubleRoute: true,
+        siblingRouteId: "r7",
       },
       {
         carId: "cr7",
@@ -800,6 +806,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r7",
+        isDoubleRoute: true,
+        siblingRouteId: "r6",
       },
       {
         carId: "cr39",
@@ -808,6 +816,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r39",
+        isDoubleRoute: true,
+        siblingRouteId: "r40",
       },
       {
         carId: "cr40",
@@ -816,6 +826,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r40",
+        isDoubleRoute: true,
+        siblingRouteId: "r39",
       },
       {
         carId: "cr49",
@@ -824,6 +836,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r49",
+        isDoubleRoute: true,
+        siblingRouteId: "r50",
       },
       {
         carId: "cr50",
@@ -832,6 +846,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r50",
+        isDoubleRoute: true,
+        siblingRouteId: "r49",
       },
       {
         carId: "cr84",
@@ -840,6 +856,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r84",
+        isDoubleRoute: false,
+        siblingRouteId: null,
       },
     ];
 
@@ -882,6 +900,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r2",
+        isDoubleRoute: true,
+        siblingRouteId: "r3",
       },
       {
         carId: "cr3",
@@ -890,6 +910,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r3",
+        isDoubleRoute: true,
+        siblingRouteId: "r2",
       },
       {
         carId: "cr6",
@@ -898,6 +920,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r6",
+        isDoubleRoute: true,
+        siblingRouteId: "r7",
       },
       {
         carId: "cr7",
@@ -906,6 +930,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r7",
+        isDoubleRoute: true,
+        siblingRouteId: "r6",
       },
       {
         carId: "cr39",
@@ -914,6 +940,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r39",
+        isDoubleRoute: true,
+        siblingRouteId: "r40",
       },
       {
         carId: "cr40",
@@ -922,6 +950,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r40",
+        isDoubleRoute: true,
+        siblingRouteId: "r39",
       },
       {
         carId: "cr49",
@@ -930,6 +960,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r49",
+        isDoubleRoute: true,
+        siblingRouteId: "r50",
       },
       {
         carId: "cr50",
@@ -938,6 +970,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r50",
+        isDoubleRoute: true,
+        siblingRouteId: "r49",
       },
       {
         carId: "cr84",
@@ -946,6 +980,8 @@ describe("fetchClaimableRoute", () => {
         color: "gray",
         distance: 1,
         id: "r84",
+        isDoubleRoute: false,
+        siblingRouteId: null,
       },
     ];
 
