@@ -26,7 +26,8 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="./styles/score_board.css" />
+    <link rel="stylesheet" href="./score_board.css" />
+    <script src="./score_board.js" defer></script>
   </head>
   <body>
     <h1 class="headding">score_board</h1>
@@ -40,28 +41,108 @@
             <th>Score</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Dhanoj</td>
-            <td>6</td>
-            <td>77</td>
-            <td>120</td>
-          </tr>
-          <tr>
-            <td>Shusanth</td>
-            <td>5</td>
-            <td>44</td>
-            <td>95</td>
-          </tr>
-          <tr>
-            <td>Sarup</td>
-            <td>3</td>
-            <td>43</td>
-            <td>80</td>
-          </tr>
-        </tbody>
+        <tbody id="table-body"></tbody>
       </table>
     </div>
     <button type="button">Exit</button>
+
+    <template id="score-card-template">
+      <tr>
+        <td class="player-name">Dhanoj</td>
+        <td class="destination-count">6</td>
+        <td class="routes-count">77</td>
+        <td class="total-score">120</td>
+      </tr>
+    </template>
+
+    <template id="ticket-template">
+      <h2 class="heading">Completed Tickets</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Destinations</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="ticket-body">
+          <tr>
+            <td>LA -> NY</td>
+            <td>21</td>
+          </tr>
+        </tbody>
+      </table>
+    </template>
+
+    <!-- offcanvas -->
+    <template id="offcanvas-template">
+      <div class="offcanvas offcanvas-top">
+        <div class="offcanvas-header">
+          <h1 class="offcanvas-title">player-name</h1>
+          <button
+            type="button"
+            class="btn-close text-reset"
+            data-bs-dismiss="offcanvas"
+          >
+          </button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="completed-tickets"></div>
+
+          <div class="incompleted-tickets"></div>
+
+          <div class="route-score">
+            <h2 class="heading">Claimed Routes</h2>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Track Length</th>
+                  <th>Points/Route</th>
+                  <th>No.of Route</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody id="route-score-body">
+                <tr>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>8</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>8</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>7</td>
+                  <td>3</td>
+                  <td>21</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>10</td>
+                  <td>2</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </template>
   </body>
 </html>
