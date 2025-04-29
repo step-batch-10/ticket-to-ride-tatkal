@@ -1080,3 +1080,18 @@ describe("GET /game/exit", () => {
     assertFalse(response.headers.get("cookie")?.includes("game-ID=1"));
   });
 });
+
+describe("GET /game/play-again", () => {
+  it("should redirect to wait page and delete game cookie", async () => {
+    const app = prepareGameApp();
+
+    const response = await app.request("/game/play-again", {
+      method: "POST",
+      headers: { cookie: "user-ID=1; game-ID=1" },
+    });
+
+    assertEquals(response.status, 307);
+    assertEquals(response.headers.get("location"), "/wait");
+    assertFalse(response.headers.get("cookie")?.includes("game-ID=1"));
+  });
+});
