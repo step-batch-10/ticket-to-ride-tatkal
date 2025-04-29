@@ -345,7 +345,7 @@ describe("Test for Ttr class", () => {
         {
           bonusPoints: 10,
           destinationTickets: [],
-          longestPathLength: 0,
+          longestPath: 0,
           playerName: "sushanth",
           playerId: "1",
           routeScores: [],
@@ -353,7 +353,7 @@ describe("Test for Ttr class", () => {
         {
           bonusPoints: 10,
           destinationTickets: [],
-          longestPathLength: 0,
+          longestPath: 0,
           playerName: "dhanoj",
           playerId: "2",
           routeScores: [],
@@ -361,7 +361,7 @@ describe("Test for Ttr class", () => {
         {
           bonusPoints: 10,
           destinationTickets: [],
-          longestPathLength: 0,
+          longestPath: 0,
           playerName: "sarup",
           playerId: "3",
           routeScores: [],

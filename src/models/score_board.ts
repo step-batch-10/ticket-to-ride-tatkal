@@ -155,7 +155,7 @@ export class ScoreBoard {
 
     return playerScorecards.map((playerScore, index) => ({
       ...playerScore,
-      longestPathLength: playerLongestPaths[index],
+      longestPath: playerLongestPaths[index],
       bonusPoints: playerLongestPaths[index] === maxLength ? 10 : 0,
     }));
   }

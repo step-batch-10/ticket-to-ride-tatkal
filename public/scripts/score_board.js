@@ -46,12 +46,25 @@ const createRouteTable = (routeScores, offcanvas) => {
   return routeBody;
 };
 
+const AddBonusScore = (scoreCard, offcanvasClone) => {
+  const bonusPoint = scoreCard.bonusPoints;
+  if (bonusPoint) {
+    const bonusScore = offcanvasClone.querySelector(".longest-path");
+    const h1 = document.createElement("h1");
+    h1.innerText = "Longest path";
+    const p = document.createElement("p");
+    p.innerText = bonusPoint;
+    bonusScore.append(h1, p);
+  }
+};
+
 const setCanvas = (offcanvasClone, scoreCard) => {
   const player = offcanvasClone.querySelector(".offcanvas-title");
   player.innerText = scoreCard.playerName;
   const offcanvasDiv = offcanvasClone.querySelector("div");
   offcanvasDiv.setAttribute("id", `score-card-${scoreCard.playerName}`);
   styleOffcanvas(offcanvasDiv);
+  AddBonusScore(scoreCard, offcanvasClone);
   const routeScores = scoreCard.routeScores;
   createRouteTable(routeScores, offcanvasClone);
 };

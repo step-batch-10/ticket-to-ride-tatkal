@@ -999,7 +999,7 @@ describe('GET "/game/scoreCard"', () => {
       {
         bonusPoints: 10,
         destinationTickets: [],
-        longestPathLength: 0,
+        longestPath: 0,
         playerId: "1",
         playerName: "susahnth",
         routeScores: [],
@@ -1007,7 +1007,7 @@ describe('GET "/game/scoreCard"', () => {
       {
         bonusPoints: 10,
         destinationTickets: [],
-        longestPathLength: 0,
+        longestPath: 0,
         playerId: "2",
         playerName: "susahnth",
         routeScores: [],
@@ -1015,7 +1015,7 @@ describe('GET "/game/scoreCard"', () => {
       {
         bonusPoints: 10,
         destinationTickets: [],
-        longestPathLength: 0,
+        longestPath: 0,
         playerId: "3",
         playerName: "susahnth",
         routeScores: [],
