@@ -152,7 +152,7 @@ describe("playerScoreCard", () => {
 
     player.addDestinationTickets([{ ...ticket, to: "c4" }]);
 
-    assertEquals(scoreboard.populateScoreBoard()[0].destinationTickets, [
+    assertEquals(scoreboard.populatePlayerScoreBoard()[0].destinationTickets, [
       { ...ticket, to: "c4", completed: false },
     ]);
   });
