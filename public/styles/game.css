@@ -24,7 +24,9 @@ body {
 
 .panel {
   background-color: var(--bg2);
+  box-shadow: 0px 0px 10px black;
 }
+
 .ticket {
   width: 100px;
   height: 100px;
@@ -57,10 +59,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 0px 10px black;
 }
 
 .train-car-card:hover {
   animation: faceupcards 1s ease-in;
+  z-index: 20;
 }
 
 @keyframes faceupcards {
@@ -175,7 +179,7 @@ body {
 }
 
 .red {
-  background-color: rgba(255, 0, 0, 0.763);
+  background-color: rgba(255, 0, 0);
 }
 .blue {
   background-color: blue;
@@ -247,29 +251,12 @@ body {
   z-index: 1;
 }
 
-.hand-card:hover {
-  box-shadow: 0px 0px 10px black;
-}
-
-.selected-train-card-hand {
-  animation: handcards 1s ease-in;
-}
-
-@keyframes handcards {
-  50% {
-    transform: translateY(-10%);
-  }
-  100% {
-    transform: translateY(0%);
-  }
-}
-
 .train-car-card:first-child {
   margin-left: 0;
 }
 
 .img {
-  width: 90%;
+  width: 70px;
   aspect-ratio: 1;
 }
 

@@ -1,14 +1,42 @@
 body {
   font-family: "Raleway", serif;
-  background-color: hsl(27, 51%, 11%);
+  background-image: url("/assets/ttr-bg-2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.login-box {
+  opacity: 0;
+  transition: opacity 1s ease;
+  animation: fadeIn 1s 1s forwards; /* Delay fade-in after blur */
+}
+
+.login-box,
+welcome-box {
+  width: 450px;
+  margin-top: 10px;
+  border: 10px double brown;
+  background-color: #f7d09b;
+  border-radius: 20px;
+  color: rgb(92, 19, 19);
 }
 
 h1 {
-  color: #d4b26e;
+  color: rgb(92, 19, 19);
 }
 
 a {
-  color: #d4b26e;
+  /* color: #d4b26e; */
 }
 
 a:hover {
@@ -20,11 +48,11 @@ a:hover {
 }
 
 .bg-theme {
-  background-color: #2b1b0e;
+  /* background-color: #2b1b0e; */
 }
 
 .bg-gold {
-  background-color: #d4b26e;
+  /* background-color: #d4b26e; */
 }
 
 .text-brown {
@@ -36,14 +64,17 @@ a:hover {
 }
 
 .btn-gold {
-  background-color: #d4b26e;
+  background-color: #e5bc82;
   color: #3b2b1e;
   border: 2px solid #8b5e3c;
 }
 
-.btn-gold:hover {
-  background-color: #c2a155;
-  color: #3b2b1e;
+.btn-gold:hover,
+.btn-gold:focus {
+  /* background-color: #c2a155; */
+  background-color: #b57340;
+  border: 2px solid #754f32;
+  color: white;
 }
 
 .form-icon {
@@ -63,7 +94,7 @@ a:hover {
 }
 
 .input-gold {
-  background-color: #d4b26e;
+  background-color: #f7d09b;
   color: #3b2b1e;
   border: 2px solid #8b5e3c;
 }
