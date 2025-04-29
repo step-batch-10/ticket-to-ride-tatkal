@@ -1,6 +1,5 @@
 import { _ } from "https://cdn.skypack.dev/lodash";
 import {
-  ActivityLog,
   card,
   City,
   GameStatus,
@@ -24,7 +23,7 @@ export class Ttr {
   private currentPlayer: Player;
   private currentPlayerIndex: number;
   private moves: number;
-  private logs: ActivityLog[];
+  private logs: string[];
   private state: "setup" | "playing" | "finalTurn" | "end";
   private minimumPickup = 2;
   private finalTurnInitiator: string | null;
@@ -47,12 +46,8 @@ export class Ttr {
     this.finalTurnInitiator = null;
   }
 
-  private registerLog(from: string, assets: string | number) {
-    this.logs.unshift({
-      playerName: this.currentPlayer!.getName(),
-      from,
-      assets,
-    });
+  private registerLog(msg: string) {
+    this.logs.unshift(msg);
   }
 
   getMinimumPickUp() {
@@ -112,7 +107,9 @@ export class Ttr {
   drawFaceUpCard(index: number) {
     const drawnCard = this.trainCarCards.drawFaceUp(index);
 
-    this.registerLog("face up cards", drawnCard.color);
+    this.registerLog(
+      `${this.currentPlayer?.getName()} drawn ${drawnCard.color} color train car card`,
+    );
     this.currentPlayer.addCardsToHand(drawnCard);
     this.handleTCCAction(drawnCard.color);
 
@@ -121,7 +118,7 @@ export class Ttr {
 
   drawBlindCard() {
     const drawnCard = this.trainCarCards.drawCard()!;
-    this.registerLog("deck", "a");
+    this.registerLog(`${this.currentPlayer?.getName()} drawn 1 train car card`);
 
     this.currentPlayer.addCardsToHand(drawnCard);
     this.handleTCCAction();
@@ -181,7 +178,9 @@ export class Ttr {
   addDestinationTicketsTo(playerId: string, tickets: Tickets[]) {
     this.setCurrentAction(null);
     const currentPlayer = this.getPlayer(playerId);
-    this.registerLog("destination tickets", tickets.length);
+    this.registerLog(
+      `${currentPlayer?.getName()} drawn ${tickets.length} ticket(s)`,
+    );
     this.changePlayer();
     return currentPlayer?.addDestinationTickets(tickets);
   }
@@ -356,9 +355,9 @@ export class Ttr {
     if (!claimable) return false;
 
     this.updatePlayerAfterClaim(player, route, usedTrainCarCards);
-
+    this.registerLog(`${this.currentPlayer.getName()} claimed route`);
     if (player.getTrainCars() < 3 && !this.finalTurnInitiator) {
-      this.registerLog("claiming route", "final round");
+      this.registerLog(`${this.currentPlayer.getName()} initiated final turn`);
       this.initiateFinalTurn(player.getId());
     }
 
