@@ -5,7 +5,9 @@
     "cityA": "c1",
     "cityB": "c2",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r2",
@@ -13,7 +15,9 @@
     "cityA": "c1",
     "cityB": "c3",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r3"
   },
   {
     "id": "r3",
@@ -21,7 +25,9 @@
     "cityA": "c1",
     "cityB": "c3",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r2"
   },
   {
     "id": "r4",
@@ -29,7 +35,9 @@
     "cityA": "c3",
     "cityB": "c2",
     "distance": 4,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r5",
@@ -37,7 +45,9 @@
     "cityA": "c3",
     "cityB": "c4",
     "distance": 6,
-    "color": "yellow"
+    "color": "yellow",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r6",
@@ -45,7 +55,9 @@
     "cityA": "c3",
     "cityB": "c5",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r7"
   },
   {
     "id": "r7",
@@ -53,7 +65,9 @@
     "cityA": "c3",
     "cityB": "c5",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r6"
   },
   {
     "id": "r8",
@@ -61,7 +75,9 @@
     "cityA": "c5",
     "cityB": "c6",
     "distance": 6,
-    "color": "blue"
+    "color": "blue",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r9",
@@ -69,7 +85,9 @@
     "cityA": "c5",
     "cityB": "c7",
     "distance": 5,
-    "color": "green"
+    "color": "green",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r10"
   },
   {
     "id": "r10",
@@ -77,7 +95,9 @@
     "cityA": "c5",
     "cityB": "c7",
     "distance": 5,
-    "color": "pink"
+    "color": "pink",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r9"
   },
   {
     "id": "r11",
@@ -85,7 +105,9 @@
     "cityA": "c7",
     "cityB": "c6",
     "distance": 5,
-    "color": "orange"
+    "color": "orange",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r12"
   },
   {
     "id": "r12",
@@ -93,7 +115,9 @@
     "cityA": "c7",
     "cityB": "c6",
     "distance": 5,
-    "color": "white"
+    "color": "white",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r11"
   },
   {
     "id": "r13",
@@ -101,7 +125,9 @@
     "cityA": "c7",
     "cityB": "c8",
     "distance": 3,
-    "color": "yellow"
+    "color": "yellow",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r14"
   },
   {
     "id": "r14",
@@ -109,7 +135,9 @@
     "cityA": "c7",
     "cityB": "c8",
     "distance": 3,
-    "color": "pink"
+    "color": "pink",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r13"
   },
   {
     "id": "r15",
@@ -117,7 +145,9 @@
     "cityA": "c8",
     "cityB": "c9",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r16",
@@ -125,7 +155,9 @@
     "cityA": "c8",
     "cityB": "c10",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r17",
@@ -133,7 +165,9 @@
     "cityA": "c8",
     "cityB": "c11",
     "distance": 6,
-    "color": "black"
+    "color": "black",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r18",
@@ -141,7 +175,9 @@
     "cityA": "c2",
     "cityB": "c12",
     "distance": 6,
-    "color": "white"
+    "color": "white",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r19",
@@ -149,7 +185,9 @@
     "cityA": "c2",
     "cityB": "c4",
     "distance": 4,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r20",
@@ -157,7 +195,9 @@
     "cityA": "c4",
     "cityB": "c12",
     "distance": 4,
-    "color": "blue"
+    "color": "blue",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r21",
@@ -165,7 +205,9 @@
     "cityA": "c4",
     "cityB": "c6",
     "distance": 3,
-    "color": "pink"
+    "color": "pink",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r22",
@@ -173,7 +215,9 @@
     "cityA": "c4",
     "cityB": "c13",
     "distance": 4,
-    "color": "green"
+    "color": "green",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r23",
@@ -181,7 +225,9 @@
     "cityA": "c4",
     "cityB": "c14",
     "distance": 6,
-    "color": "orange"
+    "color": "orange",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r24",
@@ -189,7 +235,9 @@
     "cityA": "c4",
     "cityB": "c15",
     "distance": 5,
-    "color": "red"
+    "color": "red",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r25",
@@ -197,7 +245,9 @@
     "cityA": "c6",
     "cityB": "c13",
     "distance": 3,
-    "color": "red"
+    "color": "red",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r26"
   },
   {
     "id": "r26",
@@ -205,7 +255,9 @@
     "cityA": "c6",
     "cityB": "c13",
     "distance": 3,
-    "color": "yellow"
+    "color": "yellow",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r25"
   },
   {
     "id": "r27",
@@ -213,7 +265,9 @@
     "cityA": "c9",
     "cityB": "c6",
     "distance": 3,
-    "color": "orange"
+    "color": "orange",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r28",
@@ -221,7 +275,9 @@
     "cityA": "c10",
     "cityB": "c13",
     "distance": 5,
-    "color": "white"
+    "color": "white",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r29",
@@ -229,7 +285,9 @@
     "cityA": "c10",
     "cityB": "c25",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r30",
@@ -237,7 +295,9 @@
     "cityA": "c10",
     "cityB": "c11",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r31",
@@ -245,7 +305,9 @@
     "cityA": "c12",
     "cityB": "c16",
     "distance": 6,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r32",
@@ -253,7 +315,9 @@
     "cityA": "c12",
     "cityB": "c14",
     "distance": 4,
-    "color": "black"
+    "color": "black",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r33",
@@ -261,7 +325,9 @@
     "cityA": "c14",
     "cityB": "c16",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r34",
@@ -269,7 +335,9 @@
     "cityA": "c14",
     "cityB": "c17",
     "distance": 6,
-    "color": "pink"
+    "color": "pink",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r35",
@@ -277,7 +345,9 @@
     "cityA": "c14",
     "cityB": "c18",
     "distance": 3,
-    "color": "red"
+    "color": "red",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r36",
@@ -285,7 +355,9 @@
     "cityA": "c14",
     "cityB": "c15",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r37"
   },
   {
     "id": "r37",
@@ -293,7 +365,9 @@
     "cityA": "c14",
     "cityB": "c15",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r36"
   },
   {
     "id": "r38",
@@ -301,7 +375,9 @@
     "cityA": "c15",
     "cityB": "c18",
     "distance": 4,
-    "color": "blue"
+    "color": "blue",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r39",
@@ -309,7 +385,9 @@
     "cityA": "c15",
     "cityB": "c19",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r40"
   },
   {
     "id": "r40",
@@ -317,7 +395,9 @@
     "cityA": "c15",
     "cityB": "c19",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r39"
   },
   {
     "id": "r41",
@@ -325,7 +405,9 @@
     "cityA": "c19",
     "cityB": "c20",
     "distance": 2,
-    "color": "blue"
+    "color": "blue",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r42"
   },
   {
     "id": "r42",
@@ -333,7 +415,9 @@
     "cityA": "c19",
     "cityB": "c20",
     "distance": 2,
-    "color": "pink"
+    "color": "pink",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r41"
   },
   {
     "id": "r43",
@@ -341,7 +425,9 @@
     "cityA": "c19",
     "cityB": "c21",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r44"
   },
   {
     "id": "r44",
@@ -349,7 +435,9 @@
     "cityA": "c19",
     "cityB": "c21",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r43"
   },
   {
     "id": "r45",
@@ -357,7 +445,9 @@
     "cityA": "c21",
     "cityB": "c22",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r46",
@@ -365,7 +455,9 @@
     "cityA": "c21",
     "cityB": "c23",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r47"
   },
   {
     "id": "r47",
@@ -373,7 +465,9 @@
     "cityA": "c21",
     "cityB": "c23",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r46"
   },
   {
     "id": "r48",
@@ -381,7 +475,9 @@
     "cityA": "c23",
     "cityB": "c22",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r49",
@@ -389,7 +485,9 @@
     "cityA": "c23",
     "cityB": "c24",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r50"
   },
   {
     "id": "r50",
@@ -397,7 +495,9 @@
     "cityA": "c23",
     "cityB": "c24",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r49"
   },
   {
     "id": "r51",
@@ -405,7 +505,9 @@
     "cityA": "c24",
     "cityB": "c26",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r52",
@@ -413,7 +515,9 @@
     "cityA": "c11",
     "cityB": "c24",
     "distance": 6,
-    "color": "green"
+    "color": "green",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r53",
@@ -421,7 +525,9 @@
     "cityA": "c11",
     "cityB": "c23",
     "distance": 4,
-    "color": "red"
+    "color": "red",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r54",
@@ -429,7 +535,9 @@
     "cityA": "c11",
     "cityB": "c21",
     "distance": 5,
-    "color": "yellow"
+    "color": "yellow",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r55",
@@ -437,7 +545,9 @@
     "cityA": "c11",
     "cityB": "c25",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r56",
@@ -445,7 +555,9 @@
     "cityA": "c25",
     "cityB": "c21",
     "distance": 3,
-    "color": "blue"
+    "color": "blue",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r57",
@@ -453,7 +565,9 @@
     "cityA": "c21",
     "cityB": "c13",
     "distance": 4,
-    "color": "red"
+    "color": "red",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r58",
@@ -461,7 +575,9 @@
     "cityA": "c25",
     "cityB": "c13",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r59",
@@ -469,7 +585,9 @@
     "cityA": "c13",
     "cityB": "c19",
     "distance": 4,
-    "color": "black"
+    "color": "black",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r60"
   },
   {
     "id": "r60",
@@ -477,7 +595,9 @@
     "cityA": "c13",
     "cityB": "c19",
     "distance": 4,
-    "color": "orange"
+    "color": "orange",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r59"
   },
   {
     "id": "r61",
@@ -485,7 +605,9 @@
     "cityA": "c13",
     "cityB": "c15",
     "distance": 4,
-    "color": "pink"
+    "color": "pink",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r62",
@@ -493,7 +615,9 @@
     "cityA": "c26",
     "cityB": "c27",
     "distance": 6,
-    "color": "red"
+    "color": "red",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r63",
@@ -501,7 +625,9 @@
     "cityA": "c26",
     "cityB": "c28",
     "distance": 4,
-    "color": "orange"
+    "color": "orange",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r64"
   },
   {
     "id": "r64",
@@ -509,7 +635,9 @@
     "cityA": "c26",
     "cityB": "c28",
     "distance": 4,
-    "color": "yellow"
+    "color": "yellow",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r63"
   },
   {
     "id": "r65",
@@ -517,7 +645,9 @@
     "cityA": "c26",
     "cityB": "c22",
     "distance": 3,
-    "color": "green"
+    "color": "green",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r66",
@@ -525,7 +655,9 @@
     "cityA": "c22",
     "cityB": "c29",
     "distance": 3,
-    "color": "white"
+    "color": "white",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r67",
@@ -533,7 +665,9 @@
     "cityA": "c22",
     "cityB": "c20",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r68",
@@ -541,7 +675,9 @@
     "cityA": "c20",
     "cityB": "c29",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r69",
@@ -549,7 +685,9 @@
     "cityA": "c20",
     "cityB": "c30",
     "distance": 5,
-    "color": "green"
+    "color": "green",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r70",
@@ -557,7 +695,9 @@
     "cityA": "c20",
     "cityB": "c18",
     "distance": 2,
-    "color": "green"
+    "color": "green",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r71"
   },
   {
     "id": "r71",
@@ -565,7 +705,9 @@
     "cityA": "c20",
     "cityB": "c18",
     "distance": 2,
-    "color": "white"
+    "color": "white",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r70"
   },
   {
     "id": "r72",
@@ -573,7 +715,9 @@
     "cityA": "c18",
     "cityB": "c30",
     "distance": 3,
-    "color": "black"
+    "color": "black",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r73"
   },
   {
     "id": "r73",
@@ -581,7 +725,9 @@
     "cityA": "c18",
     "cityB": "c30",
     "distance": 3,
-    "color": "orange"
+    "color": "orange",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r72"
   },
   {
     "id": "r74",
@@ -589,7 +735,9 @@
     "cityA": "c18",
     "cityB": "c17",
     "distance": 4,
-    "color": "white"
+    "color": "white",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r75",
@@ -597,7 +745,9 @@
     "cityA": "c16",
     "cityB": "c33",
     "distance": 5,
-    "color": "black"
+    "color": "black",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r76",
@@ -605,7 +755,9 @@
     "cityA": "c17",
     "cityB": "c33",
     "distance": 3,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r77",
@@ -613,7 +765,9 @@
     "cityA": "c16",
     "cityB": "c17",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r78",
@@ -621,7 +775,9 @@
     "cityA": "c17",
     "cityB": "c30",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r79",
@@ -629,7 +785,9 @@
     "cityA": "c30",
     "cityB": "c32",
     "distance": 2,
-    "color": "white"
+    "color": "white",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r80"
   },
   {
     "id": "r80",
@@ -637,7 +795,9 @@
     "cityA": "c30",
     "cityB": "c32",
     "distance": 2,
-    "color": "green"
+    "color": "green",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r79"
   },
   {
     "id": "r81",
@@ -645,7 +805,9 @@
     "cityA": "c30",
     "cityB": "c31",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r82",
@@ -653,7 +815,9 @@
     "cityA": "c30",
     "cityB": "c36",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r83",
@@ -661,7 +825,9 @@
     "cityA": "c29",
     "cityB": "c36",
     "distance": 3,
-    "color": "black"
+    "color": "black",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r84",
@@ -669,7 +835,9 @@
     "cityA": "c29",
     "cityB": "c28",
     "distance": 1,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r85",
@@ -677,7 +845,9 @@
     "cityA": "c29",
     "cityB": "c30",
     "distance": 4,
-    "color": "yellow"
+    "color": "yellow",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r86",
@@ -685,7 +855,9 @@
     "cityA": "c28",
     "cityB": "c27",
     "distance": 5,
-    "color": "blue"
+    "color": "blue",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r87",
@@ -693,7 +865,9 @@
     "cityA": "c28",
     "cityB": "c35",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r88",
@@ -701,7 +875,9 @@
     "cityA": "c28",
     "cityB": "c36",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r89"
   },
   {
     "id": "r89",
@@ -709,7 +885,9 @@
     "cityA": "c28",
     "cityB": "c36",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r88"
   },
   {
     "id": "r90",
@@ -717,7 +895,9 @@
     "cityA": "c35",
     "cityB": "c27",
     "distance": 4,
-    "color": "pink"
+    "color": "pink",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r91",
@@ -725,7 +905,9 @@
     "cityA": "c36",
     "cityB": "c35",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r92",
@@ -733,7 +915,9 @@
     "cityA": "c36",
     "cityB": "c31",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r93"
   },
   {
     "id": "r93",
@@ -741,7 +925,9 @@
     "cityA": "c36",
     "cityB": "c31",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r92"
   },
   {
     "id": "r94",
@@ -749,7 +935,9 @@
     "cityA": "c31",
     "cityB": "c32",
     "distance": 2,
-    "color": "orange"
+    "color": "orange",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r95"
   },
   {
     "id": "r95",
@@ -757,7 +945,9 @@
     "cityA": "c31",
     "cityB": "c32",
     "distance": 2,
-    "color": "black"
+    "color": "black",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r94"
   },
   {
     "id": "r96",
@@ -765,7 +955,9 @@
     "cityA": "c32",
     "cityB": "c34",
     "distance": 2,
-    "color": "yellow"
+    "color": "yellow",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r97"
   },
   {
     "id": "r97",
@@ -773,7 +965,9 @@
     "cityA": "c32",
     "cityB": "c34",
     "distance": 2,
-    "color": "red"
+    "color": "red",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r96"
   },
   {
     "id": "r98",
@@ -781,7 +975,9 @@
     "cityA": "c32",
     "cityB": "c33",
     "distance": 3,
-    "color": "blue"
+    "color": "blue",
+    "isDoubleRoute": false,
+    "siblingRouteId": null
   },
   {
     "id": "r99",
@@ -789,7 +985,9 @@
     "cityA": "c34",
     "cityB": "c33",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r100"
   },
   {
     "id": "r100",
@@ -797,6 +995,8 @@
     "cityA": "c34",
     "cityB": "c33",
     "distance": 2,
-    "color": "gray"
+    "color": "gray",
+    "isDoubleRoute": true,
+    "siblingRouteId": "r99"
   }
 ]
