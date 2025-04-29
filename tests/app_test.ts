@@ -961,19 +961,25 @@ describe('GET "/game/scoreCard"', () => {
     });
     const expected = [
       {
+        bonusPoints: 10,
         destinationTickets: [],
+        longestPathLength: 0,
         playerId: "1",
         playerName: "susahnth",
         routeScores: [],
       },
       {
+        bonusPoints: 10,
         destinationTickets: [],
+        longestPathLength: 0,
         playerId: "2",
         playerName: "susahnth",
         routeScores: [],
       },
       {
+        bonusPoints: 10,
         destinationTickets: [],
+        longestPathLength: 0,
         playerId: "3",
         playerName: "susahnth",
         routeScores: [],

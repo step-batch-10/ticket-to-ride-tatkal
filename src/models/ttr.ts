@@ -359,7 +359,7 @@ export class Ttr {
 
   getScoreCard() {
     const scoreBoard = new ScoreBoard(this.players);
-    const scoreCard = scoreBoard.populateScoreBoard();
+    const scoreCard = scoreBoard.populatePlayerScoreBoard();
 
     return scoreCard;
   }

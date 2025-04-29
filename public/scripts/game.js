@@ -84,7 +84,6 @@ const getClaimRouteInstance = (() => {
 
 const removeAllHighlightRoutes = () => {
   const highlightedRoutes = document.querySelectorAll(".highlight-routes");
-  console.log(highlightedRoutes);
 
   highlightedRoutes.forEach((r) => {
     r.classList.toggle("highlight-routes");

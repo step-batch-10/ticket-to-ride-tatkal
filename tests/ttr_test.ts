@@ -315,19 +315,25 @@ describe("Test for Ttr class", () => {
       const ttr = prepareTTR();
       const expected = [
         {
+          bonusPoints: 10,
           destinationTickets: [],
+          longestPathLength: 0,
           playerName: "sushanth",
           playerId: "1",
           routeScores: [],
         },
         {
+          bonusPoints: 10,
           destinationTickets: [],
+          longestPathLength: 0,
           playerName: "dhanoj",
           playerId: "2",
           routeScores: [],
         },
         {
+          bonusPoints: 10,
           destinationTickets: [],
+          longestPathLength: 0,
           playerName: "sarup",
           playerId: "3",
           routeScores: [],
