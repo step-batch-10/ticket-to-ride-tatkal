@@ -14,6 +14,7 @@ import { TrainCarCards } from "./train_car_cards.ts";
 import DestinationTickets from "./tickets.ts";
 import { Player } from "./player.ts";
 import { USAMap } from "./USA_map.ts";
+import { ScoreBoard } from "./score_board.ts";
 
 export class Ttr {
   private players: Player[];
@@ -354,5 +355,12 @@ export class Ttr {
     });
 
     return claimable;
+  }
+
+  getScoreCard() {
+    const scoreBoard = new ScoreBoard(this.players);
+    const scoreCard = scoreBoard.populateScoreBoard();
+
+    return scoreCard;
   }
 }

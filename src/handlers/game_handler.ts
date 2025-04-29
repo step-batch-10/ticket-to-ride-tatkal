@@ -113,3 +113,10 @@ export const fetchClaimableRoute = (context: Context) => {
 
   return context.json(claimableRoutes);
 };
+
+export const fetchScoreCard = (context: Context) => {
+  const game = context.get("game");
+  const scoreCard = game.getScoreCard();
+
+  return context.json(scoreCard);
+};

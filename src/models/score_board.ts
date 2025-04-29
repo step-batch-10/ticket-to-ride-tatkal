@@ -75,7 +75,7 @@ export class ScoreBoard {
     return this.tickets;
   }
 
-  getCompletedDestination(player: Player) {
+  private evaluateTickets(player: Player) {
     const destinationTickets = player.getDestinationTickets();
     const graph = player.getGraph();
 
@@ -97,7 +97,7 @@ export class ScoreBoard {
       playerId: player.getId(),
       playerName: player.getName(),
       routeScores: this.getRouteScores(player),
-      destinationTickets: this.getCompletedDestination(player),
+      destinationTickets: this.evaluateTickets(player),
     };
 
     return playerScore;
