@@ -126,6 +126,7 @@ type GameScoreSummary = {
   destinationScore: number;
   totalScore: number;
   bonusPoints?: number;
+  noOfCompletedTickets: number;
 };
 
 export type {

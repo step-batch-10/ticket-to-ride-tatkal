@@ -169,11 +169,16 @@ export class ScoreBoard {
     return completed.reduce((sum, { points }) => sum + points, 0);
   }
 
+  private getNoOfCompTickets(destinationTickets: Tickets[]) {
+    return destinationTickets.filter(({ completed }) => completed).length;
+  }
+
   private createGameScoreSummary(playerScoreCard: PlayerScore) {
     const { playerName, routeScores, destinationTickets, bonusPoints } =
       playerScoreCard;
     const routeScore = this.getTotalRouteScores(routeScores);
     const destinationScore = this.getTotalDestinationScores(destinationTickets);
+    const noOfCompletedTickets = this.getNoOfCompTickets(destinationTickets);
     const totalScore = routeScore + destinationScore + bonusPoints!;
 
     const gameScoreSummary: GameScoreSummary = {
@@ -182,6 +187,7 @@ export class ScoreBoard {
       destinationScore,
       totalScore,
       bonusPoints,
+      noOfCompletedTickets,
     };
 
     return gameScoreSummary;
@@ -201,5 +207,19 @@ export class ScoreBoard {
     return playerScoreCards.map((scoreboard) =>
       this.createGameScoreSummary(scoreboard)
     );
+  }
+
+  getWinner() {
+    const gameScoreSummary = this.populateGameScoreSummary();
+    const highestScore = _.maxBy(gameScoreSummary, "totalScore").totalScore;
+    const highScorers = gameScoreSummary.filter(
+      (player) => player.totalScore === highestScore,
+    );
+
+    if (highScorers.length === 1) return highScorers[0].playerName;
+
+    const winner = _.maxBy(highScorers, "noOfCompletedTickets");
+
+    return winner.playerName;
   }
 }
