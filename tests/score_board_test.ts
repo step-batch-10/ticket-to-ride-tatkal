@@ -307,12 +307,12 @@ describe("getWinner", () => {
     };
 
     const route1 = {
-      "id": "r2",
-      "carId": "cr2",
-      "cityA": "c1",
-      "cityB": "c3",
-      "distance": 1,
-      "color": "gray",
+      id: "r2",
+      carId: "cr2",
+      cityA: "c1",
+      cityB: "c3",
+      distance: 1,
+      color: "gray",
     };
 
     const ticket = {
@@ -334,5 +334,35 @@ describe("getWinner", () => {
     const winner: string = scoreBoard.getWinner();
 
     assertEquals(winner, "dhanoj");
+  });
+
+  it("should give the total score negative if there is incomplete destination ticket", () => {
+    const route = {
+      id: "r1",
+      carId: "cr1",
+      cityA: "c1",
+      cityB: "c2",
+      distance: 3,
+      color: "gray",
+      isDoubleRoute: false,
+      siblingRouteId: null,
+    };
+
+    const ticket = {
+      id: "1",
+      from: "c1",
+      to: "c3",
+      points: 2,
+    };
+
+    const player = new Player({ name: "sushanth", id: "1" }, "red");
+    const scoreboard = new ScoreBoard([player]);
+
+    player.addDestinationTickets([{ ...ticket, to: "c4" }]);
+    player.addEdge(route);
+    player.addEdge({ ...route, cityA: "c1", cityB: "c3" });
+    const gameScoreSummary = scoreboard.populateGameScoreSummary();
+
+    assertEquals(gameScoreSummary[0].totalScore, 8);
   });
 });
