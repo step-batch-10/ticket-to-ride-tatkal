@@ -57,7 +57,10 @@ export class Player {
   }
 
   addEdge(route: Route) {
-    this.graph.setEdge(route.cityA, route.cityB, { distance: route.distance });
+    this.graph.setEdge(route.cityA, route.cityB, {
+      distance: route.distance,
+      id: route.id,
+    });
   }
 
   getGraph() {
