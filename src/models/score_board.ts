@@ -17,6 +17,7 @@ export class ScoreBoard {
       [5, 10],
       [6, 15],
     ]);
+    this.gameScoreBoard = 
   }
 
   private createRouteScore(distance: number, routeScores: RouteScore[]) {
@@ -56,7 +57,7 @@ export class ScoreBoard {
     from: string,
     to: string,
     graph: Graph,
-    visited = new Set<string>(),
+    visited = new Set<string>()
   ) {
     if (graph.hasEdge(from, to)) return true;
     if (visited.has(from)) return false;
@@ -78,7 +79,7 @@ export class ScoreBoard {
       const completed = this.isDestinationCompleted(
         ticket.from,
         ticket.to,
-        graph,
+        graph
       );
 
       tickets.push({ ...ticket, completed });
@@ -98,7 +99,7 @@ export class ScoreBoard {
     return playerScore;
   }
 
-  populateScoreBoard() {
+  populatePlayerScoreBoard() {
     return this.players.map((player) => this.playerScorecard(player));
   }
 
@@ -156,5 +157,10 @@ export class ScoreBoard {
       longestPathLength: playerLongestPaths[index],
       bonusPoints: playerLongestPaths[index] === maxLength ? 10 : 0,
     }));
+  }
+
+  populateGameScoreBoard() {
+    const playerScoreCards = this.populatePlayerScoreBoard();
+
   }
 }
