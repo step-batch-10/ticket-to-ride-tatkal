@@ -378,9 +378,17 @@ export class Ttr {
   }
 
   getScoreCard() {
-    const scoreBoard = new ScoreBoard(this.players);
-    const scoreCard = scoreBoard.populatePlayerScoreBoard();
+    const sb = new ScoreBoard(this.players);
+    const scoreCard = sb.populatePlayerScoreBoard();
 
     return scoreCard;
+  }
+
+  getScoreBoard() {
+    const sb = new ScoreBoard(this.players);
+    const scoreBoard = sb.populateGameScoreSummary();
+    const winner = sb.getWinner();
+
+    return { scoreBoard, winner };
   }
 }

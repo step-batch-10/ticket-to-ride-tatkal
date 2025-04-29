@@ -254,9 +254,7 @@ describe("Test for Ttr class", () => {
     it("should return false when one of the double route is already claimed", () => {
       // deno-lint-ignore no-explicit-any
       const ttr: any = prepareTTR();
-      ttr.players[0].hand = [
-        { color: "green", count: 1 },
-      ];
+      ttr.players[0].hand = [{ color: "green", count: 1 }];
       ttr.players[0].claimedRoutes = [
         {
           id: "r3",
@@ -369,6 +367,43 @@ describe("Test for Ttr class", () => {
       ];
 
       assertEquals(ttr.getScoreCard(), expected);
+    });
+  });
+
+  describe("when the game ends get scoreBoard", () => {
+    it("should return scoreBoard", () => {
+      const ttr = prepareTTR();
+      const expected = {
+        scoreBoard: [
+          {
+            bonusPoints: 10,
+            destinationScore: 0,
+            noOfCompletedTickets: 0,
+            playerName: "sushanth",
+            routeScore: 0,
+            totalScore: 10,
+          },
+          {
+            bonusPoints: 10,
+            destinationScore: 0,
+            noOfCompletedTickets: 0,
+            playerName: "dhanoj",
+            routeScore: 0,
+            totalScore: 10,
+          },
+          {
+            bonusPoints: 10,
+            destinationScore: 0,
+            noOfCompletedTickets: 0,
+            playerName: "sarup",
+            routeScore: 0,
+            totalScore: 10,
+          },
+        ],
+        winner: "sushanth",
+      };
+
+      assertEquals(ttr.getScoreBoard(), expected);
     });
   });
 });

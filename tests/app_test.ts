@@ -1027,6 +1027,46 @@ describe('GET "/game/scoreCard"', () => {
   });
 });
 
+describe('GET "/game/scoreBoard"', () => {
+  it("should return the scoreBoard json", async () => {
+    const app = prepareGameApp();
+    const scoreBoard = await app.request("/game/scoreBoard", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+    const expected = {
+      scoreBoard: [
+        {
+          bonusPoints: 10,
+          destinationScore: 0,
+          noOfCompletedTickets: 0,
+          playerName: "susahnth",
+          routeScore: 0,
+          totalScore: 10,
+        },
+        {
+          bonusPoints: 10,
+          destinationScore: 0,
+          noOfCompletedTickets: 0,
+          playerName: "susahnth",
+          routeScore: 0,
+          totalScore: 10,
+        },
+        {
+          bonusPoints: 10,
+          destinationScore: 0,
+          noOfCompletedTickets: 0,
+          playerName: "susahnth",
+          routeScore: 0,
+          totalScore: 10,
+        },
+      ],
+      winner: "susahnth",
+    };
+    assertEquals(scoreBoard.status, 200);
+    assertEquals(await scoreBoard.json(), expected);
+  });
+});
+
 describe("GET /game/exit", () => {
   it("should redirect to home page and delete game cookie", async () => {
     const app = prepareGameApp();

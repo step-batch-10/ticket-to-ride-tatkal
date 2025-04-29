@@ -121,6 +121,13 @@ export const fetchScoreCard = (context: Context) => {
   return context.json(scoreCard);
 };
 
+export const fetchScoreBoard = (context: Context) => {
+  const game = context.get("game");
+  const scoreBoard = game.getScoreBoard();
+
+  return context.json(scoreBoard);
+};
+
 export const exitHandler = (context: Context) => {
   deleteCookie(context, "game-ID");
 

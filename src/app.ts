@@ -21,6 +21,7 @@ import {
   fetchMap,
   fetchPlayerDetails,
   fetchPlayerHand,
+  fetchScoreBoard,
   fetchScoreCard,
   fetchTicketChoices,
   handleClaimRoute,
@@ -155,6 +156,7 @@ const gameRoutes = (): Hono => {
   game.get("/setup/destination-tickets", fetchTicketChoices);
   game.post("/setup/destination-tickets", updatePlayerTickets);
   game.get("/scoreCards", fetchScoreCard);
+  game.get("/scoreBoard", fetchScoreBoard);
   game.get("/exit", exitHandler);
   game.route("/player", playerRoutes());
 
