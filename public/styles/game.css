@@ -59,6 +59,19 @@ body {
   align-items: center;
 }
 
+.train-car-card:hover {
+  animation: faceupcards 1s ease-in;
+}
+
+@keyframes faceupcards {
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .details {
   padding: 5px 10px;
   border-radius: 3px;
@@ -234,6 +247,10 @@ body {
   z-index: 1;
 }
 
+.hand-card:hover {
+  animation: drawcards 1s ease-in;
+}
+
 @keyframes drawcards {
   50% {
     transform: translateY(-10%);
@@ -241,10 +258,6 @@ body {
   100% {
     transform: translateY(0%);
   }
-}
-
-.hand-card:hover {
-  animation: drawcards 1s ease-in;
 }
 
 .train-car-card:first-child {
