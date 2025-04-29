@@ -106,4 +106,60 @@ export class ScoreBoard {
   populateScoreBoard() {
     return this.players.map((player) => this.playerScorecard(player));
   }
+
+  private dfs(
+    graph: Graph,
+    node: string,
+    traveledEdges: Set<string>,
+    length: number,
+    longestPathLength: { value: number },
+  ) {
+    const neighbors = graph.neighbors(node)!;
+
+    longestPathLength.value = Math.max(longestPathLength.value, length);
+
+    for (const neighbor of neighbors) {
+      const edge = graph.edge(node, neighbor);
+      const routeId = edge.id;
+
+      if (!traveledEdges.has(routeId)) {
+        traveledEdges.add(routeId);
+        this.dfs(
+          graph,
+          neighbor,
+          traveledEdges,
+          length + edge.distance,
+          longestPathLength,
+        );
+        traveledEdges.delete(routeId);
+      }
+    }
+  }
+
+  private findLongestPathLength(graph: Graph): number {
+    const longestPathLength = { value: 0 };
+    const traveledEdges = new Set<string>();
+
+    for (const city of graph.nodes()) {
+      this.dfs(graph, city, traveledEdges, 0, longestPathLength);
+      traveledEdges.clear();
+    }
+
+    return longestPathLength.value;
+  }
+
+  awardLongestPathBonus(playerScorecards: Object[]) {
+    const playerLongestPaths = this.players.map((player) => {
+      const graph = player.getGraph();
+      return this.findLongestPathLength(graph);
+    });
+
+    const maxLength = Math.max(...playerLongestPaths);
+
+    return playerScorecards.map((playerScore, index) => ({
+      ...playerScore,
+      longestPathLength: playerLongestPaths[index],
+      bonusPoints: playerLongestPaths[index] === maxLength ? 10 : 0,
+    }));
+  }
 }
