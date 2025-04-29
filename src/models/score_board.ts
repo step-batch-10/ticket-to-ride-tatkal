@@ -173,13 +173,22 @@ export class ScoreBoard {
     return destinationTickets.filter(({ completed }) => completed).length;
   }
 
+  private getIncompleteDestinationScore(destinationTickets: Tickets[]) {
+    const completed = destinationTickets.filter(({ completed }) => !completed);
+    return completed.reduce((sum, { points }) => sum + points, 0);
+  }
+
   private createGameScoreSummary(playerScoreCard: PlayerScore) {
     const { playerName, routeScores, destinationTickets, bonusPoints } =
       playerScoreCard;
     const routeScore = this.getTotalRouteScores(routeScores);
     const destinationScore = this.getTotalDestinationScores(destinationTickets);
     const noOfCompletedTickets = this.getNoOfCompTickets(destinationTickets);
-    const totalScore = routeScore + destinationScore + bonusPoints!;
+    const incompleteDestinationScore = this.getIncompleteDestinationScore(
+      destinationTickets,
+    );
+    const totalScore = routeScore + destinationScore + bonusPoints! -
+      incompleteDestinationScore;
 
     const gameScoreSummary: GameScoreSummary = {
       playerName,
