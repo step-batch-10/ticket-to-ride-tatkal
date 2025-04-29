@@ -76,7 +76,17 @@ const createTicket = (offcanvasClone, type, temp, tickets) => {
 };
 
 const parse = (tickets, condition) => {
-  return tickets.filter(({ completed }) => completed === condition);
+  const selectedTickets = tickets.filter(
+    ({ completed }) => completed === condition,
+  );
+
+  if (!condition) {
+    selectedTickets.map((t) => {
+      t.points *= -1;
+    });
+  }
+
+  return selectedTickets;
 };
 
 const createOffcanvas = (scoreCard) => {
