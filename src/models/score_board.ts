@@ -1,6 +1,6 @@
 import { _ } from "https://cdn.skypack.dev/lodash";
 import { Player } from "./player.ts";
-import { PlayerScore, Route, RouteScore, Tickets } from "./schemas.ts";
+import { PlayerScore, RouteScore, Tickets } from "./schemas.ts";
 import { Graph } from "https://esm.sh/@types/graphlib@2.1.12/index.d.ts";
 
 export class ScoreBoard {
@@ -39,7 +39,8 @@ export class ScoreBoard {
     routeScore.totalPoints += routeScore.points;
   }
 
-  private getRouteScores(routes: Route[]) {
+  private getRouteScores(player: Player) {
+    const routes = player.getClaimedRoutes();
     const routeScores: RouteScore[] = [];
 
     routes.forEach(({ distance }) => {
@@ -92,9 +93,10 @@ export class ScoreBoard {
   }
 
   private playerScorecard(player: Player) {
-    const claimedRoutes = player.getClaimedRoutes();
     const playerScore: PlayerScore = {
-      routeScores: this.getRouteScores(claimedRoutes),
+      playerId: player.getId(),
+      playerName: player.getName(),
+      routeScores: this.getRouteScores(player),
       destinationTickets: this.getCompletedDestination(player),
     };
 

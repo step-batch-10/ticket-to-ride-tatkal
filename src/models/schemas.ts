@@ -110,6 +110,8 @@ type RouteScore = {
 };
 
 type PlayerScore = {
+  playerId: string;
+  playerName: string;
   routeScores: RouteScore[];
   destinationTickets: Tickets[];
 };
