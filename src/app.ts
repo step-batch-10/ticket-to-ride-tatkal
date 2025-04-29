@@ -57,6 +57,7 @@ const guestRoutes = (serveStatic: ServeStatic): Hono => {
   const guest = new Hono();
 
   guest.get("/login.html", serveStatic({ root: "./public" }));
+  guest.get("/assets/*.png", serveStatic({ root: "./public" }));
   guest.get("/styles/login.css", serveStatic({ root: "./public" }));
   guest.get("/scripts/login.js", serveStatic({ root: "./public" }));
   guest.post("/login", handleLogin);
