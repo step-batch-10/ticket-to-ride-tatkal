@@ -316,17 +316,20 @@ describe("Test for Ttr class", () => {
       const expected = [
         {
           destinationTickets: [],
-          player: "sushanth",
+          playerName: "sushanth",
+          playerId: "1",
           routeScores: [],
         },
         {
           destinationTickets: [],
-          player: "dhanoj",
+          playerName: "dhanoj",
+          playerId: "2",
           routeScores: [],
         },
         {
           destinationTickets: [],
-          player: "sarup",
+          playerName: "sarup",
+          playerId: "3",
           routeScores: [],
         },
       ];

@@ -962,20 +962,24 @@ describe('GET "/game/scoreCard"', () => {
     const expected = [
       {
         destinationTickets: [],
-        player: "susahnth",
+        playerId: "1",
+        playerName: "susahnth",
         routeScores: [],
       },
       {
         destinationTickets: [],
-        player: "susahnth",
+        playerId: "2",
+        playerName: "susahnth",
         routeScores: [],
       },
       {
         destinationTickets: [],
-        player: "susahnth",
+        playerId: "3",
+        playerName: "susahnth",
         routeScores: [],
       },
     ];
+
     assertEquals(scorecard.status, 200);
     assertEquals(await scorecard.json(), expected);
   });
