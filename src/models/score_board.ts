@@ -1,6 +1,11 @@
 import { _ } from "https://cdn.skypack.dev/lodash";
 import { Player } from "./player.ts";
-import { PlayerScore, RouteScore, Tickets } from "./schemas.ts";
+import {
+  GameScoreSummary,
+  PlayerScore,
+  RouteScore,
+  Tickets,
+} from "./schemas.ts";
 import { Graph } from "https://esm.sh/@types/graphlib@2.1.12/index.d.ts";
 
 export class ScoreBoard {
@@ -17,7 +22,6 @@ export class ScoreBoard {
       [5, 10],
       [6, 15],
     ]);
-    this.gameScoreBoard = 
   }
 
   private createRouteScore(distance: number, routeScores: RouteScore[]) {
@@ -57,7 +61,7 @@ export class ScoreBoard {
     from: string,
     to: string,
     graph: Graph,
-    visited = new Set<string>()
+    visited = new Set<string>(),
   ) {
     if (graph.hasEdge(from, to)) return true;
     if (visited.has(from)) return false;
@@ -79,7 +83,7 @@ export class ScoreBoard {
       const completed = this.isDestinationCompleted(
         ticket.from,
         ticket.to,
-        graph
+        graph,
       );
 
       tickets.push({ ...ticket, completed });
@@ -97,10 +101,6 @@ export class ScoreBoard {
     };
 
     return playerScore;
-  }
-
-  populatePlayerScoreBoard() {
-    return this.players.map((player) => this.playerScorecard(player));
   }
 
   private dfs(
@@ -144,7 +144,7 @@ export class ScoreBoard {
     return longestPathLength.value;
   }
 
-  awardLongestPathBonus(playerScorecards: Object[]) {
+  private awardLongestPathBonus(playerScorecards: PlayerScore[]) {
     const playerLongestPaths = this.players.map((player) => {
       const graph = player.getGraph();
       return this.findLongestPathLength(graph);
@@ -159,8 +159,46 @@ export class ScoreBoard {
     }));
   }
 
-  populateGameScoreBoard() {
+  private getTotalRouteScores(routeScores: RouteScore[]) {
+    return routeScores.reduce((sum, { totalPoints }) => sum + totalPoints, 0);
+  }
+
+  private getTotalDestinationScores(destinationTickets: Tickets[]) {
+    const completed = destinationTickets.filter(({ completed }) => completed);
+    return completed.reduce((sum, { points }) => sum + points, 0);
+  }
+
+  private createGameScoreSummary(playerScoreCard: PlayerScore) {
+    const { playerName, routeScores, destinationTickets, bonusPoints } =
+      playerScoreCard;
+    const routeScore = this.getTotalRouteScores(routeScores);
+    const destinationScore = this.getTotalDestinationScores(destinationTickets);
+    const totalScore = routeScore + destinationScore + bonusPoints!;
+
+    const gameScoreSummary: GameScoreSummary = {
+      playerName,
+      routeScore,
+      destinationScore,
+      totalScore,
+      bonusPoints,
+    };
+
+    return gameScoreSummary;
+  }
+
+  populatePlayerScoreBoard() {
+    const playerScoreCards = this.players.map((player) =>
+      this.playerScorecard(player)
+    );
+
+    return this.awardLongestPathBonus(playerScoreCards);
+  }
+
+  populateGameScoreSummary() {
     const playerScoreCards = this.populatePlayerScoreBoard();
 
+    return playerScoreCards.map((scoreboard) =>
+      this.createGameScoreSummary(scoreboard)
+    );
   }
 }

@@ -114,6 +114,16 @@ type PlayerScore = {
   playerName: string;
   routeScores: RouteScore[];
   destinationTickets: Tickets[];
+  longestPath?: number;
+  bonusPoints?: number;
+};
+
+type GameScoreSummary = {
+  playerName: string;
+  routeScore: number;
+  destinationScore: number;
+  totalScore: number;
+  bonusPoints?: number;
 };
 
 export type {
@@ -123,6 +133,7 @@ export type {
   ClaimedRoute,
   CreateAppArgs,
   Game,
+  GameScoreSummary,
   GameStatus,
   Logger,
   playerHandCard,
