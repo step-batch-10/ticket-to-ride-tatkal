@@ -1,5 +1,5 @@
 import { createApp } from "../src/app.ts";
-import { assert, assertEquals } from "assert";
+import { assert, assertEquals, assertFalse } from "assert";
 import { describe, it } from "@std/testing/bdd";
 import { serveStatic } from "hono/deno";
 import { Context, Hono } from "hono";
@@ -1024,5 +1024,19 @@ describe('GET "/game/scoreCard"', () => {
 
     assertEquals(scorecard.status, 200);
     assertEquals(await scorecard.json(), expected);
+  });
+});
+
+describe("GET /game/exit", () => {
+  it("should redirect to home page and delete game cookie", async () => {
+    const app = prepareGameApp();
+
+    const response = await app.request("/game/exit", {
+      headers: { cookie: "user-ID=1; game-ID=1" },
+    });
+
+    assertEquals(response.status, 302);
+    assertEquals(response.headers.get("location"), "/");
+    assertFalse(response.headers.get("cookie")?.includes("game-ID=1"));
   });
 });
