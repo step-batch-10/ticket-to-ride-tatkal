@@ -21,3 +21,8 @@ body {
   color: var(--minimal);
   text-transform: capitalize;
 }
+
+.completed-tickets,
+.incompleted-tickets {
+  text-transform: capitalize;
+}
