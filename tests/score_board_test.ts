@@ -306,13 +306,13 @@ describe("getWinner", () => {
       color: "gray",
     };
 
-    const route1 ={
+    const route1 = {
       "id": "r2",
       "carId": "cr2",
       "cityA": "c1",
       "cityB": "c3",
       "distance": 1,
-      "color": "gray"
+      "color": "gray",
     };
 
     const ticket = {
