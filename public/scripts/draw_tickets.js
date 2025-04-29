@@ -22,9 +22,12 @@ class DestinationTickets {
 
   async getTopThree() {
     const response = await fetch(this.#reqUrl);
+
     if (!response.ok) return false;
 
     const { tickets, minimumPickup } = await response.json();
+    this.#tickets = [];
+    this.selected = [];
     this.#tickets.unshift(...tickets);
     this.#threshold = minimumPickup;
 
@@ -48,6 +51,7 @@ class DestinationTickets {
     const areEnough = this.#selectedTickets.length >= this.#threshold;
     const areValid = this.#selectedTickets.every((t) => t !== undefined);
     const triggeredTicket = _.find(this.#selectedTickets, { id });
+
     const body = JSON.stringify({
       selected: this.#selectedTickets,
       rest: _.without(this.#tickets, ...this.#selectedTickets),

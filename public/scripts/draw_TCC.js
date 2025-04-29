@@ -2,9 +2,9 @@ import { fetchJSON } from "./draw_tickets.js";
 import { showAction } from "./game.js";
 
 export class DrawTCC {
-  #showAppropriateMessage(drawnCard) {
+  #showAppropriateMessage(drawnCard, from) {
     const message = !drawnCard.isError
-      ? `${drawnCard.color} card drawn from face up cards`
+      ? `${drawnCard.color} card drawn from ${from} cards`
       : drawnCard.message;
 
     showAction(message);
@@ -17,7 +17,7 @@ export class DrawTCC {
       JSON.stringify({ index, color }),
     );
 
-    this.#showAppropriateMessage(drawnCard);
+    this.#showAppropriateMessage(drawnCard, "face up");
   }
 
   async drawBlindCard() {
@@ -27,6 +27,6 @@ export class DrawTCC {
       JSON.stringify({}),
     );
 
-    this.#showAppropriateMessage(drawnCard);
+    this.#showAppropriateMessage(drawnCard, "blind");
   }
 }
