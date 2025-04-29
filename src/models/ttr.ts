@@ -254,16 +254,29 @@ export class Ttr {
       { color: "locomotive", count: locomotiveCount },
     ];
   }
-
-  private canClaimRoute(route: Route, cardColor: string, totalCards: number) {
+  private canClaimRoute(
+    playerId: string,
+    route: Route,
+    cardColor: string,
+    totalCards: number,
+  ) {
     const claimedRoutes = this.map.getClaimedRoutes();
+    const claimedRoutesByPlayer = this.getPlayer(playerId)?.getClaimedRoutes();
 
+    const canClaimDoubleRoute = route.isDoubleRoute
+      ? !_.find(claimedRoutesByPlayer, { id: route.siblingRouteId })
+      : true;
     const isUnclaimed = !_.some(claimedRoutes, { carId: route.carId });
     const isColorMatched = route.color === cardColor ||
       route.color === "gray" ||
       cardColor === "locomotive";
 
-    return isUnclaimed && route.distance <= totalCards && isColorMatched;
+    return (
+      isUnclaimed &&
+      route.distance <= totalCards &&
+      isColorMatched &&
+      canClaimDoubleRoute
+    );
   }
 
   private getCardCounts(playerHand: playerHandCard[], cardColor: string) {
@@ -281,6 +294,7 @@ export class Ttr {
   }
 
   private evaluateRouteClaim(
+    playerId: string,
     route: Route,
     playerHand: playerHandCard[],
     cardColor: string,
@@ -290,7 +304,12 @@ export class Ttr {
       cardColor,
     );
 
-    const claimable = this.canClaimRoute(route, cardColor, totalCards);
+    const claimable = this.canClaimRoute(
+      playerId,
+      route,
+      cardColor,
+      totalCards,
+    );
 
     if (!claimable) {
       return { claimable, usedTrainCarCards: [] };
@@ -329,6 +348,7 @@ export class Ttr {
     const player = this.getPlayer(playerID)!;
     const playerHand = player.getHand()!;
     const { claimable, usedTrainCarCards } = this.evaluateRouteClaim(
+      playerID,
       route,
       playerHand,
       cardColor,
@@ -351,7 +371,7 @@ export class Ttr {
     const { totalCards } = this.getCardCounts(player.getHand(), cardColor);
 
     const claimable = routes.filter((route) => {
-      return this.canClaimRoute(route, cardColor, totalCards);
+      return this.canClaimRoute(playerId, route, cardColor, totalCards);
     });
 
     return claimable;

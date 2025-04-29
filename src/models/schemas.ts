@@ -47,6 +47,8 @@ type Route = {
   cityB: string;
   distance: number;
   color: string;
+  isDoubleRoute: boolean;
+  siblingRouteId: string | null;
 };
 
 type ClaimedRoute = {
