@@ -952,3 +952,31 @@ describe("fetchClaimableRoute", () => {
     assertEquals(await response.json(), expected);
   });
 });
+
+describe('GET "/game/scoreCard"', () => {
+  it("should return the scoreCard json", async () => {
+    const app = prepareGameApp();
+    const scorecard = await app.request("/game/scoreCard", {
+      headers: { cookie: "user-ID=1;game-ID=1" },
+    });
+    const expected = [
+      {
+        destinationTickets: [],
+        player: "susahnth",
+        routeScores: [],
+      },
+      {
+        destinationTickets: [],
+        player: "susahnth",
+        routeScores: [],
+      },
+      {
+        destinationTickets: [],
+        player: "susahnth",
+        routeScores: [],
+      },
+    ];
+    assertEquals(scorecard.status, 200);
+    assertEquals(await scorecard.json(), expected);
+  });
+});

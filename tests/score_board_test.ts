@@ -186,7 +186,7 @@ describe("playerScoreCard", () => {
     player.addDestinationTickets([ticket]);
     player.addEdge(route);
     player.addEdge({ ...route, cityA: "c2", cityB: "c3" });
-    scoreboard.getCompletedDestination(player);
+    scoreboard.populateScoreBoard();
 
     assertEquals(scoreboard.getDestinationTickets(), [
       { ...ticket, completed: true },
@@ -201,7 +201,7 @@ describe("playerScoreCard", () => {
     player.addEdge(route);
     player.addEdge({ ...route, cityA: "c1", cityB: "c3" });
     player.addEdge({ ...route, cityA: "c2", cityB: "c4" });
-    scoreboard.getCompletedDestination(player);
+    scoreboard.populateScoreBoard();
 
     assertEquals(scoreboard.getDestinationTickets(), [
       { ...ticket, to: "c4", completed: true },
@@ -215,8 +215,7 @@ describe("playerScoreCard", () => {
     player.addDestinationTickets([{ ...ticket, to: "c4" }]);
     player.addEdge(route);
     player.addEdge({ ...route, cityA: "c1", cityB: "c3" });
-    // player.addEdge({ ...route, cityA: "c2", cityB: "c4" });
-    scoreboard.getCompletedDestination(player);
+    scoreboard.populateScoreBoard();
 
     assertEquals(scoreboard.getDestinationTickets(), [
       { ...ticket, to: "c4", completed: false },

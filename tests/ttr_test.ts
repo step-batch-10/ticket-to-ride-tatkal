@@ -309,4 +309,29 @@ describe("Test for Ttr class", () => {
       assertEquals(ttr.getMinimumPickUp(), 1);
     });
   });
+
+  describe("when the game ends get scoreCard", () => {
+    it("should return scoreCard", () => {
+      const ttr = prepareTTR();
+      const expected = [
+        {
+          destinationTickets: [],
+          player: "sushanth",
+          routeScores: [],
+        },
+        {
+          destinationTickets: [],
+          player: "dhanoj",
+          routeScores: [],
+        },
+        {
+          destinationTickets: [],
+          player: "sarup",
+          routeScores: [],
+        },
+      ];
+
+      assertEquals(ttr.getScoreCard(), expected);
+    });
+  });
 });
