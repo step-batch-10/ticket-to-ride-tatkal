@@ -259,3 +259,80 @@ describe("populate game score summary", () => {
     assertEquals(totalScore, 12);
   });
 });
+
+describe("getWinner", () => {
+  it("should give player1 as winner", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+    const route0 = {
+      id: "r10",
+      carId: "cr10",
+      cityA: "c5",
+      cityB: "c7",
+      distance: 5,
+      color: "pink",
+    };
+    const route1 = {
+      id: "r72",
+      carId: "cr72",
+      cityA: "c18",
+      cityB: "c30",
+      distance: 3,
+      color: "black",
+    };
+
+    ttr.players[0].addClaimedRoute(route0);
+    ttr.players[0].addEdge(route0);
+    ttr.players[1].addClaimedRoute(route1);
+    ttr.players[1].addEdge(route1);
+    const players = ttr.getPlayers();
+
+    const scoreBoard = new ScoreBoard(players);
+    const winner: string = scoreBoard.getWinner();
+
+    assertEquals(winner, "sushanth");
+  });
+
+  it("should give winner who completed more destinations", () => {
+    // deno-lint-ignore no-explicit-any
+    const ttr: any = prepareTTR();
+
+    const route = {
+      id: "r1",
+      carId: "cr1",
+      cityA: "c1",
+      cityB: "c2",
+      distance: 4,
+      color: "gray",
+    };
+
+    const route1 ={
+      "id": "r2",
+      "carId": "cr2",
+      "cityA": "c1",
+      "cityB": "c3",
+      "distance": 1,
+      "color": "gray"
+    };
+
+    const ticket = {
+      id: "1",
+      from: "c1",
+      to: "c3",
+      points: 16,
+    };
+
+    ttr.players[1].addDestinationTickets([ticket]);
+
+    ttr.players[0].addClaimedRoute(route);
+    ttr.players[0].addEdge(route);
+    ttr.players[1].addClaimedRoute(route1);
+    ttr.players[1].addEdge(route1);
+
+    const players = ttr.getPlayers();
+    const scoreBoard = new ScoreBoard(players);
+    const winner: string = scoreBoard.getWinner();
+
+    assertEquals(winner, "dhanoj");
+  });
+});
