@@ -7,13 +7,17 @@ const cloneTemplate = (templateId) => {
   return clone;
 };
 
-const createTable = (scoreCard) => {
+const createScoreBoard = (scoreBoard) => {
   const table = document.getElementById("table-body");
   const clone = cloneTemplate("score-card-template");
   const tr = clone.querySelector("tr");
   tr.setAttribute("data-bs-toggle", "offcanvas");
-  tr.setAttribute("data-bs-target", `#score-card-${scoreCard.playerName}`);
-
+  tr.setAttribute("data-bs-target", `#score-card-${scoreBoard.playerName}`);
+  tr.querySelector(".player-name").innerText = scoreBoard.playerName;
+  tr.querySelector(".destination-score").innerText =
+    scoreBoard.destinationScore;
+  tr.querySelector(".routes-score").innerText = scoreBoard.routeScore;
+  tr.querySelector(".total-score").innerText = scoreBoard.totalScore;
   table.append(clone);
 };
 
@@ -125,12 +129,22 @@ const createOffcanvas = (scoreCard) => {
   document.querySelector("body").append(offcanvasClone);
 };
 
-const main = async () => {
-  const scorecards = await fetchJSON("/game/scoreCards");
+const showWinner = (winner) => {
+  const ele = document.querySelector(".winner");
+  ele.innerText = `Winner ${winner}`;
+};
 
-  scorecards.forEach((s) => {
-    createTable(s);
-    createOffcanvas(s);
+const main = async () => {
+  const scoreCards = await fetchJSON("/game/scoreCards");
+  const { scoreBoard, winner } = await fetchJSON("/game/scoreBoard");
+  showWinner(winner);
+
+  scoreBoard.forEach((sb) => {
+    createScoreBoard(sb);
+  });
+
+  scoreCards.forEach((sc) => {
+    createOffcanvas(sc);
   });
 };
 
