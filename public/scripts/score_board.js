@@ -23,9 +23,10 @@ const createScoreBoard = (scoreBoard) => {
 
 const styleOffcanvas = (offcanvas) => {
   offcanvas.style.width = "50vw";
-  offcanvas.style.height = "100vh";
+  offcanvas.style.height = "fit-content";
   offcanvas.style.position = "absolute";
   offcanvas.style.left = "25%";
+  offcanvas.style.top = "10%";
 };
 
 const createRow = (data) => {
@@ -54,11 +55,11 @@ const AddBonusScore = (scoreCard, offcanvasClone) => {
   const bonusPoint = scoreCard.bonusPoints;
   if (bonusPoint) {
     const bonusScore = offcanvasClone.querySelector(".longest-path");
-    const h1 = document.createElement("h1");
-    h1.innerText = "Longest path";
-    const p = document.createElement("p");
+    const h3 = document.createElement("h3");
+    h3.innerText = "Longest path";
+    const p = document.createElement("h3");
     p.innerText = bonusPoint;
-    bonusScore.append(h1, p);
+    bonusScore.append(h3, p);
   }
 };
 

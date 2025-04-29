@@ -17,11 +17,6 @@ body {
   align-items: center;
 }
 
-.headding {
-  color: var(--minimal);
-  text-transform: capitalize;
-}
-
 .completed-tickets,
 .incompleted-tickets {
   text-transform: capitalize;
@@ -29,4 +24,99 @@ body {
 
 table > * {
   color: white;
+}
+
+/* Override Bootstrap's offcanvas background and border */
+.offcanvas.bg-secondary {
+  background-color: var(--bg2) !important;
+  color: var(--minimal);
+  border-left: 2px solid var(--minimal);
+  border-radius: 8px 0 0 8px;
+}
+
+/* Offcanvas title */
+.offcanvas-title {
+  color: var(--minimal);
+  font-size: 1.5rem;
+}
+
+.btn-container {
+  display: flex;
+  height: 10vh;
+  justify-content: space-around;
+  align-items: center;
+  width: 50vw;
+}
+
+.btn-container button {
+  width: 10vw;
+  padding: 2%;
+  background-color: var(--minimal);
+  color: var(--bg2);
+  border: 2px solid var(--bg2);
+  border-radius: 5px;
+}
+
+/* Close button style */
+.btn-close {
+  filter: brightness(150%);
+  background: none;
+  color: var(--minimal);
+  font-size: 1.25rem;
+  opacity: 1;
+}
+
+/* Body padding and section spacing */
+.offcanvas-body {
+  padding: 1rem;
+}
+
+.offcanvas {
+  border-radius: 10px;
+}
+
+.score-board {
+  width: 50vw;
+}
+
+.completed-tickets,
+.incompleted-tickets,
+.route-score,
+.longest-path {
+  margin-bottom: 2rem;
+}
+
+/* Headings inside offcanvas */
+.heading {
+  color: var(--minimal) !important;
+  text-transform: capitalize;
+  /* font-size: 1.25rem; */
+  margin-bottom: 1rem;
+}
+
+.table-dis {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: transparent;
+  color: var(--minimal);
+  font-size: 1.2rem;
+  border: 1px solid var(--minimal);
+}
+
+.table-dis th,
+.table-dis td {
+  border-top: 1px solid var(--minimal);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  color: var(--minimal);
+}
+
+/* Add horizontal lines between rows */
+.table-dis tr {
+  border-bottom: 1px solid var(--minimal);
+}
+
+/* Remove last row border */
+.table-dis tr:last-child {
+  border-bottom: none;
 }
