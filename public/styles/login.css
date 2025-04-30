@@ -1,49 +1,14 @@
 body {
   font-family: "Raleway", serif;
-  background-image: url("/assets/ttr-bg.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center top;
-}
-
-.login-box {
-  opacity: 0;
-  transition: opacity 1s ease;
-  animation: fadeIn 1s 1s forwards; /* Delay fade-in after blur */
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.login-box,
-.welcome-box,
-.handbook {
-  margin-top: 10px;
-  box-shadow: 4px 2px 1px brown;
-  background-color: #f7d19b98;
-  border-radius: 20px;
-  color: rgb(92, 19, 19);
-  backdrop-filter: blur(20px);
-}
-
-.welcome-box {
-  width: 600px;
-  padding: 20px;
+  background-color: hsl(27, 51%, 11%);
 }
 
 h1 {
-  color: rgb(92, 19, 19);
-  font-weight: 900 !important;
+  color: #d4b26e;
 }
 
 a {
-  color: #f9d1b2;
+  color: #d4b26e;
 }
 
 a:hover {
@@ -52,6 +17,14 @@ a:hover {
 
 .cp-issue {
   font-size: 8px;
+}
+
+.bg-theme {
+  background-color: #2b1b0e;
+}
+
+.bg-gold {
+  background-color: #d4b26e;
 }
 
 .text-brown {
@@ -63,17 +36,14 @@ a:hover {
 }
 
 .btn-gold {
-  background-color: #e5bc82;
+  background-color: #d4b26e;
   color: #3b2b1e;
   border: 2px solid #8b5e3c;
 }
 
-.btn-gold:hover,
-.btn-gold:focus {
-  background-color: #b57340;
-  border: 2px solid #754f32;
-  color: white;
-  transition: all 0.6s ease;
+.btn-gold:hover {
+  background-color: #c2a155;
+  color: #3b2b1e;
 }
 
 .form-icon {
@@ -93,7 +63,7 @@ a:hover {
 }
 
 .input-gold {
-  background-color: #f7d09b;
+  background-color: #d4b26e;
   color: #3b2b1e;
   border: 2px solid #8b5e3c;
 }
@@ -132,4 +102,8 @@ a:hover {
 
 #settingsModal .form-check-input:focus {
   box-shadow: none;
+}
+
+#play-game-index {
+  background-color: #d4b26e;
 }

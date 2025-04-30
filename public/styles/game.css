@@ -3,29 +3,27 @@
   margin: 0;
   box-sizing: border-box;
   user-select: none;
-  font-weight: 600 !important;
 }
 
 :root {
-  --minimal: #7b552f;
-  --cardshade: #7b552f8a;
-  --panel: #c2944a9b;
-  --textc: #f0f0f0;
+  --minimal: #d9a441;
+  --bg1: #d2b48c;
+  --bg2: #4b3621;
+  --bg3: #c9b194;
 }
 
 body {
   font-family: "Raleway", serif;
   font-size: 1.2rem;
+  background-color: var(--bg1);
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-image: url(/assets/map-bg.png);
-  background-size: contain;
+  background-color: var(--bg2);
 }
 
 .panel {
-  background-color: var(--panel);
-  font-size: 1.3rem;
+  background-color: var(--bg2);
 }
 
 .ticket {
@@ -41,26 +39,25 @@ body {
 #players-container {
   color: var(--minimal);
   font-weight: bold;
-  border-radius: 10px;
-  padding: 5px;
-  margin-top: 10px;
 }
 
-.right-panel {
-  border-radius: 10px;
-  padding: 5px;
+.player-card {
+  border-radius: 5px;
+  position: relative;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid var(--minimal);
 }
 
 .train-car-card {
   width: 100px;
   height: 150px;
   margin: 0%;
-  border: 10px double var(--textc);
+  border: 10px double white;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 2px 2px 8px black;
 }
 
 .train-car-card:hover {
@@ -79,7 +76,7 @@ body {
 .details {
   padding: 5px 10px;
   border-radius: 3px;
-  border: 1px solid var(--textc);
+  border: 1px solid var(--minimal);
 }
 
 .align-right {
@@ -97,15 +94,12 @@ body {
 
 #ticket-container {
   position: relative;
-  flex-direction: column;
   display: flex;
   height: 100%;
-  width: 100%;
+  width: 80%;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  color: var(--textc);
-  background-color: rgba(220, 172, 108, 0.533);
-  backdrop-filter: blur(100px);
 }
 
 .ticket {
@@ -128,17 +122,16 @@ body {
 }
 
 #cars {
-  padding: 2px;
+  padding: 10px;
   width: 50px;
   height: 50px;
   border-radius: 5px;
-  box-shadow: 2px 2px 1px rgb(116, 67, 4);
   display: flex;
   place-content: center;
   position: relative;
   right: -50px;
   text-shadow: 0px 0px 1px black;
-  color: var(--textc);
+  color: white;
 }
 
 #player-hand {
@@ -160,12 +153,10 @@ body {
 .player-ticket-card {
   color: var(--minimal);
   border-radius: 5px;
-  width: 80%;
+  width: 100%;
   height: 100px;
   padding: 5px;
   text-align: center;
-  color: var(--textc);
-  background-color: var(--cardshade);
   border: 1px solid var(--minimal);
 }
 
@@ -248,9 +239,14 @@ body {
   opacity: 0.7;
 }
 
+.highlight {
+  border: 8px double;
+}
+
 .hand-card {
   position: relative;
   margin-left: -50px;
+  z-index: 1;
 }
 
 .train-car-card:first-child {
@@ -267,13 +263,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--panel);
-}
-
-tspan {
-  fill: black;
-  stroke: none;
-  font-size: 14px;
+  border-radius: 5px;
 }
 
 .hide-cars {
@@ -284,7 +274,6 @@ tspan {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  box-shadow: 2px 1px 2px black;
   position: absolute;
   right: 10px;
   top: 10px;
@@ -292,30 +281,6 @@ tspan {
 
 ::-webkit-scrollbar {
   width: 0px;
-}
-
-.highlight-routes {
-  stroke: "var(--textc)";
-  stroke-width: "2px";
-}
-
-.deck {
-  color: var(--textc);
-  background-color: var(--cardshade);
-}
-
-.player-card {
-  border-radius: 5px;
-  position: relative;
-  padding: 10px;
-  margin: 10px;
-  color: var(--textc);
-  background-color: var(--cardshade);
-  border: 1px solid var(--minimal);
-}
-
-.highlight {
-  border: 4px double var(--textc);
 }
 
 #logs {
@@ -327,8 +292,11 @@ tspan {
   position: absolute;
   bottom: 10px;
   box-sizing: border-box;
-  color: var(--textc);
-  background-color: var(--cardshade);
-  font-size: 1.6rem;
+  color: var(--minimal);
   overflow-y: auto;
+}
+
+.highlight-routes {
+  stroke: "white";
+  stroke-width: "2px";
 }
