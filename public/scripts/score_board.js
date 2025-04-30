@@ -12,7 +12,10 @@ const createScoreBoard = (scoreBoard) => {
   const clone = cloneTemplate("score-card-template");
   const tr = clone.querySelector("tr");
   tr.setAttribute("data-bs-toggle", "offcanvas");
-  tr.setAttribute("data-bs-target", `#score-card-${scoreBoard.playerName}`);
+  tr.setAttribute(
+    "data-bs-target",
+    `#score-card-${scoreBoard.playerName.replaceAll(" ", "_")}`,
+  );
   tr.querySelector(".player-name").innerText = scoreBoard.playerName;
   tr.querySelector(".destination-score").innerText =
     scoreBoard.destinationScore;
@@ -67,7 +70,10 @@ const setCanvas = (offcanvasClone, scoreCard) => {
   const player = offcanvasClone.querySelector(".offcanvas-title");
   player.innerText = scoreCard.playerName;
   const offcanvasDiv = offcanvasClone.querySelector("div");
-  offcanvasDiv.setAttribute("id", `score-card-${scoreCard.playerName}`);
+  offcanvasDiv.setAttribute(
+    "id",
+    `score-card-${scoreCard.playerName.replaceAll(" ", "_")}`,
+  );
   styleOffcanvas(offcanvasDiv);
   AddBonusScore(scoreCard, offcanvasClone);
   const routeScores = scoreCard.routeScores;
