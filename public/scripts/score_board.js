@@ -26,10 +26,10 @@ const createScoreBoard = (scoreBoard) => {
 
 const styleOffcanvas = (offcanvas) => {
   offcanvas.style.width = "50vw";
-  offcanvas.style.height = "fit-content";
+  offcanvas.style.height = "70%";
   offcanvas.style.position = "absolute";
   offcanvas.style.left = "25%";
-  offcanvas.style.top = "10%";
+  offcanvas.style.top = "15%";
 };
 
 const createRow = (data) => {
