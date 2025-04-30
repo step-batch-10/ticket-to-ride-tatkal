@@ -24,10 +24,11 @@ body {
 .login-box,
 .welcome-box {
   margin-top: 10px;
-  border: 10px double brown;
-  background-color: #f7d09b;
+  box-shadow: 4px 2px 1px brown;
+  background-color: #f7d19b98;
   border-radius: 20px;
   color: rgb(92, 19, 19);
+  backdrop-filter: blur(20px);
 }
 
 .welcome-box {
@@ -37,6 +38,7 @@ body {
 
 h1 {
   color: rgb(92, 19, 19);
+  font-weight: 900 !important;
 }
 
 a:hover {
