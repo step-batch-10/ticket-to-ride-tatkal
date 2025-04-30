@@ -6,6 +6,12 @@ body {
   background-position: center top;
 }
 
+.login-box {
+  opacity: 0;
+  transition: opacity 1s ease;
+  animation: fadeIn 1s 1s forwards; /* Delay fade-in after blur */
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -15,15 +21,8 @@ body {
   }
 }
 
-.login-box {
-  opacity: 0;
-  transition: opacity 1s ease;
-  animation: fadeIn 1s 1s forwards; /* Delay fade-in after blur */
-}
-
 .login-box,
-welcome-box {
-  width: 450px;
+.welcome-box {
   margin-top: 10px;
   border: 10px double brown;
   background-color: #f7d09b;
@@ -31,12 +30,13 @@ welcome-box {
   color: rgb(92, 19, 19);
 }
 
-h1 {
-  color: rgb(92, 19, 19);
+.welcome-box {
+  width: 600px;
+  padding: 20px;
 }
 
-a {
-  /* color: #d4b26e; */
+h1 {
+  color: rgb(92, 19, 19);
 }
 
 a:hover {
@@ -45,14 +45,6 @@ a:hover {
 
 .cp-issue {
   font-size: 8px;
-}
-
-.bg-theme {
-  /* background-color: #2b1b0e; */
-}
-
-.bg-gold {
-  /* background-color: #d4b26e; */
 }
 
 .text-brown {
@@ -71,10 +63,10 @@ a:hover {
 
 .btn-gold:hover,
 .btn-gold:focus {
-  /* background-color: #c2a155; */
   background-color: #b57340;
   border: 2px solid #754f32;
   color: white;
+  transition: all 0.6s ease;
 }
 
 .form-icon {
@@ -133,8 +125,4 @@ a:hover {
 
 #settingsModal .form-check-input:focus {
   box-shadow: none;
-}
-
-#play-game-index {
-  background-color: #d4b26e;
 }
