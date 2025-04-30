@@ -25,13 +25,13 @@ class DestinationTickets {
 
     if (!response.ok) return false;
 
-    const { tickets, minimumPickup } = await response.json();
     this.#tickets = [];
-    this.selected = [];
-    this.#tickets.unshift(...tickets);
+    const { tickets, minimumPickup } = await response.json();
+    this.#selectedTickets = [];
+    this.#tickets.push(...tickets);
     this.#threshold = minimumPickup;
 
-    return this.#tickets.slice(0, 3);
+    return this.#tickets;
   }
 
   toggleSelection(id) {
@@ -63,7 +63,6 @@ class DestinationTickets {
       method: "POST",
       body,
     });
-
     return res.ok;
   }
 }
