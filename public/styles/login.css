@@ -22,7 +22,8 @@ body {
 }
 
 .login-box,
-.welcome-box {
+.welcome-box,
+.handbook {
   margin-top: 10px;
   box-shadow: 4px 2px 1px brown;
   background-color: #f7d19b98;
@@ -39,6 +40,10 @@ body {
 h1 {
   color: rgb(92, 19, 19);
   font-weight: 900 !important;
+}
+
+a {
+  color: #f9d1b2;
 }
 
 a:hover {
