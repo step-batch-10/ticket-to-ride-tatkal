@@ -355,7 +355,7 @@ export class Ttr {
     if (!claimable) return false;
 
     this.updatePlayerAfterClaim(player, route, usedTrainCarCards);
-    this.registerLog(`${this.currentPlayer.getName()} claimed route`);
+    this.registerLog(`${player.getName()} claimed route`);
     if (player.getTrainCars() < 3 && !this.finalTurnInitiator) {
       this.registerLog(`${this.currentPlayer.getName()} initiated final turn`);
       this.initiateFinalTurn(player.getId());

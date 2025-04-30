@@ -3,11 +3,13 @@ import { showAction } from "./game.js";
 
 export class DrawTCC {
   #showAppropriateMessage(drawnCard, from) {
-    const message = !drawnCard.isError
-      ? `${drawnCard.color} card drawn from ${from} cards`
-      : drawnCard.message;
+    console.log(drawnCard);
 
-    showAction(message);
+    if (drawnCard.isError || drawnCard.color === undefined) {
+      showAction("you cant draw card", "danger");
+    } else {
+      showAction(`${drawnCard.color} card drawn from ${from} cards`);
+    }
   }
 
   async drawFaceUpCard(index, color) {
