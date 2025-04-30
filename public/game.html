@@ -24,7 +24,7 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Raleway&display=swap"
       rel="stylesheet"
-    >
+    />
 
     <!-- change route -->
     <link rel="stylesheet" href="/styles/game.css" />
@@ -68,7 +68,7 @@
           <div id="player-hand"></div>
         </section>
       </div>
-      <div class="col-2 h-100 position-relative panel">
+      <div class="col-2 h-100 position-relative panel right-panel">
         <div
           class="h-75 d-flex flex-row flex-wrap gap-3 justify-content-center align-items-center"
           id="face-up-container"
@@ -79,19 +79,17 @@
         >
         </div>
         <div class="h-25 d-flex flex-column gap-1">
-          <div id="blind-cards" class="action action-btn flex-1">
+          <div id="blind-cards" class="action action-btn flex-1 deck">
             Deck of Train Cards
           </div>
-          <div id="destination-tickets" class="action action-btn flex-1">
+          <div id="destination-tickets" class="action action-btn flex-1 deck">
             Destination Cards
           </div>
         </div>
       </div>
 
       <template id="ticket-selector-template">
-        <div id="ticket-selection">
-          <div id="ticket-container"></div>
-        </div>
+        <div id="ticket-container"></div>
       </template>
 
       <template id="ticket-template">
