@@ -5,7 +5,7 @@ import { PlayerInfo } from "../models/schemas.ts";
 export const addToWaitingQueue = (context: Context) => {
   const userId = getCookie(context, "user-ID");
   const name: string = context.get("users").getInfo(userId).username;
-  context.get("gameHandler").addToQueue({ id: userId, name }, 3);
+  context.get("gameHandler").addToQueue({ id: userId, name }, 5);
 
   return context.redirect("/waiting_page.html");
 };
