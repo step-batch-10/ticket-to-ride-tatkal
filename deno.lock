@@ -1,9 +1,10 @@
 {
-  "version": "4",
+  "version": "5",
   "specifiers": {
     "jsr:@std/assert@*": "1.0.12",
     "jsr:@std/assert@1": "1.0.13",
     "jsr:@std/assert@^1.0.12": "1.0.13",
+    "jsr:@std/async@^1.0.12": "1.0.13",
     "jsr:@std/data-structures@^1.0.6": "1.0.6",
     "jsr:@std/fs@^1.0.16": "1.0.16",
     "jsr:@std/internal@^1.0.6": "1.0.6",
@@ -26,6 +27,9 @@
         "jsr:@std/internal"
       ]
     },
+    "@std/async@1.0.13": {
+      "integrity": "1d76ca5d324aef249908f7f7fe0d39aaf53198e5420604a59ab5c035adc97c96"
+    },
     "@std/data-structures@1.0.6": {
       "integrity": "76a7fd8080c66604c0496220a791860492ab21a04a63a969c0b9a0609bbbb760"
     },
@@ -45,6 +49,7 @@
       "integrity": "12b3db12d34f0f385a26248933bde766c0f8c5ad8b6ab34d4d38f528ab852f48",
       "dependencies": [
         "jsr:@std/assert@^1.0.12",
+        "jsr:@std/async",
         "jsr:@std/data-structures",
         "jsr:@std/fs",
         "jsr:@std/internal",
@@ -96,8 +101,8 @@
     "https://esm.sh/lodash@^4.17.15/values?target=denonext": "https://esm.sh/lodash@4.17.21/values?target=denonext"
   },
   "remote": {
-    "https://cdn.skypack.dev/-/lodash@v4.17.21-K6GEbP02mWFnLA45zAmi/dist=es2019,mode=imports/optimized/lodash.js": "10c4df47937ffc78548d136dd535a021df5f57182a653260d715c0690dd22978",
-    "https://cdn.skypack.dev/lodash": "8280de0b3efd87f06ea0eb330d15b8de32c059556023b8c6524e9eb9e4844dc0",
+    "https://cdn.skypack.dev/-/lodash@v4.17.21-Nu3N9b7agjt3Q6ZuOQVe/dist=es2019,mode=imports/optimized/lodash.js": "10c4df47937ffc78548d136dd535a021df5f57182a653260d715c0690dd22978",
+    "https://cdn.skypack.dev/lodash": "292f02ab67c095ea852fbe9973f6b471747ef41f3b38c2082ce8b1968bcb47bd",
     "https://esm.sh/graphlib@2.1.8": "8a14a1824e970b235c0666e42532d1607419ea403f095633869fda2267921b18",
     "https://esm.sh/graphlib@2.1.8/denonext/graphlib.mjs": "ca8e0392a51d93ddf8479eff4ae53dd26fb10516ea3158c67d0551a999963e2f",
     "https://esm.sh/lodash@4.17.21/clone?target=denonext": "75b97cdbd62352dd0fb9ddb203b75aa7e4aaf59f80103721554ca800fca0aa1b",

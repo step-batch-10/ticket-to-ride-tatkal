@@ -1,6 +1,6 @@
-FROM denoland/deno:2.2.12
+FROM denoland/deno:2.3.3
+RUN apt-get update && apt-get install -y curl
 WORKDIR /app
-COPY deno* /app
-RUN deno install
 COPY . .
+RUN deno install
 CMD ["deno", "task", "dev"]
