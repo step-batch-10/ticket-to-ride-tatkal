@@ -1,8 +1,31 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@std/assert@^1.0.15": "1.0.16",
+    "jsr:@std/assert@^1.0.16": "1.0.16",
+    "jsr:@std/internal@^1.0.12": "1.0.12",
+    "jsr:@std/testing@*": "1.0.16",
+    "jsr:@std/testing@^1.0.16": "1.0.16",
     "npm:hono@^4.11.4": "4.11.4",
     "npm:lodash@^4.17.21": "4.17.21"
+  },
+  "jsr": {
+    "@std/assert@1.0.16": {
+      "integrity": "6a7272ed1eaa77defe76e5ff63ca705d9c495077e2d5fd0126d2b53fc5bd6532",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/internal@1.0.12": {
+      "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+    },
+    "@std/testing@1.0.16": {
+      "integrity": "a917ffdeb5924c9be436dc78bc32e511760e14d3a96e49c607fc5ecca86d0092",
+      "dependencies": [
+        "jsr:@std/assert@^1.0.15",
+        "jsr:@std/internal"
+      ]
+    }
   },
   "npm": {
     "hono@4.11.4": {
@@ -13,6 +36,23 @@
     }
   },
   "redirects": {
+    "https://esm.sh/@types/graphlib@~2.1.12/index.d.ts": "https://esm.sh/@types/graphlib@2.1.12/index.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/each.d.ts": "https://esm.sh/@types/lodash@4.17.23/each.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/filter.d.ts": "https://esm.sh/@types/lodash@4.17.23/filter.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/has.d.ts": "https://esm.sh/@types/lodash@4.17.23/has.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/isArray.d.ts": "https://esm.sh/@types/lodash@4.17.23/isArray.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/isEmpty.d.ts": "https://esm.sh/@types/lodash@4.17.23/isEmpty.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/isFunction.d.ts": "https://esm.sh/@types/lodash@4.17.23/isFunction.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/isUndefined.d.ts": "https://esm.sh/@types/lodash@4.17.23/isUndefined.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/keys.d.ts": "https://esm.sh/@types/lodash@4.17.23/keys.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/map.d.ts": "https://esm.sh/@types/lodash@4.17.23/map.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/reduce.d.ts": "https://esm.sh/@types/lodash@4.17.23/reduce.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/size.d.ts": "https://esm.sh/@types/lodash@4.17.23/size.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/transform.d.ts": "https://esm.sh/@types/lodash@4.17.23/transform.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/union.d.ts": "https://esm.sh/@types/lodash@4.17.23/union.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.20/values.d.ts": "https://esm.sh/@types/lodash@4.17.23/values.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.21/clone.d.ts": "https://esm.sh/@types/lodash@4.17.23/clone.d.ts",
+    "https://esm.sh/@types/lodash@~4.17.21/constant.d.ts": "https://esm.sh/@types/lodash@4.17.23/constant.d.ts",
     "https://esm.sh/lodash@^4.17.15/clone?target=denonext": "https://esm.sh/lodash@4.17.21/clone?target=denonext",
     "https://esm.sh/lodash@^4.17.15/constant?target=denonext": "https://esm.sh/lodash@4.17.21/constant?target=denonext",
     "https://esm.sh/lodash@^4.17.15/each?target=denonext": "https://esm.sh/lodash@4.17.21/each?target=denonext",
