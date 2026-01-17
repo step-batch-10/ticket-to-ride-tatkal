@@ -17,7 +17,7 @@
   "lint": {
     "rules": {
       "tags": ["recommended"],
-      "exclude": ["ban-types"]
+      "exclude": ["ban-types", "no-unversioned-import"]
     }
   },
 
