@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: TTR
+  name: TTR-tatkal
   description: TTR is a game,This service allows users to join the lobby from home to play the game TTR with other online players
   annotations:
     github.com/project-slug: step-batch-10/ticket-to-ride-tatkal
