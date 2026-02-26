@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: TTR
+  description: TTR is a game,This service allows users to join the lobby from home to play the game TTR with other online players
+  annotations:
+    github.com/project-slug: step-batch-10/ticket-to-ride-tatkal
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: website
+  owner: mogantipradeep1307@gmail.com
+  lifecycle: production
